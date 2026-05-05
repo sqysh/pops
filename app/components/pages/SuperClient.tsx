@@ -409,9 +409,9 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                   <div className="flex items-center justify-between">
                     <p
                       className={`text-4xl font-mono ${
-                        dbHealth.activeConnections > 30
+                        dbHealth.activeConnections > 200
                           ? 'text-red-400'
-                          : dbHealth.activeConnections > 20
+                          : dbHealth.activeConnections > 100
                             ? 'text-yellow-400'
                             : 'text-emerald-400'
                       }`}
@@ -422,16 +422,16 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                     <div className="text-right">
                       <p
                         className={`text-sm font-mono ${
-                          dbHealth.activeConnections > 30
+                          dbHealth.activeConnections > 200
                             ? 'text-red-400'
-                            : dbHealth.activeConnections > 20
+                            : dbHealth.activeConnections > 100
                               ? 'text-yellow-400'
                               : 'text-emerald-400'
                         }`}
                       >
-                        {dbHealth.activeConnections > 30
+                        {dbHealth.activeConnections > 200
                           ? '⚠️ CRITICAL - SITE MAY CRASH'
-                          : dbHealth.activeConnections > 20
+                          : dbHealth.activeConnections > 100
                             ? '⚠️ ELEVATED - MONITOR CLOSELY'
                             : '✓ HEALTHY'}
                       </p>
@@ -443,11 +443,11 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                   <div className="mt-3 h-2 bg-bg-dark overflow-hidden">
                     <div
                       className={`h-full transition-all duration-500 ${
-                        dbHealth.activeConnections > 30
-                          ? 'bg-red-400'
-                          : dbHealth.activeConnections > 20
-                            ? 'bg-yellow-400'
-                            : 'bg-emerald-400'
+                        dbHealth.activeConnections > 200
+                          ? 'text-red-400'
+                          : dbHealth.activeConnections > 100
+                            ? 'text-yellow-400'
+                            : 'text-emerald-400'
                       }`}
                       style={{ width: `${(dbHealth.activeConnections / dbHealth.maxConnections) * 100}%` }}
                     />
