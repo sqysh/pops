@@ -158,34 +158,20 @@ export default function DashboardClient({
         </div>
 
         {/* CueBox Test Notice */}
-        <div className="shrink-0 border-b border-emerald-500/20 bg-emerald-500/5 overflow-hidden py-1.5">
+        <div className="shrink-0 border-b border-yellow-500/20 bg-yellow-500/5 overflow-hidden py-1.5">
           <motion.div
             animate={{ x: ['0%', '-50%'] }}
             transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
             className="flex whitespace-nowrap"
           >
             {[0, 1].map((i) => (
-              <span key={i} className="text-[9px] font-mono text-emerald-400/70 pr-16">
-                <span className="text-emerald-400">NEW —</span> CueBox test concerts page now live at{' '}
-                <Link
-                  href="/concerts-test"
-                  className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300 transition-colors"
-                >
-                  /concerts-test
-                </Link>
-                <span className="text-emerald-500/50 mx-4">·</span>
-                Admin access only
-                <span className="text-emerald-500/50 mx-4">·</span>
-                <span className="text-emerald-400">NEW —</span> CueBox test concerts page now live at{' '}
-                <Link
-                  href="/concerts-test"
-                  className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300 transition-colors"
-                >
-                  /concerts-test
-                </Link>
-                <span className="text-emerald-500/50 mx-4">·</span>
-                Admin access only
-                <span className="text-emerald-500/50 mx-4">·</span>
+              <span key={i} className="text-[9px] font-mono text-yellow-400/70 pr-16">
+                <span className="text-yellow-400">NOTICE —</span> Concert data on this page is placeholder only — real
+                concerts will sync automatically once CueBox credentials and API key are provided
+                <span className="text-yellow-500/50 mx-4">·</span>
+                <span className="text-yellow-400">NOTICE —</span> Concert data on this page is placeholder only — real
+                concerts will sync automatically once CueBox credentials and API key are provided
+                <span className="text-yellow-500/50 mx-4">·</span>
               </span>
             ))}
           </motion.div>
