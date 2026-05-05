@@ -21,7 +21,7 @@ export async function createAdminUser(email: string, firstName: string, lastName
   const user = await prisma.user
     .create({
       data: {
-        email,
+        email: email.toLowerCase().trim(),
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         role: 'ADMIN'
