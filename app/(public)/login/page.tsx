@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowLeft, ArrowRight, Loader2, Mail } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
@@ -10,11 +10,11 @@ import { logAuthError } from '@/app/lib/actions/log/logAuthError'
 import { motion } from 'framer-motion'
 
 export default function Login() {
-  const [email, setEmail] = useState('')
-  const [sent, setSent] = useState(false)
+  // const [email, setEmail] = useState('')
+  // const [sent, setSent] = useState(false)
   const [loadingGoogle, setLoadingGoogle] = useState(false)
-  const [loadingMagicLink, setLoadingMagicLink] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  // const [loadingMagicLink, setLoadingMagicLink] = useState(false)
+  // const [error, setError] = useState<string | null>(null)
 
   const searchParams = useSearchParams()
   const urlError = searchParams.get('error')
@@ -25,22 +25,22 @@ export default function Login() {
     await signIn('google', { redirectTo: '/login' })
   }
 
-  const handleMagicLinkSignIn = async () => {
-    if (!email.trim() || loadingMagicLink) return
-    setLoadingMagicLink(true)
-    setError(null)
-    try {
-      const res = await signIn('email', { email, redirect: false, redirectTo: '/login' })
-      if (res?.error) {
-        throw new Error(res.error)
-      }
-      setSent(true)
-    } catch {
-      setError('Something went wrong. Please try again.')
-    } finally {
-      setLoadingMagicLink(false)
-    }
-  }
+  // const handleMagicLinkSignIn = async () => {
+  //   if (!email.trim() || loadingMagicLink) return
+  //   setLoadingMagicLink(true)
+  //   setError(null)
+  //   try {
+  //     const res = await signIn('email', { email, redirect: false, redirectTo: '/login' })
+  //     if (res?.error) {
+  //       throw new Error(res.error)
+  //     }
+  //     setSent(true)
+  //   } catch {
+  //     setError('Something went wrong. Please try again.')
+  //   } finally {
+  //     setLoadingMagicLink(false)
+  //   }
+  // }
 
   useEffect(() => {
     const KNOWN_ERRORS = new Set([
@@ -161,14 +161,14 @@ export default function Login() {
           </button>
 
           {/* Divider */}
-          <div className="flex items-center gap-3 my-5" role="separator" aria-label="or">
+          {/* <div className="flex items-center gap-3 my-5" role="separator" aria-label="or">
             <div className="flex-1 h-px bg-border-dark" aria-hidden="true" />
             <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-muted-dark">or</span>
             <div className="flex-1 h-px bg-border-dark" aria-hidden="true" />
-          </div>
+          </div> */}
 
           {/* Magic Link */}
-          {sent ? (
+          {/* {sent ? (
             <div>
               <div
                 role="status"
@@ -241,7 +241,7 @@ export default function Login() {
                 We&apos;ll send a one-time sign-in link to your email
               </p>
             </div>
-          )}
+          )} */}
         </section>
       </motion.div>
     </main>
