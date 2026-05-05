@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft, ChevronRight, Tent, Loader2, Download, ToggleLeft, ToggleRight, Plus } from 'lucide-react'
+import { ArrowLeft, ChevronRight, Tent, Loader2, Download, ToggleLeft, ToggleRight, Plus, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import type { SiteSetting } from '@prisma/client'
@@ -13,6 +13,7 @@ import { createCampApplicationsSetting } from '@/app/lib/actions/camp-applicatio
 import { ApplicationModal } from '../modals/ApplicationModal'
 import { LogoutButton } from '../common/LogoutButton'
 import { FullApplication } from '@/app/types/entities/camp-application'
+import { deleteCampApplication } from '@/app/lib/actions/camp-applications/deleteCampApplication'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -28,6 +29,7 @@ export default function CampApplicationsClient({ campApplications, setting }: Pr
   const [expandedYears, setExpandedYears] = useState<Set<string>>(new Set())
   const [selectedApplication, setSelectedApplication] = useState<FullApplication | null>(null)
   const [isToggling, setIsToggling] = useState(false)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
 
   const enabled = setting?.value ?? false
 
@@ -222,8 +224,8 @@ export default function CampApplicationsClient({ campApplications, setting }: Pr
                         className="overflow-hidden"
                       >
                         {/* Table header */}
-                        <div className="grid grid-cols-[1fr_1fr_1fr_1fr_auto] gap-4 px-4 py-2 border-b border-border-dark bg-bg-dark">
-                          {['Student', 'Parent', 'Instrument', 'Date', ''].map((h, i) => (
+                        <div className="grid grid-cols-[1fr_1fr_1fr_1fr_auto_auto] gap-4 px-4 py-2 border-b border-border-dark bg-bg-dark">
+                          {['Student', 'Parent', 'Instrument', 'Date', '', ''].map((h, i) => (
                             <span
                               key={i}
                               className="text-[8px] font-mono tracking-[0.2em] uppercase text-muted-dark/80"
@@ -239,7 +241,7 @@ export default function CampApplicationsClient({ campApplications, setting }: Pr
                             initial={{ opacity: 0, y: 4 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.03 }}
-                            className="grid grid-cols-[1fr_1fr_1fr_1fr_auto] gap-4 items-center px-4 py-3 border-b border-border-dark/40 last:border-0 hover:bg-surface-dark transition-colors"
+                            className="grid grid-cols-[1fr_1fr_1fr_1fr_auto_auto] gap-4 items-center px-4 py-3 border-b border-border-dark/40 last:border-0 hover:bg-surface-dark transition-colors"
                           >
                             {/* Student */}
                             <button
@@ -285,6 +287,25 @@ export default function CampApplicationsClient({ campApplications, setting }: Pr
                               aria-label="View application"
                             >
                               <ChevronRight className="w-3.5 h-3.5" />
+                            </button>
+
+                            {/* Delete */}
+                            <button
+                              type="button"
+                              onClick={async () => {
+                                setDeletingId(app.id)
+                                await deleteCampApplication(app.id)
+                                setDeletingId(null)
+                              }}
+                              disabled={deletingId === app.id}
+                              aria-label={`Delete application for ${app.Student?.firstName} ${app.Student?.lastName}`}
+                              className="text-muted-dark/40 hover:text-red-400 transition-colors focus-visible:outline-none disabled:opacity-50"
+                            >
+                              {deletingId === app.id ? (
+                                <Loader2 className="w-3.5 h-3.5 animate-spin" aria-hidden="true" />
+                              ) : (
+                                <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+                              )}
                             </button>
                           </motion.div>
                         ))}

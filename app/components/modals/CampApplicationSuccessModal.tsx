@@ -41,71 +41,79 @@ export default function CampApplicationSuccessModal() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 backdrop-blur-2xl bg-black/80 flex items-center justify-center z-100 p-6"
+          className="fixed inset-0  bg-black/80 backdrop-blur-2xl flex items-center justify-center z-100 p-4 430:p-6"
           onClick={(e) => {
             if (e.target === e.currentTarget) onClose()
           }}
         >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            initial={{ scale: 0.95, opacity: 0, y: 16 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className="w-full max-w-md bg-neutral-900 border border-neutral-800 overflow-hidden"
+            exit={{ scale: 0.95, opacity: 0, y: 16 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full max-w-md bg-black border border-white/10 overflow-hidden"
           >
-            <div
-              className="h-1.5 w-full"
-              style={{ background: 'linear-gradient(90deg, #da0032, #ff9000)' }}
-              aria-hidden="true"
-            />
+            {/* Top accent */}
+            <div className="h-px w-full bg-blaze" aria-hidden="true" />
 
-            <div className="p-8 text-center">
+            <div className="p-6 430:p-8">
+              {/* Icon */}
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ delay: 0.15, type: 'spring', stiffness: 400, damping: 20 }}
-                className="w-16 h-16 mx-auto mb-6 flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg, #da0032, #ff9000)' }}
+                transition={{ delay: 0.1, type: 'spring', stiffness: 400, damping: 20 }}
+                className="w-12 h-12 mx-auto mb-6 border border-blaze/30 bg-blaze/10 flex items-center justify-center"
                 aria-hidden="true"
               >
-                <CheckCircle className="w-8 h-8 text-white" />
+                <CheckCircle className="w-6 h-6 text-blaze-text" />
               </motion.div>
 
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-sunburst mb-1" aria-hidden="true">
-                Youth Music Camp
-              </p>
-              <h2 id="camp-success-heading" className="text-2xl font-black text-white mb-2">
-                Application Submitted!
-              </h2>
-              <p id="camp-success-description" className="text-neutral-400 text-sm leading-relaxed mb-8">
-                Thank you for applying to the Pops Orchestra Youth Music Camp. We&apos;ve received your application and
-                will be in touch soon.
-              </p>
-
-              <div className="border-t border-neutral-800 mb-6" aria-hidden="true" />
-
-              <div className="flex items-start gap-3 text-left mb-8">
-                <div
-                  className="w-8 h-8 flex items-center justify-center shrink-0 bg-neutral-800 border border-neutral-700"
+              {/* Heading */}
+              <div className="text-center mb-6">
+                <p
+                  className="font-changa text-[10px] uppercase tracking-[0.3em] text-blaze-text mb-2"
                   aria-hidden="true"
                 >
-                  <Music className="w-4 h-4 text-sunburst" />
+                  Youth Music Camp
+                </p>
+                <h2
+                  id="camp-success-heading"
+                  className="font-changa text-2xl 430:text-3xl text-white leading-none mb-3"
+                >
+                  Application Submitted
+                </h2>
+                <p id="camp-success-description" className="font-lato text-white/80 text-sm leading-relaxed">
+                  Thank you for applying to the Pops Orchestra Youth Music Camp. We&apos;ve received your application
+                  and will be in touch soon.
+                </p>
+              </div>
+
+              {/* Divider */}
+              <div className="w-full h-px bg-white/10 mb-6" aria-hidden="true" />
+
+              {/* What's next */}
+              <div className="flex items-start gap-3 mb-6">
+                <div
+                  className="w-8 h-8 border border-blaze/30 bg-blaze/5 flex items-center justify-center shrink-0"
+                  aria-hidden="true"
+                >
+                  <Music className="w-3.5 h-3.5 text-blaze-text" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white mb-0.5">What happens next?</p>
-                  <p className="text-xs text-neutral-400 leading-relaxed">
+                  <p className="font-changa text-white text-sm mb-0.5">What happens next?</p>
+                  <p className="font-lato text-white/70 text-xs leading-relaxed">
                     Our team will review your application and reach out to the email address provided.
                   </p>
                 </div>
               </div>
 
+              {/* CTA */}
               <Link
                 href="/"
                 onClick={onClose}
                 autoFocus
                 aria-label="Application submitted successfully — return to home page"
-                className="block w-full py-3 text-sm font-bold text-white text-center transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900"
-                style={{ background: 'linear-gradient(90deg, #da0032, #ff9000)' }}
+                className="flex items-center justify-center w-full py-3 bg-blaze hover:bg-blazehover text-white font-changa uppercase tracking-widest text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               >
                 Return to Home
               </Link>

@@ -41,7 +41,7 @@ export const campApplicationTemplate = (firstName: string, lastName: string, stu
                       <strong style="color: #e2e8f0;">${firstName} ${lastName}</strong> (${studentEmail}) has submitted a camp application.
                     </p>
 
-                    <a href="https://thepopsorchestra.org/login" style="display: inline-block; padding: 13px 28px; background: linear-gradient(90deg, #da0032, #ff9000); color: white; text-decoration: none; border-radius: 8px; font-size: 15px; font-weight: 600;">
+                    <a href="https://thepopsorchestra.org/v2/camp-applications" style="display: inline-block; padding: 13px 28px; background: linear-gradient(90deg, #da0032, #ff9000); color: white; text-decoration: none; border-radius: 8px; font-size: 15px; font-weight: 600;">
                       View Application
                     </a>
 

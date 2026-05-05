@@ -1,10 +1,9 @@
 'use server'
 
-import { unstable_cache } from 'next/cache'
 import prisma from '@/prisma/client'
 import { getMailchimpMemberCount } from './mailchimp/getMailchimpMemberCount'
 
-async function fetchDashboardData() {
+export async function getDashboardData() {
   const [
     concerts,
     venues,
@@ -108,8 +107,3 @@ async function fetchDashboardData() {
     mailchimpMemberCount
   }
 }
-
-export const getDashboardData = unstable_cache(fetchDashboardData, ['dashboard-data'], {
-  revalidate: 30,
-  tags: ['dashboard']
-})
