@@ -47,7 +47,7 @@ export default function SponsorModal({ sponsor, onClose }: Props) {
 
   const { form, set } = useFormState({
     name: sponsor?.name ?? '',
-    level: sponsor?.level ?? '',
+    level: sponsor?.level.toUpperCase().split(' ').join('_') ?? '',
     amount: sponsor?.amount ?? 0, // ensure this is a number
     externalLink: sponsor?.externalLink ?? '',
     filePath: sponsor?.filePath ?? '',

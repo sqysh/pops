@@ -96,7 +96,7 @@ export function DashboardSearch({
               )
 
               return result.href ? (
-                <Link key={i} href={result.href} onClick={onClear}>
+                <Link key={i} target={result.target ?? ''} href={result.href} onClick={onClear}>
                   {inner}
                 </Link>
               ) : (

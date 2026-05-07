@@ -14,9 +14,7 @@ export function TopBar({ time, date }) {
     >
       <Link href="/" className="flex items-center gap-3">
         <div className="w-px h-4 bg-primary-dark" aria-hidden="true" />
-        <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-muted-dark hidden sm:block">
-          The Pops Orchestra
-        </span>
+        <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-muted-dark">The Pops Orchestra</span>
       </Link>
 
       <div className="flex items-center gap-3">

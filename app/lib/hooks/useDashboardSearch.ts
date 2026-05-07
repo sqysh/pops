@@ -1,12 +1,14 @@
 'use client'
 
 import { useState, useCallback } from 'react'
+import { CUEBOX_ORG_ID } from '../constants/cueBox.constants'
 
 export interface SearchResult {
   type: string
   label: string
   sub?: string
   href?: string
+  target?: string
 }
 
 const CATEGORY_ALIASES: Record<string, string[]> = {
@@ -62,12 +64,17 @@ export function useDashboardSearch(data: {
       // Concerts
       if (isConcerts || !isCategory) {
         data.concerts.forEach((c) => {
-          if (isConcerts || c.name?.toLowerCase().includes(term) || c.cardDate?.toLowerCase().includes(term)) {
+          if (
+            isConcerts ||
+            c.name?.toLowerCase().includes(term) ||
+            c.firstInstanceDatetime?.toLowerCase().includes(term)
+          ) {
             hits.push({
               type: 'Concert',
               label: c.name,
-              sub: c.cardDate ?? c.status,
-              href: `/v2/concerts/${c.id}/edit`
+              sub: c.status,
+              href: `https://app.getcuebox.com/a/${CUEBOX_ORG_ID}/shows/${c.id}`,
+              target: '_blank'
             })
           }
         })

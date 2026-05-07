@@ -1,7 +1,7 @@
+import { CUEBOX_ORG_ID } from '@/app/lib/constants/cueBox.constants'
 import { motion } from 'framer-motion'
 import { ArrowRight, ExternalLink, KeyRound, Music2, Plug } from 'lucide-react'
 
-const CUEBOX_ORG_ID = '21NL0B8D'
 export function CenterColumn({ concerts }) {
   return (
     <motion.main
