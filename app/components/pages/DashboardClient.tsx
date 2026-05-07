@@ -2,7 +2,6 @@
 
 import { AnimatePresence } from 'framer-motion'
 import type {
-  Concert,
   Venue,
   TeamMember,
   Question,
@@ -31,9 +30,10 @@ import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { useDashboardSearch } from '@/app/lib/hooks/useDashboardSearch'
 import { DashboardSearch } from '../dashboard/DashboardSearch'
+import { CueBoxEvent } from '@/app/types/cuebox.types'
 
 interface Props {
-  concerts: Concert[]
+  concerts: CueBoxEvent[]
   venues: Venue[]
   teamMembers: TeamMember[]
   photosCount: number
@@ -81,7 +81,7 @@ export default function DashboardClient({
 }: Props) {
   const { time, date } = useClock()
   const pending = questions.filter((q) => !q.hasResponded)
-  const onSale = concerts.filter((c) => c.status === 'LIVE')
+  const onSale = concerts.filter((c) => c.status === 'ON_SALE')
   const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(null)
 
   const [testimonialModalOpen, setTestimonialModalOpen] = useState(false)
@@ -148,50 +148,84 @@ export default function DashboardClient({
         {/* ── Top Bar ── */}
         <TopBar date={date} time={time} />
 
-        {/* ── Migration Notice ── */}
-        <div className="shrink-0 border-b border-yellow-500/20 bg-yellow-500/5 px-4 py-2 flex items-center gap-3">
-          <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 shrink-0 animate-pulse" aria-hidden="true" />
-          <p className="text-[10px] font-mono text-yellow-400/80 leading-relaxed">
-            <span className="text-yellow-400 font-semibold">CUEBOX MIGRATION —</span> AudienceView is retired. Concerts
-            will appear automatically once CueBox credentials and API key are provided and the 26–27 season is entered.
-          </p>
-        </div>
+        {/* CueBox Status Marquees */}
 
-        {/* CueBox Test Notice */}
+        {/* 1 — API connected */}
         <div className="shrink-0 border-b border-emerald-500/20 bg-emerald-500/5 overflow-hidden py-1.5">
           <motion.div
             animate={{ x: ['0%', '-50%'] }}
-            transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+            className="flex whitespace-nowrap"
+          >
+            {[0, 1, 2, 3].map((i) => (
+              <span key={i} className="text-[9px] font-mono text-emerald-400/70 pr-16">
+                <span className="text-emerald-400">● CONNECTED —</span> CueBox API integrated · Real concert data
+                syncing live
+                <span className="text-emerald-500/50 mx-4">·</span>
+                Edit concerts directly in CueBox — changes reflect automatically
+                <span className="text-emerald-500/50 mx-4">·</span>
+              </span>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* 2 — Public page not live yet */}
+        <div className="shrink-0 border-b border-yellow-500/20 bg-yellow-500/5 overflow-hidden py-1.5">
+          <motion.div
+            animate={{ x: ['0%', '-50%'] }}
+            transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
+            className="flex whitespace-nowrap"
+          >
+            {[0, 1, 2, 3].map((i) => (
+              <span key={i} className="text-[9px] font-mono text-yellow-400/70 pr-16">
+                <span className="text-yellow-400">⚠ PENDING —</span> Public{' '}
+                <span className="text-yellow-400">/concerts</span> page is not live yet
+                <span className="text-yellow-500/50 mx-4">·</span>
+                Awaiting further details from Robyn before publishing — Sqysh will activate once confirmed
+                <span className="text-yellow-500/50 mx-4">·</span>
+              </span>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* 3 — Admin test page */}
+        <div className="shrink-0 border-b border-blue-500/20 bg-blue-500/5 overflow-hidden py-1.5">
+          <motion.div
+            animate={{ x: ['0%', '-50%'] }}
+            transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
+            className="flex whitespace-nowrap"
+          >
+            {[0, 1, 2, 3].map((i) => (
+              <span key={i} className="text-[9px] font-mono text-blue-400/70 pr-16">
+                <span className="text-blue-400">● ADMIN ONLY —</span> Concert preview page live at{' '}
+                <Link
+                  href="/concerts-test"
+                  className="text-blue-400 underline underline-offset-2 hover:text-blue-300 transition-colors"
+                >
+                  /concerts-test
+                </Link>
+                <span className="text-blue-500/50 mx-4">·</span>
+                Restricted to Admin and Conductor User roles
+                <span className="text-blue-500/50 mx-4">·</span>
+              </span>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* 4 — Mock concert data notice */}
+        <div className="shrink-0 border-b border-purple-500/20 bg-purple-500/5 overflow-hidden py-1.5">
+          <motion.div
+            animate={{ x: ['0%', '-50%'] }}
+            transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
             className="flex whitespace-nowrap"
           >
             {[0, 1].map((i) => (
-              <span key={i} className="text-[9px] font-mono text-emerald-400/70 pr-16">
-                <span className="text-emerald-400">NEW —</span> CueBox test concerts page now live at{' '}
-                <Link
-                  href="/concerts-test"
-                  className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300 transition-colors"
-                >
-                  /concerts-test
-                </Link>
-                <span className="text-emerald-500/50 mx-4">·</span>
-                Admin access only
-                <span className="text-emerald-500/50 mx-4">·</span>
-                Currently displaying placeholder data — real concerts will appear once CueBox credentials and API key
-                are provided
-                <span className="text-emerald-500/50 mx-4">·</span>
-                <span className="text-emerald-400">NEW —</span> CueBox test concerts page now live at{' '}
-                <Link
-                  href="/concerts-test"
-                  className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300 transition-colors"
-                >
-                  /concerts-test
-                </Link>
-                <span className="text-emerald-500/50 mx-4">·</span>
-                Admin access only
-                <span className="text-emerald-500/50 mx-4">·</span>
-                Currently displaying placeholder data — real concerts will appear once CueBox credentials and API key
-                are provided
-                <span className="text-emerald-500/50 mx-4">·</span>
+              <span key={i} className="text-[9px] font-mono text-purple-400/70 pr-16">
+                <span className="text-purple-400">● LIVE —</span> Donate button active · Links to CueBox donation page
+                <span className="text-purple-500/50 mx-4">·</span>
+                Concert data on the home page is hardcoded mock data — Sqysh will update once further details are
+                confirmed
+                <span className="text-purple-500/50 mx-4">·</span>
               </span>
             ))}
           </motion.div>

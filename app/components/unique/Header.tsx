@@ -3,11 +3,12 @@ import { getNavigationLinks, NavigationLinksProps } from '@/app/utils/navigation
 import { openNavigationDrawer } from '@/app/redux/features/appSlice'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Menu } from 'lucide-react'
+import { Heart, Menu } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useHeaderAtTop } from '@/app/lib/hooks/useHeaderAtTop'
 import { store } from '@/app/redux/store'
 import LogoSVG from '../svg/logo/LogoSVG'
+import { DONATION_URL } from '@/app/lib/constants/cueBox.constants'
 
 export interface HeaderNavLinkProps {
   link: NavigationLinksProps
@@ -152,7 +153,6 @@ export const Header = ({ campApplicationsSetting }) => {
           ))}
         </div>
 
-        {/* Right — CTA + mobile menu */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -168,29 +168,19 @@ export const Header = ({ campApplicationsSetting }) => {
             <Menu className="w-5 h-5" aria-hidden="true" />
           </button>
 
-          {/* <Link
-            href="https://ci.ovationtix.com/35505/production/1232771"
+          <Link
+            href={DONATION_URL}
             target="_blank"
-            className="group inline-flex items-center gap-1.5 bg-blaze hover:bg-blazehover text-white font-changa uppercase tracking-widest transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer text-[0.6rem] 430:text-[0.65rem] sm:text-sm px-3 430:px-4 sm:px-6 py-2 430:py-2.5 sm:py-3"
-          >
-            <span>Tickets</span>
-            <ExternalLink
-              className="w-3 h-3 sm:w-4 sm:h-4 shrink-0 group-hover:translate-x-1 transition-transform"
-              aria-hidden="true"
-            />
-          </Link> */}
-
-          {/* <Link
-            href="https://ci.ovationtix.com/35505/store/donations"
-            target="_blank"
+            rel="noopener noreferrer"
             className="group hidden 430:inline-flex items-center gap-1.5 border border-white/30 hover:border-white text-white/70 hover:text-white font-changa uppercase tracking-widest transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer text-[0.65rem] sm:text-sm px-4 sm:px-6 py-2.5 sm:py-3"
+            aria-label="Donate to The Pops Orchestra"
           >
             <span>Donate</span>
             <Heart
               className="w-3 h-3 sm:w-4 sm:h-4 shrink-0 group-hover:scale-110 transition-transform"
               aria-hidden="true"
             />
-          </Link> */}
+          </Link>
         </motion.div>
       </div>
     </nav>

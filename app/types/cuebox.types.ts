@@ -3,8 +3,8 @@ export interface CueBoxVenueAddress {
   line2: string
   city: string
   region: string
-  postal_code: string
-  country_code: string
+  postalCode: string
+  countryCode?: string
 }
 
 export interface CueBoxVenue {
@@ -15,7 +15,7 @@ export interface CueBoxVenue {
 export interface CueBoxEvent {
   id: string
   name: string
-  status: string
+  status: 'ON_SALE' | 'PRESALE' | 'NOT_ON_SALE' | 'SOLD_OUT' | 'CANCELED'
   isVisibleOnline: boolean
   firstInstanceDatetime: string
   lastInstanceDatetime: string
@@ -23,11 +23,8 @@ export interface CueBoxEvent {
   publicImageUrl: string
   tags: string[]
   venues: CueBoxVenue[]
-
-  subtitle?: string
-  description?: string
-  type?: 'SEASON' | 'ADD_ON'
-  cardDate?: string
+  descriptionHtml?: string
+  descriptionPlaintext?: string
 }
 
 export interface CueBoxEventInstance {

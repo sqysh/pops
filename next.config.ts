@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'images.getcuebox.com'
+        hostname: 'assets.getcuebox.com'
       }
     ],
     formats: ['image/avif', 'image/webp'],

@@ -12,6 +12,8 @@ interface PictureProps {
   fill?: boolean
   sizes?: string
   quality?: number
+  placeholder?: 'empty' | 'blur' | 'data:image/...'
+  blurDataURL?: string
 }
 
 const Picture: FC<PictureProps> = ({
@@ -24,7 +26,9 @@ const Picture: FC<PictureProps> = ({
   height,
   fill,
   sizes = '100vw',
-  quality
+  quality,
+  placeholder,
+  blurDataURL
 }) => {
   if (fill) {
     return (
@@ -37,6 +41,8 @@ const Picture: FC<PictureProps> = ({
         priority={priority}
         sizes={sizes}
         quality={quality}
+        placeholder={placeholder}
+        blurDataURL={blurDataURL}
         style={{ objectFit: 'cover' }}
       />
     )
@@ -57,6 +63,8 @@ const Picture: FC<PictureProps> = ({
       fetchPriority={priority ? 'high' : 'auto'}
       sizes={sizes}
       quality={quality}
+      placeholder={placeholder}
+      blurDataURL={blurDataURL}
       decoding="async"
       style={{
         height: hasFixedHeight ? undefined : 'auto',

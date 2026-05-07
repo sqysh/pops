@@ -2,8 +2,9 @@
 
 import Breadcrumb from '@/app/components/common/Breadcrumb'
 import Picture from '@/app/components/common/Picture'
-import { Lock, Shield } from 'lucide-react'
+import { ArrowRight, Lock, Shield } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { DONATION_URL } from '@/app/lib/constants/cueBox.constants'
 
 export const StudentScholarshipsClient = ({ data }) => {
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
@@ -149,8 +150,8 @@ export const StudentScholarshipsClient = ({ data }) => {
                   </div>
                 </div>
 
-                {/* <a
-                  href={field('scholarships_donation_url')}
+                <a
+                  href={DONATION_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${field('scholarships_donation_button')} — opens in new tab`}
@@ -161,7 +162,7 @@ export const StudentScholarshipsClient = ({ data }) => {
                     className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform"
                     aria-hidden="true"
                   />
-                </a> */}
+                </a>
               </motion.div>
             </div>
           </div>

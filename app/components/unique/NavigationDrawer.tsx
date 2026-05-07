@@ -3,11 +3,12 @@
 import { useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { X } from 'lucide-react'
+import { Heart, X } from 'lucide-react'
 import { RootState, store, useAppSelector } from '@/app/redux/store'
 import { getNavigationLinks } from '@/app/utils/navigation.utils'
 import { closeNavigationDrawer } from '@/app/redux/features/appSlice'
 import Picture from '../common/Picture'
+import { DONATION_URL } from '@/app/lib/constants/cueBox.constants'
 
 const NavigationDrawer = ({ campApplicationsSetting }) => {
   const path = usePathname()
@@ -127,9 +128,9 @@ const NavigationDrawer = ({ campApplicationsSetting }) => {
         </nav>
 
         {/* Footer */}
-        {/* <div className="sticky bottom-0 px-4 py-5 border-t border-white/10 bg-black flex flex-col gap-3">
+        <div className="sticky bottom-0 px-4 py-5 border-t border-white/10 bg-black flex flex-col gap-3">
           <Link
-            href="https://ci.ovationtix.com/35505/store/donations"
+            href={DONATION_URL}
             target="_blank"
             rel="noopener noreferrer"
             onClick={closeDrawer}
@@ -142,7 +143,7 @@ const NavigationDrawer = ({ campApplicationsSetting }) => {
           <p className="text-white/40 text-[10px] font-mono uppercase tracking-[0.2em] text-center pt-1">
             The Pops Orchestra of Bradenton & Sarasota
           </p>
-        </div> */}
+        </div>
       </div>
     </>
   )

@@ -2,6 +2,7 @@
 
 import prisma from '@/prisma/client'
 import { getMailchimpMemberCount } from './mailchimp/getMailchimpMemberCount'
+import { listCueBoxEvents } from './cuebox/listCueBoxEvents'
 
 export async function getDashboardData() {
   const [
@@ -25,12 +26,7 @@ export async function getDashboardData() {
     sponsorsActiveCount,
     mailchimpMemberCount
   ] = await Promise.all([
-    prisma.concert
-      .findMany({
-        orderBy: { createdAt: 'desc' },
-        take: 50 // Limit
-      })
-      .catch(() => []),
+    listCueBoxEvents(),
     prisma.venue
       .findMany({
         orderBy: { name: 'asc' }
@@ -84,7 +80,7 @@ export async function getDashboardData() {
   ])
 
   return {
-    concerts,
+    concerts: concerts.data,
     venues,
     teamMembers,
     photosCount,

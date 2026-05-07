@@ -7,7 +7,6 @@ import {
   ArrowLeft,
   RefreshCw,
   AlertCircle,
-  Music,
   MapPin,
   Users,
   Calendar,
@@ -25,7 +24,6 @@ import { showToast } from '@/app/redux/features/toastSlice'
 import { formatDate } from '@/app/utils/date.functions'
 import { ROLE_STYLES } from './UsersClient'
 import { deleteNews } from '@/app/lib/actions/super/deleteNews'
-import { deleteConcert } from '@/app/lib/actions/super/deleteConcert'
 import { deleteVenue } from '@/app/lib/actions/super/deleteVenue'
 import { deleteTeamMember } from '@/app/lib/actions/super/deleteTeamMember'
 import { deleteEvent } from '@/app/lib/actions/super/deleteEvent'
@@ -34,7 +32,6 @@ import { deleteSponsor } from '@/app/lib/actions/super/deleteSponsor'
 import { deleteQuestion } from '@/app/lib/actions/super/deleteQuestion'
 import { deleteUser } from '@/app/lib/actions/super/deleteUser'
 import {
-  getSuperConcerts,
   getSuperEvents,
   getSuperNews,
   getSuperQuestions,
@@ -209,15 +206,6 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                 ))}
               </div>
             </Section>
-
-            <LazySection
-              fetcher={getSuperConcerts}
-              icon={<Music className="w-3.5 h-3.5" />}
-              loading={loading}
-              onDelete={(id, setter, current) => handleDelete('Concert', id, deleteConcert, setter, current)}
-              renderItem={(c) => c.name}
-              title="Concerts"
-            />
 
             <LazySection
               fetcher={getSuperVenues}

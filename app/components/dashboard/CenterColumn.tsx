@@ -1,11 +1,8 @@
-import { updateConcertStatus } from '@/app/lib/actions/concert/updateConcertStatus'
 import { motion } from 'framer-motion'
-import { Archive, ArrowRight, CheckCircle, Clock, KeyRound, Music2, Plug } from 'lucide-react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { ArrowRight, ExternalLink, KeyRound, Music2, Plug } from 'lucide-react'
 
+const CUEBOX_ORG_ID = '21NL0B8D'
 export function CenterColumn({ concerts }) {
-  const router = useRouter()
   return (
     <motion.main
       initial={{ opacity: 0, y: 16 }}
@@ -37,10 +34,7 @@ export function CenterColumn({ concerts }) {
         {concerts.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full gap-3 px-6 text-center">
             <Music2 className="w-10 h-10 text-border-dark" />
-            <p className="text-muted-dark text-sm">Waiting on CueBox</p>
-            <p className="text-[10px] font-mono text-muted-dark/40 leading-relaxed max-w-52">
-              Pending API credentials and 26–27 season data entry. Concerts will sync here automatically once set up.
-            </p>
+            <p className="text-muted-dark text-sm">No upcoming concerts</p>
           </div>
         ) : (
           concerts.map((c, i) => (
@@ -51,83 +45,38 @@ export function CenterColumn({ concerts }) {
               transition={{ delay: 0.13 + i * 0.04 }}
               className="flex items-center border-b border-border-dark/40 last:border-0 group"
             >
-              <Link
-                href={`/v2/concerts/${c.id}/edit`}
-                className="flex items-center justify-between gap-4 px-4 py-3.5 flex-1 min-w-0 hover:bg-surface-dark transition-colors"
-              >
+              <div className="flex items-center justify-between gap-4 px-4 py-3.5 flex-1 min-w-0">
+                {/* Name + meta */}
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <p className="text-text-dark text-sm font-medium truncate">{c.name}</p>
-                    {c.type && (
-                      <span className="text-[8px] font-mono tracking-[0.15em] uppercase text-muted-dark/50 border border-border-dark px-1.5 py-0.5 hidden sm:block">
-                        {c.type}
-                      </span>
-                    )}
+                  <p className="text-text-dark text-sm font-medium truncate">{c.name}</p>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    {/* CueBox status */}
+                    <span className="font-mono text-[9px] tracking-widest uppercase text-muted-dark/50">
+                      {c.status.replace('_', ' ')}
+                    </span>
+                    {/* Visibility dot */}
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${c.isVisibleOnline ? 'bg-emerald-400' : 'bg-border-dark'}`}
+                      title={c.isVisibleOnline ? 'Visible online' : 'Hidden online'}
+                    />
+                    <span className="font-mono text-[9px] text-muted-dark/40">
+                      {c.isVisibleOnline ? 'visible' : 'hidden'}
+                    </span>
                   </div>
-                  {c.cardDate && <p className="text-muted-dark text-[10px] mt-0.5 font-mono">{c.cardDate}</p>}
                 </div>
-                <div className="flex items-center gap-3 shrink-0">
-                  {c.status === 'LIVE' ? (
-                    <span className="flex items-center gap-1 text-[9px] font-mono uppercase text-emerald-400">
-                      <CheckCircle className="w-3 h-3" />
-                      <span className="hidden sm:block">Live</span>
-                    </span>
-                  ) : c.status === 'ARCHIVED' ? (
-                    <span className="flex items-center gap-1 text-[9px] font-mono uppercase text-muted-dark/40">
-                      <Archive className="w-3 h-3" />
-                      <span className="hidden sm:block">Archived</span>
-                    </span>
-                  ) : (
-                    <span className="flex items-center gap-1 text-[9px] font-mono uppercase text-yellow-400">
-                      <Clock className="w-3 h-3" />
-                      <span className="hidden sm:block">Draft</span>
-                    </span>
-                  )}
-                  <ArrowRight className="w-3.5 h-3.5 text-border-dark group-hover:text-primary-dark group-hover:translate-x-0.5 transition-all" />
-                </div>
-              </Link>
 
-              {/* Draft */}
-              <button
-                onClick={async () => {
-                  const res = await updateConcertStatus(c.id, 'DRAFT')
-                  if (res.success) router.refresh()
-                }}
-                disabled={c.status === 'DRAFT'}
-                className="shrink-0 px-3 py-3.5 text-muted-dark/30 hover:text-yellow-400 hover:bg-surface-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-muted-dark/30 disabled:hover:bg-transparent"
-                aria-label={c.status === 'DRAFT' ? 'Already a draft' : `Set ${c.name} to draft`}
-                title={c.status === 'DRAFT' ? 'Already Draft' : 'Set to Draft'}
-              >
-                <Clock className="w-3.5 h-3.5" />
-              </button>
-
-              {/* Live */}
-              <button
-                onClick={async () => {
-                  const res = await updateConcertStatus(c.id, 'LIVE')
-                  if (res.success) router.refresh()
-                }}
-                disabled={c.status === 'LIVE'}
-                className="shrink-0 px-3 py-3.5 text-muted-dark/30 hover:text-emerald-400 hover:bg-surface-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-muted-dark/30 disabled:hover:bg-transparent"
-                aria-label={c.status === 'LIVE' ? 'Already live' : `Set ${c.name} to live`}
-                title={c.status === 'LIVE' ? 'Already Live' : 'Set to Live'}
-              >
-                <CheckCircle className="w-3.5 h-3.5" />
-              </button>
-
-              {/* Archive */}
-              <button
-                onClick={async () => {
-                  const res = await updateConcertStatus(c.id, 'ARCHIVED')
-                  if (res.success) router.refresh()
-                }}
-                disabled={c.status === 'ARCHIVED'}
-                className="shrink-0 px-3 py-3.5 text-muted-dark/30 hover:text-muted-dark hover:bg-surface-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-muted-dark/30 disabled:hover:bg-transparent"
-                aria-label={c.status === 'ARCHIVED' ? 'Already archived' : `Archive ${c.name}`}
-                title={c.status === 'ARCHIVED' ? 'Already Archived' : 'Archive'}
-              >
-                <Archive className="w-3.5 h-3.5" />
-              </button>
+                {/* External CueBox link */}
+                <a
+                  href={`https://app.getcuebox.com/a/${CUEBOX_ORG_ID}/shows/${c.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 p-2 text-border-dark hover:text-primary-dark hover:bg-surface-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark"
+                  aria-label={`Edit ${c.name} in CueBox`}
+                  title="Edit in CueBox"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </motion.div>
           ))
         )}

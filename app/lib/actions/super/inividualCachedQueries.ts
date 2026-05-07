@@ -9,15 +9,6 @@ export const getSuperCustomRequests = unstable_cache(
   { revalidate: 60, tags: ['super-custom-requests'] }
 )
 
-export const getSuperConcerts = unstable_cache(
-  () =>
-    prisma.concert
-      .findMany({ orderBy: { createdAt: 'desc' }, select: { name: true, id: true, status: true } })
-      .catch(() => []),
-  ['super-concerts'],
-  { revalidate: 60, tags: ['super-concerts'] }
-)
-
 export const getSuperVenues = unstable_cache(
   () => prisma.venue.findMany({ orderBy: { name: 'asc' }, select: { id: true, name: true } }).catch(() => []),
   ['super-venues'],
