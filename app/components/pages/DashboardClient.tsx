@@ -169,35 +169,16 @@ export default function DashboardClient({
           </motion.div>
         </div>
 
-        {/* 2 — Public page not live yet */}
-        <div className="shrink-0 border-b border-yellow-500/20 bg-yellow-500/5 overflow-hidden py-1.5">
-          <motion.div
-            animate={{ x: ['0%', '-50%'] }}
-            transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
-            className="flex whitespace-nowrap"
-          >
-            {[0, 1, 2, 3].map((i) => (
-              <span key={i} className="text-[9px] font-mono text-yellow-400/70 pr-16">
-                <span className="text-yellow-400">⚠ PENDING —</span> Public{' '}
-                <span className="text-yellow-400">/concerts</span> page is not live yet
-                <span className="text-yellow-500/50 mx-4">·</span>
-                Awaiting further details from Robyn before publishing — Sqysh will activate once confirmed
-                <span className="text-yellow-500/50 mx-4">·</span>
-              </span>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* 3 — Admin test page */}
+        {/* 2 - CueBox test pages */}
         <div className="shrink-0 border-b border-blue-500/20 bg-blue-500/5 overflow-hidden py-1.5">
           <motion.div
             animate={{ x: ['0%', '-50%'] }}
-            transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
+            transition={{ duration: 26, repeat: Infinity, ease: 'linear' }}
             className="flex whitespace-nowrap"
           >
-            {[0, 1, 2, 3].map((i) => (
+            {[0, 1, 2, 3, 4, 5].map((i) => (
               <span key={i} className="text-[9px] font-mono text-blue-400/70 pr-16">
-                <span className="text-blue-400">● ADMIN ONLY —</span> Concert preview page live at{' '}
+                <span className="text-blue-400">● ADMIN ONLY —</span> Concert preview at{' '}
                 <Link
                   href="/concerts-test"
                   className="text-blue-400 underline underline-offset-2 hover:text-blue-300 transition-colors"
@@ -205,26 +186,43 @@ export default function DashboardClient({
                   /concerts-test
                 </Link>
                 <span className="text-blue-500/50 mx-4">·</span>
-                Restricted to Admin and Conductor User roles
+                Subscriptions & flex packages at{' '}
+                <Link
+                  href="/subscriptions-flex-test"
+                  className="text-blue-400 underline underline-offset-2 hover:text-blue-300 transition-colors"
+                >
+                  /subscriptions-flex-test
+                </Link>
+                <span className="text-blue-500/50 mx-4">·</span>
+                Restricted to Admin, Conductor, and Super User roles
                 <span className="text-blue-500/50 mx-4">·</span>
               </span>
             ))}
           </motion.div>
         </div>
 
-        {/* 4 — Mock concert data notice */}
+        {/* 3 — Upcoming deadlines */}
         <div className="shrink-0 border-b border-purple-500/20 bg-purple-500/5 overflow-hidden py-1.5">
           <motion.div
             animate={{ x: ['0%', '-50%'] }}
             transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
             className="flex whitespace-nowrap"
           >
-            {[0, 1].map((i) => (
+            {[0, 1, 2, 3].map((i) => (
               <span key={i} className="text-[9px] font-mono text-purple-400/70 pr-16">
-                <span className="text-purple-400">● LIVE —</span> Donate button active · Links to CueBox donation page
+                <span className="text-purple-400">⚑ JUNE 22 —</span> Season subscription button goes live ·{' '}
+                <a
+                  href="https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-purple-400 underline underline-offset-2 hover:text-purple-300 transition-colors"
+                >
+                  URL ready
+                </a>
                 <span className="text-purple-500/50 mx-4">·</span>
-                Concert data on the home page is hardcoded mock data — Sqysh will update once further details are
-                confirmed
+                <span className="text-purple-400">⚑ AUGUST 3 —</span> Individual tickets, 3-show flex & 4-show flex go
+                on sale · Public <span className="text-purple-400">/concerts</span> page launches · Home page concert
+                cards switch to live CueBox data
                 <span className="text-purple-500/50 mx-4">·</span>
               </span>
             ))}
