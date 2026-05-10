@@ -1,4 +1,4 @@
-import TestimonialsClient from '@/app/components/pages/TestimonialsClient'
+import TestimonialsClient from '@/app/(authenticated)/v2/testimonials/TestimonialsClient'
 import prisma from '@/prisma/client'
 
 export default async function TestimonialsPage() {
@@ -8,5 +8,5 @@ export default async function TestimonialsPage() {
     })
     .catch(() => [])
 
-  return <TestimonialsClient testimonials={testimonials} />
+  return <TestimonialsClient key={testimonials.map((m) => m.updatedAt.getTime()).join()} testimonials={testimonials} />
 }

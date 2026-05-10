@@ -18,6 +18,7 @@ interface CreateTeamMemberInput {
   displayOrder?: number
   videoUrl?: string
   videoFilename?: string
+  isPublished: boolean
 }
 
 export async function createTeamMember(data: CreateTeamMemberInput) {
@@ -42,7 +43,8 @@ export async function createTeamMember(data: CreateTeamMemberInput) {
         imageFilename: data.imageFilename,
         displayOrder: data.displayOrder ?? 0,
         videoFilename: data.videoFilename,
-        videoUrl: data.videoUrl
+        videoUrl: data.videoUrl,
+        isPublished: data.isPublished
       }
     })
     .catch(() => null)

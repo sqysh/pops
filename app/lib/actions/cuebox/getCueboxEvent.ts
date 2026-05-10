@@ -1,5 +1,5 @@
 import { CueBoxEvent } from '@/app/types/cuebox.types'
-import { cueboxFetch } from '../../utils/cueboxFetch'
+import { cueboxFetch } from '../../utils/cuebox.utils'
 
 export async function getCueBoxEvent(eventId: string) {
   if (!eventId) return { success: false, error: 'Event ID is required' }

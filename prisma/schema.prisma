@@ -30,17 +30,6 @@ enum TeamMemberRole {
   BOARD_MEMBER
 }
 
-enum ConcertStatus {
-  DRAFT
-  LIVE
-  ARCHIVED
-}
-
-enum ConcertType {
-  SEASON
-  ADD_ON
-}
-
 enum UserRole {
   ADMIN
   CONDUCTOR
@@ -99,53 +88,19 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Concert {
-  id                    String        @id @default(cuid())
-  name                  String
-  description           String        @default("")
-  imageUrl              String        @default("")
-  imageFilename         String        @default("")
-  pressRelease          String        @default("")
-  subtitle              String        @default("")
-  cardDate              String        @default("")
-  season                String        @default("")
-  type                  ConcertType   @default(SEASON)
-  status                ConcertStatus @default(DRAFT)
-  cueBoxExternalLink    String        @default("")
-  allSeriesExternalLink String        @default("")
-  isOnSale              Boolean       @default(false)
-  eventDetails          Json          @default("[]")
-  createdAt             DateTime      @default(now())
-  updatedAt             DateTime      @updatedAt
-  shows                 ConcertShow[]
-}
-
 model Venue {
-  id                   String        @id @default(cuid())
+  id                   String   @id @default(cuid())
   name                 String
-  capacity             String        @default("")
-  accessibility        String        @default("")
-  immersiveEnvironment String        @default("")
-  parking              String        @default("")
-  imageUrl             String        @default("")
-  imageFilename        String        @default("")
-  address              String        @default("")
-  latitude             String        @default("")
-  longitude            String        @default("")
-  city                 String        @default("")
-  createdAt            DateTime      @default(now())
-  updatedAt            DateTime      @updatedAt
-  shows                ConcertShow[]
-}
-
-model ConcertShow {
-  id           String   @id @default(cuid())
-  concertId    String
-  venueId      String
-  date         DateTime
-  externalLink String   @default("")
-  concert      Concert  @relation(fields: [concertId], references: [id], onDelete: Cascade)
-  venue        Venue    @relation(fields: [venueId], references: [id])
+  capacity             String   @default("")
+  accessibility        String   @default("")
+  immersiveEnvironment String   @default("")
+  parking              String   @default("")
+  imageUrl             String   @default("")
+  imageFilename        String   @default("")
+  address              String   @default("")
+  city                 String   @default("")
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
 }
 
 model Event {
@@ -210,6 +165,7 @@ model TeamMember {
   videoUrl      String?
   bio           String
   displayOrder  Int      @default(0)
+  isPublished   Boolean  @default(true)
 }
 
 model PhotoGalleryImage {
@@ -226,6 +182,7 @@ model Question {
   name         String   @db.VarChar(255)
   email        String   @db.VarChar(255)
   message      String   @db.VarChar(500)
+  replyMessage String?  @db.VarChar(500)
   hasResponded Boolean  @default(false)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -319,20 +276,6 @@ model Log {
   message   String
   createdAt DateTime @default(now())
   metadata  Json?
-}
-
-model Newsletter {
-  id                       String   @id @default(cuid())
-  firstName                String   @db.VarChar(255)
-  lastName                 String   @db.VarChar(255)
-  email                    String   @unique @db.VarChar(255)
-  isOption1                Boolean  @default(false)
-  isOption2                Boolean  @default(false)
-  isOption3                Boolean  @default(false)
-  isOption4                Boolean  @default(false)
-  agreedToPrivacyStatement Boolean  @default(false)
-  createdAt                DateTime @default(now())
-  updatedAt                DateTime @updatedAt
 }
 
 model SiteSetting {

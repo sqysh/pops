@@ -14,7 +14,6 @@ import type {
 } from '@prisma/client'
 import { useClock } from '@/app/lib/hooks/useClock'
 import { useState } from 'react'
-import ContactSubmissionModal from '../modals/ContactSubmissionModal'
 import TestimonialModal from '../modals/TestimonialModal'
 import CustomRequestModal from '../modals/CustomRequestModal'
 import CustomRequestDetailModal from '../modals/CustomRequestDetailsModal'
@@ -82,7 +81,6 @@ export default function DashboardClient({
   const { time, date } = useClock()
   const pending = questions.filter((q) => !q.hasResponded)
   const onSale = concerts.filter((c) => c.status === 'ON_SALE')
-  const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(null)
 
   const [testimonialModalOpen, setTestimonialModalOpen] = useState(false)
   const [customRequestModalOpen, setCustomRequestModalOpen] = useState(false)
@@ -106,12 +104,6 @@ export default function DashboardClient({
 
   return (
     <>
-      <ContactSubmissionModal
-        key={selectedQuestion?.id}
-        question={selectedQuestion}
-        onClose={() => setSelectedQuestion(null)}
-      />
-
       <div
         className="fixed inset-0 pointer-events-none z-0"
         style={{
@@ -270,7 +262,6 @@ export default function DashboardClient({
             campApplicationsCount={campApplicationsCount}
             pending={pending}
             questions={questions}
-            setSelectedQuestion={setSelectedQuestion}
             setSelectedSponsor={setSelectedSponsor}
             setSponsorModalOpen={setSponsorModalOpen}
             sponsors={sponsors}

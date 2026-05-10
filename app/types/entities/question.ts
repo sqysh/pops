@@ -5,4 +5,6 @@ export interface IQuestion {
   message: string
   createdAt: Date
   hasResponded: boolean
+  replyMessage?: string
+  updatedAt: string | number | Date
 }

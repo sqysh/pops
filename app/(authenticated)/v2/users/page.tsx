@@ -1,10 +1,10 @@
-import UsersClient from '@/app/components/pages/UsersClient'
 import prisma from '@/prisma/client'
+import { UsersClient } from './UsersClient'
 
 export default async function UsersPage() {
   const users = await prisma.user
     .findMany({
-      where: { role: 'ADMIN' },
+      where: { role: { in: ['ADMIN', 'CONDUCTOR'] } },
       orderBy: { createdAt: 'desc' }
     })
     .catch(() => [])

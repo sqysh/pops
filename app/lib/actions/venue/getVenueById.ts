@@ -7,15 +7,7 @@ export async function getVenueById(venueId: string) {
 
   const venue = await prisma.venue
     .findUnique({
-      where: { id: venueId },
-      include: {
-        shows: {
-          include: {
-            concert: true
-          },
-          orderBy: { date: 'asc' }
-        }
-      }
+      where: { id: venueId }
     })
     .catch(() => null)
 

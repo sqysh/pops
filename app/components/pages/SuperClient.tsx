@@ -22,13 +22,12 @@ import { updateCustomRequestStatus } from '@/app/lib/actions/custom-request/upda
 import { store } from '@/app/redux/store'
 import { showToast } from '@/app/redux/features/toastSlice'
 import { formatDate } from '@/app/utils/date.functions'
-import { ROLE_STYLES } from './UsersClient'
 import { deleteNews } from '@/app/lib/actions/super/deleteNews'
 import { deleteVenue } from '@/app/lib/actions/super/deleteVenue'
 import { deleteTeamMember } from '@/app/lib/actions/super/deleteTeamMember'
 import { deleteEvent } from '@/app/lib/actions/super/deleteEvent'
 import { deleteTestimonial } from '@/app/lib/actions/super/deleteTestimonial'
-import { deleteSponsor } from '@/app/lib/actions/super/deleteSponsor'
+import { deleteSponsor } from '@/app/lib/actions/sponsor/deleteSponsor'
 import { deleteQuestion } from '@/app/lib/actions/super/deleteQuestion'
 import { deleteUser } from '@/app/lib/actions/super/deleteUser'
 import {
@@ -44,6 +43,7 @@ import {
 import { LogoutButton } from '../common/LogoutButton'
 import { Section } from '../common/Section'
 import { LazySection } from '../common/LazySection'
+import { ROLE_STYLES } from '@/app/lib/constants/user.constants'
 
 interface Props {
   customRequests: Pick<

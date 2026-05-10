@@ -24,9 +24,7 @@ export async function createVenue(data: CreateVenueInput) {
         parking: data.parking ?? '',
         imageUrl: data.imageUrl,
         imageFilename: data.imageFilename,
-        address: data.address ?? '',
-        longitude: '',
-        latitude: ''
+        address: data.address ?? ''
       }
     })
     .catch(() => null)

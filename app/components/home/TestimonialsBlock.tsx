@@ -66,13 +66,13 @@ export function TestimonialsBlock({ testimonials }: TestimonialsBlockProps) {
         <div className="relative" role="region" aria-label="Testimonials carousel" aria-roledescription="carousel">
           {/* Large quote mark */}
           <Quote
-            className="absolute -top-4 -left-2 sm:-left-8 w-16 h-16 sm:w-20 sm:h-20 text-white/5 -z-0 rotate-180"
+            className="absolute -top-4 -left-2 sm:-left-8 w-16 h-16 sm:w-20 sm:h-20 text-white/5 z-0 rotate-180"
             aria-hidden="true"
           />
 
           {/* Testimonial */}
           <div
-            className="relative z-10 min-h-[220px] flex items-center justify-center px-4 sm:px-12"
+            className="relative z-10 min-h-55 flex items-center justify-center px-4 sm:px-12"
             aria-live="polite"
             aria-atomic="true"
           >

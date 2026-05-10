@@ -2,7 +2,7 @@ import { Event, EventStatus } from '@prisma/client'
 
 export interface EventInput {
   title: string
-  date: string
+  date: string | Date
   location?: string
   description?: string
   status?: EventStatus

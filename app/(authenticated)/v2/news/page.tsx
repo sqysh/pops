@@ -1,5 +1,5 @@
-import NewsClient from '@/app/components/pages/NewsClient'
 import prisma from '@/prisma/client'
+import { NewsClient } from './NewsClient'
 
 export default async function NewsPage() {
   const news = await prisma.news

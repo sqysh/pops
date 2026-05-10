@@ -10,7 +10,7 @@ export async function getMailchimpMembers() {
   if (!API_KEY || !LIST_ID) return { success: false, error: 'Mailchimp environment variables are not configured' }
 
   const DATACENTER = API_KEY.split('-')[1]
-  const url = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${LIST_ID}/members?count=50&offset=0&sort_field=timestamp_opt&sort_dir=DESC`
+  const url = `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${LIST_ID}/members?count=100&offset=0&sort_field=timestamp_opt&sort_dir=DESC`
   try {
     const response = await fetch(url, {
       method: 'GET',

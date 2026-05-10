@@ -2,15 +2,14 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRight, Calendar, MapPin, Phone, Mail, ArrowUpRight } from 'lucide-react'
-import type { Concert, PhotoGalleryImage } from '@prisma/client'
+import { ArrowRight, MapPin, Phone, Mail, ArrowUpRight } from 'lucide-react'
+import type { PhotoGalleryImage } from '@prisma/client'
 import { useState } from 'react'
 import HomeHero from '../home/HomeHero'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface HomeClientProps {
-  concerts: Concert[] | null
   galleryImages: PhotoGalleryImage[]
   pageData: any
   ref: any
@@ -256,93 +255,6 @@ function AboutSection() {
               Read More
             </Link>
           </motion.div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ─── Concerts ─────────────────────────────────────────────────────────────────
-
-export function ConcertsSection({ concerts }: { concerts: Concert[] | null }) {
-  const live = concerts?.filter((c) => c.status === 'LIVE') ?? []
-
-  return (
-    <section
-      className="relative py-24 sm:py-36 px-6 sm:px-12 lg:px-20 overflow-hidden"
-      aria-labelledby="concerts-heading"
-    >
-      {/* Dark BG with faint photo */}
-      <div className="absolute inset-0 bg-neutral-950">
-        <Placeholder className="absolute inset-0 opacity-20" />
-        <div className="absolute inset-0 bg-neutral-950/70" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-[1fr_2fr] gap-16 items-start">
-          {/* Left label */}
-          <div>
-            <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-primary-dark mb-5">This Season</p>
-            <h2
-              id="concerts-heading"
-              className="font-quicksand font-black text-4xl sm:text-5xl lg:text-6xl text-white leading-none mb-8"
-            >
-              The Tour
-            </h2>
-            <p className="text-neutral-400 text-base leading-relaxed mb-10 max-w-xs">
-              Six unforgettable nights of music, plus two special add-on shows you won&apos;t want to miss.
-            </p>
-            <Link
-              href="/concerts"
-              className="inline-flex items-center gap-3 px-8 py-4 border border-white/20 hover:border-white/60 text-white/70 hover:text-white font-mono text-sm tracking-[0.2em] uppercase transition-colors focus-visible:outline-none"
-            >
-              All Concerts
-            </Link>
-          </div>
-
-          {/* Concert cards grid */}
-          <div className="grid sm:grid-cols-2 gap-4">
-            {live.length > 0
-              ? live.slice(0, 6).map((concert, i) => (
-                  <motion.div
-                    key={concert.id}
-                    initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.07 }}
-                  >
-                    <Link
-                      href={`/concerts/${concert.id}`}
-                      className="group flex flex-col bg-white dark:bg-neutral-900 p-6 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-dark"
-                    >
-                      {concert.type === 'ADD_ON' && (
-                        <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-primary-dark mb-3">
-                          Add-On Show
-                        </span>
-                      )}
-                      <h3 className="font-quicksand font-black text-xl text-neutral-900 dark:text-white leading-tight mb-2 group-hover:text-primary-dark transition-colors">
-                        {concert.name}
-                      </h3>
-                      {concert.subtitle && <p className="text-neutral-500 text-sm mb-4">{concert.subtitle}</p>}
-                      <div className="space-y-1.5 mb-6">
-                        <div className="flex items-center gap-2 text-neutral-500 text-sm">
-                          <Calendar className="w-3.5 h-3.5 text-primary-dark shrink-0" aria-hidden="true" />
-                          {concert.cardDate}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2 text-neutral-900 dark:text-white font-mono text-[10px] tracking-[0.2em] uppercase mt-auto">
-                        Buy Ticket
-                        <ArrowRight
-                          className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"
-                          aria-hidden="true"
-                        />
-                      </div>
-                    </Link>
-                  </motion.div>
-                ))
-              : // Placeholder cards
-                Array.from({ length: 4 }).map((_, i) => <div key={i} className="bg-white/5 p-6 h-48 animate-pulse" />)}
-          </div>
         </div>
       </div>
     </section>
@@ -703,14 +615,12 @@ function Footer() {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
-export default function HomeClientV2({ concerts, galleryImages, pageData, ref }: HomeClientProps) {
+export default function HomeClientV2({ galleryImages, pageData, ref }: HomeClientProps) {
   return (
     <div className="bg-white">
       <Nav />
-      {/* <Hero concerts={concerts} /> */}
       <HomeHero pageData={pageData} ref={ref} />
       <AboutSection />
-      <ConcertsSection concerts={concerts} />
       <QuoteSection />
       <EventsSection />
       <NewsSection />

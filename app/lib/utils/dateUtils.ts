@@ -1,4 +1,3 @@
-// lib/shared/dateUtils.ts
 export type DateInput = string | number | Date | null | undefined
 
 export interface DateFormatOptions {

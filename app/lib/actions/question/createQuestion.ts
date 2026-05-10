@@ -55,7 +55,8 @@ export async function createQuestion(data: CreateQuestionInput) {
   await resend.emails
     .send({
       from: 'New Contact Submission <noreply@thepopsorchestra.org>',
-      to: ['info@thepopsorchestra.org', 'robyn@thepopsorchestra.org'],
+      to: ['sqysh@sqysh.io'],
+      // to: ['info@thepopsorchestra.org', 'robyn@thepopsorchestra.org'],
       subject: 'New contact form submission',
       html: contactSubmissionTemplate(data.name)
     })

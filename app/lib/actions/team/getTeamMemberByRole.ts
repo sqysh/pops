@@ -5,7 +5,7 @@ export const getTeamMemberByRole = async (role: string) => {
   try {
     const teamMembers = await prisma.teamMember
       .findMany({
-        where: { role: role as TeamMemberRole },
+        where: { role: role as TeamMemberRole, isPublished: true },
         orderBy: [{ displayOrder: 'asc' }]
       })
       .catch(() => [])

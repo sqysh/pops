@@ -1,15 +1,28 @@
 import prisma from '../prisma/client.ts'
 
 async function seedSiteSetting() {
-  await prisma.siteSetting.upsert({
-    where: { key: 'campApplicationsEnabled' },
-    update: {},
-    create: {
-      key: 'campApplicationsEnabled',
-      name: 'Camp Applications',
-      description: 'Show or hide the camp application form on the public site',
-      value: false
-    }
+  await prisma.siteSetting.createMany({
+    data: [
+      {
+        key: 'subscriptionsLive',
+        name: 'Season Subscriptions',
+        description: 'Shows subscription button on the concerts page',
+        value: true
+      },
+      {
+        key: 'concertsPageLive',
+        name: 'Public Concerts Page',
+        description: 'Makes /concerts accessible to everyone',
+        value: false
+      },
+      {
+        key: 'ticketsLive',
+        name: 'Individual Tickets & Flex',
+        description: 'Shows individual + flex ticket purchase options',
+        value: false
+      }
+    ],
+    skipDuplicates: true
   })
 }
 

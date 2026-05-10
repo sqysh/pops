@@ -7,99 +7,59 @@ import { listCueBoxEvents } from './cuebox/listCueBoxEvents'
 export async function getDashboardData() {
   const [
     concerts,
-    venues,
+    venuesCount,
     teamMembers,
     photosCount,
     questions,
-    users,
+    usersCount,
     campApplications,
-    pages,
-    newsCount,
-    newsLiveCount,
+    campApplicationsEnabled,
+    pagesCount,
     news,
-    testimonialsCount,
-    testimonialsLiveCount,
-    customRequests,
-    eventsCount,
-    eventsLiveCount,
+    testimonials,
+    events,
     sponsors,
-    sponsorsActiveCount,
     mailchimpMemberCount
   ] = await Promise.all([
     listCueBoxEvents(),
-    prisma.venue
-      .findMany({
-        orderBy: { name: 'asc' }
-      })
-      .catch(() => []),
-    prisma.teamMember
-      .findMany({
-        orderBy: { displayOrder: 'asc' }
-      })
-      .catch(() => []),
+    prisma.venue.count().catch(() => 0),
+    prisma.teamMember.findMany({ orderBy: { displayOrder: 'asc' } }).catch(() => []),
     prisma.photoGalleryImage.count().catch(() => 0),
-    prisma.question
-      .findMany({
-        orderBy: { createdAt: 'desc' },
-        take: 50 // Limit
-      })
-      .catch(() => []),
-    prisma.user
-      .findMany({
-        orderBy: { firstName: 'asc' }
-      })
-      .catch(() => []),
+    prisma.question.findMany({ orderBy: { createdAt: 'desc' } }).catch(() => []),
+    prisma.user.count({ where: { role: 'ADMIN' } }).catch(() => 0),
     prisma.campApplication
       .findMany({
         include: { Student: true, Parent: true, Address: true },
-        orderBy: { createdAt: 'desc' },
-        take: 100 // Limit
+        orderBy: { createdAt: 'desc' }
       })
       .catch(() => []),
-    prisma.page
-      .findMany({
-        orderBy: { createdAt: 'asc' }
-      })
-      .catch(() => []),
-    prisma.news.count().catch(() => 0),
-    prisma.news.count({ where: { isPublished: true } }).catch(() => 0),
-    prisma.news.findMany().catch(() => []),
-    prisma.testimonial.count().catch(() => 0),
-    prisma.testimonial.count({ where: { isPublished: true } }).catch(() => 0),
-    prisma.customRequest
-      .findMany({
-        orderBy: { submittedAt: 'desc' },
-        take: 50 // Limit
-      })
-      .catch(() => []),
-    prisma.event.count().catch(() => 0),
-    prisma.event.count({ where: { status: 'PUBLISHED' } }).catch(() => 0),
+    prisma.siteSetting.findUnique({ where: { key: 'campApplicationsEnabled' } }).catch(() => null),
+    prisma.page.count().catch(() => 0),
+    prisma.news.findMany({ select: { isPublished: true } }).catch(() => []),
+    prisma.testimonial.findMany({ select: { isPublished: true } }).catch(() => []),
+    prisma.event.findMany({ select: { status: true } }).catch(() => []),
     prisma.sponsor.findMany({}).catch(() => []),
-    prisma.sponsor.count({ where: { isActive: true } }).catch(() => 0),
     getMailchimpMemberCount()
   ])
 
   return {
     concerts: concerts.data,
-    venues,
+    venuesCount,
     teamMembers,
     photosCount,
     questions,
-    users,
+    usersCount,
     campApplications,
     campApplicationsCount: campApplications.length,
-    pages,
-    pageContentCount: pages.length,
-    newsCount,
-    newsLiveCount,
-    news,
-    testimonialsCount,
-    testimonialsLiveCount,
-    customRequests,
-    eventsCount,
-    eventsLiveCount,
-    sponsors,
-    sponsorsActiveCount,
-    mailchimpMemberCount
+    campApplicationsEnabled: campApplicationsEnabled?.value ?? false,
+    pageContentCount: pagesCount,
+    newsCount: news.length,
+    newsLiveCount: news.filter((n) => n.isPublished).length,
+    testimonialsCount: testimonials.length,
+    testimonialsLiveCount: testimonials.filter((t) => t.isPublished).length,
+    eventsCount: events.length,
+    eventsLiveCount: events.filter((e) => e.status === 'PUBLISHED').length,
+    sponsorsActiveCount: sponsors.filter((s) => s.isActive).length,
+    mailchimpCount: mailchimpMemberCount.count
   }
 }

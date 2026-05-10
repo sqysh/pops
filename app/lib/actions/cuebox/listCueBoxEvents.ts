@@ -1,5 +1,5 @@
 import { CueBoxEvent } from '@/app/types/cuebox.types'
-import { cueboxFetch } from '../../utils/cueboxFetch'
+import { cueboxFetch } from '../../utils/cuebox.utils'
 
 export async function listCueBoxEvents(options?: {
   instanceDatetimeStartFrom?: string // ISO date string, defaults to today
@@ -10,11 +10,7 @@ export async function listCueBoxEvents(options?: {
   if (options?.instanceDatetimeStartFrom) params.set('instanceDatetimeStartFrom', options.instanceDatetimeStartFrom)
   if (options?.instanceDatetimeStartTo) params.set('instanceDatetimeStartTo', options.instanceDatetimeStartTo)
 
-  const query = params.toString() ? `?${params.toString()}` : ''
-
-  const data = await cueboxFetch<{ events: CueBoxEvent[] }>(`/events${query}`)
-
+  const data = await cueboxFetch<{ events: CueBoxEvent[] }>(`/events`)
   if (!data) return { success: false, error: 'Failed to fetch events' }
-
   return { success: true, data: data.events }
 }

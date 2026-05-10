@@ -16,3 +16,6 @@ export type FooterData = {
   createdBy: string | null
   content: JsonValue
 }
+
+export type SortKey = 'name' | 'level' | 'amount' | 'isActive' | 'createdAt'
+export type SortDir = 'asc' | 'desc'

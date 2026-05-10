@@ -1,4 +1,4 @@
-import GalleryClient from '@/app/components/pages/GalleryClient'
+import GalleryClient from '@/app/(authenticated)/v2/gallery/GalleryClient'
 import prisma from '@/prisma/client'
 
 export default async function GalleryPage() {

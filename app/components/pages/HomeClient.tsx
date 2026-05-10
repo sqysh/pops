@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import HomeHero from '../home/HomeHero'
 import { useRef } from 'react'
 
-const ConcertsBlock = dynamic(() => import('@/app/components/home/ConcertsBlock').then((m) => m.ConcertsBlock))
 const SeasonSection = dynamic(() => import('@/app/components/home/SeasonDates').then((m) => m.SeasonDates), {
   ssr: false
 })
@@ -19,16 +18,15 @@ const TestimonialsBlock = dynamic(() =>
 const EventsBlock = dynamic(() => import('@/app/components/home/EventsBlock').then((m) => m.EventsBlock))
 const NewsBlock = dynamic(() => import('@/app/components/home/NewsBlock').then((m) => m.NewsBlock))
 
-export function HomeClient({ pageData, concerts, sponsors, testimonials, events, news }) {
+export function HomeClient({ pageData, sponsors, testimonials, events, news }) {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   return (
     <>
       <HomeHero pageData={pageData} ref={scrollRef} />
       <div ref={scrollRef}>
-        <ConcertsBlock pageData={pageData} concerts={concerts} />
+        <SeasonSection />
       </div>
-      <SeasonSection />
       <ContactUsBlock data={pageData} />
       <SponsorsBlock pageData={pageData} sponsors={sponsors} />
       <KeepUpToDateBlock pageData={pageData} />

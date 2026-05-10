@@ -10,6 +10,6 @@ export const ROLE_LABELS: Record<Role, string> = {
 
 export const ROLES: Role[] = ['BOARD_MEMBER', 'STAFF', 'MUSICIAN']
 
-export interface TeamReorderClientProps {
+export interface TeamClientProps {
   teamMembers: TeamMember[]
 }

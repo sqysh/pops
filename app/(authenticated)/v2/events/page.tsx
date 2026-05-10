@@ -1,5 +1,5 @@
-import EventsClient from '@/app/components/pages/EventsClient'
 import prisma from '@/prisma/client'
+import { EventsClient } from './EventsClient'
 
 export default async function EventsPage() {
   const events = await prisma.event

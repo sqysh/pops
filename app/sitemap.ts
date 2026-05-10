@@ -1,24 +1,9 @@
 export const dynamic = 'force-dynamic'
 
-import prisma from '@/prisma/client'
 import { MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://thepopsorchestra.org'
-
-  let concertPages: MetadataRoute.Sitemap = []
-
-  const concerts = await prisma.concert
-    .findMany({
-      select: { id: true, updatedAt: true }
-    })
-    .catch(() => [])
-  concertPages = concerts.map((concert) => ({
-    url: `${baseUrl}/concerts/${concert.id}`,
-    lastModified: concert.updatedAt,
-    changeFrequency: 'weekly' as const,
-    priority: 0.7
-  }))
 
   // Static pages
   const staticPages = [
@@ -126,5 +111,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   ]
 
-  return [...staticPages, ...concertPages]
+  return [...staticPages]
 }

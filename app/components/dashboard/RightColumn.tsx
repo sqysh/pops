@@ -9,7 +9,6 @@ import Picture from '../common/Picture'
 export function RightColumn({
   questions,
   pending,
-  setSelectedQuestion,
   users,
   campApplicationsCount,
   sponsors,
@@ -39,7 +38,6 @@ export function RightColumn({
           questions.slice(0, 8).map((q) => (
             <button
               key={q.id}
-              onClick={() => setSelectedQuestion(q)}
               className="w-full flex items-center justify-between gap-2 px-3 py-2.5 border-b border-border-dark/30 last:border-0 hover:bg-button-dark transition-colors text-left"
             >
               <div className="min-w-0">

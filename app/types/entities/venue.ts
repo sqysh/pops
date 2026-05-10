@@ -1,4 +1,5 @@
 export interface IVenue {
+  city?: string
   id: string
   name: string
   capacity?: string
