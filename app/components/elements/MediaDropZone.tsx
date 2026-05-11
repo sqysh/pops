@@ -48,8 +48,8 @@ export function MediaDropZone({
           <>
             {isVideo ? (
               <div className="w-full h-full flex items-center justify-center bg-black">
-                <Play className="w-6 h-6 text-muted-dark/40" />
-                <span className="text-[8px] font-mono text-muted-dark/40 ml-2 truncate max-w-32">
+                <Play className="w-6 h-6 text-muted-dark/70" />
+                <span className="text-[9px] font-mono text-muted-dark/70 ml-2 truncate max-w-32">
                   {file?.name ?? 'video uploaded'}
                 </span>
               </div>
@@ -69,7 +69,7 @@ export function MediaDropZone({
                 e.stopPropagation()
                 onRemove()
               }}
-              className="absolute top-1.5 right-1.5 text-muted-dark/40 hover:text-red-400 transition-colors bg-bg-dark/80 p-0.5"
+              className="absolute top-1.5 right-1.5 text-muted-dark/70 hover:text-red-400 transition-colors bg-bg-dark/80 p-0.5"
               aria-label={`Remove ${label}`}
             >
               <X className="w-3 h-3" />
@@ -77,8 +77,8 @@ export function MediaDropZone({
           </>
         ) : (
           <>
-            <Upload className="w-4 h-4 text-muted-dark/30 group-hover:text-muted-dark/60 transition-colors" />
-            <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/30 group-hover:text-muted-dark/50 transition-colors">
+            <Upload className="w-4 h-4 text-muted-dark/60 group-hover:text-muted-dark/80 transition-colors" />
+            <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60 group-hover:text-muted-dark/80 transition-colors">
               Drop or click to upload {label}
             </span>
           </>
@@ -91,7 +91,7 @@ export function MediaDropZone({
                 style={{ width: `${uploadProgress}%` }}
               />
             </div>
-            <span className="text-[8px] font-mono text-primary-dark tabular-nums">{uploadProgress}%</span>
+            <span className="text-[9px] font-mono text-primary-dark tabular-nums">{uploadProgress}%</span>
           </div>
         )}
         <input
@@ -107,7 +107,7 @@ export function MediaDropZone({
           aria-label={`Upload ${label}`}
         />
       </div>
-      {file && <span className="text-[7px] font-mono text-muted-dark/40 truncate">{file.name}</span>}
+      {file && <span className="text-[8px] font-mono text-muted-dark/70 truncate">{file.name}</span>}
     </div>
   )
 }

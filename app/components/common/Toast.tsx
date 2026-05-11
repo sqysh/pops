@@ -62,8 +62,8 @@ const Toast: React.FC = () => {
               {getIcon()}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-text-dark text-[10px] font-mono tracking-[0.2em] uppercase">{message}</p>
-              {description && <p className="text-muted-dark text-[10px] mt-0.5 leading-relaxed">{description}</p>}
+              <p className="text-text-dark text-[11px] font-mono tracking-[0.2em] uppercase">{message}</p>
+              {description && <p className="text-muted-dark text-[11px] mt-0.5 leading-relaxed">{description}</p>}
             </div>
             <button
               type="button"

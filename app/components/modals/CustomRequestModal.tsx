@@ -76,7 +76,7 @@ function StepChangeType({ value, onChange }: { value: string; onChange: (v: stri
             <p className={`text-sm font-medium ${value === type.value ? 'text-text-dark' : 'text-muted-dark'}`}>
               {type.label}
             </p>
-            <p className="text-[10px] text-muted-dark/60 mt-0.5">{type.description}</p>
+            <p className="text-[11px] text-muted-dark/80 mt-0.5">{type.description}</p>
           </div>
           {value === type.value && <div className="w-2 h-2 bg-primary-dark shrink-0" aria-hidden="true" />}
         </button>
@@ -128,9 +128,9 @@ function StepWhat({ value, onChange }: { value: string; onChange: (v: string) =>
         placeholder="I want a section on the home page that shows our upcoming events with a date, title, and a button to learn more..."
         rows={6}
         autoFocus
-        className="w-full px-3 py-2.5 bg-bg-dark border border-border-dark text-text-dark text-sm placeholder:text-muted-dark/30 focus:outline-none focus:border-primary-dark transition-colors resize-none"
+        className="w-full px-3 py-2.5 bg-bg-dark border border-border-dark text-text-dark text-sm placeholder:text-muted-dark/60 focus:outline-none focus:border-primary-dark transition-colors resize-none"
       />
-      <p className="text-[9px] font-mono text-muted-dark/40 mt-2">
+      <p className="text-[10px] font-mono text-muted-dark/70 mt-2">
         Be as specific as possible. More detail = faster turnaround.
       </p>
     </div>
@@ -152,7 +152,7 @@ function StepWhy({ value, onChange }: { value: string; onChange: (v: string) => 
         placeholder="Patrons keep calling asking about non-concert events and we have no way to list them on the site..."
         rows={5}
         autoFocus
-        className="w-full px-3 py-2.5 bg-bg-dark border border-border-dark text-text-dark text-sm placeholder:text-muted-dark/30 focus:outline-none focus:border-primary-dark transition-colors resize-none"
+        className="w-full px-3 py-2.5 bg-bg-dark border border-border-dark text-text-dark text-sm placeholder:text-muted-dark/60 focus:outline-none focus:border-primary-dark transition-colors resize-none"
       />
     </div>
   )
@@ -174,9 +174,9 @@ function StepExample({ value, onChange }: { value: string; onChange: (v: string)
         placeholder="Like how the Sarasota Symphony site lists their events at sarasotaorchestra.org/events..."
         rows={4}
         autoFocus
-        className="w-full px-3 py-2.5 bg-bg-dark border border-border-dark text-text-dark text-sm placeholder:text-muted-dark/30 focus:outline-none focus:border-primary-dark transition-colors resize-none"
+        className="w-full px-3 py-2.5 bg-bg-dark border border-border-dark text-text-dark text-sm placeholder:text-muted-dark/60 focus:outline-none focus:border-primary-dark transition-colors resize-none"
       />
-      <p className="text-[9px] font-mono text-muted-dark/40 mt-2">Optional but helpful.</p>
+      <p className="text-[10px] font-mono text-muted-dark/70 mt-2">Optional but helpful.</p>
     </div>
   )
 }
@@ -227,7 +227,7 @@ function StepReview({ form }: { form: FormState }) {
           { label: 'Urgency', value: urgency?.label }
         ].map(({ label, value }) => (
           <div key={label} className="flex gap-4 px-4 py-3 bg-bg-dark border-b border-border-dark last:border-0">
-            <span className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark w-16 shrink-0 mt-0.5">
+            <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark w-16 shrink-0 mt-0.5">
               {label}
             </span>
             <span className="text-text-dark text-sm">{value || '—'}</span>
@@ -241,7 +241,7 @@ function StepReview({ form }: { form: FormState }) {
         ].map(({ label, value }) =>
           value ? (
             <div key={label} className="flex gap-4 px-4 py-3 bg-bg-dark border-b border-border-dark last:border-0">
-              <span className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark w-16 shrink-0 mt-0.5">
+              <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark w-16 shrink-0 mt-0.5">
                 {label}
               </span>
               <span className="text-text-dark text-sm leading-relaxed">{value}</span>
@@ -372,7 +372,7 @@ export default function CustomRequestModal({ onClose }: Props) {
 
           {/* Step label */}
           <div className="px-4 py-2 border-b border-border-dark shrink-0 flex items-center justify-between">
-            <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark">
+            <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark">
               Step {currentIndex + 1} of {STEPS.length} — {STEP_LABELS[step]}
             </span>
           </div>

@@ -19,7 +19,7 @@ export const STATUS_CONFIG: Record<CustomRequestStatus, { label: string; color: 
   },
   DECLINED: {
     label: 'Declined',
-    color: 'text-muted-dark/40 border-border-dark',
+    color: 'text-muted-dark/70 border-border-dark',
     icon: <XCircle className="w-2.5 h-2.5" />
   }
 }

@@ -41,7 +41,7 @@ export function ApplicationModal({
                 <h2 className="font-quicksand font-black text-text-dark text-base leading-none">
                   {application.Student?.firstName} {application.Student?.lastName}
                 </h2>
-                <p className="text-[9px] font-mono text-muted-dark mt-0.5">
+                <p className="text-[10px] font-mono text-muted-dark mt-0.5">
                   {new Date(application.createdAt).toLocaleDateString('en-US', {
                     month: 'short',
                     day: 'numeric',
@@ -65,7 +65,7 @@ export function ApplicationModal({
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <User className="w-3 h-3 text-primary-dark" aria-hidden="true" />
-                    <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-primary-dark">Student</span>
+                    <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-primary-dark">Student</span>
                   </div>
                   <div className="border border-border-dark divide-y divide-border-dark">
                     {[
@@ -76,7 +76,7 @@ export function ApplicationModal({
                       ['Phone', application.Student.studentPhoneNumber]
                     ].map(([label, value]) => (
                       <div key={label} className="flex items-center gap-3 px-3 py-2">
-                        <span className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark w-16 shrink-0">
+                        <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark w-16 shrink-0">
                           {label}
                         </span>
                         <span className="text-text-dark text-xs truncate">{value}</span>
@@ -91,7 +91,7 @@ export function ApplicationModal({
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <User className="w-3 h-3 text-primary-dark" aria-hidden="true" />
-                    <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-primary-dark">
+                    <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-primary-dark">
                       Parent / Guardian
                     </span>
                   </div>
@@ -103,7 +103,7 @@ export function ApplicationModal({
                       ['Phone', application.Parent.parentPhoneNumber]
                     ].map(([label, value]) => (
                       <div key={label} className="flex items-center gap-3 px-3 py-2">
-                        <span className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark w-24 shrink-0">
+                        <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark w-24 shrink-0">
                           {label}
                         </span>
                         <span className="text-text-dark text-xs truncate">{value}</span>
@@ -118,7 +118,7 @@ export function ApplicationModal({
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <MapPin className="w-3 h-3 text-primary-dark" aria-hidden="true" />
-                    <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-primary-dark">Address</span>
+                    <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-primary-dark">Address</span>
                   </div>
                   <div className="border border-border-dark px-3 py-2">
                     <p className="text-text-dark text-xs">
@@ -136,7 +136,7 @@ export function ApplicationModal({
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   <Music className="w-3 h-3 text-primary-dark" aria-hidden="true" />
-                  <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-primary-dark">Music</span>
+                  <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-primary-dark">Music</span>
                 </div>
                 <div className="border border-border-dark divide-y divide-border-dark">
                   {[
@@ -148,7 +148,7 @@ export function ApplicationModal({
                     ['Referral', application.referralSource ?? '—']
                   ].map(([label, value]) => (
                     <div key={label} className="flex items-center gap-3 px-3 py-2">
-                      <span className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark w-24 shrink-0">
+                      <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark w-24 shrink-0">
                         {label}
                       </span>
                       <span className="text-text-dark text-xs truncate">{value}</span>

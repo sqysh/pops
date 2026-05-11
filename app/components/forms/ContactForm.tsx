@@ -9,7 +9,7 @@ import { ArrowRightIcon, Loader2 } from 'lucide-react'
 
 const Input = ({ name, value, handleInput, placeholder, error, required, type = 'text' }) => (
   <div className="flex flex-col w-full">
-    <label htmlFor={name} className="font-changa text-[10px] uppercase tracking-[0.25em] text-white/60 mb-2">
+    <label htmlFor={name} className="font-changa text-[11px] uppercase tracking-[0.25em] text-white/60 mb-2">
       {placeholder}
       {required && (
         <span className="text-blaze-text ml-1" aria-hidden="true">
@@ -39,7 +39,7 @@ const Input = ({ name, value, handleInput, placeholder, error, required, type = 
       <p
         id={`${name}-error`}
         role="alert"
-        className="font-changa text-[10px] uppercase tracking-widest text-blaze-text mt-2"
+        className="font-changa text-[11px] uppercase tracking-widest text-blaze-text mt-2"
       >
         {error}
       </p>
@@ -58,7 +58,7 @@ const Textarea: FC<{
   maxLength?: number
 }> = ({ name, value, onChange, placeholder, error, required, rows = 4, maxLength }) => (
   <div className="flex flex-col w-full">
-    <label htmlFor={name} className="font-changa text-[10px] uppercase tracking-[0.25em] text-white/60 mb-2">
+    <label htmlFor={name} className="font-changa text-[11px] uppercase tracking-[0.25em] text-white/60 mb-2">
       {placeholder}
       {required && (
         <>
@@ -92,7 +92,7 @@ const Textarea: FC<{
         id={`${name}-error`}
         role="alert"
         aria-live="polite"
-        className="font-changa text-[10px] uppercase tracking-widest text-blaze-text mt-2"
+        className="font-changa text-[11px] uppercase tracking-widest text-blaze-text mt-2"
       >
         {error}
       </p>
@@ -175,7 +175,7 @@ const ContactForm: FC<{ btnClassname?: string }> = ({ btnClassname }) => {
         />
         <div className="flex items-center justify-end mt-1.5">
           <span
-            className={`font-changa text-[10px] tracking-widest transition-colors ${
+            className={`font-changa text-[11px] tracking-widest transition-colors ${
               (inputs?.message?.length ?? 0) >= 500
                 ? 'text-red-400'
                 : (inputs?.message?.length ?? 0) > 450

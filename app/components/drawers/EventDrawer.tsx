@@ -152,10 +152,10 @@ export function EventDrawer({ open, onClose, event }: { open: boolean; onClose: 
                   key={s}
                   type="button"
                   onClick={() => setForm((f) => ({ ...f, status: s as EventStatus }))}
-                  className={`flex-1 text-[7px] font-mono uppercase tracking-widest px-2 py-2 border transition-colors ${
+                  className={`flex-1 text-[8px] font-mono uppercase tracking-widest px-2 py-2 border transition-colors ${
                     form.status === s
                       ? STATUS_COLORS[s]
-                      : 'border-border-dark text-muted-dark/40 hover:text-muted-dark hover:border-muted-dark/30'
+                      : 'border-border-dark text-muted-dark/70 hover:text-muted-dark hover:border-muted-dark/30'
                   }`}
                 >
                   {s.charAt(0) + s.slice(1).toLowerCase()}

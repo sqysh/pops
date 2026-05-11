@@ -51,7 +51,7 @@ export function TeamMemberRow({
             priority
           />
         ) : (
-          <span className="text-[8px] font-mono text-muted-dark/40 uppercase">
+          <span className="text-[9px] font-mono text-muted-dark/70 uppercase">
             {member.firstName[0]}
             {member.lastName[0]}
           </span>
@@ -60,29 +60,29 @@ export function TeamMemberRow({
 
       {/* Name */}
       <div className="min-w-0">
-        <span className="text-[11px] font-mono text-text-dark truncate block">
+        <span className="text-[12px] font-mono text-text-dark truncate block">
           {member.firstName} {member.lastName}
         </span>
-        <span className="text-[8px] font-mono text-muted-dark/40 tabular-nums truncate block">
+        <span className="text-[9px] font-mono text-muted-dark/70 tabular-nums truncate block">
           #{member.displayOrder}
         </span>
       </div>
 
       {/* Position */}
-      <span className="text-[10px] font-mono text-text-dark/80 truncate">{member.position}</span>
+      <span className="text-[11px] font-mono text-text-dark truncate">{member.position}</span>
 
       {/* Role */}
-      <span className="text-[9px] font-mono text-muted-dark/60 truncate">{member.role || '—'}</span>
+      <span className="text-[10px] font-mono text-muted-dark/80 truncate">{member.role || '—'}</span>
 
       {/* Published */}
       <div className="flex justify-end">
         {member.isPublished ? (
-          <span className="text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-emerald-400 border-emerald-400/30 bg-emerald-400/5 flex items-center gap-1">
+          <span className="text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-emerald-400 border-emerald-400/30 bg-emerald-400/5 flex items-center gap-1">
             <Eye className="w-2.5 h-2.5" />
             Live
           </span>
         ) : (
-          <span className="text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-muted-dark/40 border-border-dark flex items-center gap-1">
+          <span className="text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-muted-dark/70 border-border-dark flex items-center gap-1">
             <EyeOff className="w-2.5 h-2.5" />
             Hidden
           </span>
@@ -93,14 +93,14 @@ export function TeamMemberRow({
       <div className="relative flex items-center justify-end gap-2">
         <button
           onClick={() => onEdit(member)}
-          className="text-muted-dark/40 hover:text-text-dark transition-all focus-visible:opacity-100 focus-visible:outline-none"
+          className="text-muted-dark/70 hover:text-text-dark transition-all focus-visible:opacity-100 focus-visible:outline-none"
           aria-label={`Edit ${member.firstName}`}
         >
           <Pencil className="w-3 h-3" />
         </button>
         <button
           onClick={() => setConfirming(true)}
-          className="text-muted-dark/40 hover:text-red-400 transition-all focus-visible:opacity-100 focus-visible:outline-none"
+          className="text-muted-dark/70 hover:text-red-400 transition-all focus-visible:opacity-100 focus-visible:outline-none"
           aria-label={`Delete ${member.firstName}`}
         >
           <Trash2 className="w-3 h-3" />

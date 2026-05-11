@@ -51,7 +51,7 @@ export function GreetingAndStats(props: GreetingAndStatsProps) {
     >
       <div className="flex items-center justify-between px-4 py-3">
         <div>
-          <p className="text-[8px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-0.5">{props.date}</p>
+          <p className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-0.5">{props.date}</p>
           <h1 className="font-quicksand font-black text-xl text-text-dark leading-none flex items-center gap-0.5">
             {displayed}
             {/* Blinking cursor — hides once typing is done */}

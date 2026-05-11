@@ -45,7 +45,7 @@ interface InputProps {
 
 const Input: FC<InputProps> = ({ name, value, handleInput, placeholder, error, required, type = 'text' }) => (
   <div className="flex flex-col w-full">
-    <label htmlFor={name} className="font-changa text-[10px] uppercase tracking-[0.25em] text-white/80 mb-2">
+    <label htmlFor={name} className="font-changa text-[11px] uppercase tracking-[0.25em] text-white/80 mb-2">
       {placeholder}
       {required && (
         <>
@@ -78,7 +78,7 @@ const Input: FC<InputProps> = ({ name, value, handleInput, placeholder, error, r
         id={`${name}-error`}
         role="alert"
         aria-live="polite"
-        className="font-changa text-[10px] uppercase tracking-widest text-blaze-text mt-2"
+        className="font-changa text-[11px] uppercase tracking-widest text-blaze-text mt-2"
       >
         {error}
       </p>
@@ -171,7 +171,7 @@ const NewsletterForm = ({ data }) => {
         <button
           type="button"
           onClick={() => setSubmitted(false)}
-          className="mt-2 text-[10px] font-mono uppercase tracking-[0.15em] text-white/40 hover:text-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+          className="mt-2 text-[11px] font-mono uppercase tracking-[0.15em] text-white/40 hover:text-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
         >
           Subscribe another email
         </button>
@@ -393,7 +393,7 @@ const NewsletterForm = ({ data }) => {
               </button>
 
               {submitError && (
-                <p className="text-[10px] font-mono text-blaze-text mt-2" role="alert">
+                <p className="text-[11px] font-mono text-blaze-text mt-2" role="alert">
                   {submitError}
                 </p>
               )}

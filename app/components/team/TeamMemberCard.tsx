@@ -55,7 +55,7 @@ export default function TeamMemberCard({ teamMember, index, onClick }: Props) {
           {teamMember.firstName} {teamMember.lastName}
         </h3>
         {teamMember.position && (
-          <p className="text-[9px] font-mono tracking-[0.2em] uppercase text-white/60">{teamMember.position}</p>
+          <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/60">{teamMember.position}</p>
         )}
       </div>
     </motion.article>

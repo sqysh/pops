@@ -39,7 +39,7 @@ function PhotoCard({ photo, onDeleted }: { photo: PhotoGalleryImage; onDeleted: 
 
       {/* Footer */}
       <div className="px-3 py-2 border-t border-border-dark flex items-center justify-between gap-2 shrink-0">
-        <span className="text-[8px] font-mono text-muted-dark/40 truncate flex-1">
+        <span className="text-[9px] font-mono text-muted-dark/70 truncate flex-1">
           {new Date(photo.createdAt).toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',
@@ -50,7 +50,7 @@ function PhotoCard({ photo, onDeleted }: { photo: PhotoGalleryImage; onDeleted: 
           <button
             type="button"
             onClick={() => setConfirming((v) => !v)}
-            className="text-muted-dark/30 hover:text-red-400 transition-colors focus-visible:outline-none"
+            className="text-muted-dark/60 hover:text-red-400 transition-colors focus-visible:outline-none"
             aria-label={`Delete ${photo.imageFilename}`}
           >
             <Trash2 className="w-3 h-3" />
@@ -65,21 +65,21 @@ function PhotoCard({ photo, onDeleted }: { photo: PhotoGalleryImage; onDeleted: 
                 exit={{ opacity: 0, y: 4 }}
                 className="absolute bottom-full right-0 mb-1 z-20 bg-bg-dark border border-border-dark p-3 w-48 shadow-xl"
               >
-                <p className="text-[9px] font-mono text-muted-dark mb-2 uppercase tracking-widest">
+                <p className="text-[10px] font-mono text-muted-dark mb-2 uppercase tracking-widest">
                   Delete this photo?
                 </p>
                 <div className="flex gap-2">
                   <button
                     type="button"
                     onClick={handleDelete}
-                    className="flex-1 py-1.5 border border-red-500/40 text-[8px] font-mono uppercase tracking-widest text-red-400 hover:bg-red-500/10 transition-colors"
+                    className="flex-1 py-1.5 border border-red-500/40 text-[9px] font-mono uppercase tracking-widest text-red-400 hover:bg-red-500/10 transition-colors"
                   >
                     Confirm
                   </button>
                   <button
                     type="button"
                     onClick={() => setConfirming(false)}
-                    className="px-3 py-1.5 border border-border-dark text-[8px] font-mono uppercase tracking-widest text-muted-dark/50 hover:text-text-dark transition-colors"
+                    className="px-3 py-1.5 border border-border-dark text-[9px] font-mono uppercase tracking-widest text-muted-dark/80 hover:text-text-dark transition-colors"
                   >
                     Cancel
                   </button>
@@ -124,7 +124,7 @@ function UploadZone({ onUpload }: { onUpload: (file: File) => Promise<void> }) {
       {uploading ? (
         <>
           <Loader2 className="w-4 h-4 text-primary-dark animate-spin" />
-          <span className="text-[8px] font-mono text-muted-dark tabular-nums">{Math.round(progress)}%</span>
+          <span className="text-[9px] font-mono text-muted-dark tabular-nums">{Math.round(progress)}%</span>
           <div className="w-20 h-px bg-border-dark relative overflow-hidden">
             <div
               className="absolute inset-y-0 left-0 bg-primary-dark transition-all"
@@ -134,11 +134,11 @@ function UploadZone({ onUpload }: { onUpload: (file: File) => Promise<void> }) {
         </>
       ) : (
         <>
-          <Upload className="w-4 h-4 text-muted-dark/30 group-hover:text-primary-dark transition-colors" />
-          <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/30 group-hover:text-muted-dark/60 transition-colors">
+          <Upload className="w-4 h-4 text-muted-dark/60 group-hover:text-primary-dark transition-colors" />
+          <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60 group-hover:text-muted-dark/80 transition-colors">
             Upload Photo
           </span>
-          <span className="text-[7px] font-mono text-muted-dark/20">or drag & drop</span>
+          <span className="text-[8px] font-mono text-muted-dark/20">or drag & drop</span>
         </>
       )}
       <input
@@ -184,14 +184,14 @@ export default function GalleryClient({ photos: initialPhotos }: { photos: Photo
           <div className="flex items-center gap-3">
             <Link
               href="/v2/dashboard"
-              className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/40 hover:text-primary-dark transition-colors"
+              className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-primary-dark transition-colors"
             >
               &larr; Dashboard
             </Link>
             <div className="w-px h-3 bg-border-dark" aria-hidden="true" />
-            <span className="text-[9px] font-mono text-muted-dark/40 uppercase tracking-widest">[ GALLERY ]</span>
+            <span className="text-[10px] font-mono text-muted-dark/70 uppercase tracking-widest">[ GALLERY ]</span>
             <div className="w-px h-3 bg-border-dark" aria-hidden="true" />
-            <span className="text-[9px] font-mono text-muted-dark">{photos.length} photos</span>
+            <span className="text-[10px] font-mono text-muted-dark">{photos.length} photos</span>
           </div>
         </div>
 
@@ -203,7 +203,7 @@ export default function GalleryClient({ photos: initialPhotos }: { photos: Photo
             className="flex whitespace-nowrap"
           >
             {[0, 1, 2, 3, 4, 5].map((i) => (
-              <span key={i} className="text-[7px] font-mono text-yellow-400/60 pr-12">
+              <span key={i} className="text-[8px] font-mono text-yellow-400/60 pr-12">
                 <span className="text-yellow-400">●</span> Images uploaded here appear on the public Media page
                 <span className="text-yellow-400/30 mx-3">·</span>
                 Home hero images are managed separately — contact Sqysh to update them
@@ -228,7 +228,7 @@ export default function GalleryClient({ photos: initialPhotos }: { photos: Photo
         {photos.length === 0 && (
           <div className="flex flex-col items-center justify-center h-48 gap-2 mt-8">
             <Img className="w-8 h-8 text-border-dark" aria-hidden="true" />
-            <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/30">No photos yet</span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark/60">No photos yet</span>
           </div>
         )}
       </div>
@@ -237,11 +237,11 @@ export default function GalleryClient({ photos: initialPhotos }: { photos: Photo
       <div className="shrink-0 flex items-center justify-between px-4 py-2 border-t border-border-dark bg-surface-dark">
         <Link
           href="/v2/dashboard"
-          className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/40 hover:text-primary-dark transition-colors"
+          className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-primary-dark transition-colors"
         >
           &larr; Dashboard
         </Link>
-        <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/30 tabular-nums">
+        <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60 tabular-nums">
           {photos.length} photo{photos.length !== 1 ? 's' : ''}
         </span>
       </div>

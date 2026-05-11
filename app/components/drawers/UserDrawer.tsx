@@ -77,9 +77,9 @@ export function UserDrawer({ open, onClose, user }: { open: boolean; onClose: ()
         <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4 flex flex-col gap-5">
           {/* Email — read only */}
           <div className="flex flex-col gap-1.5">
-            <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/50">Email</span>
+            <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80">Email</span>
             <div className="bg-bg-dark border border-border-dark px-3 py-2">
-              <span className="text-[11px] font-mono text-muted-dark/60">{user.email}</span>
+              <span className="text-[12px] font-mono text-muted-dark/80">{user.email}</span>
             </div>
           </div>
 
@@ -116,10 +116,10 @@ export function UserDrawer({ open, onClose, user }: { open: boolean; onClose: ()
                   type="button"
                   disabled={role === 'SUPER_USER' && user.role !== 'SUPER_USER'}
                   onClick={() => setForm((f) => ({ ...f, role: role }))}
-                  className={`text-[8px] font-mono uppercase tracking-widest px-3 py-2 border text-left transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
+                  className={`text-[9px] font-mono uppercase tracking-widest px-3 py-2 border text-left transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
                     form.role === role
                       ? roleColor(role)
-                      : 'border-border-dark text-muted-dark/40 hover:text-muted-dark hover:border-muted-dark/30'
+                      : 'border-border-dark text-muted-dark/70 hover:text-muted-dark hover:border-muted-dark/30'
                   }`}
                 >
                   {role}

@@ -198,7 +198,7 @@ export function TeamMemberDrawer({
 
           {/* Identity */}
           <div className="flex flex-col gap-3">
-            <span className="flex items-center gap-2 text-[7px] font-mono uppercase tracking-widest text-primary-dark">
+            <span className="flex items-center gap-2 text-[9px] font-mono uppercase tracking-widest text-primary-dark">
               <span className="w-4 h-px bg-primary-dark" />
               Identity
             </span>
@@ -240,7 +240,7 @@ export function TeamMemberDrawer({
                   id="tm-role"
                   value={form.role}
                   onChange={(e) => setForm((f) => ({ ...f, role: e.target.value }))}
-                  className="bg-surface-dark border border-border-dark px-3 py-2 text-[11px] font-mono text-text-dark outline-none focus:border-muted-dark/40 transition-colors w-full appearance-none cursor-pointer"
+                  className="bg-surface-dark border border-border-dark px-3 py-2 text-[12px] font-mono text-text-dark outline-none focus:border-muted-dark/40 transition-colors w-full appearance-none cursor-pointer"
                 >
                   {TEAM_MEMBER_ROLES.map(({ value, label }) => (
                     <option key={value} value={value} className="bg-bg-dark">
@@ -254,7 +254,7 @@ export function TeamMemberDrawer({
 
           {/* Details */}
           <div className="flex flex-col gap-3">
-            <span className="flex items-center gap-2 text-[7px] font-mono uppercase tracking-widest text-primary-dark">
+            <span className="flex items-center gap-2 text-[9px] font-mono uppercase tracking-widest text-primary-dark">
               <span className="w-4 h-px bg-primary-dark" />
               Details
             </span>
@@ -266,7 +266,7 @@ export function TeamMemberDrawer({
                 placeholder="Write a bio..."
                 rows={6}
               />
-              <span className="text-[7px] font-mono text-muted-dark/30 mt-1">
+              <span className="text-[9px] font-mono text-muted-dark mt-1">
                 Add a pipe ( | ) after each sentence to display as bullet points.
               </span>
             </FormField>
@@ -274,7 +274,7 @@ export function TeamMemberDrawer({
 
           {/* Settings */}
           <div className="flex flex-col gap-3">
-            <span className="flex items-center gap-2 text-[7px] font-mono uppercase tracking-widest text-primary-dark">
+            <span className="flex items-center gap-2 text-[9px] font-mono uppercase tracking-widest text-primary-dark">
               <span className="w-4 h-px bg-primary-dark" />
               Settings
             </span>

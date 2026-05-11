@@ -40,19 +40,19 @@ interface TableSearchProps {
 export function TableSearch({ value, onChange, placeholder = 'Search...' }: TableSearchProps) {
   return (
     <div className="flex items-center gap-2 border border-border-dark bg-bg-dark px-2 py-1.5 flex-1 min-w-40 max-w-64">
-      <Search className="w-3 h-3 text-muted-dark/40 shrink-0" aria-hidden="true" />
+      <Search className="w-3 h-3 text-muted-dark/70 shrink-0" aria-hidden="true" />
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="bg-transparent text-[10px] font-mono text-text-dark placeholder:text-muted-dark/30 outline-none w-full"
+        className="bg-transparent text-[11px] font-mono text-text-dark placeholder:text-muted-dark/60 outline-none w-full"
         aria-label={placeholder}
       />
       {value && (
         <button
           onClick={() => onChange('')}
-          className="text-muted-dark/40 hover:text-text-dark transition-colors"
+          className="text-muted-dark/70 hover:text-text-dark transition-colors"
           aria-label="Clear search"
         >
           <X className="w-2.5 h-2.5" />
@@ -83,10 +83,10 @@ export function TableFilterPills({ options, active, onChange, accentColor = 'red
         <button
           key={value}
           onClick={() => onChange(value)}
-          className={`text-[7px] font-mono uppercase tracking-widest px-2 py-1 border transition-colors ${
+          className={`text-[8px] font-mono uppercase tracking-widest px-2 py-1 border transition-colors ${
             active === value
               ? activeClass
-              : 'border-border-dark text-muted-dark/50 hover:text-muted-dark hover:border-muted-dark/30'
+              : 'border-border-dark text-muted-dark/80 hover:text-muted-dark hover:border-muted-dark/30'
           }`}
         >
           {label}
@@ -107,11 +107,11 @@ interface TableEmptyStateProps {
 export function TableEmptyState({ noun = 'results', isFiltered, onClear }: TableEmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center h-40 gap-2">
-      <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/30">No {noun} found</span>
+      <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark/60">No {noun} found</span>
       {isFiltered && (
         <button
           onClick={onClear}
-          className="text-[8px] font-mono uppercase tracking-widest text-primary-dark hover:text-blaze-text transition-colors"
+          className="text-[9px] font-mono uppercase tracking-widest text-primary-dark hover:text-blaze-text transition-colors"
         >
           Clear filters &rarr;
         </button>
@@ -181,16 +181,16 @@ export function TableShell({
           <div className="flex items-center gap-2 760:gap-3 min-w-0 flex-1 overflow-hidden">
             <Link
               href={backHref}
-              className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80 hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark shrink-0"
+              className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/80 hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark shrink-0"
             >
               ←<span className="hidden 480:inline"> {backHref.split('/').pop()}</span>
             </Link>
             <div className="w-px h-3 bg-border-dark shrink-0" aria-hidden="true" />
-            <span className="text-[8px] 760:text-[9px] font-mono text-muted-dark/70 uppercase tracking-widest shrink-0 truncate">
+            <span className="text-[9px] 760:text-[10px] font-mono text-muted-dark/70 uppercase tracking-widest shrink-0 truncate">
               [ {label} ]
             </span>
             <div className="w-px h-3 bg-border-dark shrink-0 hidden 480:block" aria-hidden="true" />
-            <span className="text-[9px] font-mono text-muted-dark hidden 480:block shrink-0">{count} total</span>
+            <span className="text-[10px] font-mono text-muted-dark hidden 480:block shrink-0">{count} total</span>
 
             {/* Pills — inline on 760+ */}
             {pills.length > 0 && (
@@ -207,7 +207,7 @@ export function TableShell({
                         >
                           {value}
                         </span>
-                        <span className="text-[7px] font-mono tracking-[0.12em] uppercase text-muted-dark/50 whitespace-nowrap">
+                        <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
                           {pillLabel}
                         </span>
                       </div>
@@ -230,7 +230,7 @@ export function TableShell({
             <button
               type="button"
               onClick={action.onClick}
-              className="text-[8px] font-mono uppercase tracking-widest px-2 760:px-3 py-1.5 border border-primary-dark/40 text-primary-dark bg-primary-dark/5 hover:bg-primary-dark/10 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark shrink-0"
+              className="text-[9px] font-mono uppercase tracking-widest px-2 760:px-3 py-1.5 border border-primary-dark/40 text-primary-dark bg-primary-dark/5 hover:bg-primary-dark/10 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark shrink-0"
             >
               <span className="hidden 480:inline">{action.label}</span>
               <span className="480:hidden">+</span>
@@ -251,7 +251,7 @@ export function TableShell({
                   >
                     {value}
                   </span>
-                  <span className="text-[7px] font-mono tracking-[0.12em] uppercase text-muted-dark/50 whitespace-nowrap">
+                  <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
                     {pillLabel}
                   </span>
                 </div>
@@ -276,7 +276,7 @@ export function TableShell({
               className="flex whitespace-nowrap"
             >
               {[0, 1, 2, 3, 4, 5].map((i) => (
-                <span key={i} className="text-[8px] font-mono text-muted-dark/90 pr-16">
+                <span key={i} className="text-[9px] font-mono text-muted-dark/90 pr-16">
                   <span className="text-muted-dark/70">▸</span> {marquee}
                   <span className="text-muted-dark/20 mx-4">·</span>
                 </span>
@@ -321,7 +321,7 @@ export function TableShell({
                   key={i}
                   onClick={() => key && toggleSort(key)}
                   disabled={!key}
-                  className={`flex items-center gap-1 text-[7px] font-mono uppercase tracking-widest text-muted-dark ${
+                  className={`flex items-center gap-1 text-[8px] font-mono uppercase tracking-widest text-muted-dark ${
                     key ? 'hover:text-muted-dark transition-colors cursor-pointer' : 'cursor-default'
                   } ${alignRight ? 'justify-end' : ''}`}
                 >
@@ -341,7 +341,7 @@ export function TableShell({
       <div className="shrink-0 flex items-center justify-between px-4 py-2 border-t border-border-dark bg-surface-dark">
         <Link
           href={backHref}
-          className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/40 hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark"
+          className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark"
         >
           &larr; {backHref.split('/').pop()}
         </Link>
@@ -352,7 +352,7 @@ export function TableShell({
               <div className="w-px h-3 bg-border-dark" aria-hidden="true" />
             </>
           )}
-          <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/30">
+          <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">
             {filteredCount} of {totalCount}
           </span>
         </div>

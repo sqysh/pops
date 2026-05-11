@@ -21,8 +21,8 @@ export function TestimonialRow({
     >
       {/* Author */}
       <div className="min-w-0">
-        <span className="text-[11px] font-mono text-text-dark truncate block">{testimonial.author}</span>
-        <span className="text-[8px] font-mono text-muted-dark/40 truncate block">
+        <span className="text-[12px] font-mono text-text-dark truncate block">{testimonial.author}</span>
+        <span className="text-[9px] font-mono text-muted-dark/70 truncate block">
           {new Date(testimonial.createdAt).toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',
@@ -32,18 +32,18 @@ export function TestimonialRow({
       </div>
 
       {/* Quote */}
-      <span className="text-[9px] font-mono text-muted-dark/60 truncate italic">&quot;{testimonial.quote}&quot;</span>
+      <span className="text-[10px] font-mono text-muted-dark/80 truncate italic">&quot;{testimonial.quote}&quot;</span>
 
       {/* Title */}
-      <span className="text-[9px] font-mono text-muted-dark/50 truncate">{testimonial.title || '—'}</span>
+      <span className="text-[10px] font-mono text-muted-dark/80 truncate">{testimonial.title || '—'}</span>
 
       {/* Status */}
       <div className="flex justify-end">
         <span
-          className={`text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${
+          className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${
             testimonial.isPublished
               ? 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
-              : 'text-muted-dark/40 border-border-dark'
+              : 'text-muted-dark/70 border-border-dark'
           }`}
         >
           {testimonial.isPublished ? 'Live' : 'Draft'}

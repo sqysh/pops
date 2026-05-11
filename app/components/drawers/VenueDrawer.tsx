@@ -148,7 +148,7 @@ export function VenueDrawer({ open, onClose, venue }: { open: boolean; onClose: 
                 id="venue-city"
                 value={form.city}
                 onChange={(e) => setForm((f) => ({ ...f, city: e.target.value }))}
-                className="bg-surface-dark border border-border-dark px-3 py-2 text-[11px] font-mono text-text-dark outline-none focus:border-muted-dark/40 transition-colors w-full appearance-none cursor-pointer"
+                className="bg-surface-dark border border-border-dark px-3 py-2 text-[12px] font-mono text-text-dark outline-none focus:border-muted-dark/40 transition-colors w-full appearance-none cursor-pointer"
               >
                 <option value="" disabled className="bg-bg-dark">
                   Select city...

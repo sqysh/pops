@@ -22,7 +22,7 @@ export function NewsListItem({ article, i, handleSelect, selected, isNew }) {
           <Picture priority src={article.imageUrl} alt="" className="w-full h-full object-cover" />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <Newspaper className="w-4 h-4 text-muted-dark/30" aria-hidden="true" />
+            <Newspaper className="w-4 h-4 text-muted-dark/60" aria-hidden="true" />
           </div>
         )}
       </div>
@@ -34,17 +34,17 @@ export function NewsListItem({ article, i, handleSelect, selected, isNew }) {
             {article.title}
           </p>
           <span
-            className={`text-[8px] font-mono uppercase shrink-0 ${
-              article.isPublished ? 'text-emerald-400' : 'text-muted-dark/40'
+            className={`text-[9px] font-mono uppercase shrink-0 ${
+              article.isPublished ? 'text-emerald-400' : 'text-muted-dark/70'
             }`}
           >
             {article.isPublished ? 'Live' : 'Draft'}
           </span>
         </div>
         {article.excerpt && (
-          <p className="text-muted-dark/60 text-[10px] leading-relaxed line-clamp-2">{article.excerpt}</p>
+          <p className="text-muted-dark/80 text-[11px] leading-relaxed line-clamp-2">{article.excerpt}</p>
         )}
-        <p className="text-muted-dark/40 text-[9px] font-mono mt-1">
+        <p className="text-muted-dark/70 text-[10px] font-mono mt-1">
           {new Date(article.createdAt).toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',

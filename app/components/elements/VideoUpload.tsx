@@ -42,7 +42,7 @@ export function VideoUpload({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/50">{label}</span>
+      <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/80">{label}</span>
       <div
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
@@ -76,8 +76,8 @@ export function VideoUpload({
           </>
         ) : (
           <>
-            <Upload className="w-4 h-4 text-muted-dark/30 group-hover:text-muted-dark/60 transition-colors" />
-            <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/30 group-hover:text-muted-dark/50 transition-colors">
+            <Upload className="w-4 h-4 text-muted-dark/60 group-hover:text-muted-dark/80 transition-colors" />
+            <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60 group-hover:text-muted-dark/80 transition-colors">
               Drop or click to upload {label.toLowerCase()}
             </span>
           </>
@@ -91,7 +91,7 @@ export function VideoUpload({
                 style={{ width: `${uploadProgress}%` }}
               />
             </div>
-            <span className="text-[8px] font-mono text-primary-dark tabular-nums">{uploadProgress}%</span>
+            <span className="text-[9px] font-mono text-primary-dark tabular-nums">{uploadProgress}%</span>
           </div>
         )}
 
@@ -104,7 +104,7 @@ export function VideoUpload({
           aria-label={`Upload ${label}`}
         />
       </div>
-      {file && <span className="text-[8px] font-mono text-muted-dark/40 truncate">{file.name}</span>}
+      {file && <span className="text-[9px] font-mono text-muted-dark/70 truncate">{file.name}</span>}
     </div>
   )
 }

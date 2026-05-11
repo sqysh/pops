@@ -284,7 +284,7 @@ function SeatDot({
       whileHover={{ scale: 1.7, zIndex: 10 }}
       onMouseEnter={(e) => onHover(seat, e)}
       onMouseLeave={onLeave}
-      className={`w-4.5 h-4.5 text-[7px] flex items-center justify-center rounded-full cursor-pointer border-2 shrink-0 ${colors.bg} ${colors.border}`}
+      className={`w-4.5 h-4.5 text-[8px] flex items-center justify-center rounded-full cursor-pointer border-2 shrink-0 ${colors.bg} ${colors.border}`}
     >
       {seat.number}
     </motion.div>
@@ -319,7 +319,9 @@ export default function OperaHouseMezzAndBalc() {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-6 760:mb-10"
       >
-        <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-primary-dark">Sarasota Opera House</span>
+        <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-primary-dark">
+          Sarasota Opera House
+        </span>
         <h1 className="font-quicksand font-black text-xl 760:text-2xl text-text-dark mt-1">Seatmap</h1>
       </motion.div>
 
@@ -339,12 +341,12 @@ export default function OperaHouseMezzAndBalc() {
               className="fixed z-50 pointer-events-none bg-bg-dark border border-border-dark px-3 py-2 max-w-37.5"
               style={{ left: tooltip.x, top: tooltip.y }}
             >
-              <p className="text-[11px] font-mono text-text-dark">
+              <p className="text-[12px] font-mono text-text-dark">
                 Row {tooltip.seat.row} · Seat {tooltip.seat.number}
               </p>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <div className={`w-2 h-2 rounded-full shrink-0 ${TIER_COLORS[tooltip.seat.tier].bg}`} />
-                <span className="text-[10px] font-mono text-muted-dark">{TIER_COLORS[tooltip.seat.tier].label}</span>
+                <span className="text-[11px] font-mono text-muted-dark">{TIER_COLORS[tooltip.seat.tier].label}</span>
               </div>
             </motion.div>
           )}
@@ -358,7 +360,7 @@ export default function OperaHouseMezzAndBalc() {
             className={`flex items-center gap-0.5 760:gap-1 ${row.label === 'CC' ? 'mt-10 760:mt-14' : ''}`}
           >
             {/* Left label */}
-            <span className="text-[7px] 760:text-[8px] font-mono text-muted-dark/40 w-5 760:w-6 text-right shrink-0">
+            <span className="text-[8px] 760:text-[9px] font-mono text-muted-dark/70 w-5 760:w-6 text-right shrink-0">
               {row.label}
             </span>
 
@@ -440,7 +442,7 @@ export default function OperaHouseMezzAndBalc() {
             </div>
 
             {/* Right label */}
-            <span className="text-[7px] 760:text-[8px] font-mono text-muted-dark/40 w-5 760:w-6 shrink-0">
+            <span className="text-[8px] 760:text-[9px] font-mono text-muted-dark/70 w-5 760:w-6 shrink-0">
               {row.label}
             </span>
           </div>
@@ -454,7 +456,7 @@ export default function OperaHouseMezzAndBalc() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="w-48 760:w-80 h-5 bg-surface-dark border border-border-dark flex items-center justify-center mt-6 760:mt-10"
       >
-        <span className="text-[8px] font-mono tracking-[0.3em] uppercase text-muted-dark/40">Stage</span>
+        <span className="text-[9px] font-mono tracking-[0.3em] uppercase text-muted-dark/70">Stage</span>
       </motion.div>
 
       {/* Legend */}
@@ -467,7 +469,7 @@ export default function OperaHouseMezzAndBalc() {
         {(Object.entries(TIER_COLORS) as [Tier, (typeof TIER_COLORS)[Tier]][]).map(([tier, colors]) => (
           <div key={tier} className="flex items-center gap-1.5 760:gap-2">
             <div className={`w-2.5 h-2.5 760:w-3 760:h-3 rounded-full ${colors.bg}`} />
-            <span className="text-[9px] 760:text-[10px] font-mono text-muted-dark">{colors.label}</span>
+            <span className="text-[10px] 760:text-[11px] font-mono text-muted-dark">{colors.label}</span>
           </div>
         ))}
       </motion.div>

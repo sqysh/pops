@@ -28,7 +28,7 @@ export function EventsBlock({ events }: EventsBlockProps) {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-              <span className="font-heebo text-[10px] tracking-[0.35em] uppercase text-blaze-text">Calendar</span>
+              <span className="font-heebo text-[11px] tracking-[0.35em] uppercase text-blaze-text">Calendar</span>
             </div>
             <h2
               id="events-heading"
@@ -64,7 +64,7 @@ export function EventsBlock({ events }: EventsBlockProps) {
                 {/* Date block */}
                 <div className="flex sm:flex-col items-center sm:items-start gap-3 sm:gap-0">
                   <div className="flex flex-col items-center justify-center w-16 h-16 border border-white/10 group-hover:border-blaze transition-colors shrink-0">
-                    <span className="font-heebo text-[9px] tracking-[0.2em] uppercase text-blaze-text leading-none mb-1">
+                    <span className="font-heebo text-[10px] tracking-[0.2em] uppercase text-blaze-text leading-none mb-1">
                       {new Date(event.date).toLocaleDateString('en-US', { month: 'short' })}
                     </span>
                     <span className="font-c-infant font-bold text-white text-2xl leading-none">

@@ -40,7 +40,7 @@ export function LeftColumn({
         <div className="px-3 py-2 border-b border-border-dark/50 sticky top-0 bg-bg-dark z-10">
           <div className="relative">
             <Search
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-dark/40 pointer-events-none"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-dark/70 pointer-events-none"
               aria-hidden="true"
             />
             <input
@@ -48,13 +48,13 @@ export function LeftColumn({
               value={teamSearch}
               onChange={(e) => setTeamSearch(e.target.value)}
               placeholder="Search team..."
-              className="w-full pl-7 pr-3 py-1.5 bg-surface-dark border border-border-dark text-text-dark text-[11px] placeholder:text-muted-dark/30 focus:outline-none focus:border-primary-dark transition-colors"
+              className="w-full pl-7 pr-3 py-1.5 bg-surface-dark border border-border-dark text-text-dark text-[12px] placeholder:text-muted-dark/60 focus:outline-none focus:border-primary-dark transition-colors"
             />
             {teamSearch && (
               <button
                 type="button"
                 onClick={() => setTeamSearch('')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-dark/40 hover:text-text-dark transition-colors"
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-dark/70 hover:text-text-dark transition-colors"
                 aria-label="Clear search"
               >
                 <X className="w-3 h-3" />
@@ -67,10 +67,10 @@ export function LeftColumn({
         ) : (
           filteredTeamMembers.map((m) => (
             <Row key={m.id} href={`/v2/team/${m.id}/edit`}>
-              <p className="text-text-dark text-[11px] font-medium truncate">
+              <p className="text-text-dark text-[12px] font-medium truncate">
                 {m.firstName} {m.lastName}
               </p>
-              <span className="text-muted-dark text-[9px] shrink-0 truncate max-w-14">{m.position}</span>
+              <span className="text-muted-dark text-[10px] shrink-0 truncate max-w-14">{m.position}</span>
             </Row>
           ))
         )}
@@ -90,7 +90,7 @@ export function LeftColumn({
         ) : (
           pages.map((p) => (
             <Row key={p.id} href={`/v2/page-content-editor?slug=${p.slug}`}>
-              <p className="text-text-dark text-[11px] font-medium truncate capitalize">{p.slug}</p>
+              <p className="text-text-dark text-[12px] font-medium truncate capitalize">{p.slug}</p>
             </Row>
           ))
         )}
@@ -110,8 +110,8 @@ export function LeftColumn({
         ) : (
           venues.map((v) => (
             <Row key={v.id} href={`/v2/venues/${v.id}/edit`}>
-              <p className="text-text-dark text-[11px] font-medium truncate">{v.name}</p>
-              {v.capacity && <span className="text-muted-dark text-[9px] shrink-0">Cap. {v.capacity}</span>}
+              <p className="text-text-dark text-[12px] font-medium truncate">{v.name}</p>
+              {v.capacity && <span className="text-muted-dark text-[10px] shrink-0">Cap. {v.capacity}</span>}
             </Row>
           ))
         )}
@@ -129,7 +129,7 @@ export function LeftColumn({
       >
         {customRequests.length === 0 ? (
           <div className="px-3 py-4 text-center">
-            <p className="text-muted-dark/50 text-[10px]">No requests yet.</p>
+            <p className="text-muted-dark/80 text-[11px]">No requests yet.</p>
           </div>
         ) : (
           customRequests.map((r) => (
@@ -139,19 +139,19 @@ export function LeftColumn({
               className="w-full flex items-center justify-between gap-2 px-3 py-2.5 border-b border-border-dark/30 last:border-0 hover:bg-button-dark transition-colors text-left"
             >
               <div className="min-w-0">
-                <p className="text-text-dark text-[11px] font-medium truncate">
+                <p className="text-text-dark text-[12px] font-medium truncate">
                   {r.page} — {r.changeType}
                 </p>
-                <p className="text-muted-dark text-[9px] truncate">{r.what}</p>
+                <p className="text-muted-dark text-[10px] truncate">{r.what}</p>
               </div>
               <span
-                className={`text-[8px] font-mono uppercase shrink-0 ${
+                className={`text-[9px] font-mono uppercase shrink-0 ${
                   r.status === 'COMPLETE'
                     ? 'text-emerald-400'
                     : r.status === 'IN_PROGRESS'
                       ? 'text-yellow-400'
                       : r.status === 'DECLINED'
-                        ? 'text-muted-dark/40'
+                        ? 'text-muted-dark/70'
                         : 'text-primary-dark'
                 }`}
               >

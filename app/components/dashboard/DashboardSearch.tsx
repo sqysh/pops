@@ -34,14 +34,14 @@ export function DashboardSearch({
   return (
     <div className="shrink-0 border-b border-border-dark bg-bg-dark relative z-20">
       <div className="flex items-center gap-3 px-4 py-2.5">
-        <Search className="w-3.5 h-3.5 text-muted-dark/40 shrink-0" aria-hidden="true" />
+        <Search className="w-3.5 h-3.5 text-muted-dark/70 shrink-0" aria-hidden="true" />
         <input
           ref={inputRef}
           type="text"
           value={query}
           onChange={(e) => onSearch(e.target.value)}
           placeholder={`What can I help you find today, ${firstName}?`}
-          className="flex-1 bg-transparent text-[11px] font-mono text-text-dark placeholder:text-muted-dark/30 focus:outline-none"
+          className="flex-1 bg-transparent text-[12px] font-mono text-text-dark placeholder:text-muted-dark/60 focus:outline-none"
         />
         <AnimatePresence>
           {query && (
@@ -50,7 +50,7 @@ export function DashboardSearch({
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               onClick={onClear}
-              className="text-muted-dark/40 hover:text-text-dark transition-colors focus-visible:outline-none"
+              className="text-muted-dark/70 hover:text-text-dark transition-colors focus-visible:outline-none"
               aria-label="Clear search"
             >
               <X className="w-3.5 h-3.5" />
@@ -58,7 +58,7 @@ export function DashboardSearch({
           )}
         </AnimatePresence>
         {query && (
-          <span className="text-[8px] font-mono text-muted-dark/30 shrink-0">
+          <span className="text-[9px] font-mono text-muted-dark/60 shrink-0">
             {results.length} result{results.length !== 1 ? 's' : ''}
           </span>
         )}
@@ -79,13 +79,13 @@ export function DashboardSearch({
               const inner = (
                 <div className="flex items-center gap-3 px-4 py-2.5 hover:bg-surface-dark transition-colors group">
                   <span
-                    className={`text-[7px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 border shrink-0 ${colorCls}`}
+                    className={`text-[8px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 border shrink-0 ${colorCls}`}
                   >
                     {result.type}
                   </span>
-                  <span className="text-[11px] font-mono text-text-dark flex-1 truncate">{result.label}</span>
+                  <span className="text-[12px] font-mono text-text-dark flex-1 truncate">{result.label}</span>
                   {result.sub && (
-                    <span className="text-[9px] font-mono text-muted-dark/40 shrink-0 hidden sm:block truncate max-w-40">
+                    <span className="text-[10px] font-mono text-muted-dark/70 shrink-0 hidden sm:block truncate max-w-40">
                       {result.sub}
                     </span>
                   )}

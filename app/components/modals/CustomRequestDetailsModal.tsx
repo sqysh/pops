@@ -67,7 +67,7 @@ export default function CustomRequestDetailModal({ request, onClose }: Props) {
               </div>
               <div className="flex items-center gap-2 shrink-0 ml-2">
                 <span
-                  className={`text-[9px] font-mono tracking-widest uppercase px-2 py-1 border ${STATUS_STYLES[request.status]}`}
+                  className={`text-[10px] font-mono tracking-widest uppercase px-2 py-1 border ${STATUS_STYLES[request.status]}`}
                 >
                   {request.status.replace('_', ' ')}
                 </span>
@@ -104,7 +104,7 @@ export default function CustomRequestDetailModal({ request, onClose }: Props) {
                   ]
                 ].map(([label, value, color]) => (
                   <div key={label} className="flex gap-4 px-3 py-2.5">
-                    <span className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark w-24 shrink-0 mt-0.5">
+                    <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark w-24 shrink-0 mt-0.5">
                       {label}
                     </span>
                     <span className={`text-sm ${color || 'text-text-dark'}`}>{value}</span>
@@ -114,7 +114,7 @@ export default function CustomRequestDetailModal({ request, onClose }: Props) {
 
               {/* What */}
               <div>
-                <p className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-2">What</p>
+                <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-2">What</p>
                 <p className="text-text-dark text-sm leading-relaxed border-l-2 border-primary-dark pl-3">
                   {request.what}
                 </p>
@@ -122,7 +122,7 @@ export default function CustomRequestDetailModal({ request, onClose }: Props) {
 
               {/* Why */}
               <div>
-                <p className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-2">Why</p>
+                <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-2">Why</p>
                 <p className="text-text-dark text-sm leading-relaxed border-l-2 border-border-dark pl-3">
                   {request.why}
                 </p>
@@ -131,7 +131,7 @@ export default function CustomRequestDetailModal({ request, onClose }: Props) {
               {/* Example */}
               {request.example && (
                 <div>
-                  <p className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-2">
+                  <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-2">
                     Example / Reference
                   </p>
                   <p className="text-muted-dark text-sm leading-relaxed border-l-2 border-border-dark pl-3">

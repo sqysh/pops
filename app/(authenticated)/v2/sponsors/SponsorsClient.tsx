@@ -87,7 +87,7 @@ export function SponsorsClient({ sponsors }: { sponsors: ISponsor[] }) {
         filteredCount={filtered.length}
         totalCount={sponsors.length}
         footerExtra={
-          <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/30 tabular-nums">
+          <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60 tabular-nums">
             {filtered.filter((s) => s.isActive).length} active in view
           </span>
         }

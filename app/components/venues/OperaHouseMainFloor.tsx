@@ -248,7 +248,7 @@ function BoxGrid({
   const bottom = box.seats.slice(Math.ceil(box.seats.length / 2))
   return (
     <div className="flex flex-col items-center gap-0.5 border border-border-dark/30 px-1 py-1">
-      <span className="text-[6px] font-mono text-white leading-none">{box.label}</span>
+      <span className="text-[8px] font-mono text-white leading-none">{box.label}</span>
       <div className="flex gap-0.5">
         {top.map((seat, i) => (
           <SeatDot
@@ -292,7 +292,7 @@ function SeatRowUI({
   const baseDelay = rowIdx * 0.025
   return (
     <div className="flex items-center gap-0.5 justify-center">
-      <span className="text-[6px] font-mono text-white w-3 text-right shrink-0">{row.label}</span>
+      <span className="text-[8px] font-mono text-white w-3 text-right shrink-0">{row.label}</span>
       <div className="flex gap-0.5">
         {row.left.map((seat, i) => (
           <SeatDot
@@ -331,7 +331,7 @@ function SeatRowUI({
           />
         ))}
       </div>
-      <span className="text-[6px] font-mono text-white w-3 shrink-0">{row.label}</span>
+      <span className="text-[8px] font-mono text-white w-3 shrink-0">{row.label}</span>
     </div>
   )
 }
@@ -355,7 +355,9 @@ export default function OperaHouseMainFloor() {
     <div className="bg-black text-text-dark flex flex-col items-center py-6 760:py-8 px-2">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-4 760:mb-6">
-        <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-primary-dark">Sarasota Opera House</span>
+        <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-primary-dark">
+          Sarasota Opera House
+        </span>
         <h1 className="font-quicksand font-black text-xl 760:text-2xl text-text-dark mt-1">Main Floor</h1>
       </motion.div>
 
@@ -373,12 +375,12 @@ export default function OperaHouseMainFloor() {
                 className="fixed z-50 pointer-events-none bg-bg-dark border border-border-dark px-3 py-2"
                 style={{ left: tooltip.x + 14, top: tooltip.y - 56 }}
               >
-                <p className="text-[11px] font-mono text-text-dark">
+                <p className="text-[12px] font-mono text-text-dark">
                   Row {tooltip.row} · Seat {tooltip.seat.number}
                 </p>
                 <div className="flex items-center gap-1.5 mt-0.5">
                   <div className={`w-2 h-2 rounded-full shrink-0 ${TIER_COLORS[tooltip.seat.tier].bg}`} />
-                  <span className="text-[10px] font-mono text-muted-dark">{TIER_COLORS[tooltip.seat.tier].label}</span>
+                  <span className="text-[11px] font-mono text-muted-dark">{TIER_COLORS[tooltip.seat.tier].label}</span>
                 </div>
               </motion.div>
             )}
@@ -444,7 +446,7 @@ export default function OperaHouseMainFloor() {
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="w-80 h-5 bg-surface-dark border border-border-dark flex items-center justify-center mt-10"
               >
-                <span className="text-[8px] font-mono tracking-[0.3em] uppercase text-muted-dark/40">Stage</span>
+                <span className="text-[9px] font-mono tracking-[0.3em] uppercase text-muted-dark/70">Stage</span>
               </motion.div>
             </div>
 
@@ -475,7 +477,7 @@ export default function OperaHouseMainFloor() {
         {(Object.entries(TIER_COLORS) as [Tier, (typeof TIER_COLORS)[Tier]][]).map(([tier, colors]) => (
           <div key={tier} className="flex items-center gap-1.5 760:gap-2">
             <div className={`w-2.5 h-2.5 760:w-3 760:h-3 rounded-full shrink-0 ${colors.bg}`} />
-            <span className="text-[9px] 760:text-[10px] font-mono text-muted-dark">{colors.label}</span>
+            <span className="text-[10px] 760:text-[11px] font-mono text-muted-dark">{colors.label}</span>
           </div>
         ))}
       </motion.div>

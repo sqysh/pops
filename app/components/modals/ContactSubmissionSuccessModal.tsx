@@ -59,7 +59,7 @@ export default function ContactSubmissionSuccessModal() {
             />
 
             <div className="p-8 text-center">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-sunburst mb-1" aria-hidden="true">
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-sunburst mb-1" aria-hidden="true">
                 The Pops Orchestra
               </p>
               <h2 id="success-modal-heading" className="text-2xl font-black text-white mb-2">

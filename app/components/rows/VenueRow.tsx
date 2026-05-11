@@ -25,36 +25,36 @@ export function VenueRow({ venue, index, onEdit }: { venue: IVenue; index: numbe
             priority
           />
         ) : (
-          <MapPin className="w-3.5 h-3.5 text-muted-dark/30" />
+          <MapPin className="w-3.5 h-3.5 text-muted-dark/60" />
         )}
       </div>
 
       {/* Name */}
       <div className="min-w-0">
-        <span className="text-[11px] font-mono text-text-dark truncate block">{venue.name}</span>
-        <span className="text-[8px] font-mono text-muted-dark/40 truncate block">
+        <span className="text-[12px] font-mono text-text-dark truncate block">{venue.name}</span>
+        <span className="text-[9px] font-mono text-muted-dark/70 truncate block">
           {new Date(venue.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
         </span>
       </div>
 
       {/* City */}
-      <span className="text-[10px] font-mono text-text-dark/70 truncate">
-        {venue.city || <span className="text-muted-dark/30">—</span>}
+      <span className="text-[11px] font-mono text-text-dark/70 truncate">
+        {venue.city || <span className="text-muted-dark/60">—</span>}
       </span>
 
       {/* Address */}
-      <span className="text-[10px] font-mono text-muted-dark/60 truncate">
-        {venue.address || <span className="text-muted-dark/30">—</span>}
+      <span className="text-[11px] font-mono text-muted-dark/80 truncate">
+        {venue.address || <span className="text-muted-dark/60">—</span>}
       </span>
 
       {/* Capacity */}
-      <span className="text-[10px] font-mono tabular-nums text-text-dark/70">
-        {venue.capacity || <span className="text-muted-dark/30">—</span>}
+      <span className="text-[11px] font-mono tabular-nums text-text-dark/70">
+        {venue.capacity || <span className="text-muted-dark/60">—</span>}
       </span>
 
       {/* Arrow */}
       <div className="flex justify-end">
-        <span className="text-[8px] font-mono text-muted-dark/20 group-hover:text-muted-dark/50 transition-colors">
+        <span className="text-[9px] font-mono text-muted-dark/20 group-hover:text-muted-dark/80 transition-colors">
           →
         </span>
       </div>

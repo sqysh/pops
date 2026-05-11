@@ -132,7 +132,7 @@ export default function NewsDetailsClient({ article }: Props) {
             <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
             All News
           </Link>
-          <p className="font-heebo text-[10px] uppercase tracking-widest text-white/40">The Pops Orchestra</p>
+          <p className="font-heebo text-[11px] uppercase tracking-widest text-white/40">The Pops Orchestra</p>
         </motion.div>
       </div>
     </div>

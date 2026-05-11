@@ -76,25 +76,25 @@ export function QuestionDrawer({
             <div className="flex flex-col gap-3 pb-4 border-b border-border-dark">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex flex-col gap-1">
-                  <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/50">From</span>
-                  <span className="text-[11px] font-mono text-text-dark">{question.name}</span>
+                  <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80">From</span>
+                  <span className="text-[12px] font-mono text-text-dark">{question.name}</span>
                   <a
                     href={`mailto:${question.email}`}
-                    className="text-[10px] font-mono text-primary-dark hover:text-blaze-text transition-colors"
+                    className="text-[11px] font-mono text-primary-dark hover:text-blaze-text transition-colors"
                   >
                     {question.email}
                   </a>
                 </div>
                 <div className="flex flex-col items-end gap-1 shrink-0">
-                  <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/50">Received</span>
-                  <span className="text-[9px] font-mono text-muted-dark/60 tabular-nums">
+                  <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80">Received</span>
+                  <span className="text-[10px] font-mono text-muted-dark/80 tabular-nums">
                     {new Date(question.createdAt).toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',
                       year: 'numeric'
                     })}
                   </span>
-                  <span className="text-[9px] font-mono text-muted-dark/40 tabular-nums">
+                  <span className="text-[10px] font-mono text-muted-dark/70 tabular-nums">
                     {new Date(question.createdAt).toLocaleTimeString('en-US', {
                       hour: 'numeric',
                       minute: '2-digit'
@@ -106,7 +106,7 @@ export function QuestionDrawer({
               {/* Status badge */}
               <div className="flex items-center gap-2">
                 <span
-                  className={`text-[7px] font-mono uppercase tracking-widest px-2 py-1 border ${
+                  className={`text-[8px] font-mono uppercase tracking-widest px-2 py-1 border ${
                     question.hasResponded
                       ? 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
                       : 'text-amber-400 border-amber-400/30 bg-amber-400/5'
@@ -119,9 +119,9 @@ export function QuestionDrawer({
 
             {/* Original message */}
             <div className="flex flex-col gap-2">
-              <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/50">Message</span>
+              <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80">Message</span>
               <div className="bg-surface-dark border border-border-dark px-3 py-3">
-                <p className="text-[11px] font-mono text-text-dark/80 leading-relaxed whitespace-pre-wrap">
+                <p className="text-[12px] font-mono text-text-dark leading-relaxed whitespace-pre-wrap">
                   {question.message}
                 </p>
               </div>
@@ -130,10 +130,10 @@ export function QuestionDrawer({
             {question.replyMessage ? (
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/50">
+                  <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80">
                     Previous Reply Sent
                   </span>
-                  <span className="text-[7px] font-mono text-muted-dark/40 tabular-nums">
+                  <span className="text-[8px] font-mono text-muted-dark/70 tabular-nums">
                     {new Date(question.updatedAt).toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',
@@ -146,7 +146,7 @@ export function QuestionDrawer({
                   </span>
                 </div>
                 <div className="bg-surface-dark border border-emerald-400/20 px-3 py-3">
-                  <p className="text-[11px] font-mono text-text-dark/60 leading-relaxed whitespace-pre-wrap">
+                  <p className="text-[12px] font-mono text-text-dark/90 leading-relaxed whitespace-pre-wrap">
                     {question.replyMessage}
                   </p>
                 </div>
@@ -170,7 +170,7 @@ export function QuestionDrawer({
 
             {emailFailed && (
               <div className="border border-amber-400/30 bg-amber-400/5 px-3 py-2">
-                <span className="text-[9px] font-mono text-amber-400">
+                <span className="text-[10px] font-mono text-amber-400">
                   Reply saved but email failed to send. The response has been recorded.
                 </span>
               </div>
@@ -191,7 +191,7 @@ export function QuestionDrawer({
               <button
                 type="button"
                 onClick={onClose}
-                className="text-[8px] font-mono uppercase tracking-widest px-3 py-1.5 border border-border-dark text-muted-dark/50 hover:text-text-dark hover:border-muted-dark/30 transition-colors"
+                className="text-[9px] font-mono uppercase tracking-widest px-3 py-1.5 border border-border-dark text-muted-dark/80 hover:text-text-dark hover:border-muted-dark/30 transition-colors"
               >
                 Close
               </button>

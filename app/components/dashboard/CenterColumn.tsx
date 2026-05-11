@@ -14,15 +14,15 @@ export function CenterColumn({ concerts }) {
       <div className="shrink-0 flex items-center justify-between px-4 py-2.5 border-b border-border-dark bg-bg-dark">
         <div className="flex items-center gap-2">
           <Music2 className="w-3.5 h-3.5 text-primary-dark" />
-          <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark">Concerts</span>
-          <span className="text-[9px] font-mono text-muted-dark/40">({concerts.length})</span>
+          <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark">Concerts</span>
+          <span className="text-[10px] font-mono text-muted-dark/70">({concerts.length})</span>
         </div>
         <div className="flex items-center gap-2">
           <a
             href="https://app.getcuebox.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors"
+            className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors"
           >
             CueBox ↗
           </a>
@@ -51,7 +51,7 @@ export function CenterColumn({ concerts }) {
                   <p className="text-text-dark text-sm font-medium truncate">{c.name}</p>
                   <div className="flex items-center gap-2 mt-0.5">
                     {/* CueBox status */}
-                    <span className="font-mono text-[9px] tracking-widest uppercase text-muted-dark/50">
+                    <span className="font-mono text-[10px] tracking-widest uppercase text-muted-dark/80">
                       {c.status.replace('_', ' ')}
                     </span>
                     {/* Visibility dot */}
@@ -59,7 +59,7 @@ export function CenterColumn({ concerts }) {
                       className={`w-1.5 h-1.5 rounded-full ${c.isVisibleOnline ? 'bg-emerald-400' : 'bg-border-dark'}`}
                       title={c.isVisibleOnline ? 'Visible online' : 'Hidden online'}
                     />
-                    <span className="font-mono text-[9px] text-muted-dark/40">
+                    <span className="font-mono text-[10px] text-muted-dark/70">
                       {c.isVisibleOnline ? 'visible' : 'hidden'}
                     </span>
                   </div>
@@ -88,11 +88,11 @@ export function CenterColumn({ concerts }) {
         <div className="flex items-center justify-between px-4 py-2.5 border-b border-border-dark bg-bg-dark">
           <div className="flex items-center gap-2">
             <Plug className="w-3.5 h-3.5 text-primary-dark" />
-            <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark">CueBox API</span>
-            <span className="text-[9px] font-mono text-muted-dark/40">api.getcuebox.com/external/v1</span>
+            <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark">CueBox API</span>
+            <span className="text-[10px] font-mono text-muted-dark/70">api.getcuebox.com/external/v1</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1 text-[9px] font-mono text-muted-dark/40">
+            <span className="flex items-center gap-1 text-[10px] font-mono text-muted-dark/70">
               <KeyRound className="w-2.5 h-2.5" />
               BearerAuth
             </span>
@@ -101,7 +101,7 @@ export function CenterColumn({ concerts }) {
               href="https://docs.getcuebox.com/docs/external/cuebox-external-api"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors"
+              className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors"
             >
               Docs ↗
             </a>
@@ -155,20 +155,20 @@ export function CenterColumn({ concerts }) {
               className="flex items-center gap-3 px-4 py-2.5 hover:bg-surface-dark transition-colors group"
             >
               {/* Method badge */}
-              <span className="text-[8px] font-mono tracking-[0.12em] uppercase w-8 shrink-0 text-emerald-400 mt-0.5">
+              <span className="text-[9px] font-mono tracking-[0.12em] uppercase w-8 shrink-0 text-emerald-400 mt-0.5">
                 {method}
               </span>
 
               {/* Path + note stacked */}
               <div className="flex-1 min-w-0">
-                <code className="text-[10px] font-mono text-muted-dark/60 group-hover:text-text-dark transition-colors block truncate">
+                <code className="text-[11px] font-mono text-muted-dark/80 group-hover:text-text-dark transition-colors block truncate">
                   {path}
                 </code>
-                {note && <span className="text-[9px] font-mono text-muted-dark/30 mt-0.5 block truncate">{note}</span>}
+                {note && <span className="text-[10px] font-mono text-muted-dark/60 mt-0.5 block truncate">{note}</span>}
               </div>
 
               {/* Label */}
-              <span className="text-[9px] font-mono text-muted-dark/40 shrink-0 hidden sm:block truncate max-w-40 mt-0.5">
+              <span className="text-[10px] font-mono text-muted-dark/70 shrink-0 hidden sm:block truncate max-w-40 mt-0.5">
                 {label}
               </span>
 

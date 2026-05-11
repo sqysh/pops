@@ -53,8 +53,8 @@ export function CreateAdminDrawer({ open, onClose }: { open: boolean; onClose: (
           <div className="flex items-center gap-2 py-2 border border-border-dark bg-surface-dark px-3">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
             <div className="flex flex-col gap-0.5">
-              <span className="text-[9px] font-mono text-text-dark uppercase tracking-widest">Admin Role</span>
-              <span className="text-[8px] font-mono text-muted-dark/50">
+              <span className="text-[10px] font-mono text-text-dark uppercase tracking-widest">Admin Role</span>
+              <span className="text-[9px] font-mono text-muted-dark/80">
                 User will receive an email to verify their account
               </span>
             </div>

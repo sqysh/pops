@@ -14,7 +14,7 @@ export function DashMarquees() {
           className="flex whitespace-nowrap"
         >
           {[0, 1, 2, 3, 4, 5].map((i) => (
-            <span key={i} className="text-[8px] font-mono text-blue-400/70 pr-16">
+            <span key={i} className="text-[9px] font-mono text-blue-400/70 pr-16">
               <span className="text-blue-400">● ADMIN ONLY —</span> Concert preview at{' '}
               <Link
                 href="/concerts-test"
@@ -46,7 +46,7 @@ export function DashMarquees() {
           className="flex whitespace-nowrap"
         >
           {[0, 1, 2, 3].map((i) => (
-            <span key={i} className="text-[8px] font-mono text-purple-400/70 pr-16">
+            <span key={i} className="text-[9px] font-mono text-purple-400/70 pr-16">
               <span className="text-purple-400">⚑ JUNE 22 —</span> Season subscription button goes live ·{' '}
               <a
                 href="https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions"
@@ -73,7 +73,7 @@ export function DashMarquees() {
           className="flex whitespace-nowrap"
         >
           {[0, 1, 2, 3, 4, 5].map((i) => (
-            <span key={i} className="text-[8px] font-mono text-lime-400/70 pr-16">
+            <span key={i} className="text-[9px] font-mono text-lime-400/70 pr-16">
               <span className="text-lime-400">● DONATIONS PAGE LIVE —</span> 5 funds linking directly to CueBox
               campaigns
               <span className="text-lime-500/50 mx-4">·</span>

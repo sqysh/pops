@@ -69,7 +69,7 @@ function ConcertCard({
         {/* Season eyebrow */}
         <div className="flex items-center gap-3 mb-5">
           <div className="w-6 h-px bg-blaze shrink-0" aria-hidden="true" />
-          <p className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/40">2026–27 Season</p>
+          <p className="font-changa text-[11px] uppercase tracking-[0.3em] text-white/40">2026–27 Season</p>
         </div>
 
         {/* Concert name */}
@@ -87,7 +87,7 @@ function ConcertCard({
           <div className="flex flex-col gap-3 mb-8">
             <div className="flex items-center gap-2 mb-1">
               <Calendar className="w-4 h-4 text-blaze shrink-0" aria-hidden="true" />
-              <p className="font-changa text-[10px] uppercase tracking-[0.25em] text-white/40">Performances</p>
+              <p className="font-changa text-[11px] uppercase tracking-[0.25em] text-white/40">Performances</p>
             </div>
             {instances.map((inst) => (
               <div
@@ -121,7 +121,7 @@ function ConcertCard({
             <ExternalLink className="w-4 h-4 shrink-0" aria-hidden="true" />
           </a>
         ) : (
-          <p className="font-changa text-[10px] uppercase tracking-[0.25em] text-white/30">Tickets not yet on sale</p>
+          <p className="font-changa text-[11px] uppercase tracking-[0.25em] text-white/30">Tickets not yet on sale</p>
         )}
       </div>
     </motion.article>
@@ -156,7 +156,7 @@ export default function ConcertsTestClient({ events, instances }: Props) {
           <div>
             <div className="flex items-center gap-3 mb-1">
               <div className="w-6 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <p className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/40">The Pops Orchestra</p>
+              <p className="font-changa text-[11px] uppercase tracking-[0.3em] text-white/40">The Pops Orchestra</p>
             </div>
             <h1 className="font-changa text-2xl 430:text-3xl text-white leading-none">2026–27 Season Concerts</h1>
           </div>
@@ -164,13 +164,13 @@ export default function ConcertsTestClient({ events, instances }: Props) {
           <div className="flex items-center gap-4 shrink-0">
             <Link
               href="/v2/dashboard"
-              className="font-changa text-[10px] uppercase tracking-widest text-white/40 hover:text-white transition-colors"
+              className="font-changa text-[11px] uppercase tracking-widest text-white/40 hover:text-white transition-colors"
             >
               Dashboard
             </Link>
             <Link
               href="/"
-              className="font-changa text-[10px] uppercase tracking-widest text-white/40 hover:text-white transition-colors"
+              className="font-changa text-[11px] uppercase tracking-widest text-white/40 hover:text-white transition-colors"
             >
               Home
             </Link>

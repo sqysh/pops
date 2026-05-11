@@ -15,14 +15,14 @@ export function InquiriesCard({ pending, responded, href }: Props) {
       <div className="bg-surface-dark border border-border-dark flex flex-col h-full hover:border-white/10 transition-colors overflow-hidden">
         {/* Header */}
         <div className="shrink-0 flex items-center justify-between px-3 py-2 border-b border-border-dark">
-          <span className="text-[8px] font-mono tracking-[0.2em] uppercase text-muted-dark">[ INQUIRIES ]</span>
+          <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark">[ INQUIRIES ]</span>
           {pending === 0 ? (
-            <span className="text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-emerald-400 border-emerald-400/30 bg-emerald-400/5 flex items-center gap-1">
+            <span className="text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-emerald-400 border-emerald-400/30 bg-emerald-400/5 flex items-center gap-1">
               <span className="w-1 h-1 rounded-full bg-emerald-400 shrink-0" aria-hidden="true" />
               All Clear
             </span>
           ) : (
-            <span className="text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-amber-400 border-amber-400/30 bg-amber-400/5 flex items-center gap-1">
+            <span className="text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-amber-400 border-amber-400/30 bg-amber-400/5 flex items-center gap-1">
               <span className="w-1 h-1 rounded-full bg-amber-400 shrink-0" aria-hidden="true" />
               {pending} pending
             </span>
@@ -38,7 +38,7 @@ export function InquiriesCard({ pending, responded, href }: Props) {
               className="flex whitespace-nowrap"
             >
               {[0, 1, 2, 3, 4, 5].map((i) => (
-                <span key={i} className="text-[7px] font-mono text-amber-400/60 pr-8">
+                <span key={i} className="text-[8px] font-mono text-amber-400/60 pr-8">
                   <span className="text-amber-400">●</span> {pending} inquiry{pending !== 1 ? 'ies' : 'y'} awaiting
                   response
                   <span className="text-amber-400/30 mx-3">·</span>
@@ -56,11 +56,11 @@ export function InquiriesCard({ pending, responded, href }: Props) {
             >
               {pending}
             </span>
-            <span className="text-[6px] font-mono uppercase tracking-widest text-muted-dark/40">Pending</span>
+            <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/70">Pending</span>
           </div>
           <div className="flex-1 flex flex-col items-center justify-center gap-0.5 py-1 min-w-0">
             <span className="font-mono font-bold tabular-nums leading-none text-xl text-text-dark">{responded}</span>
-            <span className="text-[6px] font-mono uppercase tracking-widest text-muted-dark/40">Responded</span>
+            <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/70">Responded</span>
           </div>
         </div>
       </div>

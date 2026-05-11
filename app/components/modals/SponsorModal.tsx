@@ -170,7 +170,7 @@ export default function SponsorModal({ sponsor, onClose }: Props) {
                     />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                       <Upload className="w-4 h-4 text-white" aria-hidden="true" />
-                      <span className="text-white text-[10px] font-mono">Replace</span>
+                      <span className="text-white text-[11px] font-mono">Replace</span>
                     </div>
                   </div>
                 ) : (
@@ -179,10 +179,10 @@ export default function SponsorModal({ sponsor, onClose }: Props) {
                       className="w-6 h-6 text-muted-dark group-hover:text-primary-dark transition-colors"
                       aria-hidden="true"
                     />
-                    <span className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark group-hover:text-text-dark transition-colors">
+                    <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark group-hover:text-text-dark transition-colors">
                       Upload Logo
                     </span>
-                    <span className="text-[9px] font-mono text-muted-dark/40">PNG, JPG, SVG — up to 10MB</span>
+                    <span className="text-[10px] font-mono text-muted-dark/70">PNG, JPG, SVG — up to 10MB</span>
                   </div>
                 )}
               </button>
@@ -204,7 +204,7 @@ export default function SponsorModal({ sponsor, onClose }: Props) {
                       style={{ width: `${uploadProgress}%` }}
                     />
                   </div>
-                  <p className="text-[9px] font-mono text-muted-dark mt-1">
+                  <p className="text-[10px] font-mono text-muted-dark mt-1">
                     Uploading... {Math.round(uploadProgress)}%
                   </p>
                 </div>
@@ -246,7 +246,7 @@ export default function SponsorModal({ sponsor, onClose }: Props) {
                       setShowCustomLevel(false)
                       setCustomLevel('')
                     }}
-                    className="px-3 border border-border-dark text-muted-dark hover:text-text-dark text-[9px] font-mono uppercase tracking-widest transition-colors focus-visible:outline-none"
+                    className="px-3 border border-border-dark text-muted-dark hover:text-text-dark text-[10px] font-mono uppercase tracking-widest transition-colors focus-visible:outline-none"
                   >
                     Cancel
                   </button>
@@ -259,7 +259,7 @@ export default function SponsorModal({ sponsor, onClose }: Props) {
                         key={level}
                         type="button"
                         onClick={() => set('level', level)}
-                        className={`px-3 py-2 text-left text-[10px] font-mono tracking-widest uppercase border transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark ${
+                        className={`px-3 py-2 text-left text-[11px] font-mono tracking-widest uppercase border transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark ${
                           form.level === level
                             ? 'border-primary-dark bg-primary-dark/10 text-text-dark'
                             : 'border-border-dark text-muted-dark hover:border-muted-dark hover:bg-button-dark'
@@ -275,7 +275,7 @@ export default function SponsorModal({ sponsor, onClose }: Props) {
                       setShowCustomLevel(true)
                       set('level', '')
                     }}
-                    className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark/50 hover:text-primary-dark transition-colors focus-visible:outline-none"
+                    className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark/80 hover:text-primary-dark transition-colors focus-visible:outline-none"
                   >
                     + Custom level
                   </button>
@@ -328,7 +328,7 @@ export default function SponsorModal({ sponsor, onClose }: Props) {
             <div className="flex items-center justify-between px-3 py-2.5 border border-border-dark bg-bg-dark">
               <div>
                 <p className="text-text-dark text-xs font-medium">Active</p>
-                <p className="text-muted-dark text-[10px] mt-0.5">Show on public site</p>
+                <p className="text-muted-dark text-[11px] mt-0.5">Show on public site</p>
               </div>
               <button
                 type="button"

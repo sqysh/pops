@@ -24,7 +24,7 @@ export function ModelSection<T extends { id: string }>({
             key={item.id}
             className="flex items-center justify-between gap-2 p-2 bg-bg-dark hover:bg-bg-dark/50 transition-colors"
           >
-            <p className="text-[10px] text-text-dark truncate flex-1">{renderItem(item)}</p>
+            <p className="text-[11px] text-text-dark truncate flex-1">{renderItem(item)}</p>
             <button
               onClick={() => onDelete(item.id)}
               disabled={loading === item.id}

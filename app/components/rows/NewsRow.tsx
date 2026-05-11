@@ -18,31 +18,31 @@ export function NewsRow({ news, index, onEdit }: { news: News; index: number; on
         {news.imageUrl ? (
           <Picture src={news.imageUrl} alt={news.title} width={40} height={40} className="object-cover w-full h-full" />
         ) : (
-          <span className="text-[7px] font-mono text-muted-dark/30 uppercase">IMG</span>
+          <span className="text-[8px] font-mono text-muted-dark/60 uppercase">IMG</span>
         )}
       </div>
 
       {/* Title */}
       <div className="min-w-0">
-        <span className="text-[11px] font-mono text-text-dark truncate block">{news.title}</span>
+        <span className="text-[12px] font-mono text-text-dark truncate block">{news.title}</span>
       </div>
 
       {/* Excerpt */}
-      <span className="text-[9px] font-mono text-muted-dark/60 truncate">{news.excerpt || '—'}</span>
+      <span className="text-[10px] font-mono text-muted-dark/80 truncate">{news.excerpt || '—'}</span>
 
       {/* Date */}
-      <span className="text-[9px] font-mono text-muted-dark/40 tabular-nums">
+      <span className="text-[10px] font-mono text-muted-dark/70 tabular-nums">
         {new Date(news.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
       </span>
 
       {/* Status */}
       <div className="flex justify-end items-center gap-2">
-        {news.externalLink && <ExternalLink className="w-2.5 h-2.5 text-muted-dark/30" />}
+        {news.externalLink && <ExternalLink className="w-2.5 h-2.5 text-muted-dark/60" />}
         <span
-          className={`text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${
+          className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${
             news.isPublished
               ? 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
-              : 'text-muted-dark/40 border-border-dark'
+              : 'text-muted-dark/70 border-border-dark'
           }`}
         >
           {news.isPublished ? 'Live' : 'Draft'}
@@ -51,7 +51,7 @@ export function NewsRow({ news, index, onEdit }: { news: News; index: number; on
 
       {/* Arrow */}
       <div className="flex justify-end">
-        <span className="text-[8px] font-mono text-muted-dark/20 group-hover:text-muted-dark/50 transition-colors">
+        <span className="text-[9px] font-mono text-muted-dark/20 group-hover:text-muted-dark/80 transition-colors">
           →
         </span>
       </div>

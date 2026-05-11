@@ -46,8 +46,8 @@ export const MediaClient = ({ photoGalleryImages }) => {
       {/* ── Photo gallery label ── */}
       <div className="w-full bg-black border-t border-b border-white/10 px-4 990:px-12 xl:px-4 py-4 flex items-center gap-3">
         <div className="w-6 h-px bg-blaze shrink-0" aria-hidden="true" />
-        <h2 className="font-changa text-[10px] uppercase tracking-[0.3em] text-blaze-text">Photo Gallery</h2>
-        <span className="text-[10px] font-mono text-muted-dark/40">({photoGalleryImages?.length ?? 0})</span>
+        <h2 className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text">Photo Gallery</h2>
+        <span className="text-[11px] font-mono text-muted-dark/70">({photoGalleryImages?.length ?? 0})</span>
       </div>
 
       {/* ── Photo grid ── */}
@@ -108,7 +108,7 @@ export const MediaClient = ({ photoGalleryImages }) => {
             </button>
 
             {/* Counter */}
-            <p className="absolute top-4 left-1/2 -translate-x-1/2 z-10 text-white/40 text-[10px] font-mono tracking-[0.2em]">
+            <p className="absolute top-4 left-1/2 -translate-x-1/2 z-10 text-white/40 text-[11px] font-mono tracking-[0.2em]">
               {lightboxIndex + 1} / {photoGalleryImages.length}
             </p>
 
@@ -145,7 +145,7 @@ export const MediaClient = ({ photoGalleryImages }) => {
                 sizes="90vw"
               />
               {photoGalleryImages[lightboxIndex].imageFilename && (
-                <p className="absolute -bottom-7 left-0 right-0 text-center text-[10px] font-mono text-white/30 truncate px-4">
+                <p className="absolute -bottom-7 left-0 right-0 text-center text-[11px] font-mono text-white/30 truncate px-4">
                   {photoGalleryImages[lightboxIndex].imageFilename}
                 </p>
               )}

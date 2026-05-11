@@ -27,7 +27,7 @@ export function NewsBlock({ news }: { news: News[] }) {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-              <span className="font-heebo text-[10px] tracking-[0.35em] uppercase text-blaze-text">Latest</span>
+              <span className="font-heebo text-[11px] tracking-[0.35em] uppercase text-blaze-text">Latest</span>
             </div>
             <h2
               id="news-heading"
@@ -82,7 +82,7 @@ export function NewsBlock({ news }: { news: News[] }) {
 
                 {/* Text */}
                 <div className="p-8">
-                  <p className="font-heebo text-[9px] tracking-[0.25em] uppercase text-white/70 mb-3">
+                  <p className="font-heebo text-[10px] tracking-[0.25em] uppercase text-white/70 mb-3">
                     {new Date(featured.createdAt).toLocaleDateString('en-US', {
                       month: 'long',
                       day: 'numeric',
@@ -97,7 +97,7 @@ export function NewsBlock({ news }: { news: News[] }) {
                       {featured.excerpt}
                     </p>
                   )}
-                  <div className="flex items-center gap-2 font-heebo text-[10px] uppercase tracking-[0.2em] text-blaze-text">
+                  <div className="flex items-center gap-2 font-heebo text-[11px] uppercase tracking-[0.2em] text-blaze-text">
                     Read More
                     <ArrowUpRight
                       className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
@@ -140,7 +140,7 @@ export function NewsBlock({ news }: { news: News[] }) {
 
                 {/* Text */}
                 <div className="min-w-0 flex flex-col justify-center">
-                  <p className="font-heebo text-[9px] tracking-[0.2em] uppercase text-white/70 mb-2">
+                  <p className="font-heebo text-[10px] tracking-[0.2em] uppercase text-white/70 mb-2">
                     {new Date(article.createdAt).toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',

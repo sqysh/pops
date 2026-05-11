@@ -88,10 +88,10 @@ function YearHeatmap({
     <div className="flex flex-col gap-1 w-full">
       {/* Year label + count */}
       <div className="flex items-center justify-between mb-0.5">
-        <span className="text-[8px] font-mono uppercase tracking-widest font-bold" style={{ color: accent }}>
+        <span className="text-[9px] font-mono uppercase tracking-widest font-bold" style={{ color: accent }}>
           {year}
         </span>
-        <span className="text-[7px] font-mono text-muted-dark/40 tabular-nums">{total} apps</span>
+        <span className="text-[8px] font-mono text-muted-dark/70 tabular-nums">{total} apps</span>
       </div>
 
       {/* Grid: rows = days of week, cols = weeks */}
@@ -102,7 +102,7 @@ function YearHeatmap({
             <div
               key={i}
               style={{ height: CELL, width: 10 }}
-              className="text-[6px] font-mono text-muted-dark/30 flex items-center justify-end"
+              className="text-[8px] font-mono text-muted-dark/60 flex items-center justify-end"
             >
               {i % 2 === 1 ? d : ''}
             </div>
@@ -117,7 +117,7 @@ function YearHeatmap({
               <div
                 key={wi}
                 style={{ width: CELL, flexShrink: 0 }}
-                className="text-[6px] font-mono text-muted-dark/35 uppercase overflow-visible whitespace-nowrap"
+                className="text-[8px] font-mono text-muted-dark/95 uppercase overflow-visible whitespace-nowrap"
               >
                 {monthLabels[wi] ?? ''}
               </div>
@@ -153,19 +153,19 @@ function YearHeatmap({
 
       {/* Legend */}
       <div className="flex items-center gap-1 mt-3">
-        <span className="text-[7px] font-mono text-muted-dark/45 mr-0.5">Less</span>
+        <span className="text-[8px] font-mono text-muted-dark/75 mr-0.5">Less</span>
         {[0, 1, 2, 3, 4, 5].map((i) => (
           <div key={i} style={{ width: CELL, height: CELL, backgroundColor: palette[i], flexShrink: 0 }} />
         ))}
-        <span className="text-[7px] font-mono text-muted-dark/45 ml-0.5">More</span>
+        <span className="text-[8px] font-mono text-muted-dark/75 ml-0.5">More</span>
       </div>
 
       {/* Explanation */}
-      <p className="text-[7px] font-mono text-muted-dark/45 mt-1 leading-relaxed">
+      <p className="text-[8px] font-mono text-muted-dark/75 mt-1 leading-relaxed">
         Each cell = 1 day · Hover a cell to see the submission count
       </p>
       {peakDay && (
-        <p className="text-[7px] font-mono text-muted-dark/45">
+        <p className="text-[8px] font-mono text-muted-dark/75">
           Busiest day: <span style={{ color: accent }}>{peakDate}</span> · {peakDay[1]} submission
           {Number(peakDay[1]) !== 1 ? 's' : ''}
         </p>
@@ -198,13 +198,13 @@ export function CampHeatmapCard({ campApplications, campApplicationsEnabled }: P
       <div className="bg-surface-dark border border-border-dark flex flex-col h-full hover:border-white/10 transition-colors">
         {/* Header */}
         <div className="flex items-center justify-between px-3 py-2 border-b border-border-dark shrink-0">
-          <span className="text-[8px] font-mono tracking-[0.2em] uppercase text-muted-dark">[ Camp Activity ]</span>
+          <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark">[ Camp Activity ]</span>
           <div className="flex items-center gap-2">
             <span
-              className={`text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border flex items-center gap-1 ${
+              className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border flex items-center gap-1 ${
                 campApplicationsEnabled
                   ? 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
-                  : 'text-muted-dark/40 border-border-dark'
+                  : 'text-muted-dark/70 border-border-dark'
               }`}
             >
               <span
@@ -221,7 +221,7 @@ export function CampHeatmapCard({ campApplications, campApplicationsEnabled }: P
           <div className="font-mono font-bold text-3xl leading-none" style={{ color: '#a78bfa' }}>
             {totalAllTime}
           </div>
-          <div className="text-[8px] font-mono uppercase tracking-[0.15em] text-muted-dark/50 mt-1">
+          <div className="text-[9px] font-mono uppercase tracking-[0.15em] text-muted-dark/80 mt-1">
             total applications
           </div>
         </div>
@@ -241,11 +241,11 @@ export function CampHeatmapCard({ campApplications, campApplicationsEnabled }: P
               e.preventDefault()
               handleExport()
             }}
-            className="text-[8px] font-mono uppercase tracking-[0.15em] text-muted-dark hover:text-violet-400 transition-colors"
+            className="text-[9px] font-mono uppercase tracking-[0.15em] text-muted-dark hover:text-violet-400 transition-colors"
           >
             Export
           </button>
-          <span className="text-[8px] font-mono uppercase tracking-[0.15em] text-muted-dark group-hover:text-violet-400 transition-colors">
+          <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-muted-dark group-hover:text-violet-400 transition-colors">
             VIEW ALL →
           </span>
         </div>

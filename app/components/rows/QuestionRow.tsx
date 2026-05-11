@@ -22,11 +22,11 @@ export function QuestionRow({
       {/* Name */}
       <div className="min-w-0">
         <span
-          className={`text-[11px] font-mono truncate block ${question.hasResponded ? 'text-text-dark/70' : 'text-text-dark'}`}
+          className={`text-[12px] font-mono truncate block ${question.hasResponded ? 'text-text-dark/70' : 'text-text-dark'}`}
         >
           {question.name}
         </span>
-        <span className="text-[8px] font-mono text-text-dark/40 truncate block">
+        <span className="text-[9px] font-mono text-text-dark/40 truncate block">
           {new Date(question.createdAt).toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',
@@ -38,14 +38,14 @@ export function QuestionRow({
       </div>
 
       <span
-        className={`text-[10px] font-mono truncate ${question.hasResponded ? 'text-text-dark/60' : 'text-text-dark'}`}
+        className={`text-[11px] font-mono truncate ${question.hasResponded ? 'text-text-dark/90' : 'text-text-dark'}`}
       >
         {question.email}
       </span>
 
       {/* Message preview */}
       <span
-        className={`text-[9px] font-mono truncate col-span-1 ${question.hasResponded ? 'text-text-dark/40' : 'text-text-dark/70'}`}
+        className={`text-[10px] font-mono truncate col-span-1 ${question.hasResponded ? 'text-text-dark/40' : 'text-text-dark/70'}`}
       >
         {question.message.slice(0, 100)}
         {question.message.length > 100 ? '...' : ''}
@@ -54,7 +54,7 @@ export function QuestionRow({
       {/* Status */}
       <div className="flex">
         <span
-          className={`text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border flex items-center gap-1 ${
+          className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border flex items-center gap-1 ${
             question.hasResponded
               ? 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
               : 'text-amber-400 border-amber-400/30 bg-amber-400/5'

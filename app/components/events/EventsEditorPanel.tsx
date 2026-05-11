@@ -69,7 +69,7 @@ export function EventsEditorPanel({ event, isNew, onSaved, onCancel }: TEventsEd
       <div className="shrink-0 flex items-center justify-between px-4 py-2.5 border-b border-border-dark bg-surface-dark">
         <div className="flex items-center gap-2">
           <div className="w-3 h-px bg-primary-dark" aria-hidden="true" />
-          <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-primary-dark">
+          <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-primary-dark">
             {isNew ? 'New Event' : 'Edit Event'}
           </span>
         </div>
@@ -171,7 +171,7 @@ export function EventsEditorPanel({ event, isNew, onSaved, onCancel }: TEventsEd
                 key={s.value}
                 type="button"
                 onClick={() => set('status', s.value)}
-                className={`px-3 py-2.5 border text-[9px] font-mono tracking-[0.15em] uppercase transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark ${
+                className={`px-3 py-2.5 border text-[10px] font-mono tracking-[0.15em] uppercase transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark ${
                   form.status === s.value
                     ? 'border-primary-dark bg-primary-dark/10 text-text-dark'
                     : 'border-border-dark text-muted-dark hover:border-muted-dark hover:bg-button-dark'
@@ -186,7 +186,7 @@ export function EventsEditorPanel({ event, isNew, onSaved, onCancel }: TEventsEd
         {/* Preview */}
         {(form.title || form.date) && (
           <div className="border border-border-dark bg-bg-dark p-4">
-            <p className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-3">Preview</p>
+            <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-3">Preview</p>
             <div>
               <p className="text-text-dark text-sm font-medium">{form.title || '—'}</p>
               {form.date && (

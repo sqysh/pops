@@ -24,12 +24,12 @@ interface PageField {
 
 function FieldInput({ field, onChange }: { field: PageField; onChange: (value: string | string[]) => void }) {
   const inputCls =
-    'w-full px-3 py-2 bg-bg-dark border border-border-dark text-[11px] font-mono text-text-dark placeholder:text-muted-dark/30 outline-none focus:border-muted-dark/40 transition-colors'
+    'w-full px-3 py-2 bg-bg-dark border border-border-dark text-[12px] font-mono text-text-dark placeholder:text-muted-dark/60 outline-none focus:border-muted-dark/40 transition-colors'
 
   if (field.type === 'array' && Array.isArray(field.value)) {
     return (
       <div className="flex flex-col gap-1.5">
-        <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/50">{field.label}</span>
+        <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80">{field.label}</span>
         <div className="flex flex-col gap-1.5">
           {(field.value as string[]).map((item, i) => (
             <input
@@ -51,7 +51,7 @@ function FieldInput({ field, onChange }: { field: PageField; onChange: (value: s
 
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/50">{field.label}</span>
+      <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80">{field.label}</span>
       {field.type === 'textarea' ? (
         <textarea
           value={field.value as string}
@@ -92,10 +92,10 @@ function SectionBlock({
         className="w-full flex items-center gap-2 px-3 py-2 bg-surface-dark hover:bg-black/40 transition-colors text-left focus-visible:outline-none border-b border-border-dark"
       >
         <motion.div animate={{ rotate: open ? 90 : 0 }} transition={{ duration: 0.15 }}>
-          <ChevronRight className="w-3 h-3 text-muted-dark/40" />
+          <ChevronRight className="w-3 h-3 text-muted-dark/70" />
         </motion.div>
-        <span className="text-[8px] font-mono tracking-[0.2em] uppercase text-muted-dark">{title}</span>
-        <span className="text-[7px] font-mono text-muted-dark/30 ml-1">({fields.length})</span>
+        <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark">{title}</span>
+        <span className="text-[8px] font-mono text-muted-dark/60 ml-1">({fields.length})</span>
       </button>
 
       <AnimatePresence initial={false}>
@@ -191,22 +191,22 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
           <div className="flex items-center gap-3">
             <Link
               href="/v2/dashboard"
-              className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/40 hover:text-primary-dark transition-colors focus-visible:outline-none"
+              className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-primary-dark transition-colors focus-visible:outline-none"
             >
               &larr; Dashboard
             </Link>
             <div className="w-px h-3 bg-border-dark" aria-hidden="true" />
-            <span className="text-[9px] font-mono text-muted-dark/40 uppercase tracking-widest">[ PAGE CONTENT ]</span>
+            <span className="text-[10px] font-mono text-muted-dark/70 uppercase tracking-widest">[ PAGE CONTENT ]</span>
             {selectedPage && (
               <>
                 <div className="w-px h-3 bg-border-dark" aria-hidden="true" />
-                <span className="text-[9px] font-mono text-text-dark uppercase tracking-widest">
+                <span className="text-[10px] font-mono text-text-dark uppercase tracking-widest">
                   {selectedPage.slug}
                 </span>
               </>
             )}
             <div className="w-px h-3 bg-border-dark" aria-hidden="true" />
-            <span className="text-[9px] font-mono text-muted-dark">{pages.length} pages</span>
+            <span className="text-[10px] font-mono text-muted-dark">{pages.length} pages</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -215,7 +215,7 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
                 type="button"
                 onClick={handleSave}
                 disabled={saving}
-                className="flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-widest px-3 py-1.5 border border-emerald-400/40 text-emerald-400 bg-emerald-400/5 hover:bg-emerald-400/10 transition-colors disabled:opacity-50 focus-visible:outline-none"
+                className="flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-widest px-3 py-1.5 border border-emerald-400/40 text-emerald-400 bg-emerald-400/5 hover:bg-emerald-400/10 transition-colors disabled:opacity-50 focus-visible:outline-none"
               >
                 {saving ? <Loader2 className="w-2.5 h-2.5 animate-spin" /> : <Save className="w-2.5 h-2.5" />}
                 {saving ? 'Saving...' : 'Save Changes'}
@@ -224,7 +224,7 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
             <button
               type="button"
               onClick={handleSeed}
-              className="text-muted-dark/30 hover:text-muted-dark transition-colors focus-visible:outline-none"
+              className="text-muted-dark/60 hover:text-muted-dark transition-colors focus-visible:outline-none"
               aria-label="Seed pages"
               title="Seed pages"
             >
@@ -241,7 +241,7 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
             className="flex whitespace-nowrap"
           >
             {[0, 1, 2, 3, 4, 5].map((i) => (
-              <span key={i} className="text-[7px] font-mono text-yellow-400/60 pr-12">
+              <span key={i} className="text-[8px] font-mono text-yellow-400/60 pr-12">
                 <span className="text-yellow-400">●</span> Select a page on the left
                 <span className="text-yellow-400/30 mx-3">·</span>
                 Make your changes in the fields
@@ -257,7 +257,7 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
       {/* Error */}
       {error && (
         <div className="shrink-0 border-b border-red-500/30 bg-red-500/5 px-4 py-2">
-          <span className="text-[9px] font-mono text-red-400">{error}</span>
+          <span className="text-[10px] font-mono text-red-400">{error}</span>
         </div>
       )}
 
@@ -266,12 +266,12 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
         {/* Left — page list */}
         <div className="w-48 xl:w-60 shrink-0 border-r border-border-dark flex flex-col overflow-hidden">
           <div className="shrink-0 px-3 py-2 border-b border-border-dark bg-surface-dark">
-            <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/40">Pages</span>
+            <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/70">Pages</span>
           </div>
           <div className="flex-1 min-h-0 overflow-y-auto">
             {pages.length === 0 ? (
               <div className="flex items-center justify-center h-24">
-                <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/30">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark/60">
                   No pages found
                 </span>
               </div>
@@ -288,10 +288,10 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
                   }`}
                 >
                   <FileText
-                    className={`w-2.5 h-2.5 shrink-0 ${selectedPage?.id === page.id ? 'text-primary-dark' : 'text-muted-dark/30'}`}
+                    className={`w-2.5 h-2.5 shrink-0 ${selectedPage?.id === page.id ? 'text-primary-dark' : 'text-muted-dark/60'}`}
                   />
                   <span
-                    className={`text-[10px] font-mono truncate ${selectedPage?.id === page.id ? 'text-text-dark' : 'text-muted-dark/60 group-hover:text-text-dark'}`}
+                    className={`text-[11px] font-mono truncate ${selectedPage?.id === page.id ? 'text-text-dark' : 'text-muted-dark/80 group-hover:text-text-dark'}`}
                   >
                     {page.slug}
                   </span>
@@ -306,10 +306,10 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
           {!selectedPage ? (
             <div className="flex flex-col items-center justify-center h-full gap-3">
               <FileText className="w-8 h-8 text-border-dark" />
-              <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/30">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark/60">
                 Select a page to edit
               </span>
-              <span className="text-[8px] font-mono text-muted-dark/20">
+              <span className="text-[9px] font-mono text-muted-dark/20">
                 {pages.length} page{pages.length !== 1 ? 's' : ''} available
               </span>
             </div>
@@ -329,11 +329,11 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
       <div className="shrink-0 flex items-center justify-between px-4 py-2 border-t border-border-dark bg-surface-dark">
         <Link
           href="/v2/dashboard"
-          className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/40 hover:text-primary-dark transition-colors"
+          className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-primary-dark transition-colors"
         >
           &larr; Dashboard
         </Link>
-        <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/30">
+        <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">
           {selectedPage ? `Editing ${selectedPage.slug}` : `${pages.length} pages`}
         </span>
       </div>

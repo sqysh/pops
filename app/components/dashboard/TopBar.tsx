@@ -14,35 +14,35 @@ export function TopBar({ time, date }) {
     >
       <Link href="/" className="flex items-center gap-2 group">
         <span
-          className="text-[9px] font-mono text-blaze-text group-hover:text-white transition-colors"
+          className="text-[10px] font-mono text-blaze-text group-hover:text-white transition-colors"
           aria-hidden="true"
         >
           ▸
         </span>
-        <span className="text-[9px] font-mono tracking-widest uppercase text-muted-dark group-hover:text-text-dark transition-colors hidden sm:block">
+        <span className="text-[10px] font-mono tracking-widest uppercase text-muted-dark group-hover:text-text-dark transition-colors hidden sm:block">
           The Pops Orchestra
         </span>
-        <span className="text-[9px] font-mono tracking-widest uppercase text-muted-dark group-hover:text-text-dark transition-colors sm:hidden">
+        <span className="text-[10px] font-mono tracking-widest uppercase text-muted-dark group-hover:text-text-dark transition-colors sm:hidden">
           Pops
         </span>
       </Link>
 
       <div className="flex items-center gap-3">
         {/* Date + time — hide date on mobile */}
-        <span className="text-[9px] font-mono text-muted-dark hidden sm:block">{date}</span>
-        <span className="text-[9px] font-mono text-text-dark tabular-nums hidden sm:block">{time}</span>
+        <span className="text-[10px] font-mono text-muted-dark hidden sm:block">{date}</span>
+        <span className="text-[10px] font-mono text-text-dark tabular-nums hidden sm:block">{time}</span>
         <div className="w-px h-4 bg-border-dark hidden sm:block" aria-hidden="true" />
 
         {/* Logged in as — hidden on mobile */}
         <div className="hidden sm:flex items-center gap-2">
-          <span className="text-[9px] font-mono text-muted-dark/40" aria-hidden="true">
+          <span className="text-[10px] font-mono text-muted-dark/70" aria-hidden="true">
             [
           </span>
-          <span className="text-[9px] font-mono tracking-widest uppercase text-muted-dark">
+          <span className="text-[10px] font-mono tracking-widest uppercase text-muted-dark">
             {session.data.user.email}
           </span>
           <span
-            className={`text-[7px] font-mono tracking-widest uppercase px-1.5 py-0.5 border ${
+            className={`text-[8px] font-mono tracking-widest uppercase px-1.5 py-0.5 border ${
               session.data.user.role === 'SUPER_USER'
                 ? 'text-primary-dark border-primary-dark/30 bg-primary-dark/5'
                 : session.data.user.role === 'CONDUCTOR'
@@ -54,14 +54,14 @@ export function TopBar({ time, date }) {
           >
             {session.data.user.role}
           </span>
-          <span className="text-[9px] font-mono text-muted-dark/40" aria-hidden="true">
+          <span className="text-[10px] font-mono text-muted-dark/70" aria-hidden="true">
             ]
           </span>
         </div>
 
         {/* Role badge only on mobile */}
         <span
-          className={`sm:hidden text-[7px] font-mono tracking-widest uppercase px-1.5 py-0.5 border ${
+          className={`sm:hidden text-[8px] font-mono tracking-widest uppercase px-1.5 py-0.5 border ${
             session.data.user.role === 'SUPER_USER'
               ? 'text-primary-dark border-primary-dark/30 bg-primary-dark/5'
               : session.data.user.role === 'CONDUCTOR'
@@ -81,7 +81,7 @@ export function TopBar({ time, date }) {
             <div className="w-px h-4 bg-border-dark" aria-hidden="true" />
             <Link
               href="/v2/super"
-              className="text-[9px] font-mono tracking-widest uppercase text-primary-dark hover:text-blaze-text transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark"
+              className="text-[10px] font-mono tracking-widest uppercase text-primary-dark hover:text-blaze-text transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark"
               title="Super dashboard"
             >
               Super →

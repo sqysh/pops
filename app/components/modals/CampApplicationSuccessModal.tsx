@@ -71,7 +71,7 @@ export default function CampApplicationSuccessModal() {
               {/* Heading */}
               <div className="text-center mb-6">
                 <p
-                  className="font-changa text-[10px] uppercase tracking-[0.3em] text-blaze-text mb-2"
+                  className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text mb-2"
                   aria-hidden="true"
                 >
                   Youth Music Camp

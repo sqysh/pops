@@ -15,7 +15,7 @@ export default function PublicNewsClient({ news }: { news: News[] }) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
         <div className="text-center">
-          <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/60">No news articles yet</p>
+          <p className="text-[11px] font-mono tracking-[0.2em] uppercase text-white/60">No news articles yet</p>
         </div>
       </div>
     )
@@ -27,7 +27,7 @@ export default function PublicNewsClient({ news }: { news: News[] }) {
         {/* Back Button */}
         <Link
           href="/"
-          className="mb-8 text-[10px] font-mono tracking-[0.2em] uppercase text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blaze"
+          className="mb-8 text-[11px] font-mono tracking-[0.2em] uppercase text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blaze"
         >
           ← Back to Home
         </Link>
@@ -73,7 +73,7 @@ export default function PublicNewsClient({ news }: { news: News[] }) {
               <div>
                 <div className="flex items-center gap-2 mb-3">
                   <Calendar className="w-3 h-3 text-blaze-text" aria-hidden="true" />
-                  <time className="text-[9px] font-mono tracking-[0.2em] uppercase text-white/60">
+                  <time className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/60">
                     {new Date(article.createdAt).toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',
@@ -90,7 +90,7 @@ export default function PublicNewsClient({ news }: { news: News[] }) {
                   <p className="text-white/60 text-sm leading-relaxed mb-4 line-clamp-3">{article.excerpt}</p>
                 )}
 
-                <div className="flex items-center gap-2 text-blaze-text text-[10px] font-mono tracking-[0.15em] uppercase group-hover:gap-3 transition-all">
+                <div className="flex items-center gap-2 text-blaze-text text-[11px] font-mono tracking-[0.15em] uppercase group-hover:gap-3 transition-all">
                   Read More
                   <ArrowRight className="w-3 h-3" aria-hidden="true" />
                 </div>

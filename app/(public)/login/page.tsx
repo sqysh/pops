@@ -96,7 +96,7 @@ export default function Login() {
           >
             <div className="flex items-center gap-3">
               <div className="w-px h-6 bg-primary-dark" aria-hidden="true" />
-              <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-text-dark">
+              <span className="text-[11px] font-mono tracking-[0.3em] uppercase text-text-dark">
                 The Pops Orchestra
               </span>
               <div className="w-px h-6 bg-primary-dark" aria-hidden="true" />
@@ -109,7 +109,7 @@ export default function Login() {
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-6 h-px bg-primary-dark" aria-hidden="true" />
-              <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-primary-dark">All Access</span>
+              <span className="text-[11px] font-mono tracking-[0.25em] uppercase text-primary-dark">All Access</span>
             </div>
             <h1
               id="signin-heading"
@@ -163,7 +163,7 @@ export default function Login() {
           {/* Divider */}
           {/* <div className="flex items-center gap-3 my-5" role="separator" aria-label="or">
             <div className="flex-1 h-px bg-border-dark" aria-hidden="true" />
-            <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-muted-dark">or</span>
+            <span className="text-[11px] font-mono tracking-[0.25em] uppercase text-muted-dark">or</span>
             <div className="flex-1 h-px bg-border-dark" aria-hidden="true" />
           </div> */}
 
@@ -189,7 +189,7 @@ export default function Login() {
                   setSent(false)
                   setEmail('')
                 }}
-                className="group inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-dark"
+                className="group inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-muted-dark hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-dark"
               >
                 <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
                 <span>Use a different email</span>
@@ -199,7 +199,7 @@ export default function Login() {
             <div>
               <label
                 htmlFor="magic-link-email"
-                className="block text-[10px] font-mono tracking-[0.25em] uppercase text-muted-dark mb-2"
+                className="block text-[11px] font-mono tracking-[0.25em] uppercase text-muted-dark mb-2"
               >
                 Email address
               </label>
@@ -214,7 +214,7 @@ export default function Login() {
                   autoComplete="email"
                   disabled={loadingMagicLink}
                   aria-describedby={error ? 'magic-link-error magic-link-hint' : 'magic-link-hint'}
-                  className="flex-1 min-w-0 px-4 py-3 bg-surface-dark border border-border-dark focus:border-primary-dark text-text-dark text-sm placeholder:text-muted-dark/40 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary-dark focus-visible:ring-offset-2 focus-visible:ring-offset-bg-dark disabled:opacity-50"
+                  className="flex-1 min-w-0 px-4 py-3 bg-surface-dark border border-border-dark focus:border-primary-dark text-text-dark text-sm placeholder:text-muted-dark/70 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary-dark focus-visible:ring-offset-2 focus-visible:ring-offset-bg-dark disabled:opacity-50"
                 />
                 <button
                   type="button"
@@ -233,11 +233,11 @@ export default function Login() {
               </div>
 
               {error && (
-                <p id="magic-link-error" role="alert" className="text-[10px] text-red-400 mt-2 leading-relaxed">
+                <p id="magic-link-error" role="alert" className="text-[11px] text-red-400 mt-2 leading-relaxed">
                   {error}
                 </p>
               )}
-              <p id="magic-link-hint" className="text-[10px] text-muted-dark/60 mt-2 leading-relaxed">
+              <p id="magic-link-hint" className="text-[11px] text-muted-dark/80 mt-2 leading-relaxed">
                 We&apos;ll send a one-time sign-in link to your email
               </p>
             </div>

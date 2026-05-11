@@ -124,16 +124,16 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
             <div className="flex items-center gap-2 760:gap-3 min-w-0 flex-1 overflow-hidden">
               <Link
                 href="/v2/dashboard"
-                className="text-[8px] font-mono uppercase tracking-widest text-muted-dark hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark shrink-0"
+                className="text-[9px] font-mono uppercase tracking-widest text-muted-dark hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark shrink-0"
               >
                 ←<span className="hidden 480:inline"> Dashboard</span>
               </Link>
               <div className="w-px h-3 bg-border-dark shrink-0" aria-hidden="true" />
-              <span className="text-[8px] 760:text-[9px] font-mono text-muted-dark uppercase tracking-widest shrink-0">
+              <span className="text-[9px] 760:text-[10px] font-mono text-muted-dark uppercase tracking-widest shrink-0">
                 [ TEAM ]
               </span>
               <div className="w-px h-3 bg-border-dark shrink-0 hidden 480:block" aria-hidden="true" />
-              <span className="text-[9px] font-mono text-muted-dark hidden 480:block shrink-0">
+              <span className="text-[10px] font-mono text-muted-dark hidden 480:block shrink-0">
                 {totalCount} members
               </span>
 
@@ -145,7 +145,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
                     <span className="font-mono text-xs font-bold tabular-nums text-text-dark">
                       {lists[role].length}
                     </span>
-                    <span className="text-[7px] font-mono tracking-[0.12em] uppercase text-muted-dark/50 whitespace-nowrap">
+                    <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
                       {ROLE_LABELS[role]}
                     </span>
                   </div>
@@ -158,7 +158,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
               <button
                 type="button"
                 onClick={() => setEditingMember('new')}
-                className="flex items-center gap-1.5 text-[8px] font-mono uppercase tracking-widest px-2 760:px-3 py-1.5 border border-border-dark text-muted-dark hover:text-text-dark hover:border-muted-dark/30 transition-colors focus-visible:outline-none"
+                className="flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-widest px-2 760:px-3 py-1.5 border border-border-dark text-muted-dark hover:text-text-dark hover:border-muted-dark/30 transition-colors focus-visible:outline-none"
               >
                 <Plus className="w-2.5 h-2.5" />
                 <span className="hidden 480:inline">New Member</span>
@@ -166,7 +166,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
               <button
                 onClick={handleSave}
                 disabled={isLoading}
-                className="flex items-center gap-1.5 760:gap-2 text-[8px] font-mono uppercase tracking-widest px-2 760:px-3 py-1.5 border border-primary-dark/40 text-primary-dark bg-primary-dark/5 hover:bg-primary-dark/10 transition-colors disabled:opacity-50 focus-visible:outline-none"
+                className="flex items-center gap-1.5 760:gap-2 text-[9px] font-mono uppercase tracking-widest px-2 760:px-3 py-1.5 border border-primary-dark/40 text-primary-dark bg-primary-dark/5 hover:bg-primary-dark/10 transition-colors disabled:opacity-50 focus-visible:outline-none"
               >
                 {isLoading && <Loader2 className="w-2.5 h-2.5 animate-spin" />}
                 <span className="hidden 480:inline">{isLoading ? 'Saving...' : 'Save Order'}</span>
@@ -180,7 +180,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
             {ROLES.map((role) => (
               <div key={role} className="flex flex-col items-center justify-center px-4 py-1.5 shrink-0 gap-0.5">
                 <span className="font-mono text-xs font-bold tabular-nums text-text-dark">{lists[role].length}</span>
-                <span className="text-[7px] font-mono tracking-[0.12em] uppercase text-muted-dark/50 whitespace-nowrap">
+                <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
                   {ROLE_LABELS[role]}
                 </span>
               </div>
@@ -195,7 +195,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
               className="flex whitespace-nowrap"
             >
               {[0, 1, 2, 3, 4, 5].map((i) => (
-                <span key={i} className="text-[7px] font-mono text-muted-dark/90 pr-12">
+                <span key={i} className="text-[8px] font-mono text-muted-dark/90 pr-12">
                   <span className="text-muted-dark/70">●</span> Drag to reorder within each group
                   <span className="text-muted-dark/20 mx-3">·</span>
                   Click <span className="text-muted-dark/70">Save Order</span> when done or changes will not be saved
@@ -219,29 +219,29 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
               <div className="shrink-0 flex items-center justify-between px-3 py-2 border-b border-border-dark bg-surface-dark">
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-px bg-primary-dark shrink-0" aria-hidden="true" />
-                  <span className="text-[8px] font-mono tracking-[0.2em] uppercase text-primary-dark">
+                  <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-primary-dark">
                     {ROLE_LABELS[role]}
                   </span>
                 </div>
-                <span className="text-[7px] font-mono text-muted-dark/40 tabular-nums">{lists[role].length}</span>
+                <span className="text-[8px] font-mono text-muted-dark/70 tabular-nums">{lists[role].length}</span>
               </div>
 
               {/* Search */}
               <div className="shrink-0 flex items-center gap-2 border-b border-border-dark/40 px-3 py-1.5 bg-surface-dark">
-                <Search className="w-2.5 h-2.5 text-muted-dark/30 shrink-0" aria-hidden="true" />
+                <Search className="w-2.5 h-2.5 text-muted-dark/60 shrink-0" aria-hidden="true" />
                 <input
                   type="text"
                   value={searches[role]}
                   onChange={(e) => setSearch(role, e.target.value)}
                   placeholder={`Search ${ROLE_LABELS[role].toLowerCase()}...`}
-                  className="flex-1 bg-transparent text-[9px] font-mono text-text-dark placeholder:text-muted-dark/25 outline-none"
+                  className="flex-1 bg-transparent text-[10px] font-mono text-text-dark placeholder:text-muted-dark/85 outline-none"
                   aria-label={`Search ${ROLE_LABELS[role]}`}
                 />
                 {searches[role] && (
                   <button
                     type="button"
                     onClick={() => setSearch(role, '')}
-                    className="text-muted-dark/30 hover:text-text-dark transition-colors"
+                    className="text-muted-dark/60 hover:text-text-dark transition-colors"
                     aria-label="Clear search"
                   >
                     <X className="w-2.5 h-2.5" />
@@ -253,10 +253,10 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
               <div
                 className={`shrink-0 grid ${COL} items-center gap-2 px-3 py-1.5 border-b border-border-dark/40 bg-surface-dark`}
               >
-                <span className="text-[6px] font-mono uppercase tracking-widest text-muted-dark/30">#</span>
-                <span className="text-[6px] font-mono uppercase tracking-widest text-muted-dark/30">Name</span>
-                <span className="text-[6px] font-mono uppercase tracking-widest text-muted-dark/30">Position</span>
-                <span className="text-[6px] font-mono uppercase tracking-widest text-muted-dark/30 text-right">
+                <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/60">#</span>
+                <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/60">Name</span>
+                <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/60">Position</span>
+                <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/60 text-right">
                   Status
                 </span>
                 <span />
@@ -266,7 +266,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
               <div className="flex-1 min-h-0 overflow-y-auto">
                 {getFiltered(role).length === 0 ? (
                   <div className="flex items-center justify-center h-32">
-                    <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/30">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark/60">
                       No members
                     </span>
                   </div>
@@ -301,29 +301,29 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
                       {/* Order # + grip */}
                       <div className="flex items-center gap-1">
                         <GripVertical
-                          className="w-2.5 h-2.5 text-muted-dark/20 group-hover:text-muted-dark/50 transition-colors shrink-0"
+                          className="w-2.5 h-2.5 text-muted-dark/20 group-hover:text-muted-dark/80 transition-colors shrink-0"
                           aria-hidden="true"
                         />
                       </div>
 
                       {/* Name */}
                       <div className="min-w-0">
-                        <span className="text-[10px] font-mono text-text-dark truncate block">
+                        <span className="text-[11px] font-mono text-text-dark truncate block">
                           {member.firstName} {member.lastName}
                         </span>
-                        <span className="text-[7px] font-mono text-muted-dark/30 tabular-nums">#{i + 1}</span>
+                        <span className="text-[8px] font-mono text-muted-dark/60 tabular-nums">#{i + 1}</span>
                       </div>
 
                       {/* Position */}
-                      <span className="text-[9px] font-mono text-muted-dark/60 truncate">{member.position}</span>
+                      <span className="text-[10px] font-mono text-muted-dark/80 truncate">{member.position}</span>
 
                       {/* Published */}
                       <div className="flex justify-end">
                         <span
-                          className={`text-[6px] font-mono uppercase tracking-widest px-1 py-0.5 border ${
+                          className={`text-[8px] font-mono uppercase tracking-widest px-1 py-0.5 border ${
                             member.isPublished
                               ? 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
-                              : 'text-muted-dark/30 border-border-dark'
+                              : 'text-muted-dark/60 border-border-dark'
                           }`}
                         >
                           {member.isPublished ? 'Live' : 'Hidden'}
@@ -339,7 +339,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
                               e.stopPropagation()
                               setEditingMember(member as unknown as TeamMember)
                             }}
-                            className="text-muted-dark/40 hover:text-text-dark transition-all focus-visible:opacity-100 focus-visible:outline-none"
+                            className="text-muted-dark/70 hover:text-text-dark transition-all focus-visible:opacity-100 focus-visible:outline-none"
                             aria-label={`Edit ${member.firstName}`}
                           >
                             <Pencil className="w-3 h-3" />
@@ -358,11 +358,11 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
         <div className="shrink-0 flex items-center justify-between px-4 py-2 border-t border-border-dark bg-surface-dark">
           <Link
             href="/v2/dashboard"
-            className="text-[8px] font-mono uppercase tracking-widest text-muted-dark hover:text-primary-dark transition-colors focus-visible:outline-none"
+            className="text-[9px] font-mono uppercase tracking-widest text-muted-dark hover:text-primary-dark transition-colors focus-visible:outline-none"
           >
             &larr; Dashboard
           </Link>
-          <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark tabular-nums">
+          <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark tabular-nums">
             {totalCount} members across {ROLES.length} groups
           </span>
         </div>

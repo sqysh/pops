@@ -108,13 +108,13 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
           </Link>
           <div className="w-px h-4 bg-border-dark" />
           <AlertCircle className="w-3.5 h-3.5 text-primary-dark" />
-          <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark">Super Dashboard</span>
+          <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark">Super Dashboard</span>
         </div>
 
         <div className="flex items-center gap-3">
           <Link
             href="/v2/super/logs"
-            className="flex items-center gap-2 px-3 py-1 text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors border border-border-dark hover:border-primary-dark"
+            className="flex items-center gap-2 px-3 py-1 text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors border border-border-dark hover:border-primary-dark"
           >
             <FileText className="w-3 h-3" />
             View Logs
@@ -122,7 +122,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
           <div className="w-px h-4 bg-border-dark" />
           <button
             onClick={handleRefresh}
-            className="flex items-center gap-2 px-3 py-1 text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors"
+            className="flex items-center gap-2 px-3 py-1 text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors"
           >
             <RefreshCw className="w-3 h-3" />
             Refresh
@@ -147,33 +147,33 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                   <div key={req.id} className="p-3 bg-bg-dark border border-border-dark">
                     <div className="flex items-start justify-between gap-2 mb-2">
                       <div className="flex-1 min-w-0">
-                        <p className="text-[10px] text-text-dark font-medium mb-1">{req.what}</p>
-                        <p className="text-[8px] text-muted-dark/60 mb-2 leading-relaxed">{req.why}</p>
+                        <p className="text-[11px] text-text-dark font-medium mb-1">{req.what}</p>
+                        <p className="text-[9px] text-muted-dark/80 mb-2 leading-relaxed">{req.why}</p>
                         {req.example && (
-                          <p className="text-[8px] text-muted-dark/40 italic mb-2 leading-relaxed">
+                          <p className="text-[9px] text-muted-dark/70 italic mb-2 leading-relaxed">
                             &quot;{req.example}&quot;
                           </p>
                         )}
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                          <span className="text-[8px] font-mono text-muted-dark/50">
-                            <span className="text-muted-dark/30">page</span> {req.page}
+                          <span className="text-[9px] font-mono text-muted-dark/80">
+                            <span className="text-muted-dark/60">page</span> {req.page}
                           </span>
-                          <span className="text-[8px] font-mono text-muted-dark/50">
-                            <span className="text-muted-dark/30">type</span> {req.changeType}
+                          <span className="text-[9px] font-mono text-muted-dark/80">
+                            <span className="text-muted-dark/60">type</span> {req.changeType}
                           </span>
-                          <span className="text-[8px] font-mono text-muted-dark/50">
-                            <span className="text-muted-dark/30">urgency</span> {req.urgency}
+                          <span className="text-[9px] font-mono text-muted-dark/80">
+                            <span className="text-muted-dark/60">urgency</span> {req.urgency}
                           </span>
                           {req.submittedBy && (
-                            <span className="text-[8px] font-mono text-muted-dark/50">
-                              <span className="text-muted-dark/30">by</span> {req.submittedBy}
+                            <span className="text-[9px] font-mono text-muted-dark/80">
+                              <span className="text-muted-dark/60">by</span> {req.submittedBy}
                             </span>
                           )}
-                          <span className="text-[8px] font-mono text-muted-dark/30">{formatDate(req.submittedAt)}</span>
+                          <span className="text-[9px] font-mono text-muted-dark/60">{formatDate(req.submittedAt)}</span>
                         </div>
                       </div>
                       <span
-                        className={`text-[7px] font-mono tracking-[0.2em] uppercase px-1.5 py-0.5 shrink-0 ${
+                        className={`text-[8px] font-mono tracking-[0.2em] uppercase px-1.5 py-0.5 shrink-0 ${
                           req.status === 'COMPLETE'
                             ? 'bg-emerald-500/10 text-emerald-400'
                             : req.status === 'DECLINED'
@@ -192,7 +192,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                           key={status}
                           onClick={() => handleStatusChange(req.id, status)}
                           disabled={req.status === status || loading === req.id}
-                          className={`flex-1 px-2 py-1 text-[7px] font-mono tracking-[0.15em] uppercase border transition-colors disabled:opacity-30 ${
+                          className={`flex-1 px-2 py-1 text-[8px] font-mono tracking-[0.15em] uppercase border transition-colors disabled:opacity-30 ${
                             req.status === status
                               ? 'border-primary-dark bg-primary-dark/10 text-text-dark'
                               : 'border-border-dark text-muted-dark hover:text-text-dark hover:border-muted-dark'
@@ -227,7 +227,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                     {t.firstName} {t.lastName}
                   </span>
                   <span
-                    className={`text-[7px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 ${
+                    className={`text-[8px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 ${
                       t.role === 'BOARD_MEMBER'
                         ? 'bg-primary-dark/10 text-primary-dark'
                         : t.role === 'STAFF'
@@ -237,7 +237,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                   >
                     {t.role.replace('_', ' ')}
                   </span>
-                  <span className="text-[7px] font-mono text-muted-dark/30 shrink-0 hidden sm:block">
+                  <span className="text-[8px] font-mono text-muted-dark/60 shrink-0 hidden sm:block">
                     {formatDate(t.updatedAt)}
                   </span>
                 </span>
@@ -266,8 +266,8 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                 <span className="flex items-center gap-2 min-w-0">
                   <span className="truncate">{n.title}</span>
                   <span
-                    className={`text-[7px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 ${
-                      n.isPublished ? 'bg-emerald-500/10 text-emerald-400' : 'bg-border-dark text-muted-dark/40'
+                    className={`text-[8px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 ${
+                      n.isPublished ? 'bg-emerald-500/10 text-emerald-400' : 'bg-border-dark text-muted-dark/70'
                     }`}
                   >
                     {n.isPublished ? 'Published' : 'Draft'}
@@ -294,10 +294,10 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
               renderItem={(s) => (
                 <span className="flex items-center gap-2 min-w-0">
                   <span className="truncate">{s.name}</span>
-                  <span className="text-[7px] font-mono text-muted-dark/40 shrink-0">{s.level}</span>
-                  <span className="text-[7px] font-mono text-emerald-400 shrink-0">${s.amount.toLocaleString()}</span>
+                  <span className="text-[8px] font-mono text-muted-dark/70 shrink-0">{s.level}</span>
+                  <span className="text-[8px] font-mono text-emerald-400 shrink-0">${s.amount.toLocaleString()}</span>
                   {!s.isActive && (
-                    <span className="text-[7px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 bg-border-dark text-muted-dark/40">
+                    <span className="text-[8px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 bg-border-dark text-muted-dark/70">
                       Inactive
                     </span>
                   )}
@@ -317,9 +317,9 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
               renderItem={(q) => (
                 <span className="flex items-center gap-2 min-w-0">
                   <span className="truncate">{q.name}</span>
-                  <span className="text-[8px] font-mono text-muted-dark/40 truncate hidden sm:block">{q.email}</span>
+                  <span className="text-[9px] font-mono text-muted-dark/70 truncate hidden sm:block">{q.email}</span>
                   <span
-                    className={`text-[7px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 ${
+                    className={`text-[8px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 ${
                       q.hasResponded ? 'bg-emerald-500/10 text-emerald-400' : 'bg-yellow-500/10 text-yellow-400'
                     }`}
                   >
@@ -339,7 +339,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                 <span className="flex items-center gap-2">
                   <span>{u.email ?? 'No email'}</span>
                   <span
-                    className={`text-[7px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 ${ROLE_STYLES[u.role as UserRole] ?? 'bg-border-dark text-muted-dark'}`}
+                    className={`text-[8px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 ${ROLE_STYLES[u.role as UserRole] ?? 'bg-border-dark text-muted-dark'}`}
                   >
                     {u.role}
                   </span>
@@ -371,11 +371,11 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                       }}
                     >
                       <div className="w-1.5 h-1.5 rounded-full animate-pulse bg-[#00e599]" />
-                      <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-[#00e599]">
+                      <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#00e599]">
                         Neon Postgres
                       </span>
                     </div>
-                    <span className="text-[8px] font-mono text-muted-dark/50">
+                    <span className="text-[9px] font-mono text-muted-dark/80">
                       Serverless · Auto-pooled · US East 1
                     </span>
                   </div>
@@ -384,14 +384,14 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                     href="https://console.neon.tech"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[8px] font-mono tracking-[0.15em] uppercase text-muted-dark/30 hover:text-muted-dark transition-colors"
+                    className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark/60 hover:text-muted-dark transition-colors"
                   >
                     Console ↗
                   </a>
                 </div>
                 {/* Connections */}
                 <div>
-                  <p className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-1">
+                  <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-1">
                     Database Connections
                   </p>
                   <div className="flex items-center justify-between">
@@ -423,7 +423,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                             ? '⚠️ ELEVATED - MONITOR CLOSELY'
                             : '✓ HEALTHY'}
                       </p>
-                      <p className="text-[8px] font-mono text-muted-dark mt-1">
+                      <p className="text-[9px] font-mono text-muted-dark mt-1">
                         Last checked: {formatDate(new Date())}
                       </p>
                     </div>
@@ -440,7 +440,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                       style={{ width: `${(dbHealth.activeConnections / dbHealth.maxConnections) * 100}%` }}
                     />
                   </div>
-                  <p className="text-[8px] font-mono text-muted-dark/30 mt-2 leading-relaxed">
+                  <p className="text-[9px] font-mono text-muted-dark/60 mt-2 leading-relaxed">
                     Active connections to the database. Green &lt;20, yellow 20–30, red &gt;30. High counts indicate
                     connection pool exhaustion — site may become unresponsive if limit is reached.
                   </p>
@@ -449,22 +449,22 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                 {/* Stats row */}
                 <div className="grid grid-cols-3 gap-3 pt-4 border-t border-border-dark">
                   <div className="bg-bg-dark p-3">
-                    <p className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-1">DB Size</p>
+                    <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-1">DB Size</p>
                     <p className="text-lg font-mono text-text-dark">{dbHealth.dbSize}</p>
-                    <p className="text-[8px] font-mono text-muted-dark/30 mt-1 leading-relaxed">
+                    <p className="text-[9px] font-mono text-muted-dark/60 mt-1 leading-relaxed">
                       Total size of the database on disk. Neon free tier limit is 0.5 GB.
                     </p>
                   </div>
 
                   <div className="bg-bg-dark p-3">
-                    <p className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-1">
+                    <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-1">
                       Cache Hit Rate
                     </p>
                     <p
                       className={`text-lg font-mono ${dbHealth.cacheHitHealthy ? 'text-emerald-400' : 'text-red-400'}`}
                     >
                       {dbHealth.cacheHitRate}%
-                      <span className="text-[9px] ml-1">
+                      <span className="text-[10px] ml-1">
                         {dbHealth.cacheHitHealthy ? (
                           <CheckCircle className="w-3 h-3 text-emerald-400 inline ml-1" />
                         ) : (
@@ -472,14 +472,14 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                         )}
                       </span>
                     </p>
-                    <p className="text-[8px] font-mono text-muted-dark/30 mt-1 leading-relaxed">
+                    <p className="text-[9px] font-mono text-muted-dark/60 mt-1 leading-relaxed">
                       % of queries served from memory vs disk. Healthy at 85%+ — low values mean frequent disk reads and
                       slower queries.
                     </p>
                   </div>
 
                   <div className="bg-bg-dark p-3">
-                    <p className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-1">
+                    <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark mb-1">
                       Oldest Transaction
                     </p>
                     <p
@@ -492,7 +492,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                         <AlertTriangle className="w-3 h-3 text-yellow-400 shrink-0" />
                       )}
                     </p>
-                    <p className="text-[8px] font-mono text-muted-dark/30 mt-1 leading-relaxed">
+                    <p className="text-[9px] font-mono text-muted-dark/60 mt-1 leading-relaxed">
                       Duration of the longest running active query. Warn if &gt;30s — may indicate a stuck or slow
                       transaction.
                     </p>

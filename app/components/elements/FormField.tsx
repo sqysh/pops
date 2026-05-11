@@ -11,11 +11,11 @@ export function FormField({ label, htmlFor, required, children }: FormFieldProps
   return (
     <div className="flex flex-col gap-1.5">
       {htmlFor ? (
-        <label htmlFor={htmlFor} className="text-[7px] font-mono uppercase tracking-widest text-muted-dark">
+        <label htmlFor={htmlFor} className="text-[9px] font-mono uppercase tracking-widest text-muted-dark">
           {label} {required && <span className="text-primary-dark">*</span>}
         </label>
       ) : (
-        <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/50">
+        <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80">
           {label} {required && <span className="text-primary-dark">*</span>}
         </span>
       )}
@@ -32,7 +32,7 @@ export function FormInput({ className, ...props }: FormInputProps) {
   return (
     <input
       {...props}
-      className={`bg-surface-dark border border-border-dark px-3 py-2 text-[11px] font-mono text-text-dark placeholder:text-muted-dark/30 outline-none focus:border-muted-dark/40 transition-colors w-full ${className ?? ''}`}
+      className={`bg-surface-dark border border-border-dark px-3 py-2 text-[12px] font-mono text-text-dark placeholder:text-muted-dark/60 outline-none focus:border-muted-dark/40 transition-colors w-full ${className ?? ''}`}
     />
   )
 }
@@ -43,7 +43,7 @@ export function FormTextarea({ className, ...props }: FormTextareaProps) {
   return (
     <textarea
       {...props}
-      className={`bg-surface-dark border border-border-dark px-3 py-2 text-[11px] font-mono text-text-dark placeholder:text-muted-dark/30 outline-none focus:border-muted-dark/40 transition-colors w-full resize-none ${className ?? ''}`}
+      className={`bg-surface-dark border border-border-dark px-3 py-2 text-[12px] font-mono text-text-dark placeholder:text-muted-dark/60 outline-none focus:border-muted-dark/40 transition-colors w-full resize-none ${className ?? ''}`}
     />
   )
 }
@@ -56,7 +56,7 @@ export function FormError({ error }: FormErrorProps) {
   if (!error) return null
   return (
     <div className="border border-red-500/30 bg-red-500/5 px-3 py-2">
-      <span className="text-[9px] font-mono text-red-400">{error}</span>
+      <span className="text-[10px] font-mono text-red-400">{error}</span>
     </div>
   )
 }
@@ -72,8 +72,8 @@ export function FormToggle({ label, description, value, onChange }: FormTogglePr
   return (
     <div className="flex items-center justify-between py-2 border-t border-border-dark">
       <div className="flex flex-col gap-0.5">
-        <span className="text-[9px] font-mono uppercase tracking-widest text-text-dark">{label}</span>
-        {description && <span className="text-[8px] font-mono text-muted-dark">{description}</span>}
+        <span className="text-[10px] font-mono uppercase tracking-widest text-text-dark">{label}</span>
+        {description && <span className="text-[9px] font-mono text-muted-dark">{description}</span>}
       </div>
       <button
         type="button"
@@ -83,11 +83,11 @@ export function FormToggle({ label, description, value, onChange }: FormTogglePr
         aria-label={`Toggle ${label}`}
       >
         {value ? (
-          <span className="text-emerald-400 font-mono text-[9px] uppercase tracking-widest border border-emerald-400/30 bg-emerald-400/5 px-2 py-0.5">
+          <span className="text-emerald-400 font-mono text-[10px] uppercase tracking-widest border border-emerald-400/30 bg-emerald-400/5 px-2 py-0.5">
             ON
           </span>
         ) : (
-          <span className="text-muted-dark/30 font-mono text-[9px] uppercase tracking-widest border border-border-dark px-2 py-0.5">
+          <span className="text-muted-dark/60 font-mono text-[10px] uppercase tracking-widest border border-border-dark px-2 py-0.5">
             OFF
           </span>
         )}

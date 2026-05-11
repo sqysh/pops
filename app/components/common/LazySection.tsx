@@ -34,10 +34,10 @@ export function LazySection<T extends { id: string }>({
         <button
           onClick={load}
           disabled={loading}
-          className="w-full py-6 flex flex-col items-center gap-2 text-muted-dark/40 hover:text-text-dark hover:bg-surface-dark transition-colors"
+          className="w-full py-6 flex flex-col items-center gap-2 text-muted-dark/70 hover:text-text-dark hover:bg-surface-dark transition-colors"
         >
           {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
-          <span className="text-[9px] font-mono tracking-[0.15em] uppercase">
+          <span className="text-[10px] font-mono tracking-[0.15em] uppercase">
             {loading ? 'Loading...' : `Load ${title}`}
           </span>
         </button>

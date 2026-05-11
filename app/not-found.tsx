@@ -88,7 +88,7 @@ const Pops404 = () => {
 
           {/* Credits */}
           <motion.div className="mt-12 pt-6 border-t border-white/10" variants={itemVariants}>
-            <p className="font-lato text-[10px] uppercase tracking-widest text-white/40">
+            <p className="font-lato text-[11px] uppercase tracking-widest text-white/40">
               © {new Date().getFullYear()} The Pops Orchestra of Sarasota and Bradenton
             </p>
           </motion.div>

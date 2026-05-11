@@ -104,7 +104,7 @@ export default function DashboardClient2(props: Props) {
         <div className="shrink-0 flex flex-col 760:flex-row 760:items-center 760:justify-between border-b border-border-dark bg-bg-dark">
           {/* Greeting */}
           <div className="flex items-center gap-3 px-4 py-2.5 760:py-2.5">
-            <span className="text-[9px] font-mono text-muted-dark/40 uppercase tracking-widest hidden sm:block">
+            <span className="text-[10px] font-mono text-muted-dark/70 uppercase tracking-widest hidden sm:block">
               {date}
             </span>
             <div className="w-px h-3 bg-border-dark hidden sm:block" aria-hidden="true" />
@@ -125,7 +125,7 @@ export default function DashboardClient2(props: Props) {
                   >
                     {value}
                   </span>
-                  <span className="text-[7px] font-mono tracking-[0.12em] uppercase text-muted-dark/50 whitespace-nowrap">
+                  <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
                     {label}
                   </span>
                 </div>
@@ -175,7 +175,7 @@ export default function DashboardClient2(props: Props) {
 
         {/* Footer */}
         <div className="shrink-0 border-t border-border-dark bg-surface-dark px-4 py-1.5 flex flex-col 760:flex-row 760:items-center 760:justify-between gap-1 760:gap-0">
-          <span className="text-[8px] font-mono text-muted-dark/30 uppercase tracking-widest">
+          <span className="text-[9px] font-mono text-muted-dark/60 uppercase tracking-widest">
             The Pops Orchestra · Sqysh
           </span>
           <div className="flex items-center gap-3 flex-wrap">
@@ -185,7 +185,7 @@ export default function DashboardClient2(props: Props) {
               `Testimonials · ${testimonialsLiveCount} live / ${testimonialsCount}`,
               `Photos · ${photosCount}`
             ].map((label) => (
-              <span key={label} className="text-[8px] font-mono text-muted-dark/30">
+              <span key={label} className="text-[9px] font-mono text-muted-dark/60">
                 {label}
               </span>
             ))}

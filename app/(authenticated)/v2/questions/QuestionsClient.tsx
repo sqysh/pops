@@ -102,11 +102,11 @@ export function QuestionsClient({ questions: initialQuestions }: { questions: IQ
         totalCount={questions.length}
         footerExtra={
           pendingCount > 0 ? (
-            <span className="text-[8px] font-mono uppercase tracking-widest text-amber-400/60 tabular-nums">
+            <span className="text-[9px] font-mono uppercase tracking-widest text-amber-400/60 tabular-nums">
               {pendingCount} awaiting reply
             </span>
           ) : (
-            <span className="text-[8px] font-mono uppercase tracking-widest text-emerald-400/50">All clear</span>
+            <span className="text-[9px] font-mono uppercase tracking-widest text-emerald-400/50">All clear</span>
           )
         }
         empty={

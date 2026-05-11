@@ -93,7 +93,7 @@ export default function SubscriptionsFlexClient() {
         className="flex items-center justify-between px-8 sm:px-12 py-6 border-b border-border-dark"
       >
         <div>
-          <p className="font-mono text-[8px] tracking-[0.3em] uppercase text-primary-dark mb-0.5">Admin Only</p>
+          <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-primary-dark mb-0.5">Admin Only</p>
           <h1 className="font-quicksand font-black text-xl text-text-dark leading-none">
             Subscriptions & Flex Packages
           </h1>
@@ -101,14 +101,14 @@ export default function SubscriptionsFlexClient() {
         <div className="flex items-center gap-4">
           <Link
             href="/concerts-test"
-            className="font-mono text-[8px] tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors"
+            className="font-mono text-[9px] tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors"
           >
             Concerts
           </Link>
           <div className="w-px h-4 bg-border-dark" />
           <Link
             href="/v2/dashboard"
-            className="font-mono text-[8px] tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors"
+            className="font-mono text-[9px] tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors"
           >
             Dashboard
           </Link>
@@ -120,7 +120,7 @@ export default function SubscriptionsFlexClient() {
         <section>
           <div className="flex items-center gap-3 mb-6">
             <div className="w-px h-5 bg-primary-dark" />
-            <h2 className="font-mono text-[10px] tracking-[0.25em] uppercase text-primary-dark">
+            <h2 className="font-mono text-[11px] tracking-[0.25em] uppercase text-primary-dark">
               Season Subscriptions
             </h2>
           </div>
@@ -137,12 +137,12 @@ export default function SubscriptionsFlexClient() {
                   <p className="font-quicksand font-bold text-lg text-text-dark leading-none">{item.name}</p>
                   <div className="flex items-center gap-2">
                     <span
-                      className={`font-mono text-[8px] tracking-widest uppercase px-2 py-0.5 ${statusCls(item.status)}`}
+                      className={`font-mono text-[9px] tracking-widest uppercase px-2 py-0.5 ${statusCls(item.status)}`}
                     >
                       {item.status.replace('_', ' ')}
                     </span>
                     <span
-                      className={`font-mono text-[8px] tracking-widest uppercase px-2 py-0.5 ${item.isVisible ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-white/5 text-white/30 border border-white/10'}`}
+                      className={`font-mono text-[9px] tracking-widest uppercase px-2 py-0.5 ${item.isVisible ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-white/5 text-white/30 border border-white/10'}`}
                     >
                       {item.isVisible ? 'Visible' : 'Not Visible'}
                     </span>
@@ -154,7 +154,7 @@ export default function SubscriptionsFlexClient() {
                       href={item.publicUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 font-mono text-[8px] tracking-widest uppercase px-4 py-2 bg-primary-dark hover:bg-secondary-light text-white transition-colors"
+                      className="inline-flex items-center gap-1.5 font-mono text-[9px] tracking-widest uppercase px-4 py-2 bg-primary-dark hover:bg-secondary-light text-white transition-colors"
                     >
                       <ExternalLink className="w-3 h-3" />
                       Public Link
@@ -165,7 +165,7 @@ export default function SubscriptionsFlexClient() {
                     href={item.cueboxEditUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 font-mono text-[8px] tracking-widest uppercase px-4 py-2 border border-border-dark hover:border-primary-dark text-muted-dark hover:text-text-dark transition-colors"
+                    className="inline-flex items-center gap-1.5 font-mono text-[9px] tracking-widest uppercase px-4 py-2 border border-border-dark hover:border-primary-dark text-muted-dark hover:text-text-dark transition-colors"
                   >
                     <ExternalLink className="w-3 h-3" />
                     Edit in CueBox
@@ -180,7 +180,7 @@ export default function SubscriptionsFlexClient() {
         <section>
           <div className="flex items-center gap-3 mb-6">
             <div className="w-px h-5 bg-primary-dark" />
-            <h2 className="font-mono text-[10px] tracking-[0.25em] uppercase text-primary-dark">Flex Packages</h2>
+            <h2 className="font-mono text-[11px] tracking-[0.25em] uppercase text-primary-dark">Flex Packages</h2>
           </div>
           <div className="flex flex-col">
             {flex.map((item, i) => (
@@ -195,12 +195,12 @@ export default function SubscriptionsFlexClient() {
                   <p className="font-quicksand font-bold text-lg text-text-dark leading-none">{item.name}</p>
                   <div className="flex items-center gap-2">
                     <span
-                      className={`font-mono text-[8px] tracking-widest uppercase px-2 py-0.5 ${statusCls(item.status)}`}
+                      className={`font-mono text-[9px] tracking-widest uppercase px-2 py-0.5 ${statusCls(item.status)}`}
                     >
                       {item.status.replace('_', ' ')}
                     </span>
                     <span
-                      className={`font-mono text-[8px] tracking-widest uppercase px-2 py-0.5 ${item.isVisible ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-white/5 text-white/30 border border-white/10'}`}
+                      className={`font-mono text-[9px] tracking-widest uppercase px-2 py-0.5 ${item.isVisible ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-white/5 text-white/30 border border-white/10'}`}
                     >
                       {item.isVisible ? 'Visible' : 'Not Visible'}
                     </span>
@@ -212,7 +212,7 @@ export default function SubscriptionsFlexClient() {
                       href={item.publicUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 font-mono text-[8px] tracking-widest uppercase px-4 py-2 bg-primary-dark hover:bg-secondary-light text-white transition-colors"
+                      className="inline-flex items-center gap-1.5 font-mono text-[9px] tracking-widest uppercase px-4 py-2 bg-primary-dark hover:bg-secondary-light text-white transition-colors"
                     >
                       <ExternalLink className="w-3 h-3" />
                       Public Link
@@ -223,7 +223,7 @@ export default function SubscriptionsFlexClient() {
                     href={item.cueboxEditUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 font-mono text-[8px] tracking-widest uppercase px-4 py-2 border border-border-dark hover:border-primary-dark text-muted-dark hover:text-text-dark transition-colors"
+                    className="inline-flex items-center gap-1.5 font-mono text-[9px] tracking-widest uppercase px-4 py-2 border border-border-dark hover:border-primary-dark text-muted-dark hover:text-text-dark transition-colors"
                   >
                     <ExternalLink className="w-3 h-3" />
                     Edit in CueBox

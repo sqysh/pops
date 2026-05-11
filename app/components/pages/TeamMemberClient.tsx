@@ -58,7 +58,7 @@ export default function TeamMemberClient({ member, allMembers, currentIndex, rol
             <ChevronLeft className="w-4 h-4" />
           </button>
 
-          <div className="text-white/50 text-[10px] font-mono tracking-widest">
+          <div className="text-white/50 text-[11px] font-mono tracking-widest">
             {currentIndex + 1} / {allMembers.length}
           </div>
 
@@ -86,7 +86,7 @@ export default function TeamMemberClient({ member, allMembers, currentIndex, rol
             <div className="space-y-1">
               <h1 className="font-changa text-3xl 430:text-4xl text-white leading-tight">{fullName}</h1>
               {member.position && (
-                <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-blaze-text">{member.position}</p>
+                <p className="text-[11px] font-mono tracking-[0.2em] uppercase text-blaze-text">{member.position}</p>
               )}
             </div>
 
@@ -108,7 +108,7 @@ export default function TeamMemberClient({ member, allMembers, currentIndex, rol
             <div className="pt-6 border-t border-white/5 mt-auto">
               <button
                 onClick={() => router.push(`/${role}`)}
-                className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/60 hover:text-white transition-colors"
+                className="text-[11px] font-mono tracking-[0.2em] uppercase text-white/60 hover:text-white transition-colors"
               >
                 ← Back to Team
               </button>

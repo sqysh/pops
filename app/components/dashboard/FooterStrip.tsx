@@ -57,14 +57,14 @@ export function FooterStrip({
           >
             <div className="flex items-center gap-2 min-w-0">
               <span className="text-primary-dark shrink-0">{item.icon}</span>
-              <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark truncate">
+              <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark truncate">
                 {item.label}
               </span>
-              <span className="text-[9px] font-mono text-muted-dark/40">({item.value})</span>
+              <span className="text-[10px] font-mono text-muted-dark/70">({item.value})</span>
               {item.label !== 'Gallery' && (
                 <>
-                  <span className="text-[8px] font-mono text-emerald-400 hidden lg:block">{item.liveCount} live</span>
-                  <span className="text-[8px] font-mono text-muted-dark/40 hidden lg:block">
+                  <span className="text-[9px] font-mono text-emerald-400 hidden lg:block">{item.liveCount} live</span>
+                  <span className="text-[9px] font-mono text-muted-dark/70 hidden lg:block">
                     {item.draftCount} draft
                   </span>
                 </>
@@ -85,14 +85,14 @@ export function FooterStrip({
               <span className="text-primary-dark shrink-0">
                 <Quote className="w-3 h-3" />
               </span>
-              <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark truncate">
+              <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark truncate">
                 Testimonials
               </span>
-              <span className="text-[9px] font-mono text-muted-dark/40">({testimonialsCount})</span>
-              <span className="text-[8px] font-mono text-emerald-400 hidden lg:block">
+              <span className="text-[10px] font-mono text-muted-dark/70">({testimonialsCount})</span>
+              <span className="text-[9px] font-mono text-emerald-400 hidden lg:block">
                 {testimonialsLiveCount} live
               </span>
-              <span className="text-[8px] font-mono text-muted-dark/40 hidden lg:block">
+              <span className="text-[9px] font-mono text-muted-dark/70 hidden lg:block">
                 {testimonialsDraftCount} draft
               </span>
             </div>

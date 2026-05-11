@@ -36,10 +36,10 @@ function YearGroup({
       >
         <div className="flex items-center gap-3">
           <motion.div animate={{ rotate: expanded ? 90 : 0 }} transition={{ duration: 0.15 }}>
-            <ChevronRight className="w-3 h-3 text-muted-dark/40" />
+            <ChevronRight className="w-3 h-3 text-muted-dark/70" />
           </motion.div>
-          <span className={`text-[9px] font-mono uppercase tracking-widest font-bold ${colorClass}`}>{year}</span>
-          <span className="text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border border-border-dark text-muted-dark/40">
+          <span className={`text-[10px] font-mono uppercase tracking-widest font-bold ${colorClass}`}>{year}</span>
+          <span className="text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border border-border-dark text-muted-dark/70">
             {applications.length} application{applications.length !== 1 ? 's' : ''}
           </span>
         </div>
@@ -56,7 +56,7 @@ function YearGroup({
             .map(([inst, count]) => (
               <span
                 key={inst}
-                className="text-[7px] font-mono text-muted-dark/30 uppercase tracking-widest hidden sm:block"
+                className="text-[8px] font-mono text-muted-dark/60 uppercase tracking-widest hidden sm:block"
               >
                 {count} {inst}
               </span>
@@ -85,7 +85,7 @@ function YearGroup({
                 { label: 'Submitted' },
                 { label: '' }
               ].map(({ label }, i) => (
-                <span key={i} className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/40">
+                <span key={i} className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/70">
                   {label}
                 </span>
               ))}
@@ -175,17 +175,17 @@ export function CampApplicationsClient({
             <div className="flex items-center gap-2 760:gap-3 min-w-0 flex-1 overflow-hidden">
               <Link
                 href="/v2/dashboard"
-                className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/40 hover:text-primary-dark transition-colors shrink-0"
+                className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-primary-dark transition-colors shrink-0"
               >
                 ←<span className="hidden 480:inline"> Dashboard</span>
               </Link>
               <div className="w-px h-3 bg-border-dark shrink-0" aria-hidden="true" />
-              <span className="text-[8px] 760:text-[9px] font-mono text-muted-dark/40 uppercase tracking-widest shrink-0 truncate">
+              <span className="text-[9px] 760:text-[10px] font-mono text-muted-dark/70 uppercase tracking-widest shrink-0 truncate">
                 <span className="hidden 480:inline">[ CAMP APPLICATIONS ]</span>
                 <span className="480:hidden">[ CAMP ]</span>
               </span>
               <div className="w-px h-3 bg-border-dark shrink-0 hidden 480:block" aria-hidden="true" />
-              <span className="text-[9px] font-mono text-muted-dark hidden 480:block shrink-0">
+              <span className="text-[10px] font-mono text-muted-dark hidden 480:block shrink-0">
                 {applications.length} total
               </span>
 
@@ -197,7 +197,7 @@ export function CampApplicationsClient({
                     <span className={`font-mono text-xs font-bold tabular-nums ${YEAR_COLORS[i % 5]}`}>
                       {apps.length}
                     </span>
-                    <span className="text-[7px] font-mono tracking-[0.12em] uppercase text-muted-dark/50 whitespace-nowrap">
+                    <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
                       {year}
                     </span>
                   </div>
@@ -210,10 +210,10 @@ export function CampApplicationsClient({
               type="button"
               onClick={handleToggle}
               disabled={toggling}
-              className={`flex items-center gap-2 text-[8px] font-mono uppercase tracking-widest px-2 760:px-3 py-1.5 border transition-colors disabled:opacity-50 focus-visible:outline-none shrink-0 ${
+              className={`flex items-center gap-2 text-[9px] font-mono uppercase tracking-widest px-2 760:px-3 py-1.5 border transition-colors disabled:opacity-50 focus-visible:outline-none shrink-0 ${
                 campApplicationsEnabled
                   ? 'border-emerald-400/40 text-emerald-400 bg-emerald-400/5 hover:bg-emerald-400/10'
-                  : 'border-border-dark text-muted-dark/50 hover:text-text-dark hover:border-muted-dark/30'
+                  : 'border-border-dark text-muted-dark/80 hover:text-text-dark hover:border-muted-dark/30'
               }`}
             >
               {toggling ? (
@@ -236,7 +236,7 @@ export function CampApplicationsClient({
             {grouped.map(([year, apps], i) => (
               <div key={year} className="flex flex-col items-center justify-center px-4 py-1.5 shrink-0 gap-0.5">
                 <span className={`font-mono text-xs font-bold tabular-nums ${YEAR_COLORS[i % 5]}`}>{apps.length}</span>
-                <span className="text-[7px] font-mono tracking-[0.12em] uppercase text-muted-dark/50 whitespace-nowrap">
+                <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
                   {year}
                 </span>
               </div>
@@ -250,12 +250,12 @@ export function CampApplicationsClient({
           {isFiltered && (
             <button
               onClick={clearFilters}
-              className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/40 hover:text-primary-dark transition-colors"
+              className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-primary-dark transition-colors"
             >
               Clear
             </button>
           )}
-          <span className="ml-auto text-[8px] font-mono uppercase tracking-widest text-muted-dark/30 tabular-nums">
+          <span className="ml-auto text-[9px] font-mono uppercase tracking-widest text-muted-dark/60 tabular-nums">
             {visibleFiltered.length} of {applications.length}
           </span>
         </div>
@@ -281,11 +281,11 @@ export function CampApplicationsClient({
         <div className="shrink-0 flex items-center justify-between px-4 py-2 border-t border-border-dark bg-surface-dark">
           <Link
             href="/v2/dashboard"
-            className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/40 hover:text-primary-dark transition-colors"
+            className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-primary-dark transition-colors"
           >
             &larr; Dashboard
           </Link>
-          <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/30">
+          <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">
             {applications.length} total applications
           </span>
         </div>

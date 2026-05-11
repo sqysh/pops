@@ -26,7 +26,7 @@ function RolePopover({
       className="absolute left-0 top-full mt-1 z-50 bg-bg-dark border border-border-dark w-40 shadow-xl"
     >
       <div className="px-2 py-1.5 border-b border-border-dark">
-        <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/40">Change Role</span>
+        <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/70">Change Role</span>
       </div>
       {ROLE_ORDER.map((role) => (
         <button
@@ -36,12 +36,12 @@ function RolePopover({
             onSelect(role as UserRole)
             onClose()
           }}
-          className={`w-full flex items-center justify-between px-3 py-2 text-[8px] font-mono uppercase tracking-widest transition-colors hover:bg-surface-dark ${
-            currentRole === role ? roleColor(role) : 'text-muted-dark/60'
+          className={`w-full flex items-center justify-between px-3 py-2 text-[9px] font-mono uppercase tracking-widest transition-colors hover:bg-surface-dark ${
+            currentRole === role ? roleColor(role) : 'text-muted-dark/80'
           }`}
         >
           {formatRole(role)}
-          {currentRole === role && <span className="text-[6px]">✓</span>}
+          {currentRole === role && <span className="text-[8px]">✓</span>}
         </button>
       ))}
     </motion.div>
@@ -78,8 +78,8 @@ export function UserRow({ user, index, onEdit }: { user: IUser; index: number; o
     >
       {/* Name */}
       <div className="min-w-0">
-        <span className="text-[11px] font-mono text-text-dark truncate block">{fullName}</span>
-        <span className="text-[8px] font-mono text-muted-dark/60 truncate block">
+        <span className="text-[12px] font-mono text-text-dark truncate block">{fullName}</span>
+        <span className="text-[9px] font-mono text-muted-dark/80 truncate block">
           {new Date(user.createdAt).toLocaleDateString('en-US', {
             month: 'short',
             day: 'numeric',
@@ -89,7 +89,7 @@ export function UserRow({ user, index, onEdit }: { user: IUser; index: number; o
       </div>
 
       {/* Email */}
-      <span className="text-[10px] font-mono text-text-dark/80 truncate">{user.email}</span>
+      <span className="text-[11px] font-mono text-text-dark truncate">{user.email}</span>
 
       {/* Role — clickable to change */}
       <div className="relative">
@@ -97,7 +97,7 @@ export function UserRow({ user, index, onEdit }: { user: IUser; index: number; o
           type="button"
           onClick={() => !isSuperUser && setRolePopover((v) => !v)}
           disabled={isSuperUser || updatingRole}
-          className={`flex items-center gap-1 text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border transition-colors ${roleColor(user.role)} ${!isSuperUser ? 'hover:opacity-80 cursor-pointer' : 'cursor-default'} disabled:opacity-50`}
+          className={`flex items-center gap-1 text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border transition-colors ${roleColor(user.role)} ${!isSuperUser ? 'hover:opacity-80 cursor-pointer' : 'cursor-default'} disabled:opacity-50`}
           aria-label={`Change role for ${fullName}`}
         >
           {formatRole(user.role)}
@@ -111,7 +111,7 @@ export function UserRow({ user, index, onEdit }: { user: IUser; index: number; o
       </div>
 
       {/* Joined */}
-      <span className="text-[9px] font-mono text-muted-dark/60 tabular-nums">
+      <span className="text-[10px] font-mono text-muted-dark/80 tabular-nums">
         {new Date(user.createdAt).toLocaleDateString('en-US', {
           month: 'short',
           day: 'numeric',

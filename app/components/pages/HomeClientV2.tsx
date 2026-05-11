@@ -165,7 +165,7 @@ function Nav() {
 //           className="max-w-4xl"
 //         >
 //           {next && (
-//             <p className="text-[10px] tracking-[0.35em] uppercase text-primary-dark mb-5">
+//             <p className="text-[11px] tracking-[0.35em] uppercase text-primary-dark mb-5">
 //               Now Playing · {next.cardDate}
 //             </p>
 //           )}
@@ -200,7 +200,7 @@ function Nav() {
 //         transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
 //         aria-hidden="true"
 //       >
-//         <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-white/50">Scroll</span>
+//         <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-white/50">Scroll</span>
 //         <ChevronDown className="w-4 h-4 text-white/50" />
 //       </motion.div>
 //     </section>
@@ -227,7 +227,7 @@ function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-primary-dark mb-5">Since 1975</p>
+            <p className="text-[11px] font-mono tracking-[0.35em] uppercase text-primary-dark mb-5">Since 1975</p>
             <h2
               id="about-heading"
               className="font-quicksand font-black text-4xl sm:text-5xl lg:text-6xl text-neutral-900 dark:text-white leading-none mb-8"
@@ -313,7 +313,7 @@ function EventsSection() {
       aria-labelledby="events-heading"
     >
       <div className="max-w-7xl mx-auto">
-        <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-primary-dark mb-5">Calendar</p>
+        <p className="text-[11px] font-mono tracking-[0.35em] uppercase text-primary-dark mb-5">Calendar</p>
         <h2
           id="events-heading"
           className="font-quicksand font-black text-4xl sm:text-5xl lg:text-6xl text-neutral-900 dark:text-white leading-none mb-16"
@@ -332,7 +332,7 @@ function EventsSection() {
               className="bg-white dark:bg-neutral-950 p-6 flex flex-col gap-4 group cursor-pointer hover:bg-neutral-50 dark:hover:bg-neutral-900 transition-colors"
             >
               <div>
-                <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-primary-dark mb-4">{event.date}</p>
+                <p className="text-[11px] font-mono tracking-[0.2em] uppercase text-primary-dark mb-4">{event.date}</p>
                 <h3 className="font-quicksand font-black text-xl text-neutral-900 dark:text-white leading-tight mb-3 group-hover:text-primary-dark transition-colors">
                   {event.title}
                 </h3>
@@ -342,7 +342,7 @@ function EventsSection() {
                 </div>
                 <p className="text-neutral-500 dark:text-neutral-400 text-sm leading-relaxed">{event.description}</p>
               </div>
-              <div className="flex items-center gap-2 text-neutral-900 dark:text-white font-mono text-[10px] tracking-[0.2em] uppercase mt-auto">
+              <div className="flex items-center gap-2 text-neutral-900 dark:text-white font-mono text-[11px] tracking-[0.2em] uppercase mt-auto">
                 Learn More
                 <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </div>
@@ -362,7 +362,7 @@ function NewsSection() {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-end justify-between mb-16 gap-8">
           <div>
-            <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-primary-dark mb-5">Latest</p>
+            <p className="text-[11px] font-mono tracking-[0.35em] uppercase text-primary-dark mb-5">Latest</p>
             <h2
               id="news-heading"
               className="font-quicksand font-black text-4xl sm:text-5xl lg:text-6xl text-white leading-none"
@@ -372,7 +372,7 @@ function NewsSection() {
           </div>
           <Link
             href="/news"
-            className="shrink-0 inline-flex items-center gap-2 text-[10px] font-mono tracking-[0.2em] uppercase text-neutral-400 hover:text-white transition-colors focus-visible:outline-none"
+            className="shrink-0 inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-neutral-400 hover:text-white transition-colors focus-visible:outline-none"
           >
             All News
             <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
@@ -396,14 +396,14 @@ function NewsSection() {
                 </div>
 
                 <div>
-                  <p className="text-[9px] font-mono tracking-[0.2em] uppercase text-neutral-500 mb-3">{item.date}</p>
+                  <p className="text-[10px] font-mono tracking-[0.2em] uppercase text-neutral-500 mb-3">{item.date}</p>
                   <h3 className="font-quicksand font-black text-xl text-white leading-tight mb-3 group-hover:text-primary-dark transition-colors">
                     {item.title}
                   </h3>
                   <p className="text-neutral-500 text-sm leading-relaxed line-clamp-3">{item.excerpt}</p>
                 </div>
 
-                <div className="flex items-center gap-2 text-primary-dark text-[10px] font-mono tracking-[0.2em] uppercase">
+                <div className="flex items-center gap-2 text-primary-dark text-[11px] font-mono tracking-[0.2em] uppercase">
                   Read More
                   <ArrowUpRight
                     className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
@@ -427,7 +427,7 @@ function GallerySection({ images }: { images: PhotoGalleryImage[] }) {
   return (
     <section className="bg-white dark:bg-bg-dark py-24 sm:py-36 overflow-hidden" aria-labelledby="gallery-heading">
       <div className="px-6 sm:px-12 lg:px-20 mb-12">
-        <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-primary-dark mb-5">Photography</p>
+        <p className="text-[11px] font-mono tracking-[0.35em] uppercase text-primary-dark mb-5">Photography</p>
         <h2
           id="gallery-heading"
           className="font-quicksand font-black text-4xl sm:text-5xl lg:text-6xl text-neutral-900 dark:text-white leading-none"
@@ -455,7 +455,7 @@ function GallerySection({ images }: { images: PhotoGalleryImage[] }) {
       <div className="px-6 sm:px-12 lg:px-20 mt-10">
         <Link
           href="/gallery"
-          className="inline-flex items-center gap-3 text-[10px] font-mono tracking-[0.2em] uppercase text-primary-dark hover:text-secondary-light transition-colors focus-visible:outline-none"
+          className="inline-flex items-center gap-3 text-[11px] font-mono tracking-[0.2em] uppercase text-primary-dark hover:text-secondary-light transition-colors focus-visible:outline-none"
         >
           View Full Gallery
           <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
@@ -481,7 +481,7 @@ function NewsletterSection() {
     <section className="bg-primary-dark py-24 sm:py-36 px-6 sm:px-12 lg:px-20" aria-labelledby="newsletter-heading">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/50 mb-5">Stay Connected</p>
+          <p className="text-[11px] font-mono tracking-[0.35em] uppercase text-white/50 mb-5">Stay Connected</p>
           <h2
             id="newsletter-heading"
             className="font-quicksand font-black text-4xl sm:text-5xl lg:text-6xl text-white leading-none mb-6"
@@ -569,7 +569,7 @@ function Footer() {
 
           {/* Quick links */}
           <nav aria-label="Footer navigation — primary">
-            <p className="text-[9px] font-mono tracking-[0.25em] uppercase text-neutral-600 mb-5">Explore</p>
+            <p className="text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-600 mb-5">Explore</p>
             <ul className="space-y-3">
               {['Concerts', 'About', 'Events', 'News', 'Gallery', 'Donate'].map((l) => (
                 <li key={l}>
@@ -586,7 +586,7 @@ function Footer() {
 
           {/* Info links */}
           <nav aria-label="Footer navigation — info">
-            <p className="text-[9px] font-mono tracking-[0.25em] uppercase text-neutral-600 mb-5">Info</p>
+            <p className="text-[10px] font-mono tracking-[0.25em] uppercase text-neutral-600 mb-5">Info</p>
             <ul className="space-y-3">
               {['Contact', 'Student Performers', 'Sponsors', 'Venues', 'Subscribe', 'FAQ'].map((l) => (
                 <li key={l}>
@@ -603,10 +603,10 @@ function Footer() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-neutral-900">
-          <p className="text-[10px] font-mono text-neutral-700">
+          <p className="text-[11px] font-mono text-neutral-700">
             © {new Date().getFullYear()} The Pops Orchestra of Bradenton &amp; Sarasota. All rights reserved.
           </p>
-          <p className="text-[10px] font-mono text-neutral-700">ThePopsOrchestra.org</p>
+          <p className="text-[11px] font-mono text-neutral-700">ThePopsOrchestra.org</p>
         </div>
       </div>
     </footer>

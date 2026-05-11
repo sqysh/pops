@@ -72,7 +72,7 @@ export function NewsEditorPanel({ news, isNew, onSaved, onCancel }: TNewsEditorP
       <div className="shrink-0 flex items-center justify-between px-4 py-2.5 border-b border-border-dark bg-surface-dark">
         <div className="flex items-center gap-2">
           <div className="w-3 h-px bg-primary-dark" aria-hidden="true" />
-          <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-primary-dark">
+          <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-primary-dark">
             {isNew ? 'New Article' : 'Edit Article'}
           </span>
         </div>
@@ -95,7 +95,7 @@ export function NewsEditorPanel({ news, isNew, onSaved, onCancel }: TNewsEditorP
                 <Picture priority src={imagePreview} alt="Cover preview" className="w-full h-40 object-cover" />
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                   <Upload className="w-4 h-4 text-white" aria-hidden="true" />
-                  <span className="text-white text-[10px] font-mono">Change Image</span>
+                  <span className="text-white text-[11px] font-mono">Change Image</span>
                 </div>
               </div>
             ) : (
@@ -104,7 +104,7 @@ export function NewsEditorPanel({ news, isNew, onSaved, onCancel }: TNewsEditorP
                   className="w-5 h-5 text-muted-dark group-hover:text-primary-dark transition-colors"
                   aria-hidden="true"
                 />
-                <span className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark group-hover:text-text-dark transition-colors">
+                <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark group-hover:text-text-dark transition-colors">
                   Upload Cover Image
                 </span>
               </div>
@@ -125,7 +125,7 @@ export function NewsEditorPanel({ news, isNew, onSaved, onCancel }: TNewsEditorP
               <div className="h-px bg-border-dark w-full">
                 <div className="h-px bg-primary-dark transition-all" style={{ width: `${uploadProgress}%` }} />
               </div>
-              <p className="text-[9px] font-mono text-muted-dark mt-1">Uploading... {Math.round(uploadProgress)}%</p>
+              <p className="text-[10px] font-mono text-muted-dark mt-1">Uploading... {Math.round(uploadProgress)}%</p>
             </div>
           )}
         </div>
@@ -156,7 +156,7 @@ export function NewsEditorPanel({ news, isNew, onSaved, onCancel }: TNewsEditorP
             rows={3}
             className={`${inputCls} resize-none`}
           />
-          <p className="text-[9px] font-mono text-muted-dark/40 mt-1">
+          <p className="text-[10px] font-mono text-muted-dark/70 mt-1">
             Shown on the news listing page. Keep it to 1-2 sentences.
           </p>
         </div>
@@ -192,7 +192,7 @@ export function NewsEditorPanel({ news, isNew, onSaved, onCancel }: TNewsEditorP
         <div className="flex items-center justify-between px-3 py-2.5 border border-border-dark bg-bg-dark">
           <div>
             <p className="text-text-dark text-sm font-medium">Published</p>
-            <p className="text-muted-dark text-[10px] mt-0.5">Visible on the public site</p>
+            <p className="text-muted-dark text-[11px] mt-0.5">Visible on the public site</p>
           </div>
           <button
             type="button"

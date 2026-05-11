@@ -36,10 +36,10 @@ export function DrawerShell({ open, onClose, label, width = 'w-[28rem]', childre
             aria-label={label}
           >
             <div className="shrink-0 flex items-center justify-between px-4 py-3 border-b border-border-dark">
-              <span className="text-[9px] font-mono text-muted-dark/40 uppercase tracking-widest">[ {label} ]</span>
+              <span className="text-[10px] font-mono text-muted-dark uppercase tracking-widest">[ {label} ]</span>
               <button
                 onClick={onClose}
-                className="text-muted-dark/40 hover:text-text-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark"
+                className="text-muted-dark/70 hover:text-text-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark"
                 aria-label="Close drawer"
               >
                 <X className="w-3.5 h-3.5" />

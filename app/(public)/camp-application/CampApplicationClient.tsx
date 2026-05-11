@@ -17,7 +17,7 @@ const formSteps = [
   { id: 4, label: 'Music', icon: Music }
 ]
 
-const labelClass = 'block text-[10px] font-mono tracking-[0.15em] uppercase text-white/60 mb-1.5'
+const labelClass = 'block text-[11px] font-mono tracking-[0.15em] uppercase text-white/60 mb-1.5'
 
 const inputClass = (error?: string) =>
   `w-full px-3 py-2.5 bg-black border text-white text-sm placeholder-white/20 font-lato focus:outline-none focus:ring-0 transition-colors ${
@@ -29,7 +29,7 @@ function Field({ label, error, children }: { label: string; error?: string; chil
     <div>
       {label && <label className={labelClass}>{label}</label>}
       {children}
-      {error && <p className="mt-1.5 text-[10px] font-mono text-blaze-text uppercase tracking-widest">{error}</p>}
+      {error && <p className="mt-1.5 text-[11px] font-mono text-blaze-text uppercase tracking-widest">{error}</p>}
     </div>
   )
 }
@@ -235,20 +235,20 @@ export default function CampApplicationClient({ data }) {
               <aside aria-label="Camp schedule" className="990:col-span-3 bg-black 990:sticky 990:top-6 self-start">
                 <div className="border-b border-white/10 px-5 py-3 flex items-center gap-2">
                   <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                  <p className="font-changa text-[10px] uppercase tracking-[0.25em] text-blaze-text">Camp Schedule</p>
+                  <p className="font-changa text-[11px] uppercase tracking-[0.25em] text-blaze-text">Camp Schedule</p>
                 </div>
                 <div className="p-5 flex flex-col gap-6">
                   {schedule.map((day, d) => (
                     <div key={d}>
                       <p className="font-changa text-white text-sm mb-0.5">{day.date}</p>
-                      <p className="font-mono text-[10px] text-blaze-text uppercase tracking-[0.15em] mb-2">
+                      <p className="font-mono text-[11px] text-blaze-text uppercase tracking-[0.15em] mb-2">
                         {day.time}
                       </p>
                       <ul className="flex flex-col gap-1.5" aria-label={`Schedule for ${day.date}`}>
                         {day.items.map((item, i) => (
                           <li key={i} className="flex items-start gap-2">
                             <span className="mt-1.5 w-1 h-1 rounded-full bg-blaze shrink-0" aria-hidden="true" />
-                            <span className="font-lato text-[11px] text-white/70 leading-relaxed">{item}</span>
+                            <span className="font-lato text-[12px] text-white/70 leading-relaxed">{item}</span>
                           </li>
                         ))}
                       </ul>
@@ -256,7 +256,7 @@ export default function CampApplicationClient({ data }) {
                   ))}
                   <div className="pt-4 border-t border-white/10 flex items-start gap-2">
                     <Check className="w-3.5 h-3.5 text-blaze-text mt-0.5 shrink-0" aria-hidden="true" />
-                    <p className="font-lato text-[11px] text-white/70 leading-relaxed">
+                    <p className="font-lato text-[12px] text-white/70 leading-relaxed">
                       At least two years of playing experience required
                     </p>
                   </div>
@@ -308,7 +308,7 @@ export default function CampApplicationClient({ data }) {
                                 )}
                               </button>
                               <span
-                                className={`text-[9px] font-mono uppercase tracking-wider ${
+                                className={`text-[10px] font-mono uppercase tracking-wider ${
                                   active ? 'text-white' : done ? 'text-blaze-text' : 'text-white/30'
                                 }`}
                               >
@@ -613,7 +613,7 @@ export default function CampApplicationClient({ data }) {
                       type="button"
                       onClick={() => go(step - 1)}
                       disabled={step === 0}
-                      className="flex items-center gap-2 px-4 py-2 text-[10px] font-mono tracking-[0.15em] uppercase text-white/60 hover:text-white disabled:opacity-0 disabled:pointer-events-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+                      className="flex items-center gap-2 px-4 py-2 text-[11px] font-mono tracking-[0.15em] uppercase text-white/60 hover:text-white disabled:opacity-0 disabled:pointer-events-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
                     >
                       <ChevronLeft className="w-3.5 h-3.5" aria-hidden="true" />
                       Back

@@ -14,10 +14,10 @@ export function MailchimpMemberRow({ member, index }: { member: any; index: numb
     >
       {/* Name + email */}
       <div className="min-w-0">
-        <span className="text-[11px] font-mono text-text-dark truncate block">{member.name || '—'}</span>
+        <span className="text-[12px] font-mono text-text-dark truncate block">{member.name || '—'}</span>
         <div className="flex items-center gap-3 mt-0.5">
           {member.stats?.avgOpenRate > 0 && (
-            <span className="text-[7px] font-mono text-muted-dark/30">
+            <span className="text-[8px] font-mono text-muted-dark/60">
               {Math.round(member.stats.avgOpenRate * 100)}% open rate
             </span>
           )}
@@ -25,7 +25,7 @@ export function MailchimpMemberRow({ member, index }: { member: any; index: numb
             activeInterests.map(({ key, label }) => (
               <span
                 key={key}
-                className="text-[6px] font-mono uppercase tracking-widest px-1 py-0.5 border border-primary-dark/20 bg-primary-dark/5 text-primary-dark"
+                className="text-[8px] font-mono uppercase tracking-widest px-1 py-0.5 border border-primary-dark/20 bg-primary-dark/5 text-primary-dark"
               >
                 {label}
               </span>
@@ -35,14 +35,14 @@ export function MailchimpMemberRow({ member, index }: { member: any; index: numb
 
       {/* Phone + address */}
       <div className="min-w-0">
-        <span className="text-[11px] font-mono text-text-dark truncate block">{member.email || '—'}</span>
+        <span className="text-[12px] font-mono text-text-dark truncate block">{member.email || '—'}</span>
         {member.address && typeof member.address === 'string' && member.address.trim() && (
-          <span className="text-[8px] font-mono text-muted-dark/40 truncate block">{member.address}</span>
+          <span className="text-[9px] font-mono text-muted-dark/70 truncate block">{member.address}</span>
         )}
       </div>
 
       {/* Joined */}
-      <span className="text-[9px] font-mono text-muted-dark/50 tabular-nums">
+      <span className="text-[10px] font-mono text-muted-dark/80 tabular-nums">
         {member.createdAt
           ? new Date(member.createdAt).toLocaleDateString('en-US', {
               month: 'short',
@@ -55,7 +55,7 @@ export function MailchimpMemberRow({ member, index }: { member: any; index: numb
       {/* Status */}
       <div className="flex justify-end">
         <span
-          className={`text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${STATUS_COLORS[member.status] ?? 'text-muted-dark border-border-dark'}`}
+          className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${STATUS_COLORS[member.status] ?? 'text-muted-dark border-border-dark'}`}
         >
           {member.status}
         </span>
@@ -69,7 +69,7 @@ export function MailchimpMemberRow({ member, index }: { member: any; index: numb
           rel="noopener noreferrer"
           onClick={(e) => e.stopPropagation()}
           aria-label={`View ${member.name || member.email} in Mailchimp`}
-          className="text-muted-dark/25 hover:text-primary-dark transition-colors focus-visible:outline-none"
+          className="text-muted-dark/85 hover:text-primary-dark transition-colors focus-visible:outline-none"
         >
           <ExternalLink className="w-3 h-3" />
         </a>

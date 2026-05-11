@@ -16,7 +16,7 @@ export const ContactClient = ({ data }) => {
         <div className="relative z-10">
           {/* Page Header */}
           <header className="text-center flex flex-col items-center pt-24 pb-16 px-4 border-b border-white/10">
-            <p className="font-changa text-[9px] uppercase tracking-[0.35em] text-blaze-text mb-3">
+            <p className="font-changa text-[10px] uppercase tracking-[0.35em] text-blaze-text mb-3">
               The Pops Orchestra
             </p>
             <h1 className="text-4xl 430:text-5xl font-changa text-white leading-none">
@@ -31,7 +31,7 @@ export const ContactClient = ({ data }) => {
               <div className="990:col-span-7">
                 <div className="flex items-center gap-3 mb-8">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                  <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-blaze-text">
+                  <span className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text">
                     Send a Message
                   </span>
                 </div>
@@ -46,7 +46,7 @@ export const ContactClient = ({ data }) => {
                     <div className="w-6 h-px bg-blaze" aria-hidden="true" />
                     <h2
                       id="contact-info-heading"
-                      className="font-changa text-[10px] uppercase tracking-[0.3em] text-blaze-text"
+                      className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text"
                     >
                       {field('contact_sidebar_heading')}
                     </h2>
@@ -98,7 +98,7 @@ export const ContactClient = ({ data }) => {
                       >
                         <div className="mt-0.5">{icon}</div>
                         <div>
-                          <p className="font-changa text-[9px] uppercase tracking-[0.2em] text-white/25 mb-1">
+                          <p className="font-changa text-[10px] uppercase tracking-[0.2em] text-white/25 mb-1">
                             {label}
                           </p>
                           {content}
@@ -114,7 +114,7 @@ export const ContactClient = ({ data }) => {
                     <div className="w-6 h-px bg-blaze" aria-hidden="true" />
                     <h2
                       id="contact-social-heading"
-                      className="font-changa text-[10px] uppercase tracking-[0.3em] text-blaze-text"
+                      className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text"
                     >
                       {field('contact_follow_us_heading')}
                     </h2>
@@ -149,7 +149,7 @@ export const ContactClient = ({ data }) => {
                     <div className="w-6 h-px bg-blaze" aria-hidden="true" />
                     <h2
                       id="contact-hours-heading"
-                      className="font-changa text-[10px] uppercase tracking-[0.3em] text-blaze-text"
+                      className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text"
                     >
                       {field('contact_office_hours_heading')}
                     </h2>

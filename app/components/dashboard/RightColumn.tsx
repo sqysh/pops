@@ -41,10 +41,10 @@ export function RightColumn({
               className="w-full flex items-center justify-between gap-2 px-3 py-2.5 border-b border-border-dark/30 last:border-0 hover:bg-button-dark transition-colors text-left"
             >
               <div className="min-w-0">
-                <p className="text-text-dark text-[11px] font-medium truncate">{q.name}</p>
+                <p className="text-text-dark text-[12px] font-medium truncate">{q.name}</p>
                 <div className="flex items-center gap-2">
-                  <p className="text-muted-dark text-[9px] truncate">{q.email}</p>
-                  <span className="text-muted-dark/40 text-[8px] font-mono shrink-0">
+                  <p className="text-muted-dark text-[10px] truncate">{q.email}</p>
+                  <span className="text-muted-dark/70 text-[9px] font-mono shrink-0">
                     {new Date(q.createdAt).toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',
@@ -55,9 +55,9 @@ export function RightColumn({
                 </div>
               </div>
               {q.hasResponded ? (
-                <span className="text-[8px] font-mono uppercase text-emerald-400 shrink-0">Done</span>
+                <span className="text-[9px] font-mono uppercase text-emerald-400 shrink-0">Done</span>
               ) : (
-                <span className="text-[8px] font-mono uppercase text-yellow-400 shrink-0">New</span>
+                <span className="text-[9px] font-mono uppercase text-yellow-400 shrink-0">New</span>
               )}
             </button>
           ))
@@ -80,10 +80,10 @@ export function RightColumn({
               className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 border-b border-border-dark/30 last:border-0 hover:bg-button-dark transition-colors text-left`}
             >
               <div className="min-w-0">
-                <p className="text-text-dark text-[11px] font-medium truncate">{u.firstName}</p>
-                <p className="text-muted-dark text-[9px] truncate">{u.email}</p>
+                <p className="text-text-dark text-[12px] font-medium truncate">{u.firstName}</p>
+                <p className="text-muted-dark text-[10px] truncate">{u.email}</p>
               </div>
-              <span className="text-[8px] font-mono uppercase text-muted-dark/40 shrink-0">{u.role}</span>
+              <span className="text-[9px] font-mono uppercase text-muted-dark/70 shrink-0">{u.role}</span>
             </button>
           ))
         )}
@@ -103,7 +103,7 @@ export function RightColumn({
           <Empty label="applications" />
         ) : (
           <Row href="/v2/camp-applications">
-            <p className="text-text-dark text-[11px]">View all applications</p>
+            <p className="text-text-dark text-[12px]">View all applications</p>
             <ArrowRight className="w-3 h-3 text-muted-dark" />
           </Row>
         )}
@@ -141,16 +141,16 @@ export function RightColumn({
                     className="w-5 h-5 object-contain shrink-0"
                   />
                 )}
-                <p className="text-text-dark text-[11px] font-medium truncate">{s.name}</p>
+                <p className="text-text-dark text-[12px] font-medium truncate">{s.name}</p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 {s.level && (
-                  <span className="text-[8px] font-mono uppercase text-muted-dark/40 hidden sm:block truncate max-w-16">
+                  <span className="text-[9px] font-mono uppercase text-muted-dark/70 hidden sm:block truncate max-w-16">
                     {s.level}
                   </span>
                 )}
                 <span
-                  className={`text-[8px] font-mono uppercase ${s.isActive ? 'text-emerald-400' : 'text-muted-dark/30'}`}
+                  className={`text-[9px] font-mono uppercase ${s.isActive ? 'text-emerald-400' : 'text-muted-dark/60'}`}
                 >
                   {s.isActive ? 'Active' : 'Off'}
                 </span>

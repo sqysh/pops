@@ -84,7 +84,7 @@ export default function AuthError() {
           >
             <div className="flex items-center gap-3">
               <div className="w-px h-6 bg-primary-dark" aria-hidden="true" />
-              <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-text-dark">
+              <span className="text-[11px] font-mono tracking-[0.3em] uppercase text-text-dark">
                 The Pops Orchestra
               </span>
               <div className="w-px h-6 bg-primary-dark" aria-hidden="true" />
@@ -97,7 +97,7 @@ export default function AuthError() {
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-6 h-px bg-primary-dark" aria-hidden="true" />
-              <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-primary-dark">All Access</span>
+              <span className="text-[11px] font-mono tracking-[0.25em] uppercase text-primary-dark">All Access</span>
             </div>
             <h1
               id="error-heading"
@@ -140,7 +140,7 @@ export default function AuthError() {
 
           {/* Error code */}
           {error && (
-            <p className="text-[10px] font-mono text-muted-dark/20 uppercase tracking-widest text-center mt-3">
+            <p className="text-[11px] font-mono text-muted-dark/20 uppercase tracking-widest text-center mt-3">
               <span className="sr-only">Error code: </span>
               {error}
             </p>

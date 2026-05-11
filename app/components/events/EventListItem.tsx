@@ -3,10 +3,10 @@ import { motion } from 'framer-motion'
 import { MapPin } from 'lucide-react'
 
 const STATUS_STYLES: Record<EventStatus, string> = {
-  DRAFT: 'text-muted-dark/40',
+  DRAFT: 'text-muted-dark/70',
   PUBLISHED: 'text-emerald-400',
   CANCELLED: 'text-red-400',
-  PAST: 'text-muted-dark/40'
+  PAST: 'text-muted-dark/70'
 }
 
 export function EventListItem({ event, i, handleSelect, selected, isNew }) {
@@ -25,7 +25,7 @@ export function EventListItem({ event, i, handleSelect, selected, isNew }) {
     >
       {/* Date block */}
       <div className="shrink-0 w-10 flex flex-col items-center border border-border-dark bg-bg-dark py-1.5">
-        <span className="text-[8px] font-mono uppercase text-muted-dark leading-none">
+        <span className="text-[9px] font-mono uppercase text-muted-dark leading-none">
           {new Date(event.date).toLocaleDateString('en-US', { month: 'short' })}
         </span>
         <span className="font-quicksand font-black text-lg text-text-dark leading-none">
@@ -39,17 +39,17 @@ export function EventListItem({ event, i, handleSelect, selected, isNew }) {
           <p className="text-text-dark text-xs font-medium truncate group-hover:text-primary-dark transition-colors">
             {event.title}
           </p>
-          <span className={`text-[8px] font-mono uppercase shrink-0 ${STATUS_STYLES[event.status]}`}>
+          <span className={`text-[9px] font-mono uppercase shrink-0 ${STATUS_STYLES[event.status]}`}>
             {event.status}
           </span>
         </div>
         {event.location && (
-          <div className="flex items-center gap-1 text-muted-dark/60 text-[10px]">
+          <div className="flex items-center gap-1 text-muted-dark/80 text-[11px]">
             <MapPin className="w-2.5 h-2.5 shrink-0" aria-hidden="true" />
             <span className="truncate">{event.location}</span>
           </div>
         )}
-        {event.description && <p className="text-muted-dark/50 text-[10px] mt-1 line-clamp-1">{event.description}</p>}
+        {event.description && <p className="text-muted-dark/80 text-[11px] mt-1 line-clamp-1">{event.description}</p>}
       </div>
     </motion.button>
   )

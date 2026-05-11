@@ -41,22 +41,22 @@ export function MailchimpMembersClient({ members, count }: { members: any[]; cou
       }}
       marquee="Read-only — showing the most recent 100 subscribers · Manage subscribers directly in Mailchimp · Click ↗ to view a member's full profile · Interest tags show self-reported preferences"
       marqueeNode={
-        <span className="text-[7px] font-mono">
+        <span className="text-[8px] font-mono">
           <span className="text-emerald-400">● Subscribed</span>
           <span className="text-muted-dark/20 mx-3">—</span>
-          <span className="text-muted-dark/50">active, receiving emails</span>
+          <span className="text-muted-dark/80">active, receiving emails</span>
           <span className="text-muted-dark/20 mx-6">·</span>
           <span className="text-red-400">● Unsubscribed</span>
           <span className="text-muted-dark/20 mx-3">—</span>
-          <span className="text-muted-dark/50">opted out</span>
+          <span className="text-muted-dark/80">opted out</span>
           <span className="text-muted-dark/20 mx-6">·</span>
           <span className="text-yellow-400">● Cleaned</span>
           <span className="text-muted-dark/20 mx-3">—</span>
-          <span className="text-muted-dark/50">bounced or invalid email</span>
+          <span className="text-muted-dark/80">bounced or invalid email</span>
           <span className="text-muted-dark/20 mx-6">·</span>
           <span className="text-sky-400">● Pending</span>
           <span className="text-muted-dark/20 mx-3">—</span>
-          <span className="text-muted-dark/50">awaiting confirmation</span>
+          <span className="text-muted-dark/80">awaiting confirmation</span>
           <span className="text-muted-dark/20 mx-6">·</span>
         </span>
       }
@@ -81,7 +81,7 @@ export function MailchimpMembersClient({ members, count }: { members: any[]; cou
       filteredCount={visibleFiltered.length}
       totalCount={count}
       footerExtra={
-        <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/30">
+        <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">
           {subscribedCount} active subscribers
         </span>
       }

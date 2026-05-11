@@ -79,7 +79,7 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
           <section aria-labelledby="stats-heading" className="bg-black p-5 990:p-10">
             <div className="flex items-center gap-2 mb-8">
               <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <h2 id="stats-heading" className="font-changa text-[10px] uppercase tracking-[0.25em] text-blaze-text">
+              <h2 id="stats-heading" className="font-changa text-[11px] uppercase tracking-[0.25em] text-blaze-text">
                 Pops by the Numbers
               </h2>
             </div>
@@ -116,7 +116,7 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
           <section aria-labelledby="tiers-heading" className="bg-black p-5 990:p-10">
             <div className="flex items-center gap-2 mb-8">
               <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <h2 id="tiers-heading" className="font-changa text-[10px] uppercase tracking-[0.25em] text-blaze-text">
+              <h2 id="tiers-heading" className="font-changa text-[11px] uppercase tracking-[0.25em] text-blaze-text">
                 Sponsorship Tiers
               </h2>
             </div>
@@ -143,11 +143,11 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
                     <div className="border-b border-white/10 p-5 430:p-6">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-3 h-px bg-blaze shrink-0" aria-hidden="true" />
-                        <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-blaze-text">Tier {n}</p>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-blaze-text">Tier {n}</p>
                       </div>
                       <h3 className="font-changa text-xl text-white mb-1">{title}</h3>
                       <p className="font-changa text-2xl text-blaze-text">{price}</p>
-                      {availability && <p className="font-lato text-[11px] text-white/50 mt-1">{availability}</p>}
+                      {availability && <p className="font-lato text-[12px] text-white/50 mt-1">{availability}</p>}
                     </div>
 
                     {/* Tier features */}
@@ -157,7 +157,7 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
                         if (!items.length) return null
                         return (
                           <div key={cat.key}>
-                            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40 mb-2">
+                            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 mb-2">
                               {cat.label}
                             </p>
                             <ul role="list" className="flex flex-col gap-1.5">
@@ -182,7 +182,7 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
           <section aria-labelledby="benefits-heading" className="bg-black p-5 990:p-10">
             <div className="flex items-center gap-2 mb-8">
               <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <h2 id="benefits-heading" className="font-changa text-[10px] uppercase tracking-[0.25em] text-blaze-text">
+              <h2 id="benefits-heading" className="font-changa text-[11px] uppercase tracking-[0.25em] text-blaze-text">
                 Why Become a Pops Partner?
               </h2>
             </div>
@@ -235,7 +235,7 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
           <section aria-labelledby="contact-heading" className="bg-black p-5 990:p-10">
             <div className="flex items-center gap-2 mb-8">
               <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <h2 id="contact-heading" className="font-changa text-[10px] uppercase tracking-[0.25em] text-blaze-text">
+              <h2 id="contact-heading" className="font-changa text-[11px] uppercase tracking-[0.25em] text-blaze-text">
                 Ready to Partner?
               </h2>
             </div>
@@ -244,7 +244,7 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
               <div className="bg-black p-5 430:p-6">
                 <p className="font-lato text-white/50 text-xs mb-4 uppercase tracking-widest font-mono">Contact</p>
                 <p className="font-changa text-xl text-white mb-0.5">{field('sponsorship_contact_name')}</p>
-                <p className="font-mono text-[10px] text-blaze-text uppercase tracking-[0.15em] mb-5">
+                <p className="font-mono text-[11px] text-blaze-text uppercase tracking-[0.15em] mb-5">
                   {field('sponsorship_contact_title')}
                 </p>
                 <address className="not-italic flex flex-col gap-3">
