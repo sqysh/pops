@@ -74,10 +74,18 @@ export function DashMarquees() {
         >
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <span key={i} className="text-[8px] font-mono text-lime-400/70 pr-16">
-              <span className="text-lime-400">● DONATIONS PAGE —</span> Building custom donations page on the Pops site
-              <span className="text-lime-500/50 mx-4">·</span>5 funds linking directly to CueBox campaigns
+              <span className="text-lime-400">● DONATIONS PAGE LIVE —</span> 5 funds linking directly to CueBox
+              campaigns
               <span className="text-lime-500/50 mx-4">·</span>
               Florida statute language at the bottom
+              <span className="text-lime-500/50 mx-4">·</span>
+              View at{' '}
+              <Link
+                href="/donate"
+                className="text-lime-400 underline underline-offset-2 hover:text-lime-300 transition-colors"
+              >
+                /donate
+              </Link>
               <span className="text-lime-500/50 mx-4">·</span>
             </span>
           ))}

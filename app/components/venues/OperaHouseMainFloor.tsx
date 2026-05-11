@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 type Tier = 'general' | 'premium' | 'ultra' | 'wheelchair'
@@ -336,102 +336,79 @@ function SeatRowUI({
   )
 }
 
-// ── Main component ────────────────────────────────────────────────────────────
-const INNER_WIDTH = 900
-
 export default function OperaHouseMainFloor() {
   const [tooltip, setTooltip] = useState<TooltipState | null>(null)
-  const [scale, setScale] = useState(1)
-  const [innerHeight, setInnerHeight] = useState(0)
-  const outerRef = useRef<HTMLDivElement>(null)
-  const innerRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const update = () => {
-      if (!outerRef.current) return
-      const available = outerRef.current.clientWidth
-      setScale(Math.min(1, available / INNER_WIDTH))
-      if (innerRef.current) setInnerHeight(innerRef.current.scrollHeight)
-    }
-    update()
-    const ro = new ResizeObserver(update)
-    if (outerRef.current) ro.observe(outerRef.current)
-    return () => ro.disconnect()
+  const handleActivate = useCallback((row: string, seat: SeatConfig, e: React.MouseEvent | React.TouchEvent) => {
+    const target = (e.currentTarget as HTMLElement).getBoundingClientRect()
+    setTooltip({
+      row,
+      seat,
+      x: target.left,
+      y: target.top
+    })
   }, [])
-
-  const handleActivate = useCallback(
-    (row: string, seat: SeatConfig, e: React.MouseEvent | React.TouchEvent) => {
-      if (!innerRef.current) return
-      const rect = innerRef.current.getBoundingClientRect()
-      let clientX: number, clientY: number
-      if ('touches' in e) {
-        clientX = e.touches[0].clientX
-        clientY = e.touches[0].clientY
-      } else {
-        clientX = e.clientX
-        clientY = e.clientY
-      }
-      setTooltip({
-        row,
-        seat,
-        x: (clientX - rect.left) / scale,
-        y: (clientY - rect.top) / scale
-      })
-    },
-    [scale]
-  )
 
   const handleDeactivate = useCallback(() => setTooltip(null), [])
 
   return (
-    <div className="bg-black text-text-dark flex flex-col items-center py-8 px-2">
+    <div className="bg-black text-text-dark flex flex-col items-center py-6 760:py-8 px-2">
       {/* Header */}
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-6">
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-4 760:mb-6">
         <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-primary-dark">Sarasota Opera House</span>
-        <h1 className="font-quicksand font-black text-xl sm:text-2xl text-text-dark mt-1">Main Floor</h1>
+        <h1 className="font-quicksand font-black text-xl 760:text-2xl text-text-dark mt-1">Main Floor</h1>
       </motion.div>
 
-      {/* Scale wrapper */}
-      <div ref={outerRef} className="w-full max-w-6xl">
-        <div
-          className="mx-auto"
-          style={{
-            transform: `scale(${scale})`,
-            transformOrigin: 'top center',
-            width: INNER_WIDTH,
-            marginBottom: innerHeight > 0 ? `${innerHeight * scale - innerHeight}px` : 0
-          }}
-        >
-          <div ref={innerRef} className="relative">
-            {/* Tooltip — inside scaled div so coords match */}
-            <AnimatePresence>
-              {tooltip && (
-                <motion.div
-                  initial={{ opacity: 0, y: 4, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.1 }}
-                  className="absolute z-30 pointer-events-none bg-bg-dark border border-border-dark px-3 py-2"
-                  style={{ left: tooltip.x + 10, top: tooltip.y - 56 }}
-                >
-                  <p className="text-[11px] font-mono text-text-dark">
-                    Row {tooltip.row} · Seat {tooltip.seat.number}
-                  </p>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <div className={`w-2 h-2 rounded-full shrink-0 ${TIER_COLORS[tooltip.seat.tier].bg}`} />
-                    <span className="text-[10px] font-mono text-muted-dark">
-                      {TIER_COLORS[tooltip.seat.tier].label}
-                    </span>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+      {/* Chart — scrolls horizontally on small screens */}
+      <div className="w-full overflow-x-auto">
+        <div className="min-w-max mx-auto relative">
+          {/* Tooltip — fixed to viewport since we're no longer inside a scaled div */}
+          <AnimatePresence>
+            {tooltip && (
+              <motion.div
+                initial={{ opacity: 0, y: 4, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.1 }}
+                className="fixed z-50 pointer-events-none bg-bg-dark border border-border-dark px-3 py-2"
+                style={{ left: tooltip.x + 14, top: tooltip.y - 56 }}
+              >
+                <p className="text-[11px] font-mono text-text-dark">
+                  Row {tooltip.row} · Seat {tooltip.seat.number}
+                </p>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <div className={`w-2 h-2 rounded-full shrink-0 ${TIER_COLORS[tooltip.seat.tier].bg}`} />
+                  <span className="text-[10px] font-mono text-muted-dark">{TIER_COLORS[tooltip.seat.tier].label}</span>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-            {/* 3-column layout */}
-            <div className="flex gap-2 items-start justify-center">
-              {/* Left boxes 11/12/13 — sink to bottom */}
-              <div className="flex flex-col gap-2 shrink-0 self-start mt-12">
-                {LEFT_BOXES.filter((b) => ['11', '12', '13'].includes(b.label)).map((box, bi) => (
+          {/* 3-column layout */}
+          <div className="flex gap-2 items-start justify-center">
+            {/* Left boxes 11/12/13 */}
+            <div className="flex flex-col gap-2 shrink-0 self-start mt-12">
+              {LEFT_BOXES.filter((b) => ['11', '12', '13'].includes(b.label)).map((box, bi) => (
+                <BoxGrid
+                  key={box.label}
+                  box={box}
+                  bi={bi}
+                  onActivate={handleActivate}
+                  onDeactivate={handleDeactivate}
+                />
+              ))}
+            </div>
+
+            {/* Center */}
+            <div className="flex flex-col items-center flex-1 min-w-0">
+              <div className="flex items-end gap-12 mb-3 w-full justify-center">
+                <BoxGrid
+                  box={LEFT_BOXES.find((b) => b.label === '10')!}
+                  bi={0}
+                  onActivate={handleActivate}
+                  onDeactivate={handleDeactivate}
+                />
+                {TOP_BOXES.map((box, bi) => (
                   <BoxGrid
                     key={box.label}
                     box={box}
@@ -440,73 +417,49 @@ export default function OperaHouseMainFloor() {
                     onDeactivate={handleDeactivate}
                   />
                 ))}
+                <BoxGrid
+                  box={RIGHT_BOXES.find((b) => b.label === '4')!}
+                  bi={0}
+                  onActivate={handleActivate}
+                  onDeactivate={handleDeactivate}
+                  labelRight
+                />
               </div>
 
-              {/* Center */}
-              <div className="flex flex-col items-center flex-1 min-w-0">
-                {/* Top row: box 10 + 9–5 + box 4 */}
-                <div className="flex items-end gap-12 mb-3 w-full justify-center">
-                  <BoxGrid
-                    box={LEFT_BOXES.find((b) => b.label === '10')!}
-                    bi={0}
+              <div className="flex flex-col gap-1 w-full">
+                {[...ROWS].reverse().map((row, rowIdx) => (
+                  <SeatRowUI
+                    key={row.label}
+                    row={row}
+                    rowIdx={rowIdx}
                     onActivate={handleActivate}
                     onDeactivate={handleDeactivate}
-                  />
-                  {TOP_BOXES.map((box, bi) => (
-                    <BoxGrid
-                      key={box.label}
-                      box={box}
-                      bi={bi}
-                      onActivate={handleActivate}
-                      onDeactivate={handleDeactivate}
-                    />
-                  ))}
-                  <BoxGrid
-                    box={RIGHT_BOXES.find((b) => b.label === '4')!}
-                    bi={0}
-                    onActivate={handleActivate}
-                    onDeactivate={handleDeactivate}
-                    labelRight
-                  />
-                </div>
-
-                {/* Seat rows — reversed so U is at top (back of house), A at bottom (front) */}
-                <div className="flex flex-col gap-1 w-full">
-                  {[...ROWS].reverse().map((row, rowIdx) => (
-                    <SeatRowUI
-                      key={row.label}
-                      row={row}
-                      rowIdx={rowIdx}
-                      onActivate={handleActivate}
-                      onDeactivate={handleDeactivate}
-                    />
-                  ))}
-                </div>
-
-                {/* Stage */}
-                <motion.div
-                  initial={{ opacity: 0, scaleX: 0.5 }}
-                  animate={{ opacity: 1, scaleX: 1 }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-80 h-5 bg-surface-dark border border-border-dark flex items-center justify-center mt-10"
-                >
-                  <span className="text-[8px] font-mono tracking-[0.3em] uppercase text-muted-dark/40">Stage</span>
-                </motion.div>
-              </div>
-
-              {/* Right boxes 1/2/3 — sink to bottom */}
-              <div className="flex flex-col gap-2 shrink-0 self-start mt-8">
-                {RIGHT_BOXES.filter((b) => ['1', '2', '3'].includes(b.label)).map((box, bi) => (
-                  <BoxGrid
-                    key={box.label}
-                    box={box}
-                    bi={bi}
-                    onActivate={handleActivate}
-                    onDeactivate={handleDeactivate}
-                    labelRight
                   />
                 ))}
               </div>
+
+              <motion.div
+                initial={{ opacity: 0, scaleX: 0.5 }}
+                animate={{ opacity: 1, scaleX: 1 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="w-80 h-5 bg-surface-dark border border-border-dark flex items-center justify-center mt-10"
+              >
+                <span className="text-[8px] font-mono tracking-[0.3em] uppercase text-muted-dark/40">Stage</span>
+              </motion.div>
+            </div>
+
+            {/* Right boxes 1/2/3 */}
+            <div className="flex flex-col gap-2 shrink-0 self-start mt-8">
+              {RIGHT_BOXES.filter((b) => ['1', '2', '3'].includes(b.label)).map((box, bi) => (
+                <BoxGrid
+                  key={box.label}
+                  box={box}
+                  bi={bi}
+                  onActivate={handleActivate}
+                  onDeactivate={handleDeactivate}
+                  labelRight
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -517,12 +470,12 @@ export default function OperaHouseMainFloor() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="flex flex-wrap gap-4 mt-6 justify-center px-4"
+        className="flex flex-wrap gap-3 760:gap-4 mt-4 760:mt-6 justify-center px-4"
       >
         {(Object.entries(TIER_COLORS) as [Tier, (typeof TIER_COLORS)[Tier]][]).map(([tier, colors]) => (
-          <div key={tier} className="flex items-center gap-2">
-            <div className={`w-3 h-3 rounded-full shrink-0 ${colors.bg}`} />
-            <span className="text-[10px] font-mono text-muted-dark">{colors.label}</span>
+          <div key={tier} className="flex items-center gap-1.5 760:gap-2">
+            <div className={`w-2.5 h-2.5 760:w-3 760:h-3 rounded-full shrink-0 ${colors.bg}`} />
+            <span className="text-[9px] 760:text-[10px] font-mono text-muted-dark">{colors.label}</span>
           </div>
         ))}
       </motion.div>

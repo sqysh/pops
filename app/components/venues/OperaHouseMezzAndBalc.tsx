@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 type Tier = 'general' | 'premium' | 'ultra'
@@ -293,33 +293,51 @@ function SeatDot({
 
 export default function OperaHouseMezzAndBalc() {
   const [tooltip, setTooltip] = useState<TooltipState | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
 
-  const handleHover = (seat: Seat, e: React.MouseEvent) => {
-    const rect = containerRef.current?.getBoundingClientRect()
-    if (!rect) return
-    setTooltip({ seat, x: e.clientX - rect.left, y: e.clientY - rect.top })
+  const handleHover = (seat: Seat, e: React.MouseEvent | React.TouchEvent) => {
+    let clientX: number, clientY: number
+    if ('touches' in e) {
+      clientX = e.touches[0].clientX
+      clientY = e.touches[0].clientY
+    } else {
+      clientX = e.clientX
+      clientY = e.clientY
+    }
+
+    // Clamp so it doesn't clip off right edge or top
+    const x = Math.min(clientX + 14, window.innerWidth - 160)
+    const y = clientY - 56 < 0 ? clientY + 14 : clientY - 56
+
+    setTooltip({ seat, x, y })
   }
 
   return (
-    <div className="flex bg-black flex-col items-center py-16 px-4">
+    <div className="flex bg-black flex-col items-center py-8 760:py-16 px-2 760:px-4">
       {/* Header */}
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center mb-6 760:mb-10"
+      >
         <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-primary-dark">Sarasota Opera House</span>
-        <h1 className="font-quicksand font-black text-2xl text-text-dark mt-1">Seatmap</h1>
+        <h1 className="font-quicksand font-black text-xl 760:text-2xl text-text-dark mt-1">Seatmap</h1>
       </motion.div>
 
-      {/* Chart */}
-      <div ref={containerRef} className="relative">
+      {/* Chart — scale down on small screens */}
+      <motion.div
+        className="fixed z-50 pointer-events-none bg-bg-dark border border-border-dark px-3 py-2 max-w-37.5"
+        style={{ left: tooltip?.x, top: tooltip?.y }}
+      >
         <AnimatePresence>
           {tooltip && (
             <motion.div
+              key={`${tooltip.seat.row}-${tooltip.seat.number}`}
               initial={{ opacity: 0, y: 4, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.1 }}
-              className="absolute z-20 pointer-events-none bg-bg-dark border border-border-dark px-3 py-2"
-              style={{ left: tooltip.x + 14, top: tooltip.y - 52 }}
+              className="fixed z-50 pointer-events-none bg-bg-dark border border-border-dark px-3 py-2 max-w-37.5"
+              style={{ left: tooltip.x, top: tooltip.y }}
             >
               <p className="text-[11px] font-mono text-text-dark">
                 Row {tooltip.seat.row} · Seat {tooltip.seat.number}
@@ -331,103 +349,102 @@ export default function OperaHouseMezzAndBalc() {
             </motion.div>
           )}
         </AnimatePresence>
+      </motion.div>
 
-        <div className="flex flex-col items-center justify-between gap-2">
-          {ROWS.map((row, rowIdx) => (
-            <div key={row.label} className={`flex items-center gap-1 ${row.label === 'CC' ? 'mt-14' : ''}`}>
-              {/* Left label */}
-              <span className="text-[8px] font-mono text-muted-dark/40 w-6 text-right shrink-0">{row.label}</span>
+      <div className="flex flex-col items-center justify-between gap-1.5 760:gap-2 min-w-max mx-auto">
+        {ROWS.map((row, rowIdx) => (
+          <div
+            key={row.label}
+            className={`flex items-center gap-0.5 760:gap-1 ${row.label === 'CC' ? 'mt-10 760:mt-14' : ''}`}
+          >
+            {/* Left label */}
+            <span className="text-[7px] 760:text-[8px] font-mono text-muted-dark/40 w-5 760:w-6 text-right shrink-0">
+              {row.label}
+            </span>
 
-              {/* Left block */}
-              <div className="flex gap-0.5">
-                {row.left.map(({ number, tier }, i) => (
-                  <SeatDot
-                    key={`${row.label}-L-${number}`}
-                    seat={{ row: row.label, number, tier, section: 'left' }}
-                    onHover={handleHover}
-                    onLeave={() => setTooltip(null)}
-                    delay={rowIdx * 0.08 + i * 0.012}
-                  />
-                ))}
-              </div>
-
-              {/* Gap */}
-              {row.label !== 'OO' && <div className="w-2 shrink-0" />}
-
-              {
-                <>
-                  {row.centerLeft && (
-                    <div className="flex gap-0.5">
-                      {row.centerLeft.map(({ number, tier }, i) => (
-                        <SeatDot
-                          key={`${row.label}-L-${number}`}
-                          seat={{ row: row.label, number, tier, section: 'left' }}
-                          onHover={handleHover}
-                          onLeave={() => setTooltip(null)}
-                          delay={rowIdx * 0.08 + i * 0.012}
-                        />
-                      ))}
-                    </div>
-                  )}
-
-                  {row.label !== 'OO' && <div className="w-2 shrink-0" />}
-                </>
-              }
-
-              {/* Center block */}
-              <div className="flex gap-0.5">
-                {row.center.map(({ number, tier }, i) => (
-                  <SeatDot
-                    key={`${row.label}-L-${number}`}
-                    seat={{ row: row.label, number, tier, section: 'left' }}
-                    onHover={handleHover}
-                    onLeave={() => setTooltip(null)}
-                    delay={rowIdx * 0.08 + i * 0.012}
-                  />
-                ))}
-              </div>
-
-              {/* Gap */}
-              {row.label !== 'OO' && <div className="w-2 shrink-0" />}
-
-              {
-                <>
-                  {row.centerRight && (
-                    <div className="flex gap-0.5">
-                      {row.centerLeft.map(({ number, tier }, i) => (
-                        <SeatDot
-                          key={`${row.label}-L-${number}`}
-                          seat={{ row: row.label, number, tier, section: 'left' }}
-                          onHover={handleHover}
-                          onLeave={() => setTooltip(null)}
-                          delay={rowIdx * 0.08 + i * 0.012}
-                        />
-                      ))}
-                    </div>
-                  )}
-
-                  {row.label !== 'OO' && <div className="w-2 shrink-0" />}
-                </>
-              }
-
-              {/* Right block */}
-              <div className="flex gap-0.5">
-                {row.right.map(({ number, tier }, i) => (
-                  <SeatDot
-                    key={`${row.label}-L-${number}`}
-                    seat={{ row: row.label, number, tier, section: 'left' }}
-                    onHover={handleHover}
-                    onLeave={() => setTooltip(null)}
-                    delay={rowIdx * 0.08 + i * 0.012}
-                  />
-                ))}
-              </div>
-
-              {/* Right label */}
-              <span className="text-[8px] font-mono text-muted-dark/40 w-6 shrink-0">{row.label}</span>
+            {/* Left block */}
+            <div className="flex gap-0.5">
+              {row.left.map(({ number, tier }, i) => (
+                <SeatDot
+                  key={`${row.label}-L-${number}`}
+                  seat={{ row: row.label, number, tier, section: 'left' }}
+                  onHover={handleHover}
+                  onLeave={() => setTooltip(null)}
+                  delay={rowIdx * 0.08 + i * 0.012}
+                />
+              ))}
             </div>
-          ))}
-        </div>
+
+            {row.label !== 'OO' && <div className="w-1.5 760:w-2 shrink-0" />}
+
+            {row.centerLeft && (
+              <>
+                <div className="flex gap-0.5">
+                  {row.centerLeft.map(({ number, tier }, i) => (
+                    <SeatDot
+                      key={`${row.label}-CL-${number}`}
+                      seat={{ row: row.label, number, tier, section: 'left' }}
+                      onHover={handleHover}
+                      onLeave={() => setTooltip(null)}
+                      delay={rowIdx * 0.08 + i * 0.012}
+                    />
+                  ))}
+                </div>
+                {row.label !== 'OO' && <div className="w-1.5 760:w-2 shrink-0" />}
+              </>
+            )}
+
+            {/* Center block */}
+            <div className="flex gap-0.5">
+              {row.center.map(({ number, tier }, i) => (
+                <SeatDot
+                  key={`${row.label}-C-${number}`}
+                  seat={{ row: row.label, number, tier, section: 'left' }}
+                  onHover={handleHover}
+                  onLeave={() => setTooltip(null)}
+                  delay={rowIdx * 0.08 + i * 0.012}
+                />
+              ))}
+            </div>
+
+            {row.label !== 'OO' && <div className="w-1.5 760:w-2 shrink-0" />}
+
+            {row.centerRight && (
+              <>
+                <div className="flex gap-0.5">
+                  {row.centerLeft.map(({ number, tier }, i) => (
+                    <SeatDot
+                      key={`${row.label}-CR-${number}`}
+                      seat={{ row: row.label, number, tier, section: 'left' }}
+                      onHover={handleHover}
+                      onLeave={() => setTooltip(null)}
+                      delay={rowIdx * 0.08 + i * 0.012}
+                    />
+                  ))}
+                </div>
+                {row.label !== 'OO' && <div className="w-1.5 760:w-2 shrink-0" />}
+              </>
+            )}
+
+            {/* Right block */}
+            <div className="flex gap-0.5">
+              {row.right.map(({ number, tier }, i) => (
+                <SeatDot
+                  key={`${row.label}-R-${number}`}
+                  seat={{ row: row.label, number, tier, section: 'left' }}
+                  onHover={handleHover}
+                  onLeave={() => setTooltip(null)}
+                  delay={rowIdx * 0.08 + i * 0.012}
+                />
+              ))}
+            </div>
+
+            {/* Right label */}
+            <span className="text-[7px] 760:text-[8px] font-mono text-muted-dark/40 w-5 760:w-6 shrink-0">
+              {row.label}
+            </span>
+          </div>
+        ))}
       </div>
 
       {/* Stage */}
@@ -435,7 +452,7 @@ export default function OperaHouseMezzAndBalc() {
         initial={{ opacity: 0, scaleX: 0.5 }}
         animate={{ opacity: 1, scaleX: 1 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="w-80 h-5 bg-surface-dark border border-border-dark flex items-center justify-center mt-10"
+        className="w-48 760:w-80 h-5 bg-surface-dark border border-border-dark flex items-center justify-center mt-6 760:mt-10"
       >
         <span className="text-[8px] font-mono tracking-[0.3em] uppercase text-muted-dark/40">Stage</span>
       </motion.div>
@@ -445,12 +462,12 @@ export default function OperaHouseMezzAndBalc() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
-        className="flex flex-wrap gap-6 mt-10"
+        className="flex flex-wrap gap-3 760:gap-6 mt-6 760:mt-10 justify-center"
       >
         {(Object.entries(TIER_COLORS) as [Tier, (typeof TIER_COLORS)[Tier]][]).map(([tier, colors]) => (
-          <div key={tier} className="flex items-center gap-2">
-            <div className={`w-3 h-3 rounded-full ${colors.bg}`} />
-            <span className="text-[10px] font-mono text-muted-dark">{colors.label}</span>
+          <div key={tier} className="flex items-center gap-1.5 760:gap-2">
+            <div className={`w-2.5 h-2.5 760:w-3 760:h-3 rounded-full ${colors.bg}`} />
+            <span className="text-[9px] 760:text-[10px] font-mono text-muted-dark">{colors.label}</span>
           </div>
         ))}
       </motion.div>

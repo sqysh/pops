@@ -172,7 +172,7 @@ export const Header = ({ campApplicationsSetting }) => {
             href={DONATION_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group hidden 430:inline-flex items-center gap-1.5 border border-white/30 hover:border-white text-white/70 hover:text-white font-changa uppercase tracking-widest transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer text-[0.65rem] sm:text-sm px-4 sm:px-6 py-2.5 sm:py-3"
+            className="group hidden 430:inline-flex items-center gap-1.5 bg-blaze hover:bg-blaze/80 text-white font-changa uppercase tracking-widest transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer text-[0.65rem] sm:text-sm px-4 sm:px-6 py-2.5 sm:py-3"
             aria-label="Donate to The Pops Orchestra"
           >
             <span>Donate</span>
