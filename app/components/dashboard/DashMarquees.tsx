@@ -31,7 +31,7 @@ export function DashMarquees() {
                 /subscriptions-flex-test
               </Link>
               <span className="text-blue-500/50 mx-4">·</span>
-              Restricted to Admin, Conductor, and Super User roles
+              Restricted to Admin and Conductor roles
               <span className="text-blue-500/50 mx-4">·</span>
             </span>
           ))}

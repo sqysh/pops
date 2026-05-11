@@ -100,7 +100,7 @@ export default function SubscriptionsFlexClient() {
         </div>
         <div className="flex items-center gap-4">
           <Link
-            href="/v2/concerts-test"
+            href="/concerts-test"
             className="font-mono text-[8px] tracking-[0.15em] uppercase text-muted-dark hover:text-text-dark transition-colors"
           >
             Concerts
