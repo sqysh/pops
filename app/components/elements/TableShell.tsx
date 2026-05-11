@@ -39,7 +39,7 @@ interface TableSearchProps {
 
 export function TableSearch({ value, onChange, placeholder = 'Search...' }: TableSearchProps) {
   return (
-    <div className="flex items-center gap-2 border border-border-dark bg-bg-dark px-2 py-1.5 flex-1 min-w-40 max-w-64">
+    <div className="flex items-center gap-2 border border-border-dark bg-bg-dark px-2 py-1.5 flex-1 min-w-40 max-w-68">
       <Search className="w-3 h-3 text-muted-dark/70 shrink-0" aria-hidden="true" />
       <input
         type="text"
@@ -86,7 +86,7 @@ export function TableFilterPills({ options, active, onChange, accentColor = 'red
           className={`text-[8px] font-mono uppercase tracking-widest px-2 py-1 border transition-colors ${
             active === value
               ? activeClass
-              : 'border-border-dark text-muted-dark/80 hover:text-muted-dark hover:border-muted-dark/30'
+              : 'border-border-dark text-muted-dark hover:text-muted-dark hover:border-muted-dark/30'
           }`}
         >
           {label}
@@ -111,7 +111,7 @@ export function TableEmptyState({ noun = 'results', isFiltered, onClear }: Table
       {isFiltered && (
         <button
           onClick={onClear}
-          className="text-[9px] font-mono uppercase tracking-widest text-primary-dark hover:text-blaze-text transition-colors"
+          className="text-[10px] font-mono uppercase tracking-widest text-primary-dark hover:text-blaze-text transition-colors"
         >
           Clear filters &rarr;
         </button>
@@ -150,6 +150,7 @@ interface TableShellProps {
   filteredCount: number
   totalCount: number
   footerExtra?: React.ReactNode
+  bottomPanel?: React.ReactNode
 }
 
 export function TableShell({
@@ -170,7 +171,8 @@ export function TableShell({
   empty,
   filteredCount,
   totalCount,
-  footerExtra
+  footerExtra,
+  bottomPanel
 }: TableShellProps) {
   return (
     <div className="flex flex-col h-screen bg-bg-surface overflow-hidden gap-2">
@@ -181,12 +183,12 @@ export function TableShell({
           <div className="flex items-center gap-2 760:gap-3 min-w-0 flex-1 overflow-hidden">
             <Link
               href={backHref}
-              className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/80 hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark shrink-0"
+              className="text-[10px] font-mono uppercase tracking-widest text-muted-dark hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark shrink-0"
             >
               ←<span className="hidden 480:inline"> {backHref.split('/').pop()}</span>
             </Link>
             <div className="w-px h-3 bg-border-dark shrink-0" aria-hidden="true" />
-            <span className="text-[9px] 760:text-[10px] font-mono text-muted-dark/70 uppercase tracking-widest shrink-0 truncate">
+            <span className="text-[10px] 760:text-[11px] font-mono text-muted-dark/70 uppercase tracking-widest shrink-0 truncate">
               [ {label} ]
             </span>
             <div className="w-px h-3 bg-border-dark shrink-0 hidden 480:block" aria-hidden="true" />
@@ -207,7 +209,7 @@ export function TableShell({
                         >
                           {value}
                         </span>
-                        <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
+                        <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
                           {pillLabel}
                         </span>
                       </div>
@@ -230,7 +232,7 @@ export function TableShell({
             <button
               type="button"
               onClick={action.onClick}
-              className="text-[9px] font-mono uppercase tracking-widest px-2 760:px-3 py-1.5 border border-primary-dark/40 text-primary-dark bg-primary-dark/5 hover:bg-primary-dark/10 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark shrink-0"
+              className="text-[10px] font-mono uppercase tracking-widest px-2 760:px-3 py-1.5 border border-primary-dark/40 text-primary-dark bg-primary-dark/5 hover:bg-primary-dark/10 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark shrink-0"
             >
               <span className="hidden 480:inline">{action.label}</span>
               <span className="480:hidden">+</span>
@@ -251,7 +253,7 @@ export function TableShell({
                   >
                     {value}
                   </span>
-                  <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
+                  <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
                     {pillLabel}
                   </span>
                 </div>
@@ -276,7 +278,7 @@ export function TableShell({
               className="flex whitespace-nowrap"
             >
               {[0, 1, 2, 3, 4, 5].map((i) => (
-                <span key={i} className="text-[9px] font-mono text-muted-dark/90 pr-16">
+                <span key={i} className="text-[10px] font-mono text-muted-dark/90 pr-16">
                   <span className="text-muted-dark/70">▸</span> {marquee}
                   <span className="text-muted-dark/20 mx-4">·</span>
                 </span>
@@ -284,6 +286,7 @@ export function TableShell({
             </motion.div>
           </div>
         )}
+
         {marqueeNode && (
           <div className="border-t border-border-dark/40 bg-white/2 overflow-hidden py-1">
             <motion.div
@@ -337,11 +340,13 @@ export function TableShell({
         </div>
       </div>
 
+      {bottomPanel && <div className="shrink-0 border-t border-border-dark">{bottomPanel}</div>}
+
       {/* Footer */}
       <div className="shrink-0 flex items-center justify-between px-4 py-2 border-t border-border-dark bg-surface-dark">
         <Link
           href={backHref}
-          className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark"
+          className="text-[10px] font-mono uppercase tracking-widest text-muted-dark/90 hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark"
         >
           &larr; {backHref.split('/').pop()}
         </Link>
@@ -352,7 +357,7 @@ export function TableShell({
               <div className="w-px h-3 bg-border-dark" aria-hidden="true" />
             </>
           )}
-          <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark/90">
             {filteredCount} of {totalCount}
           </span>
         </div>

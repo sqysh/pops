@@ -2,12 +2,11 @@
 
 import { useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileText, ChevronRight, Loader2, Save, Database } from 'lucide-react'
+import { FileText, ChevronRight, Loader2, Save } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import type { Page } from '@prisma/client'
 import { updatePageContent } from '@/app/lib/actions/page/updatePageContent'
-import { seedPages } from '@/app/lib/actions/page/seedPages'
 import useSoundEffect from '@/app/lib/hooks/useSoundEffect'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -29,7 +28,7 @@ function FieldInput({ field, onChange }: { field: PageField; onChange: (value: s
   if (field.type === 'array' && Array.isArray(field.value)) {
     return (
       <div className="flex flex-col gap-1.5">
-        <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80">{field.label}</span>
+        <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark">{field.label}</span>
         <div className="flex flex-col gap-1.5">
           {(field.value as string[]).map((item, i) => (
             <input
@@ -51,7 +50,7 @@ function FieldInput({ field, onChange }: { field: PageField; onChange: (value: s
 
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80">{field.label}</span>
+      <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark">{field.label}</span>
       {field.type === 'textarea' ? (
         <textarea
           value={field.value as string}
@@ -92,10 +91,10 @@ function SectionBlock({
         className="w-full flex items-center gap-2 px-3 py-2 bg-surface-dark hover:bg-black/40 transition-colors text-left focus-visible:outline-none border-b border-border-dark"
       >
         <motion.div animate={{ rotate: open ? 90 : 0 }} transition={{ duration: 0.15 }}>
-          <ChevronRight className="w-3 h-3 text-muted-dark/70" />
+          <ChevronRight className="w-3 h-3 text-muted-dark" />
         </motion.div>
-        <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark">{title}</span>
-        <span className="text-[8px] font-mono text-muted-dark/60 ml-1">({fields.length})</span>
+        <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-muted-dark">{title}</span>
+        <span className="text-[9px] font-mono text-muted-dark ml-1">({fields.length})</span>
       </button>
 
       <AnimatePresence initial={false}>
@@ -178,35 +177,30 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
     }
   }
 
-  async function handleSeed() {
-    await seedPages()
-    router.refresh()
-  }
-
   return (
-    <div className="flex flex-col h-screen bg-bg-dark overflow-hidden">
+    <div className="flex flex-col h-screen bg-black overflow-hidden">
       {/* Header */}
       <div className="bg-black shrink-0 border-b border-border-dark">
         <div className="flex items-center justify-between px-4 py-2.5">
           <div className="flex items-center gap-3">
             <Link
               href="/v2/dashboard"
-              className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-primary-dark transition-colors focus-visible:outline-none"
+              className="text-[10px] font-mono uppercase tracking-widest text-muted-dark hover:text-primary-dark transition-colors focus-visible:outline-none"
             >
               &larr; Dashboard
             </Link>
             <div className="w-px h-3 bg-border-dark" aria-hidden="true" />
-            <span className="text-[10px] font-mono text-muted-dark/70 uppercase tracking-widest">[ PAGE CONTENT ]</span>
+            <span className="text-[11px] font-mono text-muted-dark uppercase tracking-widest">[ PAGE CONTENT ]</span>
             {selectedPage && (
               <>
                 <div className="w-px h-3 bg-border-dark" aria-hidden="true" />
-                <span className="text-[10px] font-mono text-text-dark uppercase tracking-widest">
+                <span className="text-[11px] font-mono text-text-dark uppercase tracking-widest">
                   {selectedPage.slug}
                 </span>
               </>
             )}
             <div className="w-px h-3 bg-border-dark" aria-hidden="true" />
-            <span className="text-[10px] font-mono text-muted-dark">{pages.length} pages</span>
+            <span className="text-[11px] font-mono text-muted-dark">{pages.length} pages</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -215,39 +209,30 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
                 type="button"
                 onClick={handleSave}
                 disabled={saving}
-                className="flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-widest px-3 py-1.5 border border-emerald-400/40 text-emerald-400 bg-emerald-400/5 hover:bg-emerald-400/10 transition-colors disabled:opacity-50 focus-visible:outline-none"
+                className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest px-3 py-1.5 border border-emerald-400/40 text-emerald-400 bg-emerald-400/5 hover:bg-emerald-400/10 transition-colors disabled:opacity-50 focus-visible:outline-none"
               >
                 {saving ? <Loader2 className="w-2.5 h-2.5 animate-spin" /> : <Save className="w-2.5 h-2.5" />}
                 {saving ? 'Saving...' : 'Save Changes'}
               </button>
             )}
-            <button
-              type="button"
-              onClick={handleSeed}
-              className="text-muted-dark/60 hover:text-muted-dark transition-colors focus-visible:outline-none"
-              aria-label="Seed pages"
-              title="Seed pages"
-            >
-              <Database className="w-3 h-3" />
-            </button>
           </div>
         </div>
 
         {/* Marquee */}
-        <div className="border-t border-yellow-500/20 bg-yellow-500/5 overflow-hidden py-1">
+        <div className="border-t border-border-dark/40 bg-white/2 overflow-hidden py-1">
           <motion.div
             animate={{ x: ['0%', '-50%'] }}
             transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
             className="flex whitespace-nowrap"
           >
             {[0, 1, 2, 3, 4, 5].map((i) => (
-              <span key={i} className="text-[8px] font-mono text-yellow-400/60 pr-12">
-                <span className="text-yellow-400">●</span> Select a page on the left
-                <span className="text-yellow-400/30 mx-3">·</span>
+              <span key={i} className="text-[11px] font-mono text-muted-dark pr-12">
+                <span className="text-primary-dark">▸</span> Select a page on the left
+                <span className="text-muted-dark/30 mx-3">·</span>
                 Make your changes in the fields
-                <span className="text-yellow-400/30 mx-3">·</span>
-                Hit <span className="text-yellow-400">Save Changes</span> when done
-                <span className="text-yellow-400/30 mx-3">·</span>
+                <span className="text-muted-dark/30 mx-3">·</span>
+                Hit <span className="text-text-dark">Save Changes</span> when done
+                <span className="text-muted-dark/30 mx-3">·</span>
               </span>
             ))}
           </motion.div>
@@ -257,21 +242,21 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
       {/* Error */}
       {error && (
         <div className="shrink-0 border-b border-red-500/30 bg-red-500/5 px-4 py-2">
-          <span className="text-[10px] font-mono text-red-400">{error}</span>
+          <span className="text-[11px] font-mono text-red-400">{error}</span>
         </div>
       )}
 
       {/* Body — two column */}
-      <div className="flex-1 min-h-0 flex overflow-hidden">
+      <div className="flex-1 min-h-0 flex overflow-hidden bg-surface-dark m-2">
         {/* Left — page list */}
         <div className="w-48 xl:w-60 shrink-0 border-r border-border-dark flex flex-col overflow-hidden">
           <div className="shrink-0 px-3 py-2 border-b border-border-dark bg-surface-dark">
-            <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/70">Pages</span>
+            <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark">Pages</span>
           </div>
           <div className="flex-1 min-h-0 overflow-y-auto">
             {pages.length === 0 ? (
               <div className="flex items-center justify-center h-24">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark/60">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-muted-dark/60">
                   No pages found
                 </span>
               </div>
@@ -284,14 +269,14 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
                   className={`w-full flex items-center gap-2 px-3 py-2.5 border-b border-border-dark/40 last:border-0 text-left transition-colors focus-visible:outline-none group ${
                     selectedPage?.id === page.id
                       ? 'bg-primary-dark/5 border-l-2 border-l-primary-dark'
-                      : 'hover:bg-surface-dark'
+                      : 'hover:bg-black'
                   }`}
                 >
                   <FileText
-                    className={`w-2.5 h-2.5 shrink-0 ${selectedPage?.id === page.id ? 'text-primary-dark' : 'text-muted-dark/60'}`}
+                    className={`w-2.5 h-2.5 shrink-0 ${selectedPage?.id === page.id ? 'text-primary-dark' : 'text-muted-dark/90'}`}
                   />
                   <span
-                    className={`text-[11px] font-mono truncate ${selectedPage?.id === page.id ? 'text-text-dark' : 'text-muted-dark/80 group-hover:text-text-dark'}`}
+                    className={`text-[12px] font-mono truncate ${selectedPage?.id === page.id ? 'text-text-dark' : 'text-muted-dark group-hover:text-text-dark'}`}
                   >
                     {page.slug}
                   </span>
@@ -306,10 +291,10 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
           {!selectedPage ? (
             <div className="flex flex-col items-center justify-center h-full gap-3">
               <FileText className="w-8 h-8 text-border-dark" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark/60">
+              <span className="text-[11px] font-mono uppercase tracking-widest text-muted-dark/60">
                 Select a page to edit
               </span>
-              <span className="text-[9px] font-mono text-muted-dark/20">
+              <span className="text-[10px] font-mono text-muted-dark/20">
                 {pages.length} page{pages.length !== 1 ? 's' : ''} available
               </span>
             </div>
@@ -329,11 +314,11 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
       <div className="shrink-0 flex items-center justify-between px-4 py-2 border-t border-border-dark bg-surface-dark">
         <Link
           href="/v2/dashboard"
-          className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-primary-dark transition-colors"
+          className="text-[11px] font-mono uppercase tracking-widest text-muted-dark hover:text-primary-dark transition-colors"
         >
           &larr; Dashboard
         </Link>
-        <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">
+        <span className="text-[11px] font-mono uppercase tracking-widest text-muted-dark tabular-nums">
           {selectedPage ? `Editing ${selectedPage.slug}` : `${pages.length} pages`}
         </span>
       </div>

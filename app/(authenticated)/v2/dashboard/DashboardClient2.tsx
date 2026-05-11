@@ -22,6 +22,7 @@ interface Props {
   campApplicationsCount: number
   campApplications: CampApplication[]
   campApplicationsEnabled: boolean
+  newApplicationsCount: number
   pageContentCount: number
   newsCount: number
   newsLiveCount: number
@@ -55,6 +56,7 @@ export default function DashboardClient2(props: Props) {
     questions,
     campApplications,
     campApplicationsEnabled,
+    newApplicationsCount,
     newsCount,
     newsLiveCount,
     eventsCount,
@@ -104,7 +106,7 @@ export default function DashboardClient2(props: Props) {
         <div className="shrink-0 flex flex-col 760:flex-row 760:items-center 760:justify-between border-b border-border-dark bg-bg-dark">
           {/* Greeting */}
           <div className="flex items-center gap-3 px-4 py-2.5 760:py-2.5">
-            <span className="text-[10px] font-mono text-muted-dark/70 uppercase tracking-widest hidden sm:block">
+            <span className="text-[10px] font-mono text-muted-dark uppercase tracking-widest hidden sm:block">
               {date}
             </span>
             <div className="w-px h-3 bg-border-dark hidden sm:block" aria-hidden="true" />
@@ -125,7 +127,7 @@ export default function DashboardClient2(props: Props) {
                   >
                     {value}
                   </span>
-                  <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
+                  <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
                     {label}
                   </span>
                 </div>
@@ -148,34 +150,39 @@ export default function DashboardClient2(props: Props) {
             style={{ gridAutoRows: 'minmax(0, 1fr)' }}
           >
             {/* TEAM */}
-            <div className="order-2 760:order-1 760:col-span-1 760:row-span-6 h-100 760:h-full">
+            <div className="order-2 760:order-1 760:col-span-1 760:row-span-10 h-100 760:h-full">
               <TeamCard teamMembers={teamMembers} />
             </div>
 
             {/* CONCERTS */}
-            <div className="order-1 760:order-2 760:col-span-2 760:row-span-6 min-h-100 760:min-h-0">
+            <div className="order-1 760:order-2 760:col-span-2 760:row-span-10 min-h-100 760:min-h-0">
               <ConcertsCard concerts={concerts} />
             </div>
 
             {/* INQUIRIES */}
-            <div className="order-3 760:col-span-1 760:row-span-2 min-h-auto 760:min-h-0">
+            <div className="order-3 760:col-span-1 760:row-span-2 760:min-h-0">
               <InquiriesCard
-                pending={questions.filter((q) => !q.hasResponded).length}
+                pending={questions.filter((q) => !q.hasResponded && !q.isSpam && !q.isPotentialSpam).length}
                 responded={questions.filter((q) => q.hasResponded).length}
+                potentialSpam={questions.filter((q) => q.isPotentialSpam && !q.isSpam).length}
                 href="/v2/questions"
               />
             </div>
 
             {/* CAMP HEATMAP */}
-            <div className="order-4 760:col-span-1 760:row-span-4 min-h-75 760:min-h-0">
-              <CampHeatmapCard campApplications={campApplications} campApplicationsEnabled={campApplicationsEnabled} />
+            <div className="order-4 760:col-span-1 760:row-span-8 min-h-75 760:min-h-0">
+              <CampHeatmapCard
+                campApplications={campApplications}
+                campApplicationsEnabled={campApplicationsEnabled}
+                newApplicationsCount={newApplicationsCount}
+              />
             </div>
           </div>
         </div>
 
         {/* Footer */}
         <div className="shrink-0 border-t border-border-dark bg-surface-dark px-4 py-1.5 flex flex-col 760:flex-row 760:items-center 760:justify-between gap-1 760:gap-0">
-          <span className="text-[9px] font-mono text-muted-dark/60 uppercase tracking-widest">
+          <span className="text-[9.5px] font-mono text-muted-dark uppercase tracking-widest">
             The Pops Orchestra · Sqysh
           </span>
           <div className="flex items-center gap-3 flex-wrap">
@@ -185,7 +192,7 @@ export default function DashboardClient2(props: Props) {
               `Testimonials · ${testimonialsLiveCount} live / ${testimonialsCount}`,
               `Photos · ${photosCount}`
             ].map((label) => (
-              <span key={label} className="text-[9px] font-mono text-muted-dark/60">
+              <span key={label} className="text-[10px] font-mono text-muted-dark">
                 {label}
               </span>
             ))}

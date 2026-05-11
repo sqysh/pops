@@ -10,5 +10,6 @@ export const COLUMNS = [
 export const STATUS_OPTIONS = [
   { label: 'All', value: 'ALL' },
   { label: 'Pending', value: 'PENDING' },
-  { label: 'Responded', value: 'RESPONDED' }
+  { label: 'Responded', value: 'RESPONDED' },
+  { label: 'Flagged', value: 'FLAGGED' }
 ]

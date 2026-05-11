@@ -2,27 +2,23 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronRight, ChevronLeft, Check, User, MapPin, Users, Music } from 'lucide-react'
+import { ChevronRight, ChevronLeft, Check } from 'lucide-react'
 import Breadcrumb from '../../components/common/Breadcrumb'
 import { createCampApplication } from '@/app/lib/actions/camp-applications/createCampApplication'
 import { useRouter } from 'next/navigation'
 import { store } from '@/app/redux/store'
 import { showToast } from '@/app/redux/features/toastSlice'
 import { setOpenCampApplicationSuccessModal } from '@/app/redux/features/uiSlice'
-
-const formSteps = [
-  { id: 1, label: 'Student', icon: User },
-  { id: 2, label: 'Address', icon: MapPin },
-  { id: 3, label: 'Parent', icon: Users },
-  { id: 4, label: 'Music', icon: Music }
-]
-
-const labelClass = 'block text-[11px] font-mono tracking-[0.15em] uppercase text-white/60 mb-1.5'
-
-const inputClass = (error?: string) =>
-  `w-full px-3 py-2.5 bg-black border text-white text-sm placeholder-white/20 font-lato focus:outline-none focus:ring-0 transition-colors ${
-    error ? 'border-blaze focus:border-blaze' : 'border-white/10 focus:border-white/40 hover:border-white/20'
-  }`
+import {
+  fieldLabels,
+  formSteps,
+  initialState,
+  inputClass,
+  labelClass,
+  requiredByStep,
+  variants
+} from '@/app/lib/constants/camp-application.constants'
+import { FormState } from '@/app/types/entities/camp-application'
 
 function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
@@ -32,90 +28,6 @@ function Field({ label, error, children }: { label: string; error?: string; chil
       {error && <p className="mt-1.5 text-[11px] font-mono text-blaze-text uppercase tracking-widest">{error}</p>}
     </div>
   )
-}
-
-type FormState = {
-  firstName: string
-  lastName: string
-  grade: string
-  school: string
-  studentEmailAddress: string
-  studentPhoneNumber: string
-  addressLine1: string
-  addressLine2: string
-  city: string
-  state: string
-  zipPostalCode: string
-  parentFirstName: string
-  parentLastName: string
-  relationshipToStudent: string
-  parentEmailAddress: string
-  parentPhoneNumber: string
-  instrument: string
-  musicTeacher: string
-  strings: string
-  brassAndPercussion: string
-  woodwinds: string
-  referralSource: string
-  consent: boolean
-}
-
-const requiredByStep: Record<number, (keyof FormState)[]> = {
-  1: ['firstName', 'lastName', 'grade', 'school', 'studentEmailAddress', 'studentPhoneNumber'],
-  2: ['addressLine1', 'city', 'state', 'zipPostalCode'],
-  3: ['parentFirstName', 'parentLastName', 'parentEmailAddress', 'parentPhoneNumber'],
-  4: ['instrument', 'consent']
-}
-
-const fieldLabels: Partial<Record<keyof FormState, string>> = {
-  firstName: 'First name',
-  lastName: 'Last name',
-  grade: 'Grade',
-  school: 'School',
-  studentEmailAddress: 'Email address',
-  studentPhoneNumber: 'Phone number',
-  addressLine1: 'Address',
-  city: 'City',
-  state: 'State',
-  zipPostalCode: 'ZIP code',
-  parentFirstName: 'First name',
-  parentLastName: 'Last name',
-  parentEmailAddress: 'Email address',
-  parentPhoneNumber: 'Phone number',
-  instrument: 'Primary instrument',
-  consent: 'You must agree to the terms to continue'
-}
-
-const initialState = {
-  firstName: '',
-  lastName: '',
-  grade: '',
-  school: '',
-  studentEmailAddress: '',
-  studentPhoneNumber: '',
-  addressLine1: '',
-  addressLine2: '',
-  city: '',
-  state: '',
-  zipPostalCode: '',
-  parentFirstName: '',
-  parentLastName: '',
-  relationshipToStudent: '',
-  parentEmailAddress: '',
-  parentPhoneNumber: '',
-  instrument: '',
-  musicTeacher: '',
-  strings: '',
-  brassAndPercussion: '',
-  woodwinds: '',
-  referralSource: '',
-  consent: false
-}
-
-const variants = {
-  enter: (d: number) => ({ opacity: 0, x: d > 0 ? 40 : -40 }),
-  center: { opacity: 1, x: 0 },
-  exit: (d: number) => ({ opacity: 0, x: d > 0 ? -40 : 40 })
 }
 
 export default function CampApplicationClient({ data }) {
@@ -213,16 +125,19 @@ export default function CampApplicationClient({ data }) {
       <Breadcrumb breadcrumb="Camp Application" classname="1200:max-w-screen-1400" />
 
       <div className="min-h-screen bg-black text-white">
-        {/* ── Header ── */}
-        <section className="relative px-4 990:px-12 xl:px-4 pt-28 pb-10 bg-black overflow-hidden border-b border-white/10">
-          <div className="absolute inset-0 bg-linear-to-b from-black via-transparent to-black" aria-hidden="true" />
-          <div className="relative z-10 max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 1590:max-w-7xl mx-auto flex flex-col items-center text-center">
-            <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-2">The Pops Orchestra</p>
-            <h1 className="text-4xl sm:text-5xl font-changa text-white leading-none mb-3">Youth Music Camp</h1>
-            <div className="w-12 h-px bg-blaze mx-auto mb-3" aria-hidden="true" />
-            <p className="font-lato text-white/80 text-sm max-w-xl leading-relaxed">
-              Complete the application below to apply for The Pops Orchestra Youth Music Camp. At least two years of
-              playing experience required.
+        {/* Header */}
+        <section className="relative px-6 py-8 bg-black border-b border-white/10">
+          <div className="max-w-7xl mx-auto flex flex-col items-center text-center gap-2">
+            <div className="flex items-center gap-3">
+              <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
+              <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/30">
+                The Pops Orchestra
+              </span>
+              <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
+            </div>
+            <h1 className="font-changa font-black text-2xl 760:text-3xl text-white leading-none">Youth Music Camp</h1>
+            <p className="font-lato text-white/60 text-sm leading-relaxed max-w-lg">
+              Complete the application below. At least two years of playing experience required.
             </p>
           </div>
         </section>
@@ -231,32 +146,31 @@ export default function CampApplicationClient({ data }) {
         <div className="px-4 990:px-12 xl:px-4 py-12">
           <div className="max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 1590:max-w-7xl mx-auto">
             <div className="grid grid-cols-1 990:grid-cols-12 gap-px bg-white/10">
-              {/* ── Sidebar ── */}
               <aside aria-label="Camp schedule" className="990:col-span-3 bg-black 990:sticky 990:top-6 self-start">
-                <div className="border-b border-white/10 px-5 py-3 flex items-center gap-2">
-                  <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                  <p className="font-changa text-[11px] uppercase tracking-[0.25em] text-blaze-text">Camp Schedule</p>
+                <div className="border-b border-white/10 px-4 py-2 flex items-center gap-2">
+                  <div className="w-3 h-px bg-blaze shrink-0" aria-hidden="true" />
+                  <p className="font-changa text-[10px] uppercase tracking-[0.25em] text-blaze-text">Camp Schedule</p>
                 </div>
-                <div className="p-5 flex flex-col gap-6">
+                <div className="p-4 flex flex-col gap-3">
                   {schedule.map((day, d) => (
                     <div key={d}>
-                      <p className="font-changa text-white text-sm mb-0.5">{day.date}</p>
-                      <p className="font-mono text-[11px] text-blaze-text uppercase tracking-[0.15em] mb-2">
+                      <p className="font-changa text-white text-[13px] leading-none mb-0.5">{day.date}</p>
+                      <p className="font-mono text-[9px] text-blaze-text uppercase tracking-[0.15em] mb-1.5">
                         {day.time}
                       </p>
-                      <ul className="flex flex-col gap-1.5" aria-label={`Schedule for ${day.date}`}>
+                      <ul className="flex flex-col gap-1" aria-label={`Schedule for ${day.date}`}>
                         {day.items.map((item, i) => (
-                          <li key={i} className="flex items-start gap-2">
+                          <li key={i} className="flex items-start gap-1.5">
                             <span className="mt-1.5 w-1 h-1 rounded-full bg-blaze shrink-0" aria-hidden="true" />
-                            <span className="font-lato text-[12px] text-white/70 leading-relaxed">{item}</span>
+                            <span className="font-lato text-[11px] text-white/70 leading-snug">{item}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                   ))}
-                  <div className="pt-4 border-t border-white/10 flex items-start gap-2">
-                    <Check className="w-3.5 h-3.5 text-blaze-text mt-0.5 shrink-0" aria-hidden="true" />
-                    <p className="font-lato text-[12px] text-white/70 leading-relaxed">
+                  <div className="pt-2 border-t border-white/10 flex items-start gap-1.5">
+                    <Check className="w-3 h-3 text-blaze-text mt-0.5 shrink-0" aria-hidden="true" />
+                    <p className="font-lato text-[11px] text-white/60 leading-snug">
                       At least two years of playing experience required
                     </p>
                   </div>
@@ -331,7 +245,7 @@ export default function CampApplicationClient({ data }) {
                 )}
 
                 {/* Form content */}
-                <div className="flex-1 p-5 990:p-8" style={{ minHeight: 360 }}>
+                <div className="p-5 990:p-8" style={{ minHeight: 360 }}>
                   <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                       key={step}

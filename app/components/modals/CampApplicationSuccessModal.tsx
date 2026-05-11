@@ -1,34 +1,14 @@
 'use client'
 
-import { setCloseCampApplicationSuccessModal } from '@/app/redux/features/campSlice'
+import { setCloseCampApplicationSuccessModal } from '@/app/redux/features/uiSlice'
 import { store, useUiSelector } from '@/app/redux/store'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, Music } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect } from 'react'
 
 export default function CampApplicationSuccessModal() {
   const { campApplicationSuccessModal } = useUiSelector()
   const onClose = () => store.dispatch(setCloseCampApplicationSuccessModal())
-
-  useEffect(() => {
-    if (!campApplicationSuccessModal) return
-
-    const previouslyFocused = document.activeElement as HTMLElement
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-
-    document.addEventListener('keydown', handleKeyDown)
-    document.body.style.overflow = 'hidden'
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = ''
-      previouslyFocused?.focus()
-    }
-  }, [campApplicationSuccessModal])
 
   return (
     <AnimatePresence>
@@ -42,9 +22,7 @@ export default function CampApplicationSuccessModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0  bg-black/80 backdrop-blur-2xl flex items-center justify-center z-100 p-4 430:p-6"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) onClose()
-          }}
+          onClick={onClose}
         >
           <motion.div
             initial={{ scale: 0.95, opacity: 0, y: 16 }}

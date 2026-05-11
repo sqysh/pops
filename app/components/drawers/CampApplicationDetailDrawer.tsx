@@ -1,27 +1,54 @@
 import { deleteCampApplication } from '@/app/lib/actions/camp-applications/deleteCampApplication'
 import { CampApplicationWithRelations } from '@/app/types/entities/camp-application'
 import { AnimatePresence, motion } from 'framer-motion'
-import { GraduationCap, Mail, MapPin, Music, Phone, User, X } from 'lucide-react'
+import { GraduationCap, Loader2, Mail, MapPin, Music, Phone, User, X } from 'lucide-react'
 import { DangerZone } from '../elements/DangerZone'
+import { useState } from 'react'
+import { updateCampApplicationStatus } from '@/app/lib/actions/camp-applications/updateCampApplicationStatus'
+import { FormError } from '../elements/FormField'
+import useSoundEffect from '@/app/lib/hooks/useSoundEffect'
 
 export function CampApplicationDetailDrawer({
   application,
   onClose,
-  onDelete
+  onDelete,
+  onStatusChanged
 }: {
   application: CampApplicationWithRelations | null
   onClose: () => void
   onDelete: (id: string) => void
+  onStatusChanged: (id: string, campStatus: string) => void
 }) {
   const open = application !== null
+
+  const [error, setError] = useState<string | null>(null)
+  const { play: statusChangeSE } = useSoundEffect('/mp3/se-1.mp3', true)
+  const { play: deleteSE } = useSoundEffect('/mp3/se-2.mp3', true)
 
   async function handleDelete() {
     if (!application) return
 
     const result = await deleteCampApplication(application.id)
     if (result.success) {
+      deleteSE()
       onDelete(application.id)
       onClose()
+    }
+  }
+
+  const [updatingStatus, setUpdatingStatus] = useState<string | null>(null)
+
+  async function handleSetStatus(status: 'ADMITTED' | 'DENIED' | 'PENDING') {
+    if (!application) return
+    setUpdatingStatus(status)
+    const result = await updateCampApplicationStatus(application.id, status)
+    setUpdatingStatus(null)
+    if (result.success) {
+      statusChangeSE()
+      onStatusChanged(application.id, status)
+      onClose()
+    } else {
+      setError(result.error ?? 'Failed to update status.')
     }
   }
 
@@ -228,6 +255,66 @@ export function CampApplicationDetailDrawer({
                       </span>
                     </div>
                   </div>
+                </div>
+
+                {/* Camp Decision */}
+                <div className="flex flex-col gap-2 pt-2 border-t border-border-dark">
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark">Camp Decision</span>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleSetStatus('ADMITTED')}
+                      disabled={!!updatingStatus || application.campStatus === 'ADMITTED'}
+                      className={`flex-1 flex items-center justify-center gap-2 px-3 py-2.5 border text-[9px] font-mono uppercase tracking-widest transition-colors disabled:opacity-40 ${
+                        application.campStatus === 'ADMITTED'
+                          ? 'border-emerald-400/60 text-emerald-400 bg-emerald-400/10'
+                          : 'border-emerald-400/30 text-emerald-400/70 bg-emerald-400/5 hover:bg-emerald-400/10 hover:border-emerald-400/60'
+                      }`}
+                    >
+                      {updatingStatus === 'ADMITTED' && <Loader2 className="w-3 h-3 animate-spin" />}✓ Admit
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleSetStatus('DENIED')}
+                      disabled={!!updatingStatus || application.campStatus === 'DENIED'}
+                      className={`flex-1 flex items-center justify-center gap-2 px-3 py-2.5 border text-[9px] font-mono uppercase tracking-widest transition-colors disabled:opacity-40 ${
+                        application.campStatus === 'DENIED'
+                          ? 'border-red-400/60 text-red-400 bg-red-400/10'
+                          : 'border-red-400/30 text-red-400/70 bg-red-400/5 hover:bg-red-400/10 hover:border-red-400/60'
+                      }`}
+                    >
+                      {updatingStatus === 'DENIED' && <Loader2 className="w-3 h-3 animate-spin" />}✗ Deny
+                    </button>
+                    {application.campStatus !== 'PENDING' && (
+                      <button
+                        type="button"
+                        onClick={() => handleSetStatus('PENDING')}
+                        disabled={!!updatingStatus}
+                        className="px-3 py-2.5 border border-border-dark text-[9px] font-mono uppercase tracking-widest text-muted-dark/60 hover:text-text-dark hover:border-muted-dark/30 transition-colors disabled:opacity-40"
+                        title="Reset to pending"
+                      >
+                        ↺
+                      </button>
+                    )}
+                  </div>
+
+                  <div
+                    className={`text-center py-1.5 text-[9px] font-mono uppercase tracking-widest ${
+                      application.campStatus === 'ADMITTED'
+                        ? 'text-emerald-400'
+                        : application.campStatus === 'DENIED'
+                          ? 'text-red-400'
+                          : 'text-muted-dark'
+                    }`}
+                  >
+                    {application.campStatus === 'ADMITTED'
+                      ? '● Admitted to camp'
+                      : application.campStatus === 'DENIED'
+                        ? '● Denied'
+                        : '● Pending decision'}
+                  </div>
+
+                  <FormError error={error} />
                 </div>
 
                 <DangerZone

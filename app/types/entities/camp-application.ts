@@ -28,3 +28,29 @@ export type CampApplicationWithRelations = CampApplication & {
     zipPostalCode?: string | null
   } | null
 }
+
+export type FormState = {
+  firstName: string
+  lastName: string
+  grade: string
+  school: string
+  studentEmailAddress: string
+  studentPhoneNumber: string
+  addressLine1: string
+  addressLine2: string
+  city: string
+  state: string
+  zipPostalCode: string
+  parentFirstName: string
+  parentLastName: string
+  relationshipToStudent: string
+  parentEmailAddress: string
+  parentPhoneNumber: string
+  instrument: string
+  musicTeacher: string
+  strings: string
+  brassAndPercussion: string
+  woodwinds: string
+  referralSource: string
+  consent: boolean
+}

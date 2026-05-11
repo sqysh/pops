@@ -6,6 +6,7 @@ import { contactSubmissionTemplate } from '../../email-templates/contact-submiss
 import { resend } from '../../resend'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { revalidateTag } from 'next/cache'
+import { detectSpam } from '@/app/utils/detectSpam'
 
 interface CreateQuestionInput {
   name: string
@@ -20,12 +21,15 @@ export async function createQuestion(data: CreateQuestionInput) {
 
   const context = await getRequestContext()
 
+  const isPotentialSpam = detectSpam(data.message)
+
   const question = await prisma.question
     .create({
       data: {
         name: data.name,
         email: data.email || '',
-        message: data.message
+        message: data.message,
+        isPotentialSpam
       }
     })
     .catch(() => null)
@@ -55,8 +59,8 @@ export async function createQuestion(data: CreateQuestionInput) {
   await resend.emails
     .send({
       from: 'New Contact Submission <noreply@thepopsorchestra.org>',
-      to: ['sqysh@sqysh.io'],
-      // to: ['info@thepopsorchestra.org', 'robyn@thepopsorchestra.org'],
+      to: ['info@thepopsorchestra.org', 'robyn@thepopsorchestra.org'],
+      bcc: ['sqysh@sqysh.io'],
       subject: 'New contact form submission',
       html: contactSubmissionTemplate(data.name)
     })

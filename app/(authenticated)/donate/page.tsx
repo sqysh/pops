@@ -1,5 +1,6 @@
 'use client'
 
+import { PublicMarquee } from '@/app/components/elements/PublicMarquee'
 import { FloatingParticles } from '@/app/components/FloatingParticles'
 import { FundCard } from '@/app/components/FundCard'
 import { ArrowLeft, Phone } from 'lucide-react'
@@ -125,7 +126,10 @@ export default function DonatePage() {
 
         {/* Content */}
         <div className="relative max-w-5xl mx-auto px-6 py-20 760:py-28 flex flex-col gap-5">
-          <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-primary-dark">The Pops Orchestra</span>
+          <div className="flex items-center gap-3">
+            <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
+            <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/30">The Pops Orchestra</span>
+          </div>
           <h1 className="font-changa font-black text-5xl 760:text-7xl text-text-dark leading-[0.9] max-w-xl">
             Support
             <br />
@@ -135,17 +139,33 @@ export default function DonatePage() {
             Your generosity keeps the music alive in Sarasota and Bradenton. Every gift — no matter the size — makes a
             direct impact on our musicians, our community, and the future of live orchestral music.
           </p>
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          <div className="flex flex-wrap items-center gap-5 pt-2">
+            <Link
+              href="/subscriptions-flex-test"
+              className="inline-flex items-center gap-2 font-changa text-[11px] uppercase tracking-widest px-6 py-2.5 border border-white/20 text-white/60 hover:text-white hover:border-white/40 transition-colors"
+            >
+              View Subscriptions
+            </Link>
             <a
               href="tel:9419267677"
-              className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-widest text-muted-dark hover:text-text-dark transition-colors"
+              className="flex items-center gap-1.5 font-changa text-[10px] uppercase tracking-widest text-white/30 hover:text-white transition-colors"
             >
-              <Phone className="w-3 h-3" />
-              941-926-POPS (7677)
+              <Phone className="w-3.5 h-3.5" />
+              941-926-POPS
             </a>
           </div>
         </div>
       </section>
+
+      <PublicMarquee
+        items={[
+          'Support Live Orchestral Music in Sarasota & Bradenton',
+          '501(c)(3) Non-Profit · EIN 59-1694954',
+          'Donations Are Tax Deductible',
+          'Chair Sponsorships · Education Fund · Concert Sponsorships',
+          'Contact Us at Info@ThePopsOrchestra.org'
+        ]}
+      />
 
       {/* Fund cards */}
       <section className="max-w-5xl mx-auto px-4 760:px-6 py-12 760:py-16">

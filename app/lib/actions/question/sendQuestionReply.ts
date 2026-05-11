@@ -26,7 +26,8 @@ export async function sendQuestionReply(data: SendQuestionReplyInput) {
       where: { id: data.questionId },
       data: {
         replyMessage: data.message.trim(),
-        hasResponded: true
+        hasResponded: true,
+        isPotentialSpam: false
       }
     })
     .catch(() => null)
@@ -45,9 +46,9 @@ export async function sendQuestionReply(data: SendQuestionReplyInput) {
     .send({
       from: 'The Pops Orchestra <info@thepopsorchestra.org>',
       to: [data.toEmail],
-      replyTo: 'sqysh@sqysh.io',
-      // replyTo: 'info@thepopsorchestra.org',
+      replyTo: 'info@thepopsorchestra.org',
       subject: 'Re: Your message to The Pops Orchestra',
+      bcc: 'sqysh@sqysh.io',
       html: replyToQuestionTemplate(data.toName, data.message.trim(), data.originalMessage)
     })
     .catch(() => null)
@@ -59,7 +60,6 @@ export async function sendQuestionReply(data: SendQuestionReplyInput) {
       { questionId: data.questionId, toEmail: data.toEmail, request: context }
     ).catch(() => null)
 
-    // Still return success — the reply is saved, email just failed
     return { success: true, emailFailed: true }
   }
 

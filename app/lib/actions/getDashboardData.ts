@@ -52,6 +52,7 @@ export async function getDashboardData() {
     campApplications,
     campApplicationsCount: campApplications.length,
     campApplicationsEnabled: campApplicationsEnabled?.value ?? false,
+    newApplicationsCount: campApplications.filter((a) => a.isNew).length,
     pageContentCount: pagesCount,
     newsCount: news.length,
     newsLiveCount: news.filter((n) => n.isPublished).length,

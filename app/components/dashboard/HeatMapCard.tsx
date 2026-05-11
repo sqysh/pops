@@ -6,6 +6,7 @@ import Link from 'next/link'
 interface Props {
   campApplications: { createdAt: Date }[]
   campApplicationsEnabled: boolean
+  newApplicationsCount: number
 }
 
 const YEAR_PALETTES: Record<number, string>[] = [
@@ -91,7 +92,7 @@ function YearHeatmap({
         <span className="text-[9px] font-mono uppercase tracking-widest font-bold" style={{ color: accent }}>
           {year}
         </span>
-        <span className="text-[8px] font-mono text-muted-dark/70 tabular-nums">{total} apps</span>
+        <span className="text-[9px] font-mono text-muted-dark/70 tabular-nums">{total} apps</span>
       </div>
 
       {/* Grid: rows = days of week, cols = weeks */}
@@ -102,7 +103,7 @@ function YearHeatmap({
             <div
               key={i}
               style={{ height: CELL, width: 10 }}
-              className="text-[8px] font-mono text-muted-dark/60 flex items-center justify-end"
+              className="text-[9px] font-mono text-muted-dark/60 flex items-center justify-end"
             >
               {i % 2 === 1 ? d : ''}
             </div>
@@ -117,7 +118,7 @@ function YearHeatmap({
               <div
                 key={wi}
                 style={{ width: CELL, flexShrink: 0 }}
-                className="text-[8px] font-mono text-muted-dark/95 uppercase overflow-visible whitespace-nowrap"
+                className="text-[9px] font-mono text-muted-dark/95 uppercase overflow-visible whitespace-nowrap"
               >
                 {monthLabels[wi] ?? ''}
               </div>
@@ -153,19 +154,19 @@ function YearHeatmap({
 
       {/* Legend */}
       <div className="flex items-center gap-1 mt-3">
-        <span className="text-[8px] font-mono text-muted-dark/75 mr-0.5">Less</span>
+        <span className="text-[9px] font-mono text-muted-dark/75 mr-0.5">Less</span>
         {[0, 1, 2, 3, 4, 5].map((i) => (
           <div key={i} style={{ width: CELL, height: CELL, backgroundColor: palette[i], flexShrink: 0 }} />
         ))}
-        <span className="text-[8px] font-mono text-muted-dark/75 ml-0.5">More</span>
+        <span className="text-[9px] font-mono text-muted-dark/75 ml-0.5">More</span>
       </div>
 
       {/* Explanation */}
-      <p className="text-[8px] font-mono text-muted-dark/75 mt-1 leading-relaxed">
+      <p className="text-[9px] font-mono text-muted-dark/75 mt-1 leading-relaxed">
         Each cell = 1 day · Hover a cell to see the submission count
       </p>
       {peakDay && (
-        <p className="text-[8px] font-mono text-muted-dark/75">
+        <p className="text-[9px] font-mono text-muted-dark/75">
           Busiest day: <span style={{ color: accent }}>{peakDate}</span> · {peakDay[1]} submission
           {Number(peakDay[1]) !== 1 ? 's' : ''}
         </p>
@@ -174,7 +175,7 @@ function YearHeatmap({
   )
 }
 
-export function CampHeatmapCard({ campApplications, campApplicationsEnabled }: Props) {
+export function CampHeatmapCard({ campApplications, campApplicationsEnabled, newApplicationsCount }: Props) {
   const allYears = Array.from(new Set(campApplications.map((a) => new Date(a.createdAt).getFullYear()))).sort(
     (a, b) => b - a
   )
@@ -200,8 +201,14 @@ export function CampHeatmapCard({ campApplications, campApplicationsEnabled }: P
         <div className="flex items-center justify-between px-3 py-2 border-b border-border-dark shrink-0">
           <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-muted-dark">[ Camp Activity ]</span>
           <div className="flex items-center gap-2">
+            {newApplicationsCount > 0 && (
+              <span className="text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-sky-400 border-sky-400/30 bg-sky-400/5 flex items-center gap-1">
+                <span className="w-1 h-1 rounded-full bg-sky-400 shrink-0" />
+                {newApplicationsCount} new
+              </span>
+            )}
             <span
-              className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border flex items-center gap-1 ${
+              className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border flex items-center gap-1 ${
                 campApplicationsEnabled
                   ? 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
                   : 'text-muted-dark/70 border-border-dark'

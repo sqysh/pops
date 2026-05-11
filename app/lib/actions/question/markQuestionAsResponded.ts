@@ -6,7 +6,7 @@ import prisma from '@/prisma/client'
 import { createLog } from '@/app/utils/logHelper'
 import { revalidateTag } from 'next/cache'
 
-export async function updateQuestion(id: string) {
+export async function markQuestionAsResponded(id: string) {
   if (!id) return { success: false, error: 'Question ID is required' }
 
   const [actor, context] = await Promise.all([getActor(), getRequestContext()])

@@ -36,6 +36,20 @@ export async function createCampApplication(data: {
   consent: boolean
 }) {
   try {
+    // Check for duplicate student
+    const existing = await prisma.student
+      .findFirst({
+        where: {
+          firstName: { equals: data.firstName, mode: 'insensitive' },
+          lastName: { equals: data.lastName, mode: 'insensitive' },
+          studentPhoneNumber: { equals: data.studentPhoneNumber }
+        },
+        include: { CampApplication: true }
+      })
+      .catch(() => null)
+
+    const isDuplicate = !!existing
+
     const application = await prisma.campApplication.create({
       data: {
         consent: data.consent,
@@ -45,6 +59,8 @@ export async function createCampApplication(data: {
         brassAndPercussion: data.brassAndPercussion,
         woodwinds: data.woodwinds,
         referralSource: data.referralSource,
+        isDuplicate,
+        isNew: true,
         Student: {
           create: {
             firstName: data.firstName,

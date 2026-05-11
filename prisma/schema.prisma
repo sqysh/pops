@@ -36,6 +36,12 @@ enum UserRole {
   SUPER_USER
 }
 
+enum CampStatus {
+  PENDING
+  ADMITTED
+  DENIED
+}
+
 // MODELS -------------------------------------
 
 model User {
@@ -178,14 +184,16 @@ model PhotoGalleryImage {
 }
 
 model Question {
-  id           String   @id @default(cuid())
-  name         String   @db.VarChar(255)
-  email        String   @db.VarChar(255)
-  message      String   @db.VarChar(500)
-  replyMessage String?  @db.VarChar(500)
-  hasResponded Boolean  @default(false)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id              String   @id @default(cuid())
+  name            String   @db.VarChar(255)
+  email           String   @db.VarChar(255)
+  message         String   @db.VarChar(500)
+  replyMessage    String?  @db.VarChar(500)
+  hasResponded    Boolean  @default(false)
+  isPotentialSpam Boolean  @default(false) // flagged automatically on create
+  isSpam          Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model Page {
@@ -224,6 +232,10 @@ model CampApplication {
   Address            Address?
   Parent             Parent?
   Student            Student?
+
+  isDuplicate Boolean    @default(false)
+  campStatus  CampStatus @default(PENDING)
+  isNew       Boolean    @default(false)
 }
 
 model Student {

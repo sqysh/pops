@@ -4,8 +4,7 @@ import { QuestionsClient } from './QuestionsClient'
 export default async function QuestionsPage() {
   const result = await prisma.question
     .findMany({
-      orderBy: { createdAt: 'desc' },
-      take: 50
+      orderBy: { createdAt: 'desc' }
     })
     .catch(() => [])
 
