@@ -29,7 +29,8 @@
     ".next/types/**/*.ts",
     "tailwind.config.js",
     ".next/dev/types/**/*.ts",
-    "scripts/vacuum-db.js"
+    "scripts/vacuum-db.js",
+    "scripts/seed-pages.js"
   ],
   "exclude": ["node_modules", ".next", "out", "dist"]
 }

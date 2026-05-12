@@ -10,6 +10,7 @@
     "lint": "eslint",
     "generate": "prisma generate",
     "seed:site-setting": "node scripts/seed-site-setting.js",
+    "seed:pages": "node scripts/seed-pages.js",
     "fix-enums": "node scripts/fix-enums.js"
   },
   "dependencies": {

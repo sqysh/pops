@@ -167,7 +167,12 @@ export default function PageContentEditorClient({ pages, slug }: { pages: Page[]
     if (!selectedPage) return
     setError(null)
     setSaving(true)
-    const result = await updatePageContent(selectedPage.id, contentRef.current)
+
+    // Fall back to the page's existing content if nothing was edited
+    const content =
+      contentRef.current.length > 0 ? contentRef.current : (selectedPage.content as unknown as PageField[])
+
+    const result = await updatePageContent(selectedPage.id, content)
     setSaving(false)
     if (result.success) {
       savedSE()
