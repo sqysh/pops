@@ -30,7 +30,14 @@ export async function sendQuestionReply(data: SendQuestionReplyInput) {
         isPotentialSpam: false
       }
     })
-    .catch(() => null)
+    .catch(async (e) => {
+      await createLog(
+        'error',
+        await buildLogMessage(`prisma error updating question "${data.questionId}" with reply`, 'admin', context),
+        { questionId: data.questionId, error: e?.message ?? 'unknown', request: context }
+      ).catch(() => null)
+      return null
+    })
 
   if (!question) {
     await createLog(
@@ -39,7 +46,7 @@ export async function sendQuestionReply(data: SendQuestionReplyInput) {
       { questionId: data.questionId, error: 'Prisma update failed', request: context }
     ).catch(() => null)
 
-    return { success: false, error: 'Failed to save reply' }
+    return { success: false, error: 'Connection error — please try again' }
   }
 
   const emailResult = await resend.emails
