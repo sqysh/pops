@@ -235,7 +235,7 @@ export function QuestionDrawer({
               </FormField>
             ) : null}
 
-            {question.hasResponded && !question.replyMessage && (
+            {question.hasResponded && !question.replyMessage && !question.isSpam && (
               <div className="flex items-start gap-2 border border-emerald-400/20 bg-emerald-400/5 px-3 py-2.5">
                 <MailCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                 <p className="text-[10px] font-mono text-emerald-400/80 leading-relaxed">

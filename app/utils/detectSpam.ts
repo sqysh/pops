@@ -65,7 +65,13 @@ const SPAM_CATEGORIES = [
       /marketing services/i,
       /business opportunity/i,
       /partnership/i,
-      /investment/i
+      /investment/i,
+      /ahead of competitors/i,
+      /place your company/i,
+      /see it live within/i,
+      /rank (higher|better|faster)/i,
+      /dominate search/i,
+      /boost your (rankings|visibility|traffic)/i
     ]
   },
   {
