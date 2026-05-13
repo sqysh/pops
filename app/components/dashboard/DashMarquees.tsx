@@ -74,7 +74,7 @@ export function DashMarquees() {
         >
           {[0, 1, 2, 3, 4, 5].map((i) => (
             <span key={i} className="text-[9px] font-mono text-lime-400/70 pr-16">
-              <span className="text-lime-400">● DONATIONS PAGE LIVE —</span> 5 funds linking directly to CueBox
+              <span className="text-lime-400">● DONATIONS PAGE LIVE —</span> 6 funds linking directly to CueBox
               campaigns
               <span className="text-lime-500/50 mx-4">·</span>
               Florida statute language at the bottom
