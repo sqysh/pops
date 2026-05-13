@@ -162,12 +162,6 @@ export default function DonatePage() {
             direct impact on our musicians, our community, and the future of live orchestral music.
           </p>
           <div className="flex flex-wrap items-center gap-5 pt-2">
-            <Link
-              href="/subscriptions-flex-test"
-              className="inline-flex items-center gap-2 font-changa text-[11px] uppercase tracking-widest px-6 py-2.5 border border-white/20 text-white/60 hover:text-white hover:border-white/40 transition-colors"
-            >
-              View Subscriptions
-            </Link>
             <a
               href="tel:9419267677"
               className="flex items-center gap-1.5 font-changa text-[10px] uppercase tracking-widest text-white/30 hover:text-white transition-colors"
