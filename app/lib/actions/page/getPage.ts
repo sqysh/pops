@@ -1,20 +1,20 @@
+import { unstable_cache } from 'next/cache'
 import prisma from '@/prisma/client'
-import { createLog } from '../../../utils/logHelper'
+import { createLog } from '@/app/utils/logHelper'
 
-export const getPage = async (slug: string) => {
-  if (!slug) return null
+const getCachedPage = unstable_cache(
+  async (slug: string) => {
+    return prisma.page.findUnique({ where: { slug } }).catch(() => null)
+  },
+  ['page'],
+  { tags: ['pages'], revalidate: 3600 }
+)
 
-  const page = await prisma.page
-    .findUnique({
-      where: { slug }
-    })
-    .catch((error) => {
-      createLog('error', `Failed to fetch page: ${slug}`, {
-        error: error instanceof Error ? error.message : String(error),
-        slug
-      }).catch(() => null)
-      return null
-    })
-
+export async function getPage(slug: string) {
+  const page = await getCachedPage(slug)
+  if (!page) {
+    await createLog('error', `Failed to fetch page`, { error: 'Not found', slug }).catch(() => null)
+    return null
+  }
   return page
 }

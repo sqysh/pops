@@ -29,7 +29,7 @@ export async function updatePageContent(pageId: string, content) {
     request: context
   }).catch(() => null)
 
-  revalidateTag('dashboard', 'default')
+  revalidateTag('pages', '')
 
   return { success: true, data: page }
 }
