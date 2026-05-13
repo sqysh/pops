@@ -248,7 +248,7 @@ function BoxGrid({
   const bottom = box.seats.slice(Math.ceil(box.seats.length / 2))
   return (
     <div className="flex flex-col items-center gap-0.5 border border-border-dark/30 px-1 py-1">
-      <span className="text-[8px] font-mono text-white leading-none">{box.label}</span>
+      <span className="text-[9px] font-mono text-white leading-none">{box.label}</span>
       <div className="flex gap-0.5">
         {top.map((seat, i) => (
           <SeatDot
@@ -292,7 +292,7 @@ function SeatRowUI({
   const baseDelay = rowIdx * 0.025
   return (
     <div className="flex items-center gap-0.5 justify-center">
-      <span className="text-[8px] font-mono text-white w-3 text-right shrink-0">{row.label}</span>
+      <span className="text-[9px] font-mono text-white w-3 text-right shrink-0">{row.label}</span>
       <div className="flex gap-0.5">
         {row.left.map((seat, i) => (
           <SeatDot
@@ -331,7 +331,7 @@ function SeatRowUI({
           />
         ))}
       </div>
-      <span className="text-[8px] font-mono text-white w-3 shrink-0">{row.label}</span>
+      <span className="text-[9px] font-mono text-white w-3 shrink-0">{row.label}</span>
     </div>
   )
 }

@@ -40,7 +40,7 @@ export function TestimonialRow({
       {/* Status */}
       <div className="flex justify-end">
         <span
-          className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${
+          className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${
             testimonial.isPublished
               ? 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
               : 'text-muted-dark/70 border-border-dark'

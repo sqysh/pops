@@ -41,7 +41,7 @@ export function MailchimpMembersClient({ members, count }: { members: any[]; cou
       }}
       marquee="Read-only — showing the most recent 100 subscribers · Manage subscribers directly in Mailchimp · Click ↗ to view a member's full profile · Interest tags show self-reported preferences"
       marqueeNode={
-        <span className="text-[8px] font-mono">
+        <span className="text-[9px] font-mono">
           <span className="text-emerald-400">● Subscribed</span>
           <span className="text-muted-dark/20 mx-3">—</span>
           <span className="text-muted-dark/80">active, receiving emails</span>

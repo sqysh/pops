@@ -173,7 +173,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                         </div>
                       </div>
                       <span
-                        className={`text-[8px] font-mono tracking-[0.2em] uppercase px-1.5 py-0.5 shrink-0 ${
+                        className={`text-[9px] font-mono tracking-[0.2em] uppercase px-1.5 py-0.5 shrink-0 ${
                           req.status === 'COMPLETE'
                             ? 'bg-emerald-500/10 text-emerald-400'
                             : req.status === 'DECLINED'
@@ -192,7 +192,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                           key={status}
                           onClick={() => handleStatusChange(req.id, status)}
                           disabled={req.status === status || loading === req.id}
-                          className={`flex-1 px-2 py-1 text-[8px] font-mono tracking-[0.15em] uppercase border transition-colors disabled:opacity-30 ${
+                          className={`flex-1 px-2 py-1 text-[9px] font-mono tracking-[0.15em] uppercase border transition-colors disabled:opacity-30 ${
                             req.status === status
                               ? 'border-primary-dark bg-primary-dark/10 text-text-dark'
                               : 'border-border-dark text-muted-dark hover:text-text-dark hover:border-muted-dark'
@@ -227,7 +227,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                     {t.firstName} {t.lastName}
                   </span>
                   <span
-                    className={`text-[8px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 ${
+                    className={`text-[9px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 ${
                       t.role === 'BOARD_MEMBER'
                         ? 'bg-primary-dark/10 text-primary-dark'
                         : t.role === 'STAFF'
@@ -237,7 +237,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                   >
                     {t.role.replace('_', ' ')}
                   </span>
-                  <span className="text-[8px] font-mono text-muted-dark/60 shrink-0 hidden sm:block">
+                  <span className="text-[9px] font-mono text-muted-dark/60 shrink-0 hidden sm:block">
                     {formatDate(t.updatedAt)}
                   </span>
                 </span>
@@ -266,7 +266,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                 <span className="flex items-center gap-2 min-w-0">
                   <span className="truncate">{n.title}</span>
                   <span
-                    className={`text-[8px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 ${
+                    className={`text-[9px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 ${
                       n.isPublished ? 'bg-emerald-500/10 text-emerald-400' : 'bg-border-dark text-muted-dark/70'
                     }`}
                   >
@@ -294,10 +294,10 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
               renderItem={(s) => (
                 <span className="flex items-center gap-2 min-w-0">
                   <span className="truncate">{s.name}</span>
-                  <span className="text-[8px] font-mono text-muted-dark/70 shrink-0">{s.level}</span>
-                  <span className="text-[8px] font-mono text-emerald-400 shrink-0">${s.amount.toLocaleString()}</span>
+                  <span className="text-[9px] font-mono text-muted-dark/70 shrink-0">{s.level}</span>
+                  <span className="text-[9px] font-mono text-emerald-400 shrink-0">${s.amount.toLocaleString()}</span>
                   {!s.isActive && (
-                    <span className="text-[8px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 bg-border-dark text-muted-dark/70">
+                    <span className="text-[9px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 bg-border-dark text-muted-dark/70">
                       Inactive
                     </span>
                   )}
@@ -319,7 +319,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                   <span className="truncate">{q.name}</span>
                   <span className="text-[9px] font-mono text-muted-dark/70 truncate hidden sm:block">{q.email}</span>
                   <span
-                    className={`text-[8px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 ${
+                    className={`text-[9px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 shrink-0 ${
                       q.hasResponded ? 'bg-emerald-500/10 text-emerald-400' : 'bg-yellow-500/10 text-yellow-400'
                     }`}
                   >
@@ -339,7 +339,7 @@ export default function SuperClient({ customRequests, dbHealth }: Props) {
                 <span className="flex items-center gap-2">
                   <span>{u.email ?? 'No email'}</span>
                   <span
-                    className={`text-[8px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 ${ROLE_STYLES[u.role as UserRole] ?? 'bg-border-dark text-muted-dark'}`}
+                    className={`text-[9px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 ${ROLE_STYLES[u.role as UserRole] ?? 'bg-border-dark text-muted-dark'}`}
                   >
                     {u.role}
                   </span>

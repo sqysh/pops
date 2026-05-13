@@ -19,7 +19,7 @@ export function CustomRequestRow({ request }: { request: CustomRequest }) {
       >
         {/* Status */}
         <span
-          className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border flex items-center gap-1 shrink-0 ${status.color}`}
+          className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border flex items-center gap-1 shrink-0 ${status.color}`}
         >
           {status.icon}
           {status.label}
@@ -39,7 +39,7 @@ export function CustomRequestRow({ request }: { request: CustomRequest }) {
         {/* Urgency */}
         {urgency && (
           <span
-            className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border shrink-0 ${urgency.color}`}
+            className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border shrink-0 ${urgency.color}`}
           >
             {urgency.label}
           </span>
@@ -69,7 +69,7 @@ export function CustomRequestRow({ request }: { request: CustomRequest }) {
                 { label: 'Submitted by', value: request.submittedBy || '—' }
               ].map(({ label, value }) => (
                 <div key={label} className="flex flex-col gap-1">
-                  <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/70">{label}</span>
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70">{label}</span>
                   <span className="text-[11px] font-mono text-text-dark leading-relaxed">{value}</span>
                 </div>
               ))}

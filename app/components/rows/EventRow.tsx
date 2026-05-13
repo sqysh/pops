@@ -42,7 +42,7 @@ export function EventRow({ event, index, onEdit }: { event: Event; index: number
       {/* Status */}
       <div className="flex justify-end">
         <span
-          className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${STATUS_COLORS[event.status] ?? 'text-muted-dark border-border-dark'}`}
+          className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${STATUS_COLORS[event.status] ?? 'text-muted-dark border-border-dark'}`}
         >
           {event.status.charAt(0) + event.status.slice(1).toLowerCase()}
         </span>

@@ -42,7 +42,7 @@ export function TopBar({ time, date }) {
             {session.data.user.email}
           </span>
           <span
-            className={`text-[8px] font-mono tracking-widest uppercase px-1.5 py-0.5 border ${
+            className={`text-[9px] font-mono tracking-widest uppercase px-1.5 py-0.5 border ${
               session.data.user.role === 'SUPER_USER'
                 ? 'text-primary-dark border-primary-dark/30 bg-primary-dark/5'
                 : session.data.user.role === 'CONDUCTOR'
@@ -61,7 +61,7 @@ export function TopBar({ time, date }) {
 
         {/* Role badge only on mobile */}
         <span
-          className={`sm:hidden text-[8px] font-mono tracking-widest uppercase px-1.5 py-0.5 border ${
+          className={`sm:hidden text-[9px] font-mono tracking-widest uppercase px-1.5 py-0.5 border ${
             session.data.user.role === 'SUPER_USER'
               ? 'text-primary-dark border-primary-dark/30 bg-primary-dark/5'
               : session.data.user.role === 'CONDUCTOR'

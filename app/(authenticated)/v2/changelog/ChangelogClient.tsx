@@ -25,6 +25,25 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.8.0',
+    date: 'May 13, 2026',
+    summary: 'Donate page intro section, fund card images, and legacy giving.',
+    changes: [
+      {
+        type: 'new',
+        text: 'Donate page intro section — two-column layout with Ways to Give and Legacy Giving, geometric SVG grid/diagonal background texture, vertical divider between columns'
+      },
+      {
+        type: 'new',
+        text: 'Legacy Giving fund card — replaces Other Ways to Give, links to Melissa Warthen via mailto, includes planned giving options list and contact note'
+      },
+      {
+        type: 'improved',
+        text: 'Fund cards now include an image at the top — aspect-[3/2] crop, hover zoom, gradient fade into card body, colored accent bar overlaid on image'
+      }
+    ]
+  },
+  {
     version: '3.7.0',
     date: 'May 11, 2026',
     summary: 'Camp applications, spam detection, settings page, and donations page.',
@@ -194,7 +213,7 @@ function ChangelogEntryRow({ entry, index }: { entry: ChangelogEntry; index: num
               .map(([type, count]) => (
                 <span
                   key={type}
-                  className={`text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${TYPE_CONFIG[type].color}`}
+                  className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${TYPE_CONFIG[type].color}`}
                 >
                   {count} {TYPE_CONFIG[type].label}
                 </span>
@@ -225,7 +244,7 @@ function ChangelogEntryRow({ entry, index }: { entry: ChangelogEntry; index: num
               {entry.changes.map((change, i) => (
                 <div key={i} className="flex items-start gap-3 px-4 py-2.5">
                   <span
-                    className={`text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border shrink-0 mt-0.5 ${TYPE_CONFIG[change.type].color}`}
+                    className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border shrink-0 mt-0.5 ${TYPE_CONFIG[change.type].color}`}
                   >
                     {TYPE_CONFIG[change.type].label}
                   </span>
@@ -285,10 +304,10 @@ export function ChangelogClient() {
 
       {/* Legend */}
       <div className="shrink-0 flex items-center gap-3 px-4 py-2 border-b border-border-dark bg-surface-dark">
-        <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark shrink-0">Key</span>
+        <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark shrink-0">Key</span>
         {(Object.entries(TYPE_CONFIG) as [ChangeType, (typeof TYPE_CONFIG)[ChangeType]][]).map(
           ([type, { label, color }]) => (
-            <span key={type} className={`text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${color}`}>
+            <span key={type} className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${color}`}>
               {label}
             </span>
           )

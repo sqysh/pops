@@ -43,7 +43,7 @@ export function CampApplicationRow({
           <div className="flex items-center gap-2">
             <span className="text-[12px] font-mono text-text-dark truncate block">{fullName}</span>
             {application.isNew && (
-              <span className="text-[6px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-sky-400 border-sky-400/30 bg-sky-400/5 shrink-0">
+              <span className="text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-sky-400 border-sky-400/30 bg-sky-400/5 shrink-0">
                 New
               </span>
             )}
@@ -51,7 +51,7 @@ export function CampApplicationRow({
           {s?.school && <span className="text-[9px] font-mono text-muted-dark/80 truncate block">{s.school}</span>}
         </div>
         {application.isDuplicate && (
-          <span className="text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-orange-400 border-orange-400/30 bg-orange-400/5 shrink-0 h-fit">
+          <span className="text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-orange-400 border-orange-400/30 bg-orange-400/5 shrink-0 h-fit">
             Duplicate
           </span>
         )}
@@ -62,7 +62,7 @@ export function CampApplicationRow({
 
       {/* Instrument */}
       <div>
-        <span className="text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-violet-400 border-violet-400/30 bg-violet-400/5 truncate block max-w-full">
+        <span className="text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-violet-400 border-violet-400/30 bg-violet-400/5 truncate block max-w-full">
           {application.instrument || '—'}
         </span>
       </div>
@@ -80,7 +80,7 @@ export function CampApplicationRow({
       {/* Status */}
       <div className="flex justify-center">
         <span
-          className={`text-[7px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${
+          className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${
             application.campStatus === 'ADMITTED'
               ? 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
               : application.campStatus === 'DENIED'

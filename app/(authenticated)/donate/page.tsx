@@ -4,7 +4,6 @@ import { PublicMarquee } from '@/app/components/elements/PublicMarquee'
 import { FloatingParticles } from '@/app/components/FloatingParticles'
 import { FundCard } from '@/app/components/FundCard'
 import { ArrowLeft, Phone } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 
 const FUNDS = [
@@ -17,7 +16,8 @@ const FUNDS = [
     href: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/donate/6ZG83S9R',
     cta: 'Donate Now',
     accent: 'border-primary-dark/40 hover:border-primary-dark',
-    labelColor: 'text-primary-dark'
+    labelColor: 'text-primary-dark',
+    image: '/images/funds-1.png'
   },
   {
     id: 'chair',
@@ -28,7 +28,8 @@ const FUNDS = [
     href: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/donate/C4XKQ47C',
     cta: 'Sponsor a Chair',
     accent: 'border-violet-500/40 hover:border-violet-500',
-    labelColor: 'text-violet-400'
+    labelColor: 'text-violet-400',
+    image: '/images/funds-2.png'
   },
   {
     id: 'education',
@@ -40,7 +41,8 @@ const FUNDS = [
     cta: 'Support Education',
     accent: 'border-sky-500/40 hover:border-sky-500',
     labelColor: 'text-sky-400',
-    note: 'Contact us at Info@ThePopsOrchestra.org or 941-926-7677 with any questions.'
+    note: 'Contact us at Info@ThePopsOrchestra.org or 941-926-7677 with any questions.',
+    image: '/images/funds-3.png'
   },
   {
     id: 'sponsorships',
@@ -58,7 +60,8 @@ const FUNDS = [
       { label: 'Guest Artist Sponsor', amount: '$5,000', note: 'you pick the artist' },
       { label: 'Principal Sponsor', amount: '$2,500' },
       { label: 'Associate Sponsor', amount: '$1,000 – $1,500' }
-    ]
+    ],
+    image: '/images/funds-4.png'
   },
   {
     id: 'advertising',
@@ -74,15 +77,34 @@ const FUNDS = [
       { size: 'Full Page', note: '4 complimentary season tickets', price: 'from $1,000' },
       { size: 'Half Page', note: '4 complimentary single tickets', price: '$500' },
       { size: 'Quarter Page', note: null, price: '$300' }
-    ]
+    ],
+    image: '/images/funds-5.png'
+  },
+  {
+    id: 'legacy',
+    image: '/images/funds-6.png',
+    label: 'Legacy Giving',
+    title: 'Leave a\nLasting Legacy',
+    description:
+      'Ensure your love of music lives on for generations to come. A legacy gift to The Pops Orchestra is a profound way to forever be a part of our story.',
+    href: 'mailto:Melissa@ThePopsOrchestra.org',
+    cta: 'Contact Melissa',
+    top: 'bg-white/20',
+    label_color: 'text-white/50',
+    btn: 'bg-white/10 hover:bg-white/20 text-white border border-white/20',
+    border: 'hover:border-white/20',
+    extras: [
+      'Planned Giving & Bequests',
+      'Charitable Remainder Trusts',
+      'Stock & Securities Donations',
+      'IRA Charitable Distributions',
+      'Donor-Advised Funds'
+    ],
+    note: 'Contact Melissa Warthen, Chief Administrative Officer, at Melissa@ThePopsOrchestra.org or 941-926-POPS (7677) to learn more.'
   }
 ]
 
 export default function DonatePage() {
-  const session = useSession()
-
-  if (session.data.user.role !== 'ADMIN' && session.data.user.role !== 'SUPER_USER') return
-
   return (
     <main className="min-h-screen bg-bg-dark text-text-dark">
       <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-sm border-b border-border-dark">
@@ -167,6 +189,76 @@ export default function DonatePage() {
         ]}
       />
 
+      {/* Intro */}
+      <section className="relative max-w-5xl mx-auto px-4 760:px-6 py-16 760:py-24 overflow-hidden border-y border-white/10">
+        {/* Geometric background */}
+        <div className="absolute inset-0" aria-hidden="true">
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+              </pattern>
+              <pattern id="diagonal" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M 0 60 L 60 0" fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+            <rect width="100%" height="100%" fill="url(#diagonal)" />
+          </svg>
+        </div>
+
+        <div className="relative max-w-5xl mx-auto flex flex-col 760:flex-row gap-12 760:gap-20 items-start">
+          {/* Left — main text */}
+          <div className="flex-1 flex flex-col gap-5">
+            <div className="flex items-center gap-3">
+              <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
+              <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/30">Ways to Give</span>
+            </div>
+            <p className="font-lato text-white/70 text-base 760:text-lg leading-relaxed">
+              The Pops Orchestra is proud to offer several different ways our patrons can support the orchestra beyond
+              the purchase of their show tickets. Whether you wish to make a gift to our general operating fund, sponsor
+              the chair of one of our musicians, support our youth education initiatives, sponsor an entire season,
+              concert, or guest artist, or purchase an ad in our printed show program, every gesture counts and is
+              appreciated.
+            </p>
+          </div>
+
+          {/* Divider */}
+          <div className="hidden 760:block w-px self-stretch bg-white/10 shrink-0" aria-hidden="true" />
+
+          {/* Right — legacy gift */}
+          <div className="flex-1 flex flex-col gap-5">
+            <div className="flex items-center gap-3">
+              <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
+              <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-blaze-text">Legacy Giving</span>
+            </div>
+            <p className="font-lato text-white/70 text-base 760:text-lg leading-relaxed">
+              If you are interested in leaving a legacy gift to The Pops, ensuring your support for our orchestra for
+              generations to come, we would love to visit with you about our plans for the future and how you can
+              forever be a part of it.
+            </p>
+            <div className="flex flex-col gap-2 pt-1">
+              <a
+                href="mailto:Melissa@ThePopsOrchestra.org"
+                className="font-changa text-[12px] uppercase tracking-widest text-blaze-text hover:text-white transition-colors"
+              >
+                Melissa@ThePopsOrchestra.org
+              </a>
+
+              <a
+                href="tel:9419267677"
+                className="font-changa text-[12px] uppercase tracking-widest text-white hover:text-white transition-colors"
+              >
+                941-926-POPS (7677)
+              </a>
+              <span className="font-lato text-[11px] text-white/70 italic pt-1">
+                Melissa Warthen · Chief Administrative Officer
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Fund cards */}
       <section className="max-w-5xl mx-auto px-4 760:px-6 py-12 760:py-16">
         <div className="grid grid-cols-1 760:grid-cols-2 1200:grid-cols-3 gap-4 760:gap-5">
@@ -199,7 +291,7 @@ export default function DonatePage() {
 
       {/* Florida statute */}
       <section className="border-t border-border-dark/40 px-6 py-6">
-        <p className="text-[8px] font-mono text-muted-dark/80 leading-relaxed max-w-4xl mx-auto uppercase tracking-wider">
+        <p className="text-[9px] font-mono text-muted-dark/80 leading-relaxed max-w-4xl mx-auto uppercase tracking-wider">
           The Sarasota Pops Orchestra, Inc (&quot;The Pops&quot;) is a registered 501(c)(3) with EIN # 59-1694954 and is
           registered with the FL Division of Consumer Services # CH9116. A copy of the official registration and
           financial information may be obtained from the Division of Consumer Services by calling toll-free

@@ -79,7 +79,7 @@ export function DashboardSearch({
               const inner = (
                 <div className="flex items-center gap-3 px-4 py-2.5 hover:bg-surface-dark transition-colors group">
                   <span
-                    className={`text-[8px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 border shrink-0 ${colorCls}`}
+                    className={`text-[9px] font-mono tracking-[0.15em] uppercase px-1.5 py-0.5 border shrink-0 ${colorCls}`}
                   >
                     {result.type}
                   </span>

@@ -107,7 +107,7 @@ export function MediaDropZone({
           aria-label={`Upload ${label}`}
         />
       </div>
-      {file && <span className="text-[8px] font-mono text-muted-dark/70 truncate">{file.name}</span>}
+      {file && <span className="text-[9px] font-mono text-muted-dark/70 truncate">{file.name}</span>}
     </div>
   )
 }

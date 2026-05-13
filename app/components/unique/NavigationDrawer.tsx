@@ -8,7 +8,6 @@ import { RootState, store, useAppSelector } from '@/app/redux/store'
 import { getNavigationLinks } from '@/app/utils/navigation.utils'
 import { closeNavigationDrawer } from '@/app/redux/features/appSlice'
 import Picture from '../common/Picture'
-import { DONATION_URL } from '@/app/lib/constants/cueBox.constants'
 
 const NavigationDrawer = ({ campApplicationsSetting }) => {
   const path = usePathname()
@@ -130,8 +129,7 @@ const NavigationDrawer = ({ campApplicationsSetting }) => {
         {/* Footer */}
         <div className="sticky bottom-0 px-4 py-5 border-t border-white/10 bg-black flex flex-col gap-3">
           <Link
-            href={DONATION_URL}
-            target="_blank"
+            href="/donate"
             rel="noopener noreferrer"
             onClick={closeDrawer}
             aria-label="Make a donation (opens in new tab)"

@@ -32,7 +32,7 @@ export function StatPill({ label, value, accent }: { label: string; value: numbe
       <span className={`font-mono text-sm font-bold tabular-nums ${accent ? 'text-primary-dark' : 'text-text-dark'}`}>
         <AnimatedNumber value={value} />
       </span>
-      <span className="text-[8px] font-mono tracking-[0.15em] uppercase text-muted-dark/80 whitespace-nowrap">
+      <span className="text-[9px] font-mono tracking-[0.15em] uppercase text-muted-dark/80 whitespace-nowrap">
         {label}
       </span>
     </div>

@@ -284,7 +284,7 @@ function SeatDot({
       whileHover={{ scale: 1.7, zIndex: 10 }}
       onMouseEnter={(e) => onHover(seat, e)}
       onMouseLeave={onLeave}
-      className={`w-4.5 h-4.5 text-[8px] flex items-center justify-center rounded-full cursor-pointer border-2 shrink-0 ${colors.bg} ${colors.border}`}
+      className={`w-4.5 h-4.5 text-[9px] flex items-center justify-center rounded-full cursor-pointer border-2 shrink-0 ${colors.bg} ${colors.border}`}
     >
       {seat.number}
     </motion.div>
@@ -360,7 +360,7 @@ export default function OperaHouseMezzAndBalc() {
             className={`flex items-center gap-0.5 760:gap-1 ${row.label === 'CC' ? 'mt-10 760:mt-14' : ''}`}
           >
             {/* Left label */}
-            <span className="text-[8px] 760:text-[9px] font-mono text-muted-dark/70 w-5 760:w-6 text-right shrink-0">
+            <span className="text-[9px] 760:text-[9px] font-mono text-muted-dark/70 w-5 760:w-6 text-right shrink-0">
               {row.label}
             </span>
 
@@ -442,7 +442,7 @@ export default function OperaHouseMezzAndBalc() {
             </div>
 
             {/* Right label */}
-            <span className="text-[8px] 760:text-[9px] font-mono text-muted-dark/70 w-5 760:w-6 shrink-0">
+            <span className="text-[9px] 760:text-[9px] font-mono text-muted-dark/70 w-5 760:w-6 shrink-0">
               {row.label}
             </span>
           </div>

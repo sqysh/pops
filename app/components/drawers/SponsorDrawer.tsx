@@ -140,7 +140,7 @@ export function SponsorDrawer({ open, onClose, sponsor }: TSponsorDrawer) {
                   key={l}
                   type="button"
                   onClick={() => setForm((f) => ({ ...f, level: l }))}
-                  className={`text-[8px] font-mono uppercase tracking-widest px-2 py-2 border text-left transition-colors ${
+                  className={`text-[9px] font-mono uppercase tracking-widest px-2 py-2 border text-left transition-colors ${
                     form.level === l
                       ? `${levelColor(l)} border-opacity-60`
                       : 'border-border-dark text-muted-dark/70 hover:text-muted-dark hover:border-muted-dark/30'

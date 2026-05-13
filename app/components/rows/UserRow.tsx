@@ -26,7 +26,7 @@ function RolePopover({
       className="absolute left-0 top-full mt-1 z-50 bg-bg-dark border border-border-dark w-40 shadow-xl"
     >
       <div className="px-2 py-1.5 border-b border-border-dark">
-        <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/70">Change Role</span>
+        <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70">Change Role</span>
       </div>
       {ROLE_ORDER.map((role) => (
         <button
@@ -41,7 +41,7 @@ function RolePopover({
           }`}
         >
           {formatRole(role)}
-          {currentRole === role && <span className="text-[8px]">✓</span>}
+          {currentRole === role && <span className="text-[9px]">✓</span>}
         </button>
       ))}
     </motion.div>
@@ -97,7 +97,7 @@ export function UserRow({ user, index, onEdit }: { user: IUser; index: number; o
           type="button"
           onClick={() => !isSuperUser && setRolePopover((v) => !v)}
           disabled={isSuperUser || updatingRole}
-          className={`flex items-center gap-1 text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border transition-colors ${roleColor(user.role)} ${!isSuperUser ? 'hover:opacity-80 cursor-pointer' : 'cursor-default'} disabled:opacity-50`}
+          className={`flex items-center gap-1 text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border transition-colors ${roleColor(user.role)} ${!isSuperUser ? 'hover:opacity-80 cursor-pointer' : 'cursor-default'} disabled:opacity-50`}
           aria-label={`Change role for ${fullName}`}
         >
           {formatRole(user.role)}

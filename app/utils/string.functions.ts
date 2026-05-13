@@ -13,7 +13,7 @@ export const toggleHeaderFooter = (pathname: string) => {
     '/staff',
     '/contact',
     '/education',
-    '/chair-sponsorships',
+    '/support',
     '/advertise-with-us',
     '/connect-with-us',
     '/camp-application',

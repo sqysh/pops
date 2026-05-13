@@ -17,7 +17,7 @@ export function MailchimpMemberRow({ member, index }: { member: any; index: numb
         <span className="text-[12px] font-mono text-text-dark truncate block">{member.name || '—'}</span>
         <div className="flex items-center gap-3 mt-0.5">
           {member.stats?.avgOpenRate > 0 && (
-            <span className="text-[8px] font-mono text-muted-dark/60">
+            <span className="text-[9px] font-mono text-muted-dark/60">
               {Math.round(member.stats.avgOpenRate * 100)}% open rate
             </span>
           )}
@@ -25,7 +25,7 @@ export function MailchimpMemberRow({ member, index }: { member: any; index: numb
             activeInterests.map(({ key, label }) => (
               <span
                 key={key}
-                className="text-[8px] font-mono uppercase tracking-widest px-1 py-0.5 border border-primary-dark/20 bg-primary-dark/5 text-primary-dark"
+                className="text-[9px] font-mono uppercase tracking-widest px-1 py-0.5 border border-primary-dark/20 bg-primary-dark/5 text-primary-dark"
               >
                 {label}
               </span>
@@ -55,7 +55,7 @@ export function MailchimpMemberRow({ member, index }: { member: any; index: numb
       {/* Status */}
       <div className="flex justify-end">
         <span
-          className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${STATUS_COLORS[member.status] ?? 'text-muted-dark border-border-dark'}`}
+          className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${STATUS_COLORS[member.status] ?? 'text-muted-dark border-border-dark'}`}
         >
           {member.status}
         </span>

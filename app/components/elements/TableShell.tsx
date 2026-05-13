@@ -83,7 +83,7 @@ export function TableFilterPills({ options, active, onChange, accentColor = 'red
         <button
           key={value}
           onClick={() => onChange(value)}
-          className={`text-[8px] font-mono uppercase tracking-widest px-2 py-1 border transition-colors ${
+          className={`text-[9px] font-mono uppercase tracking-widest px-2 py-1 border transition-colors ${
             active === value
               ? activeClass
               : 'border-border-dark text-muted-dark hover:text-muted-dark hover:border-muted-dark/30'
@@ -209,7 +209,7 @@ export function TableShell({
                         >
                           {value}
                         </span>
-                        <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
+                        <span className="text-[9px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
                           {pillLabel}
                         </span>
                       </div>
@@ -253,7 +253,7 @@ export function TableShell({
                   >
                     {value}
                   </span>
-                  <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
+                  <span className="text-[9px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
                     {pillLabel}
                   </span>
                 </div>
@@ -324,7 +324,7 @@ export function TableShell({
                   key={i}
                   onClick={() => key && toggleSort(key)}
                   disabled={!key}
-                  className={`flex items-center gap-1 text-[8px] font-mono uppercase tracking-widest text-muted-dark ${
+                  className={`flex items-center gap-1 text-[9px] font-mono uppercase tracking-widest text-muted-dark ${
                     key ? 'hover:text-muted-dark transition-colors cursor-pointer' : 'cursor-default'
                   } ${alignRight ? 'justify-end' : ''}`}
                 >

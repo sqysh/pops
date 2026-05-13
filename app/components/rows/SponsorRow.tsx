@@ -36,7 +36,7 @@ export function SponsorRow({
             priority
           />
         ) : (
-          <span className="text-[8px] font-mono text-muted-dark/80 uppercase tracking-widest leading-none text-center px-0.5">
+          <span className="text-[9px] font-mono text-muted-dark/80 uppercase tracking-widest leading-none text-center px-0.5">
             {sponsor.name.slice(0, 2)}
           </span>
         )}
@@ -68,7 +68,7 @@ export function SponsorRow({
 
       <div>
         <span
-          className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${levelColor(sponsor.level)}`}
+          className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${levelColor(sponsor.level)}`}
         >
           {formatLevel(sponsor.level)}
         </span>

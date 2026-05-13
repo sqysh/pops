@@ -91,7 +91,7 @@ export function SettingsClient({ siteSettings, customRequests: initialRequests }
                         <span className="text-[9px] font-mono text-muted-dark/70">{setting.description}</span>
                       )}
                       {SETTING_DATES[setting.key] && (
-                        <span className="text-[8px] font-mono text-muted-dark/80 tabular-nums">
+                        <span className="text-[9px] font-mono text-muted-dark/80 tabular-nums">
                           Target: {SETTING_DATES[setting.key]}
                         </span>
                       )}
@@ -129,7 +129,7 @@ export function SettingsClient({ siteSettings, customRequests: initialRequests }
                   urgency.
                 </p>
                 {pendingCount > 0 && (
-                  <span className="text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-amber-400 border-amber-400/30 bg-amber-400/5 w-fit ml-5">
+                  <span className="text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-amber-400 border-amber-400/30 bg-amber-400/5 w-fit ml-5">
                     {pendingCount} pending
                   </span>
                 )}
@@ -163,7 +163,7 @@ export function SettingsClient({ siteSettings, customRequests: initialRequests }
                     requests.map((r) => <CustomRequestRow key={r.id} request={r} />)
                   )}
                 </div>
-                <p className="text-[8px] font-mono text-muted-dark/60 leading-relaxed">
+                <p className="text-[9px] font-mono text-muted-dark/60 leading-relaxed">
                   Requests are sent to Sqysh via email and reviewed in order of urgency.
                 </p>
               </div>

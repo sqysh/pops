@@ -257,12 +257,12 @@ export function QuestionDrawer({
             {/* Actions */}
             {!question.hasResponded && !question.isSpam && (
               <div className="flex flex-col gap-2 pt-2 border-t border-border-dark">
-                <span className="text-[7px] font-mono uppercase tracking-widest text-muted-dark/50">Actions</span>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/50">Actions</span>
                 <button
                   type="button"
                   onClick={handleMarkAsResponded}
                   disabled={markingResponded}
-                  className="w-full flex items-center justify-center gap-2 px-3 py-2 border border-emerald-500/30 bg-emerald-500/5 text-[8px] font-mono uppercase tracking-widest text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/50 transition-colors disabled:opacity-40"
+                  className="w-full flex items-center justify-center gap-2 px-3 py-2 border border-emerald-500/30 bg-emerald-500/5 text-[9px] font-mono uppercase tracking-widest text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500/50 transition-colors disabled:opacity-40"
                 >
                   <MailCheck className="w-3 h-3" />
                   {markingResponded ? 'Marking...' : 'Mark as Responded'}
@@ -271,7 +271,7 @@ export function QuestionDrawer({
                   type="button"
                   onClick={handleMarkAsSpam}
                   disabled={markingSpam}
-                  className="w-full flex items-center justify-center gap-2 px-3 py-2 border border-red-500/30 bg-red-500/5 text-[8px] font-mono uppercase tracking-widest text-red-400 hover:bg-red-500/10 hover:border-red-500/50 transition-colors disabled:opacity-40"
+                  className="w-full flex items-center justify-center gap-2 px-3 py-2 border border-red-500/30 bg-red-500/5 text-[9px] font-mono uppercase tracking-widest text-red-400 hover:bg-red-500/10 hover:border-red-500/50 transition-colors disabled:opacity-40"
                 >
                   <Ban className="w-3 h-3" />
                   {markingSpam ? 'Marking...' : 'Mark as Spam'}

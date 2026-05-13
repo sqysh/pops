@@ -138,7 +138,7 @@ function UploadZone({ onUpload }: { onUpload: (file: File) => Promise<void> }) {
           <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60 group-hover:text-muted-dark/80 transition-colors">
             Upload Photo
           </span>
-          <span className="text-[8px] font-mono text-muted-dark/20">or drag & drop</span>
+          <span className="text-[9px] font-mono text-muted-dark/20">or drag & drop</span>
         </>
       )}
       <input
@@ -203,7 +203,7 @@ export default function GalleryClient({ photos: initialPhotos }: { photos: Photo
             className="flex whitespace-nowrap"
           >
             {[0, 1, 2, 3, 4, 5].map((i) => (
-              <span key={i} className="text-[8px] font-mono text-yellow-400/60 pr-12">
+              <span key={i} className="text-[9px] font-mono text-yellow-400/60 pr-12">
                 <span className="text-yellow-400">●</span> Images uploaded here appear on the public Media page
                 <span className="text-yellow-400/30 mx-3">·</span>
                 Home hero images are managed separately — contact Sqysh to update them

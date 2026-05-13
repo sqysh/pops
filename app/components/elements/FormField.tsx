@@ -15,7 +15,7 @@ export function FormField({ label, htmlFor, required, children }: FormFieldProps
           {label} {required && <span className="text-primary-dark">*</span>}
         </label>
       ) : (
-        <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80">
+        <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/80">
           {label} {required && <span className="text-primary-dark">*</span>}
         </span>
       )}

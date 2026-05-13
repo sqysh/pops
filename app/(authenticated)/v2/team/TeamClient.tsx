@@ -145,7 +145,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
                     <span className="font-mono text-xs font-bold tabular-nums text-text-dark">
                       {lists[role].length}
                     </span>
-                    <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
+                    <span className="text-[9px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
                       {ROLE_LABELS[role]}
                     </span>
                   </div>
@@ -180,7 +180,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
             {ROLES.map((role) => (
               <div key={role} className="flex flex-col items-center justify-center px-4 py-1.5 shrink-0 gap-0.5">
                 <span className="font-mono text-xs font-bold tabular-nums text-text-dark">{lists[role].length}</span>
-                <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
+                <span className="text-[9px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
                   {ROLE_LABELS[role]}
                 </span>
               </div>
@@ -195,7 +195,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
               className="flex whitespace-nowrap"
             >
               {[0, 1, 2, 3, 4, 5].map((i) => (
-                <span key={i} className="text-[8px] font-mono text-muted-dark/90 pr-12">
+                <span key={i} className="text-[9px] font-mono text-muted-dark/90 pr-12">
                   <span className="text-muted-dark/70">●</span> Drag to reorder within each group
                   <span className="text-muted-dark/20 mx-3">·</span>
                   Click <span className="text-muted-dark/70">Save Order</span> when done or changes will not be saved
@@ -223,7 +223,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
                     {ROLE_LABELS[role]}
                   </span>
                 </div>
-                <span className="text-[8px] font-mono text-muted-dark/70 tabular-nums">{lists[role].length}</span>
+                <span className="text-[9px] font-mono text-muted-dark/70 tabular-nums">{lists[role].length}</span>
               </div>
 
               {/* Search */}
@@ -253,10 +253,10 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
               <div
                 className={`shrink-0 grid ${COL} items-center gap-2 px-3 py-1.5 border-b border-border-dark/40 bg-surface-dark`}
               >
-                <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/60">#</span>
-                <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/60">Name</span>
-                <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/60">Position</span>
-                <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/60 text-right">
+                <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">#</span>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">Name</span>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">Position</span>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60 text-right">
                   Status
                 </span>
                 <span />
@@ -311,7 +311,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
                         <span className="text-[11px] font-mono text-text-dark truncate block">
                           {member.firstName} {member.lastName}
                         </span>
-                        <span className="text-[8px] font-mono text-muted-dark/60 tabular-nums">#{i + 1}</span>
+                        <span className="text-[9px] font-mono text-muted-dark/60 tabular-nums">#{i + 1}</span>
                       </div>
 
                       {/* Position */}
@@ -320,7 +320,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
                       {/* Published */}
                       <div className="flex justify-end">
                         <span
-                          className={`text-[8px] font-mono uppercase tracking-widest px-1 py-0.5 border ${
+                          className={`text-[9px] font-mono uppercase tracking-widest px-1 py-0.5 border ${
                             member.isPublished
                               ? 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
                               : 'text-muted-dark/60 border-border-dark'

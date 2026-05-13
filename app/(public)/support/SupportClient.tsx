@@ -27,7 +27,7 @@ const chairSponsorshipData = [
   }
 ]
 
-export const ChairSponsorshipsClient = ({ data }) => {
+export const SupportClient = ({ data }) => {
   const { currentItem, fade } = useRotatingImageText(chairSponsorshipData)
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
 

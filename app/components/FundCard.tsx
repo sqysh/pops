@@ -1,5 +1,6 @@
 import { ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
+import Picture from './common/Picture'
 
 export function FundCard({ fund }) {
   return (
@@ -8,10 +9,16 @@ export function FundCard({ fund }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className={`group relative bg-surface-dark border border-border-dark ${fund.border} transition-all duration-300 hover:-translate-y-1 flex flex-col overflow-hidden`}
+      className={`group relative bg-surface-dark border border-border-dark transition-all duration-300 hover:-translate-y-1 flex flex-col overflow-hidden`}
     >
-      {/* Colored top accent bar */}
-      <div className={`h-0.5 w-full ${fund.top} shrink-0`} />
+      <div className="relative aspect-3/2 overflow-hidden shrink-0">
+        <Picture
+          priority
+          src={fund.image}
+          alt={fund.label}
+          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
 
       {/* Card body */}
       <div className="flex-1 px-6 pt-6 pb-4 flex flex-col gap-4">
@@ -103,7 +110,7 @@ export function FundCard({ fund }) {
           <ExternalLink className="w-3 h-3 opacity-70" />
         </a>
         {!fund.href.startsWith('mailto') && (
-          <p className="text-[8px] font-mono text-muted-dark/85 uppercase tracking-widest text-center">
+          <p className="text-[9px] font-mono text-muted-dark/85 uppercase tracking-widest text-center">
             Secure · via CueBox
           </p>
         )}

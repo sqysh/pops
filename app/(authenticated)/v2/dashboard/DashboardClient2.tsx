@@ -128,7 +128,7 @@ export default function DashboardClient2(props: Props) {
                   >
                     {value}
                   </span>
-                  <span className="text-[8px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
+                  <span className="text-[9px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
                     {label}
                   </span>
                 </div>

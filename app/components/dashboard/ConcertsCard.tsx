@@ -66,7 +66,7 @@ export function ConcertsCard({ concerts }: { concerts: CueBoxEvent[] }) {
         </div>
         <div className="flex items-center gap-3">
           {onSale.length > 0 && (
-            <span className="text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-emerald-400 border-emerald-400/30 bg-emerald-400/5">
+            <span className="text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-emerald-400 border-emerald-400/30 bg-emerald-400/5">
               ● {onSale.length} on sale
             </span>
           )}
@@ -149,15 +149,15 @@ export function ConcertsCard({ concerts }: { concerts: CueBoxEvent[] }) {
         >
           <div className="flex items-center gap-2">
             <Plug className="w-2.5 h-2.5 text-primary-dark shrink-0" />
-            <span className="text-[8px] font-mono uppercase tracking-[0.15em] text-muted-dark/80 group-hover:text-muted-dark transition-colors">
+            <span className="text-[9px] font-mono uppercase tracking-[0.15em] text-muted-dark/80 group-hover:text-muted-dark transition-colors">
               CueBox API
             </span>
-            <span className="text-[8px] font-mono text-muted-dark/85 hidden sm:block">
+            <span className="text-[9px] font-mono text-muted-dark/85 hidden sm:block">
               api.getcuebox.com/external/v1
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1 text-[8px] font-mono text-muted-dark/85">
+            <span className="flex items-center gap-1 text-[9px] font-mono text-muted-dark/85">
               <KeyRound className="w-2 h-2" />
               BearerAuth
             </span>
@@ -180,14 +180,14 @@ export function ConcertsCard({ concerts }: { concerts: CueBoxEvent[] }) {
               <div className="border-t border-border-dark/60">
                 {/* Sub-header */}
                 <div className="flex items-center justify-between px-3 py-1.5 bg-bg-dark border-b border-border-dark/40">
-                  <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/60">
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">
                     {ENDPOINTS.length} endpoints
                   </span>
                   <a
                     href="https://docs.getcuebox.com/docs/external/cuebox-external-api"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-text-dark transition-colors"
+                    className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-text-dark transition-colors"
                   >
                     Docs ↗
                   </a>
@@ -203,7 +203,7 @@ export function ConcertsCard({ concerts }: { concerts: CueBoxEvent[] }) {
                       rel="noopener noreferrer"
                       className="flex items-center gap-3 px-3 py-2 hover:bg-surface-dark transition-colors group/ep"
                     >
-                      <span className="text-[8px] font-mono tracking-[0.12em] uppercase w-7 shrink-0 text-emerald-400">
+                      <span className="text-[9px] font-mono tracking-[0.12em] uppercase w-7 shrink-0 text-emerald-400">
                         {method}
                       </span>
                       <div className="flex-1 min-w-0">
@@ -211,10 +211,10 @@ export function ConcertsCard({ concerts }: { concerts: CueBoxEvent[] }) {
                           {path}
                         </code>
                         {note && (
-                          <span className="text-[8px] font-mono text-muted-dark/60 mt-0.5 block truncate">{note}</span>
+                          <span className="text-[9px] font-mono text-muted-dark/60 mt-0.5 block truncate">{note}</span>
                         )}
                       </div>
-                      <span className="text-[8px] font-mono text-muted-dark/60 shrink-0 hidden lg:block truncate max-w-32">
+                      <span className="text-[9px] font-mono text-muted-dark/60 shrink-0 hidden lg:block truncate max-w-32">
                         {label}
                       </span>
                       <ArrowRight className="w-2.5 h-2.5 text-border-dark group-hover/ep:text-primary-dark group-hover/ep:translate-x-0.5 transition-all shrink-0" />

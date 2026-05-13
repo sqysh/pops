@@ -18,7 +18,7 @@ export function NewsRow({ news, index, onEdit }: { news: News; index: number; on
         {news.imageUrl ? (
           <Picture src={news.imageUrl} alt={news.title} width={40} height={40} className="object-cover w-full h-full" />
         ) : (
-          <span className="text-[8px] font-mono text-muted-dark/60 uppercase">IMG</span>
+          <span className="text-[9px] font-mono text-muted-dark/60 uppercase">IMG</span>
         )}
       </div>
 
@@ -39,7 +39,7 @@ export function NewsRow({ news, index, onEdit }: { news: News; index: number; on
       <div className="flex justify-end items-center gap-2">
         {news.externalLink && <ExternalLink className="w-2.5 h-2.5 text-muted-dark/60" />}
         <span
-          className={`text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${
+          className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${
             news.isPublished
               ? 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
               : 'text-muted-dark/70 border-border-dark'

@@ -77,7 +77,7 @@ export function UserDrawer({ open, onClose, user }: { open: boolean; onClose: ()
         <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4 flex flex-col gap-5">
           {/* Email — read only */}
           <div className="flex flex-col gap-1.5">
-            <span className="text-[8px] font-mono uppercase tracking-widest text-muted-dark/80">Email</span>
+            <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/80">Email</span>
             <div className="bg-bg-dark border border-border-dark px-3 py-2">
               <span className="text-[12px] font-mono text-muted-dark/80">{user.email}</span>
             </div>

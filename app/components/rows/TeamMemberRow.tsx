@@ -77,12 +77,12 @@ export function TeamMemberRow({
       {/* Published */}
       <div className="flex justify-end">
         {member.isPublished ? (
-          <span className="text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-emerald-400 border-emerald-400/30 bg-emerald-400/5 flex items-center gap-1">
+          <span className="text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-emerald-400 border-emerald-400/30 bg-emerald-400/5 flex items-center gap-1">
             <Eye className="w-2.5 h-2.5" />
             Live
           </span>
         ) : (
-          <span className="text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-muted-dark/70 border-border-dark flex items-center gap-1">
+          <span className="text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border text-muted-dark/70 border-border-dark flex items-center gap-1">
             <EyeOff className="w-2.5 h-2.5" />
             Hidden
           </span>

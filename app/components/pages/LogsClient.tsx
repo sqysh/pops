@@ -159,7 +159,7 @@ function LogColumn({
             className="p-3 bg-bg-dark border-l-2 border-border-dark hover:border-primary-dark transition-colors"
           >
             <div className="flex items-start justify-between gap-2 mb-2">
-              <span className={`text-[8px] font-mono tracking-[0.2em] uppercase px-1.5 py-0.5 ${colorClass}`}>
+              <span className={`text-[9px] font-mono tracking-[0.2em] uppercase px-1.5 py-0.5 ${colorClass}`}>
                 {log.level}
               </span>
               <button

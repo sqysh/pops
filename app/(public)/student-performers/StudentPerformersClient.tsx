@@ -2,9 +2,9 @@
 
 import Breadcrumb from '@/app/components/common/Breadcrumb'
 import Picture from '@/app/components/common/Picture'
-import { DONATION_URL } from '@/app/lib/constants/cueBox.constants'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 export const StudentPerformersClient = ({ data }) => {
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
@@ -146,9 +146,8 @@ export const StudentPerformersClient = ({ data }) => {
                   ))}
                 </ul>
 
-                <a
-                  href={DONATION_URL}
-                  target="_blank"
+                <Link
+                  href="/donate"
                   rel="noopener noreferrer"
                   aria-label={`${field('student_performers_donation_button')} — opens in new tab`}
                   className="group inline-flex items-center gap-3 bg-blaze hover:bg-blazehover text-white px-8 py-4 font-changa text-sm uppercase tracking-widest transition-colors duration-300 w-full 430:w-fit justify-center 430:justify-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
@@ -158,7 +157,7 @@ export const StudentPerformersClient = ({ data }) => {
                     className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform"
                     aria-hidden="true"
                   />
-                </a>
+                </Link>
               </motion.div>
             </div>
           </div>

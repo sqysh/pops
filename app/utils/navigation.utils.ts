@@ -101,7 +101,7 @@ export const getNavigationLinks = (
       }
     ]
   },
-  { linkKey: '/chair-sponsorships', textKey: 'Chair Sponsorships', active: path === '/chair-sponsorships' },
+  { linkKey: '/support', textKey: 'Support', active: path === '/support' },
   ,
   {
     isButton: true,
