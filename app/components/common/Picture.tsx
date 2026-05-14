@@ -67,8 +67,7 @@ const Picture: FC<PictureProps> = ({
       blurDataURL={blurDataURL}
       decoding="async"
       style={{
-        height: hasFixedHeight ? undefined : 'auto',
-        contentVisibility: 'auto'
+        height: hasFixedHeight ? undefined : 'auto'
       }}
     />
   )
