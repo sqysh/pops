@@ -138,7 +138,7 @@ const NavigationDrawer = ({ campApplicationsSetting }) => {
             <span>Make a Donation</span>
             <Heart className="w-3.5 h-3.5 shrink-0 group-hover:scale-110 transition-transform" aria-hidden="true" />
           </Link>
-          <p className="text-white/40 text-[11px] font-mono uppercase tracking-[0.2em] text-center pt-1">
+          <p className="text-white/80 text-[11px] font-mono uppercase tracking-[0.2em] text-center pt-1">
             The Pops Orchestra of Bradenton & Sarasota
           </p>
         </div>
