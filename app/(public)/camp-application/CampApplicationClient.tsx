@@ -130,9 +130,7 @@ export default function CampApplicationClient({ data }) {
           <div className="max-w-7xl mx-auto flex flex-col items-center text-center gap-2">
             <div className="flex items-center gap-3">
               <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/30">
-                The Pops Orchestra
-              </span>
+              <span className="font-changa text-sm uppercase tracking-[0.3em] text-white/30">The Pops Orchestra</span>
               <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
             </div>
             <h1 className="font-changa font-black text-2xl 760:text-3xl text-white leading-none">Youth Music Camp</h1>
@@ -149,15 +147,13 @@ export default function CampApplicationClient({ data }) {
               <aside aria-label="Camp schedule" className="990:col-span-3 bg-black 990:sticky 990:top-6 self-start">
                 <div className="border-b border-white/10 px-4 py-2 flex items-center gap-2">
                   <div className="w-3 h-px bg-blaze shrink-0" aria-hidden="true" />
-                  <p className="font-changa text-[10px] uppercase tracking-[0.25em] text-blaze-text">Camp Schedule</p>
+                  <p className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">Camp Schedule</p>
                 </div>
                 <div className="p-4 flex flex-col gap-3">
                   {schedule.map((day, d) => (
                     <div key={d}>
                       <p className="font-changa text-white text-[13px] leading-none mb-0.5">{day.date}</p>
-                      <p className="font-mono text-[9px] text-blaze-text uppercase tracking-[0.15em] mb-1.5">
-                        {day.time}
-                      </p>
+                      <p className="font-mono text-sm text-blaze-text uppercase tracking-[0.15em] mb-1.5">{day.time}</p>
                       <ul className="flex flex-col gap-1" aria-label={`Schedule for ${day.date}`}>
                         {day.items.map((item, i) => (
                           <li key={i} className="flex items-start gap-1.5">
@@ -222,7 +218,7 @@ export default function CampApplicationClient({ data }) {
                                 )}
                               </button>
                               <span
-                                className={`text-[10px] font-mono uppercase tracking-wider ${
+                                className={`text-sm font-mono uppercase tracking-wider ${
                                   active ? 'text-white' : done ? 'text-blaze-text' : 'text-white/30'
                                 }`}
                               >

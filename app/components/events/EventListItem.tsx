@@ -36,7 +36,7 @@ export function EventListItem({ event, i, handleSelect, selected, isNew }) {
       {/* Info */}
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-2 mb-1">
-          <p className="text-text-dark text-xs font-medium truncate group-hover:text-primary-dark transition-colors">
+          <p className="text-text-dark text-sm font-medium truncate group-hover:text-primary-dark transition-colors">
             {event.title}
           </p>
           <span className={`text-[9px] font-mono uppercase shrink-0 ${STATUS_STYLES[event.status]}`}>

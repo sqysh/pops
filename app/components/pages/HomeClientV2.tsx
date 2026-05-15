@@ -94,7 +94,7 @@ const STUB_NEWS: StubNews[] = [
 function Placeholder({ className = '', label = '' }: { className?: string; label?: string }) {
   return (
     <div className={`bg-neutral-800 flex items-center justify-center ${className}`}>
-      {label && <span className="text-neutral-600 text-xs font-mono uppercase tracking-widest">{label}</span>}
+      {label && <span className="text-neutral-600 text-sm font-mono uppercase tracking-widest">{label}</span>}
     </div>
   )
 }
@@ -336,7 +336,7 @@ function EventsSection() {
                 <h3 className="font-quicksand font-black text-xl text-neutral-900 dark:text-white leading-tight mb-3 group-hover:text-primary-dark transition-colors">
                   {event.title}
                 </h3>
-                <div className="flex items-start gap-2 text-neutral-400 text-xs mb-4">
+                <div className="flex items-start gap-2 text-neutral-400 text-sm mb-4">
                   <MapPin className="w-3 h-3 shrink-0 mt-0.5 text-primary-dark" aria-hidden="true" />
                   {event.location}
                 </div>

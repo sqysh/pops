@@ -40,7 +40,7 @@ export const SponsorsBlock = ({ pageData, sponsors }) => {
           transition={{ duration: 0.6 }}
           className="flex flex-col items-center text-center mb-14 px-4"
         >
-          <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-4">Our Partners</p>
+          <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">Our Partners</p>
           <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
             <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
             <h2

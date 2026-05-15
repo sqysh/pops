@@ -76,7 +76,7 @@ export function SeasonDates() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="font-changa text-[11px] uppercase tracking-[0.4em] text-blaze-text mb-6"
+            className="font-changa text-sm uppercase tracking-[0.4em] text-blaze-text mb-6"
           >
             2026–2027 Season
           </motion.h1>
@@ -144,9 +144,7 @@ export function SeasonDates() {
           className="flex items-center gap-3 mb-8"
         >
           <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-          <h3 className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text">
-            This Season&apos;s Lineup
-          </h3>
+          <h3 className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">This Season&apos;s Lineup</h3>
         </motion.div>
 
         <motion.div
@@ -169,9 +167,7 @@ export function SeasonDates() {
               />
               <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-4">
-                <p className="font-changa text-blaze-text text-[11px] uppercase tracking-[0.2em] mb-1">
-                  {concert.date}
-                </p>
+                <p className="font-changa text-blaze-text text-sm uppercase tracking-[0.2em] mb-1">{concert.date}</p>
                 <h4 className="font-changa text-white text-lg leading-tight">{concert.name}</h4>
               </div>
             </div>
@@ -188,7 +184,7 @@ export function SeasonDates() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <p className="font-changa text-[10px] uppercase tracking-[0.35em] text-blaze-text mb-3">Mark Your Calendar</p>
+          <p className="font-changa text-[14px] uppercase tracking-[0.35em] text-blaze-text mb-3">Mark Your Calendar</p>
           <div className="flex items-center gap-4 justify-center mb-4">
             <div className="w-8 430:w-12 h-px bg-blaze shrink-0" aria-hidden="true" />
             <h3 className="text-3xl 430:text-4xl font-changa text-white leading-none">Tickets Go On Sale</h3>

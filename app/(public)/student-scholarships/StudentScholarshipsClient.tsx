@@ -17,7 +17,7 @@ export const StudentScholarshipsClient = ({ data }) => {
         {/* Page Header */}
         <header className="relative z-10 pt-32 pb-20 text-center border-b border-white/10">
           <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 mx-auto flex flex-col items-center">
-            <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-4">
+            <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">
               {field('scholarships_eyebrow')}
             </p>
             <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
@@ -76,7 +76,7 @@ export const StudentScholarshipsClient = ({ data }) => {
                       className="flex items-center gap-3 bg-black/70 backdrop-blur-sm px-4 py-3 border-l-2 border-blaze"
                     >
                       <span className="font-changa text-2xl text-blaze-text leading-none">{stat.value}</span>
-                      <span className="font-lato text-white/70 text-xs uppercase tracking-widest">{stat.label}</span>
+                      <span className="font-lato text-white/70 text-sm uppercase tracking-widest">{stat.label}</span>
                     </div>
                   ))}
                 </div>
@@ -91,7 +91,7 @@ export const StudentScholarshipsClient = ({ data }) => {
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                  <span className="font-changa text-xs uppercase tracking-[0.25em] text-blaze-text">Our Program</span>
+                  <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">Our Program</span>
                 </div>
 
                 <h2
@@ -126,7 +126,7 @@ export const StudentScholarshipsClient = ({ data }) => {
                     }
                   ].map((row) => (
                     <li key={row.label} className="flex items-start gap-3 py-3">
-                      <span className="font-changa text-xs uppercase tracking-widest text-blaze-text w-24 shrink-0 pt-0.5">
+                      <span className="font-changa text-sm uppercase tracking-widest text-blaze-text w-24 shrink-0 pt-0.5">
                         {row.label}
                       </span>
                       <span className="font-lato text-white/70 text-sm leading-relaxed">{row.value}</span>
@@ -138,13 +138,13 @@ export const StudentScholarshipsClient = ({ data }) => {
                 <div className="flex flex-wrap items-center gap-5 mb-10">
                   <div className="flex items-center gap-2">
                     <Shield className="w-4 h-4 text-green-400 shrink-0" aria-hidden="true" />
-                    <span className="font-lato text-xs text-white/60 uppercase tracking-wider">
+                    <span className="font-lato text-sm text-white/60 uppercase tracking-wider">
                       {field('scholarships_trust_badge_1')}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Lock className="w-4 h-4 text-blue-400 shrink-0" aria-hidden="true" />
-                    <span className="font-lato text-xs text-white/60 uppercase tracking-wider">
+                    <span className="font-lato text-sm text-white/60 uppercase tracking-wider">
                       {field('scholarships_trust_badge_2')}
                     </span>
                   </div>

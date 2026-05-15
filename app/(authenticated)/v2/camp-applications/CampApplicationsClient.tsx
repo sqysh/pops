@@ -39,8 +39,8 @@ function YearGroup({
           <motion.div animate={{ rotate: expanded ? 90 : 0 }} transition={{ duration: 0.15 }}>
             <ChevronRight className="w-3 h-3 text-muted-dark" />
           </motion.div>
-          <span className={`text-[11px] font-mono uppercase tracking-widest font-bold ${colorClass}`}>{year}</span>
-          <span className="text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border border-border-dark text-muted-dark">
+          <span className={`text-sm font-mono uppercase tracking-widest font-bold ${colorClass}`}>{year}</span>
+          <span className="text-sm font-mono uppercase tracking-widest px-1.5 py-0.5 border border-border-dark text-muted-dark">
             {applications.length} application{applications.length !== 1 ? 's' : ''}
           </span>
         </div>
@@ -55,10 +55,7 @@ function YearGroup({
             .sort(([, a], [, b]) => b - a)
             .slice(0, 4)
             .map(([inst, count]) => (
-              <span
-                key={inst}
-                className="text-[9px] font-mono text-muted-dark uppercase tracking-widest hidden sm:block"
-              >
+              <span key={inst} className="text-sm font-mono text-muted-dark uppercase tracking-widest hidden sm:block">
                 {count} {inst}
               </span>
             ))}
@@ -86,7 +83,7 @@ function YearGroup({
                 { label: 'Submitted' },
                 { label: '' }
               ].map(({ label }, i) => (
-                <span key={i} className="text-[9px] font-mono uppercase tracking-widest text-muted-dark">
+                <span key={i} className="text-sm font-mono uppercase tracking-widest text-muted-dark">
                   {label}
                 </span>
               ))}
@@ -186,12 +183,12 @@ export function CampApplicationsClient({
                 ←<span className="hidden 480:inline"> Dashboard</span>
               </Link>
               <div className="w-px h-3 bg-border-dark shrink-0" aria-hidden="true" />
-              <span className="text-[10px] 760:text-[11px] font-mono text-muted-dark uppercase tracking-widest shrink-0 truncate">
+              <span className="text-[10px] 760:text-sm font-mono text-muted-dark uppercase tracking-widest shrink-0 truncate">
                 <span className="hidden 480:inline">[ CAMP APPLICATIONS ]</span>
                 <span className="480:hidden">[ CAMP ]</span>
               </span>
               <div className="w-px h-3 bg-border-dark shrink-0 hidden 480:block" aria-hidden="true" />
-              <span className="text-[11px] font-mono text-muted-dark hidden 480:block shrink-0">
+              <span className="text-sm font-mono text-muted-dark hidden 480:block shrink-0">
                 {applications.length} total
               </span>
 
@@ -208,8 +205,8 @@ export function CampApplicationsClient({
                   .sort(([a], [b]) => b.localeCompare(a))
                   .map(([year, count], i) => (
                     <div key={year} className="flex flex-col items-center justify-center px-3 py-1.5 shrink-0 gap-0.5">
-                      <span className={`font-mono text-xs font-bold tabular-nums ${YEAR_COLORS[i % 5]}`}>{count}</span>
-                      <span className="text-[9px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
+                      <span className={`font-mono text-sm font-bold tabular-nums ${YEAR_COLORS[i % 5]}`}>{count}</span>
+                      <span className="text-sm font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
                         {year}
                       </span>
                     </div>
@@ -230,8 +227,8 @@ export function CampApplicationsClient({
           <div className="760:hidden flex items-center divide-x divide-border-dark border-t border-border-dark overflow-x-auto">
             {grouped.map(([year, apps], i) => (
               <div key={year} className="flex flex-col items-center justify-center px-4 py-1.5 shrink-0 gap-0.5">
-                <span className={`font-mono text-xs font-bold tabular-nums ${YEAR_COLORS[i % 5]}`}>{apps.length}</span>
-                <span className="text-[9px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
+                <span className={`font-mono text-sm font-bold tabular-nums ${YEAR_COLORS[i % 5]}`}>{apps.length}</span>
+                <span className="text-sm font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
                   {year}
                 </span>
               </div>

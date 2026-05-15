@@ -178,7 +178,7 @@ export default function Login() {
                 <Mail className="w-4 h-4 text-primary-dark shrink-0 mt-0.5" aria-hidden="true" />
                 <div>
                   <p className="text-text-dark text-sm font-medium mb-0.5">Check your inbox</p>
-                  <p className="text-muted-dark text-xs leading-relaxed">
+                  <p className="text-muted-dark text-sm leading-relaxed">
                     Link sent to <span className="text-text-dark">{email}</span>
                   </p>
                 </div>

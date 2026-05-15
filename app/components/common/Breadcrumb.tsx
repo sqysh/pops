@@ -16,7 +16,7 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ breadcrumb, classname, secondCrumb })
         <h1 className="text-blaze-text font-changa text-lg truncate">{breadcrumb}</h1>
 
         <nav aria-label="Breadcrumb">
-          <ol role="list" className="flex items-center gap-x-1.5 font-changa text-xs tracking-widest">
+          <ol role="list" className="flex items-center gap-x-1.5 font-changa text-sm tracking-widest">
             <li>
               <Link
                 href="/"

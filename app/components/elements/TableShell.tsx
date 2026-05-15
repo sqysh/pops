@@ -205,7 +205,7 @@ export function TableShell({
                         className={`flex flex-col items-center justify-center px-3 py-1.5 shrink-0 gap-0.5 ${href ? 'hover:bg-white/5 transition-colors cursor-pointer' : ''}`}
                       >
                         <span
-                          className={`font-mono text-xs font-bold tabular-nums ${accent ? 'text-primary-dark' : 'text-text-dark'}`}
+                          className={`font-mono text-sm font-bold tabular-nums ${accent ? 'text-primary-dark' : 'text-text-dark'}`}
                         >
                           {value}
                         </span>
@@ -249,7 +249,7 @@ export function TableShell({
                   className={`flex flex-col items-center justify-center px-4 py-1.5 shrink-0 gap-0.5 ${href ? 'hover:bg-white/5 transition-colors cursor-pointer' : ''}`}
                 >
                   <span
-                    className={`font-mono text-xs font-bold tabular-nums ${accent ? 'text-primary-dark' : 'text-text-dark'}`}
+                    className={`font-mono text-sm font-bold tabular-nums ${accent ? 'text-primary-dark' : 'text-text-dark'}`}
                   >
                     {value}
                   </span>

@@ -104,13 +104,13 @@ export function FundCard({ fund }) {
           href={fund.href}
           target={fund.href.startsWith('mailto') ? '_self' : '_blank'}
           rel="noopener noreferrer"
-          className={`inline-flex items-center justify-center gap-2 w-full px-4 py-3 text-[10px] font-mono uppercase tracking-widest transition-colors duration-200 focus-visible:outline-none ${fund.btn}`}
+          className={`inline-flex items-center justify-center gap-2 w-full px-4 py-3 text-sm font-mono uppercase tracking-widest transition-colors duration-200 focus-visible:outline-none ${fund.btn}`}
         >
           {fund.cta}
           <ExternalLink className="w-3 h-3 opacity-70" />
         </a>
         {!fund.href.startsWith('mailto') && (
-          <p className="text-[9px] font-mono text-muted-dark/85 uppercase tracking-widest text-center">
+          <p className="text-[12px] font-mono text-muted-dark/85 uppercase tracking-widest text-center">
             Secure · via CueBox
           </p>
         )}

@@ -11,7 +11,7 @@ export const formSteps = [
   { id: 4, label: 'Music', icon: Music }
 ]
 
-export const labelClass = 'block text-[11px] font-mono tracking-[0.15em] uppercase text-white/60 mb-1.5'
+export const labelClass = 'block text-sm font-mono tracking-[0.15em] uppercase text-white/60 mb-1.5'
 
 export const inputClass = (error?: string) =>
   `w-full px-3 py-2.5 bg-black border text-white text-sm placeholder-white/20 font-lato focus:outline-none focus:ring-0 transition-colors ${

@@ -84,9 +84,7 @@ export default function AuthError() {
           >
             <div className="flex items-center gap-3">
               <div className="w-px h-6 bg-primary-dark" aria-hidden="true" />
-              <span className="text-[11px] font-mono tracking-[0.3em] uppercase text-text-dark">
-                The Pops Orchestra
-              </span>
+              <span className="text-sm font-mono tracking-[0.3em] uppercase text-text-dark">The Pops Orchestra</span>
               <div className="w-px h-6 bg-primary-dark" aria-hidden="true" />
             </div>
           </Link>
@@ -97,7 +95,7 @@ export default function AuthError() {
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-6 h-px bg-primary-dark" aria-hidden="true" />
-              <span className="text-[11px] font-mono tracking-[0.25em] uppercase text-primary-dark">All Access</span>
+              <span className="text-sm font-mono tracking-[0.25em] uppercase text-primary-dark">All Access</span>
             </div>
             <h1
               id="error-heading"
@@ -117,7 +115,7 @@ export default function AuthError() {
             <Icon className="w-4 h-4 text-primary-dark shrink-0 mt-0.5" aria-hidden="true" />
             <div>
               <p className="text-text-dark text-sm font-medium mb-0.5">{errorInfo.title}</p>
-              <p className="text-muted-dark text-xs leading-relaxed">{errorInfo.message}</p>
+              <p className="text-muted-dark text-sm leading-relaxed">{errorInfo.message}</p>
             </div>
           </div>
 
@@ -140,7 +138,7 @@ export default function AuthError() {
 
           {/* Error code */}
           {error && (
-            <p className="text-[11px] font-mono text-muted-dark/20 uppercase tracking-widest text-center mt-3">
+            <p className="text-sm font-mono text-muted-dark/20 uppercase tracking-widest text-center mt-3">
               <span className="sr-only">Error code: </span>
               {error}
             </p>

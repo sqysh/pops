@@ -98,7 +98,7 @@ const NavigationDrawer = ({ campApplicationsSetting }) => {
                   <div className="flex items-center gap-2 mb-3 px-3">
                     <div className="w-3 h-px bg-blaze shrink-0" aria-hidden="true" />
                     <p
-                      className={`text-[11px] font-mono tracking-[0.2em] uppercase ${
+                      className={`text-sm font-mono tracking-[0.2em] uppercase ${
                         link.active ? 'text-blaze-text' : 'text-white/50'
                       }`}
                     >
@@ -138,7 +138,7 @@ const NavigationDrawer = ({ campApplicationsSetting }) => {
             <span>Make a Donation</span>
             <Heart className="w-3.5 h-3.5 shrink-0 group-hover:scale-110 transition-transform" aria-hidden="true" />
           </Link>
-          <p className="text-white/80 text-[11px] font-mono uppercase tracking-[0.2em] text-center pt-1">
+          <p className="text-white/80 text-sm font-mono uppercase tracking-[0.2em] text-center pt-1">
             The Pops Orchestra of Bradenton & Sarasota
           </p>
         </div>

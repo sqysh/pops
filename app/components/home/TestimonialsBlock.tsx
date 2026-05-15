@@ -51,7 +51,7 @@ export function TestimonialsBlock({ testimonials }: TestimonialsBlockProps) {
         >
           <div className="flex items-center justify-center gap-3 mb-5">
             <div className="w-8 h-px bg-blaze" aria-hidden="true" />
-            <span className="font-heebo text-[11px] tracking-[0.35em] uppercase text-blaze-text">Testimonials</span>
+            <span className="font-heebo text-sm tracking-[0.35em] uppercase text-blaze-text">Testimonials</span>
             <div className="w-8 h-px bg-blaze" aria-hidden="true" />
           </div>
           <h2
@@ -150,7 +150,7 @@ export function TestimonialsBlock({ testimonials }: TestimonialsBlockProps) {
 
           {/* Count */}
           <p
-            className="text-center font-heebo text-[11px] tracking-[0.2em] uppercase text-white/40 mt-6"
+            className="text-center font-heebo text-sm tracking-[0.2em] uppercase text-white/40 mt-6"
             aria-hidden="true"
           >
             {index + 1} / {published.length}

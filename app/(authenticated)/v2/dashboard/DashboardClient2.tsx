@@ -124,7 +124,7 @@ export default function DashboardClient2(props: Props) {
                   className={`flex flex-col items-center justify-center px-3 py-1 shrink-0 gap-0.5 ${href ? 'hover:bg-surface-dark transition-colors cursor-pointer' : ''}`}
                 >
                   <span
-                    className={`font-mono text-xs font-bold tabular-nums ${accent ? 'text-yellow-400' : 'text-text-dark'}`}
+                    className={`font-mono text-sm font-bold tabular-nums ${accent ? 'text-yellow-400' : 'text-text-dark'}`}
                   >
                     {value}
                   </span>

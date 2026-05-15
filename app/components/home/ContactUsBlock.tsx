@@ -33,7 +33,7 @@ export const ContactUsBlock = ({ data }) => {
             transition={{ duration: 0.6 }}
             className="flex flex-col items-center text-center mb-16 430:mb-20"
           >
-            <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-4">Get In Touch</p>
+            <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">Get In Touch</p>
             <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
               <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
               <h2
@@ -99,7 +99,7 @@ export const ContactUsBlock = ({ data }) => {
                     </div>
                     <div>
                       <h3 className="font-changa text-white text-base 430:text-lg leading-tight">{method.title}</h3>
-                      <p className="font-lato text-white/80 text-xs 430:text-sm mt-0.5">{method.description}</p>
+                      <p className="font-lato text-white/80 text-sm 430:text-sm mt-0.5">{method.description}</p>
                     </div>
                   </div>
 

@@ -327,7 +327,7 @@ export default function SponsorModal({ sponsor, onClose }: Props) {
             {/* Active toggle */}
             <div className="flex items-center justify-between px-3 py-2.5 border border-border-dark bg-bg-dark">
               <div>
-                <p className="text-text-dark text-xs font-medium">Active</p>
+                <p className="text-text-dark text-sm font-medium">Active</p>
                 <p className="text-muted-dark text-[11px] mt-0.5">Show on public site</p>
               </div>
               <button

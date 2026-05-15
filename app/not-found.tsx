@@ -55,7 +55,7 @@ const Pops404 = () => {
           >
             <Link
               href="/"
-              className="group inline-flex items-center justify-center gap-2 bg-blaze hover:bg-blazehover text-white px-8 py-4 font-changa text-xs uppercase tracking-widest transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black w-full 430:w-auto"
+              className="group inline-flex items-center justify-center gap-2 bg-blaze hover:bg-blazehover text-white px-8 py-4 font-changa text-sm uppercase tracking-widest transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black w-full 430:w-auto"
             >
               <Home className="w-4 h-4 shrink-0" aria-hidden="true" />
               <span>Return Home</span>
@@ -67,7 +67,7 @@ const Pops404 = () => {
 
             <Link
               href="/concerts"
-              className="inline-flex items-center justify-center gap-2 bg-transparent border border-white/20 hover:border-blaze/50 hover:bg-blaze/5 text-white/70 hover:text-white px-8 py-4 font-changa text-xs uppercase tracking-widest transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black w-full 430:w-auto"
+              className="inline-flex items-center justify-center gap-2 bg-transparent border border-white/20 hover:border-blaze/50 hover:bg-blaze/5 text-white/70 hover:text-white px-8 py-4 font-changa text-sm uppercase tracking-widest transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black w-full 430:w-auto"
             >
               <Music className="w-4 h-4 shrink-0" aria-hidden="true" />
               <span>View Concerts</span>
@@ -79,7 +79,7 @@ const Pops404 = () => {
             <button
               type="button"
               onClick={() => window.history.back()}
-              className="inline-flex items-center gap-2 font-changa text-xs uppercase tracking-[0.25em] text-white/50 hover:text-blaze-text transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+              className="inline-flex items-center gap-2 font-changa text-sm uppercase tracking-[0.25em] text-white/50 hover:text-blaze-text transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
             >
               <ArrowLeft className="w-4 h-4 shrink-0" aria-hidden="true" />
               <span>Go Back</span>
@@ -88,7 +88,7 @@ const Pops404 = () => {
 
           {/* Credits */}
           <motion.div className="mt-12 pt-6 border-t border-white/10" variants={itemVariants}>
-            <p className="font-lato text-[11px] uppercase tracking-widest text-white/40">
+            <p className="font-lato text-sm uppercase tracking-widest text-white/40">
               © {new Date().getFullYear()} The Pops Orchestra of Sarasota and Bradenton
             </p>
           </motion.div>

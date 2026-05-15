@@ -101,7 +101,7 @@ export default function TeamMemberClient({ member, allMembers, currentIndex, rol
                 ))}
               </ul>
             ) : (
-              <p className="text-white/50 text-xs font-mono">Biography coming soon</p>
+              <p className="text-white/50 text-sm font-mono">Biography coming soon</p>
             )}
 
             {/* Back button */}

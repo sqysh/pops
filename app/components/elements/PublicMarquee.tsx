@@ -19,7 +19,7 @@ export function PublicMarquee({ items, duration = 35 }: Props) {
         {[0, 1].map((copy) => (
           <span key={copy} className="flex items-center">
             {items.map((item, i) => (
-              <span key={i} className="font-changa text-[10px] uppercase tracking-[0.2em] text-white/30">
+              <span key={i} className="font-changa text-sm uppercase tracking-[0.2em] text-white/30">
                 <span className="text-blaze">▸</span> {item}
                 <span className="text-white/10 mx-6">·</span>
               </span>

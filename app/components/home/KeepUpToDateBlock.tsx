@@ -35,7 +35,7 @@ export const KeepUpToDateBlock = ({ pageData }) => {
         <div className="grid grid-cols-1 990:grid-cols-12 gap-px bg-white/10">
           {/* Left — heading */}
           <div className="990:col-span-7 bg-black p-8 430:p-10 990:p-14 flex flex-col justify-center">
-            <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-4">Stay Connected</p>
+            <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">Stay Connected</p>
             <h2
               id="newsletter-heading"
               className="font-changa text-3xl 430:text-4xl 990:text-5xl text-white leading-none mb-4"
@@ -62,7 +62,7 @@ export const KeepUpToDateBlock = ({ pageData }) => {
                 aria-hidden="true"
               />
             </Link>
-            <p className="font-lato text-white/70 text-xs uppercase tracking-widest">No spam, ever.</p>
+            <p className="font-lato text-white/70 text-sm uppercase tracking-widest">No spam, ever.</p>
           </div>
         </div>
       </div>

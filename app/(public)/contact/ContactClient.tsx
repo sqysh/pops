@@ -31,9 +31,7 @@ export const ContactClient = ({ data }) => {
               <div className="990:col-span-7">
                 <div className="flex items-center gap-3 mb-8">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                  <span className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text">
-                    Send a Message
-                  </span>
+                  <span className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">Send a Message</span>
                 </div>
                 <ContactForm btnClassname="justify-start" />
               </div>
@@ -46,7 +44,7 @@ export const ContactClient = ({ data }) => {
                     <div className="w-6 h-px bg-blaze" aria-hidden="true" />
                     <h2
                       id="contact-info-heading"
-                      className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text"
+                      className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text"
                     >
                       {field('contact_sidebar_heading')}
                     </h2>
@@ -114,7 +112,7 @@ export const ContactClient = ({ data }) => {
                     <div className="w-6 h-px bg-blaze" aria-hidden="true" />
                     <h2
                       id="contact-social-heading"
-                      className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text"
+                      className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text"
                     >
                       {field('contact_follow_us_heading')}
                     </h2>
@@ -149,19 +147,19 @@ export const ContactClient = ({ data }) => {
                     <div className="w-6 h-px bg-blaze" aria-hidden="true" />
                     <h2
                       id="contact-hours-heading"
-                      className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text"
+                      className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text"
                     >
                       {field('contact_office_hours_heading')}
                     </h2>
                   </div>
                   <dl className="flex flex-col gap-0">
                     <div className="flex justify-between py-3 border-b border-white/6">
-                      <dt className="font-lato text-xs text-white/60">{field('contact_office_hours_weekday_label')}</dt>
-                      <dd className="font-lato text-xs text-white">{field('contact_office_hours_weekday_value')}</dd>
+                      <dt className="font-lato text-sm text-white/60">{field('contact_office_hours_weekday_label')}</dt>
+                      <dd className="font-lato text-sm text-white">{field('contact_office_hours_weekday_value')}</dd>
                     </div>
                     <div className="flex justify-between py-3">
-                      <dt className="font-lato text-xs text-white/60">{field('contact_office_hours_weekend_label')}</dt>
-                      <dd className="font-lato text-xs text-white/50">{field('contact_office_hours_weekend_value')}</dd>
+                      <dt className="font-lato text-sm text-white/60">{field('contact_office_hours_weekend_label')}</dt>
+                      <dd className="font-lato text-sm text-white/50">{field('contact_office_hours_weekend_value')}</dd>
                     </div>
                   </dl>
                 </section>

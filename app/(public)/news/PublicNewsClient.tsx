@@ -15,7 +15,7 @@ export default function PublicNewsClient({ news }: { news: News[] }) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
         <div className="text-center">
-          <p className="text-[11px] font-mono tracking-[0.2em] uppercase text-white/60">No news articles yet</p>
+          <p className="text-sm font-mono tracking-[0.2em] uppercase text-white/60">No news articles yet</p>
         </div>
       </div>
     )
@@ -27,14 +27,14 @@ export default function PublicNewsClient({ news }: { news: News[] }) {
         {/* Back Button */}
         <Link
           href="/"
-          className="mb-8 text-[11px] font-mono tracking-[0.2em] uppercase text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blaze"
+          className="mb-8 text-sm font-mono tracking-[0.2em] uppercase text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blaze"
         >
           ← Back to Home
         </Link>
 
         {/* Page Header */}
         <header className="w-full text-center flex flex-col items-center pb-20 border-b border-white/10">
-          <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-4">The Pops Orchestra</p>
+          <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">The Pops Orchestra</p>
           <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
             <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
             <h1 className="text-4xl 430:text-5xl sm:text-6xl font-changa text-white leading-none">News & Updates</h1>
@@ -90,7 +90,7 @@ export default function PublicNewsClient({ news }: { news: News[] }) {
                   <p className="text-white/60 text-sm leading-relaxed mb-4 line-clamp-3">{article.excerpt}</p>
                 )}
 
-                <div className="flex items-center gap-2 text-blaze-text text-[11px] font-mono tracking-[0.15em] uppercase group-hover:gap-3 transition-all">
+                <div className="flex items-center gap-2 text-blaze-text text-sm font-mono tracking-[0.15em] uppercase group-hover:gap-3 transition-all">
                   Read More
                   <ArrowRight className="w-3 h-3" aria-hidden="true" />
                 </div>

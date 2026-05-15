@@ -90,7 +90,7 @@ export const MediaVideoPlayer = () => {
           {/* Now playing label */}
           <div className="flex items-center gap-3 px-4 990:px-6 py-3 border-b border-white/10">
             <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-            <p className="font-changa text-[11px] uppercase tracking-[0.25em] text-blaze-text truncate">
+            <p className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text truncate">
               Now Playing: {selectedVideo.title}
             </p>
           </div>
@@ -147,7 +147,7 @@ export const MediaVideoPlayer = () => {
         <nav aria-label="Video playlist" className="990:col-span-4 bg-black flex flex-col">
           <div className="flex items-center gap-3 px-4 990:px-6 py-3 border-b border-white/10 shrink-0">
             <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-            <p className="font-changa text-[11px] uppercase tracking-[0.25em] text-blaze-text">
+            <p className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
               Playlist
               <span className="ml-2 text-muted-dark/70">({videosWithThumbnails.length})</span>
             </p>
@@ -195,7 +195,7 @@ export const MediaVideoPlayer = () => {
 
                     {/* Title */}
                     <p
-                      className={`font-lato text-xs leading-snug line-clamp-2 ${
+                      className={`font-lato text-sm leading-snug line-clamp-2 ${
                         isActive ? 'text-white' : 'text-white/70'
                       }`}
                     >

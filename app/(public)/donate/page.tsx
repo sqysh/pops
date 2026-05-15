@@ -3,7 +3,7 @@
 import { PublicMarquee } from '@/app/components/elements/PublicMarquee'
 import { FloatingParticles } from '@/app/components/FloatingParticles'
 import { FundCard } from '@/app/components/FundCard'
-import { ArrowLeft, Phone } from 'lucide-react'
+import { Phone } from 'lucide-react'
 import Link from 'next/link'
 
 const FUNDS = [
@@ -111,24 +111,13 @@ export default function DonatePage() {
         <div className="max-w-5xl mx-auto px-4 760:px-6 h-12 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group focus-visible:outline-none">
-            <span className="text-primary-dark text-[11px] group-hover:text-white transition-colors" aria-hidden="true">
+            <span className="text-primary-dark text-sm group-hover:text-white transition-colors" aria-hidden="true">
               ▸
             </span>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark group-hover:text-text-dark transition-colors">
+            <span className="text-sm font-mono uppercase tracking-widest text-muted-dark group-hover:text-text-dark transition-colors">
               The Pops Orchestra
             </span>
           </Link>
-
-          {/* Right */}
-          <div className="flex items-center gap-3 760:gap-4">
-            <Link
-              href="/v2/dashboard"
-              className="flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-widest text-muted-dark/80 hover:text-text-dark transition-colors focus-visible:outline-none"
-            >
-              <ArrowLeft className="w-3 h-3" />
-              <span className="hidden 480:inline">Back to Dashboard</span>
-            </Link>
-          </div>
         </div>
       </header>
       {/* Hero */}
@@ -150,7 +139,7 @@ export default function DonatePage() {
         <div className="relative max-w-5xl mx-auto px-6 py-20 760:py-28 flex flex-col gap-5">
           <div className="flex items-center gap-3">
             <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
-            <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/30">The Pops Orchestra</span>
+            <span className="font-changa text-sm uppercase tracking-[0.3em] text-white/30">The Pops Orchestra</span>
           </div>
           <h1 className="font-changa font-black text-5xl 760:text-7xl text-text-dark leading-[0.9] max-w-xl">
             Support
@@ -164,7 +153,7 @@ export default function DonatePage() {
           <div className="flex flex-wrap items-center gap-5 pt-2">
             <a
               href="tel:9419267677"
-              className="flex items-center gap-1.5 font-changa text-[10px] uppercase tracking-widest text-white/30 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 font-changa text-sm uppercase tracking-widest text-white/30 hover:text-white transition-colors"
             >
               <Phone className="w-3.5 h-3.5" />
               941-926-POPS
@@ -206,7 +195,7 @@ export default function DonatePage() {
           <div className="flex-1 flex flex-col gap-5">
             <div className="flex items-center gap-3">
               <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/30">Ways to Give</span>
+              <span className="font-changa text-sm uppercase tracking-[0.3em] text-white/30">Ways to Give</span>
             </div>
             <p className="font-lato text-white/70 text-base 760:text-lg leading-relaxed">
               The Pops Orchestra is proud to offer several different ways our patrons can support the orchestra beyond
@@ -224,7 +213,7 @@ export default function DonatePage() {
           <div className="flex-1 flex flex-col gap-5">
             <div className="flex items-center gap-3">
               <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-blaze-text">Legacy Giving</span>
+              <span className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">Legacy Giving</span>
             </div>
             <p className="font-lato text-white/70 text-base 760:text-lg leading-relaxed">
               If you are interested in leaving a legacy gift to The Pops, ensuring your support for our orchestra for
@@ -234,18 +223,18 @@ export default function DonatePage() {
             <div className="flex flex-col gap-2 pt-1">
               <a
                 href="mailto:Melissa@ThePopsOrchestra.org"
-                className="font-changa text-[12px] uppercase tracking-widest text-blaze-text hover:text-white transition-colors"
+                className="font-changa text-sm uppercase tracking-widest text-blaze-text hover:text-white transition-colors"
               >
                 Melissa@ThePopsOrchestra.org
               </a>
 
               <a
                 href="tel:9419267677"
-                className="font-changa text-[12px] uppercase tracking-widest text-white hover:text-white transition-colors"
+                className="font-changa text-sm uppercase tracking-widest text-white hover:text-white transition-colors"
               >
                 941-926-POPS (7677)
               </a>
-              <span className="font-lato text-[11px] text-white/70 italic pt-1">
+              <span className="font-lato text-sm text-white/70 italic pt-1">
                 Melissa Warthen · Chief Administrative Officer
               </span>
             </div>
@@ -266,7 +255,7 @@ export default function DonatePage() {
       <section className="border-t border-border-dark bg-surface-dark/30 px-6 py-10 760:py-12">
         <div className="max-w-5xl mx-auto px-6 flex flex-col 760:flex-row 760:items-center 760:justify-between gap-4">
           <div className="flex flex-col gap-1">
-            <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-primary-dark">Questions?</span>
+            <span className="text-sm font-mono uppercase tracking-[0.2em] text-primary-dark">Questions?</span>
             <p className="font-lato text-text-dark/90 text-sm">
               We&apos;re happy to help you find the right giving opportunity.
             </p>
@@ -274,7 +263,7 @@ export default function DonatePage() {
           <div className="flex flex-col 480:flex-row gap-3">
             <a
               href="tel:9419267677"
-              className="inline-flex items-center gap-2 px-4 py-2.5 border border-border-dark text-[10px] font-mono uppercase tracking-widest text-muted-dark hover:text-text-dark hover:border-muted-dark/40 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 border border-border-dark text-sm font-mono uppercase tracking-widest text-muted-dark hover:text-text-dark hover:border-muted-dark/40 transition-colors"
             >
               <Phone className="w-3 h-3" />
               941-926-7677
@@ -285,7 +274,7 @@ export default function DonatePage() {
 
       {/* Florida statute */}
       <section className="border-t border-border-dark/40 px-6 py-6">
-        <p className="text-[9px] font-mono text-muted-dark/80 leading-relaxed max-w-4xl mx-auto uppercase tracking-wider">
+        <p className="text-sm font-mono text-muted-dark/80 leading-relaxed max-w-4xl mx-auto uppercase tracking-wider">
           The Sarasota Pops Orchestra, Inc (&quot;The Pops&quot;) is a registered 501(c)(3) with EIN # 59-1694954 and is
           registered with the FL Division of Consumer Services # CH9116. A copy of the official registration and
           financial information may be obtained from the Division of Consumer Services by calling toll-free

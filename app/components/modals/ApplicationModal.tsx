@@ -79,7 +79,7 @@ export function ApplicationModal({
                         <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark w-16 shrink-0">
                           {label}
                         </span>
-                        <span className="text-text-dark text-xs truncate">{value}</span>
+                        <span className="text-text-dark text-sm truncate">{value}</span>
                       </div>
                     ))}
                   </div>
@@ -106,7 +106,7 @@ export function ApplicationModal({
                         <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark w-24 shrink-0">
                           {label}
                         </span>
-                        <span className="text-text-dark text-xs truncate">{value}</span>
+                        <span className="text-text-dark text-sm truncate">{value}</span>
                       </div>
                     ))}
                   </div>
@@ -121,11 +121,11 @@ export function ApplicationModal({
                     <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-primary-dark">Address</span>
                   </div>
                   <div className="border border-border-dark px-3 py-2">
-                    <p className="text-text-dark text-xs">
+                    <p className="text-text-dark text-sm">
                       {application.Address.addressLine1}
                       {application.Address.addressLine2 && `, ${application.Address.addressLine2}`}
                     </p>
-                    <p className="text-muted-dark text-xs mt-0.5">
+                    <p className="text-muted-dark text-sm mt-0.5">
                       {application.Address.city}, {application.Address.state} {application.Address.zipPostalCode}
                     </p>
                   </div>
@@ -151,7 +151,7 @@ export function ApplicationModal({
                       <span className="text-[10px] font-mono tracking-[0.15em] uppercase text-muted-dark w-24 shrink-0">
                         {label}
                       </span>
-                      <span className="text-text-dark text-xs truncate">{value}</span>
+                      <span className="text-text-dark text-sm truncate">{value}</span>
                     </div>
                   ))}
                 </div>

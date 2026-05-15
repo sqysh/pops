@@ -45,7 +45,7 @@ interface InputProps {
 
 const Input: FC<InputProps> = ({ name, value, handleInput, placeholder, error, required, type = 'text' }) => (
   <div className="flex flex-col w-full">
-    <label htmlFor={name} className="font-changa text-[11px] uppercase tracking-[0.25em] text-white/80 mb-2">
+    <label htmlFor={name} className="font-changa text-sm uppercase tracking-[0.25em] text-white/80 mb-2">
       {placeholder}
       {required && (
         <>
@@ -78,7 +78,7 @@ const Input: FC<InputProps> = ({ name, value, handleInput, placeholder, error, r
         id={`${name}-error`}
         role="alert"
         aria-live="polite"
-        className="font-changa text-[11px] uppercase tracking-widest text-blaze-text mt-2"
+        className="font-changa text-sm uppercase tracking-widest text-blaze-text mt-2"
       >
         {error}
       </p>
@@ -171,7 +171,7 @@ const NewsletterForm = ({ data }) => {
         <button
           type="button"
           onClick={() => setSubmitted(false)}
-          className="mt-2 text-[11px] font-mono uppercase tracking-[0.15em] text-white/40 hover:text-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+          className="mt-2 text-sm font-mono uppercase tracking-[0.15em] text-white/40 hover:text-white/70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
         >
           Subscribe another email
         </button>
@@ -203,7 +203,7 @@ const NewsletterForm = ({ data }) => {
         ) : (
           <>
             <header className="w-full text-center flex flex-col items-center pt-32 pb-20 border-b border-white/10">
-              <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-4">The Pops Orchestra</p>
+              <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">The Pops Orchestra</p>
               <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
                 <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
                 <h1 className="text-4xl 430:text-5xl sm:text-6xl font-changa text-white leading-none">
@@ -377,7 +377,7 @@ const NewsletterForm = ({ data }) => {
                 disabled={loading}
                 aria-disabled={loading}
                 aria-label={loading ? 'Submitting form, please wait' : 'Submit form'}
-                className="bg-blaze/90 hover:bg-blaze disabled:opacity-60 disabled:cursor-not-allowed duration-300 w-full sm:w-40 px-8 py-3 font-changa uppercase tracking-wider font-medium text-xs mt-20 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer"
+                className="bg-blaze/90 hover:bg-blaze disabled:opacity-60 disabled:cursor-not-allowed duration-300 w-full sm:w-40 px-8 py-3 font-changa uppercase tracking-wider font-medium text-sm mt-20 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer"
               >
                 {loading ? (
                   <>
@@ -393,7 +393,7 @@ const NewsletterForm = ({ data }) => {
               </button>
 
               {submitError && (
-                <p className="text-[11px] font-mono text-blaze-text mt-2" role="alert">
+                <p className="text-sm font-mono text-blaze-text mt-2" role="alert">
                   {submitError}
                 </p>
               )}

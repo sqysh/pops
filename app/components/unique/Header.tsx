@@ -90,7 +90,7 @@ export const HeaderNavLink: FC<HeaderNavLinkProps> = ({ link, openDropdown, setO
               aria-current={sublink.active ? 'page' : undefined}
               className={`${
                 sublink.active ? 'text-blaze-text' : 'text-white/70 hover:text-white'
-              } font-changa text-xs uppercase tracking-[0.2em] px-6 py-4 border-b border-white/10 last:border-b-0 hover:bg-white/5 transition-colors duration-200 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-inset`}
+              } font-changa text-sm uppercase tracking-[0.2em] px-6 py-4 border-b border-white/10 last:border-b-0 hover:bg-white/5 transition-colors duration-200 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-inset`}
             >
               {sublink.textKey}
             </Link>

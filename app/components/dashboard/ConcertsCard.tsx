@@ -106,7 +106,7 @@ export function ConcertsCard({ concerts }: { concerts: CueBoxEvent[] }) {
               className="flex items-center justify-between gap-3 px-3 py-2.5 border-b border-border-dark last:border-0 group hover:bg-black/40 transition-colors"
             >
               <div className="min-w-0 flex-1">
-                <p className="text-[11px] font-mono text-text-dark truncate">{c.name}</p>
+                <p className="text-sm font-mono text-text-dark truncate">{c.name}</p>
                 <div className="flex items-center gap-2 mt-0.5">
                   <span
                     className="text-[9px] font-mono uppercase tracking-widest"

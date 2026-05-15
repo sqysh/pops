@@ -190,7 +190,7 @@ export function EventsEditorPanel({ event, isNew, onSaved, onCancel }: TEventsEd
             <div>
               <p className="text-text-dark text-sm font-medium">{form.title || '—'}</p>
               {form.date && (
-                <div className="flex items-center gap-1.5 text-muted-dark text-xs mt-1">
+                <div className="flex items-center gap-1.5 text-muted-dark text-sm mt-1">
                   <Calendar className="w-3 h-3 text-primary-dark" aria-hidden="true" />
                   {new Date(`${form.date}T${form.time || '00:00'}`).toLocaleDateString('en-US', {
                     weekday: 'short',
@@ -203,7 +203,7 @@ export function EventsEditorPanel({ event, isNew, onSaved, onCancel }: TEventsEd
                 </div>
               )}
               {form.location && (
-                <div className="flex items-center gap-1.5 text-muted-dark text-xs mt-0.5">
+                <div className="flex items-center gap-1.5 text-muted-dark text-sm mt-0.5">
                   <MapPin className="w-3 h-3 text-primary-dark" aria-hidden="true" />
                   {form.location}
                 </div>

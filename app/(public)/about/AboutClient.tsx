@@ -31,7 +31,7 @@ export const AboutClient = ({ data }) => {
           <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 1590:max-w-screen-7xl mx-auto">
             {/* Page Header */}
             <header className="w-full text-center flex flex-col items-center pt-32 pb-20 border-b border-white/10">
-              <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-4">The Pops Orchestra</p>
+              <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">The Pops Orchestra</p>
               <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
                 <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
                 <h1 className="text-4xl 430:text-5xl sm:text-6xl font-changa text-white leading-none">
@@ -58,7 +58,7 @@ export const AboutClient = ({ data }) => {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                    <span className="font-changa text-xs uppercase tracking-[0.25em] text-blaze-text">About</span>
+                    <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">About</span>
                   </div>
                   <h2 id="about-heading" className="font-changa text-2xl 430:text-3xl text-white leading-tight mb-4">
                     {field('about_aside_heading')}
@@ -86,7 +86,7 @@ export const AboutClient = ({ data }) => {
                     {additionalDetails.map((detail) => (
                       <li
                         key={detail.id}
-                        className="py-3 font-changa text-xs font-medium tracking-widest text-sunburst uppercase"
+                        className="py-3 font-changa text-sm font-medium tracking-widest text-sunburst uppercase"
                       >
                         {detail.value}
                       </li>
@@ -105,7 +105,7 @@ export const AboutClient = ({ data }) => {
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                  <span className="font-changa text-xs uppercase tracking-[0.25em] text-blaze-text">Our Story</span>
+                  <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">Our Story</span>
                 </div>
 
                 <div className="flex flex-col gap-6">

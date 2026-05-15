@@ -28,7 +28,7 @@ export function EventsBlock({ events }: EventsBlockProps) {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-              <span className="font-heebo text-[11px] tracking-[0.35em] uppercase text-blaze-text">Calendar</span>
+              <span className="font-heebo text-sm tracking-[0.35em] uppercase text-blaze-text">Calendar</span>
             </div>
             <h2
               id="events-heading"
@@ -40,7 +40,7 @@ export function EventsBlock({ events }: EventsBlockProps) {
           <Link
             href="/events"
             aria-label="View all upcoming events"
-            className="group inline-flex items-center gap-3 font-heebo text-xs uppercase tracking-[0.25em] text-blaze-text hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze shrink-0"
+            className="group inline-flex items-center gap-3 font-heebo text-sm uppercase tracking-[0.25em] text-blaze-text hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze shrink-0"
           >
             All Events
             <div className="w-6 h-px bg-blaze group-hover:w-10 transition-all duration-300" aria-hidden="true" />
@@ -84,7 +84,7 @@ export function EventsBlock({ events }: EventsBlockProps) {
                     {event.title}
                   </p>
                   <div className="flex flex-wrap gap-x-5 gap-y-1.5">
-                    <div className="flex items-center gap-1.5 text-white/80 text-xs font-heebo">
+                    <div className="flex items-center gap-1.5 text-white/80 text-sm font-heebo">
                       <Calendar className="w-3 h-3 shrink-0 text-blaze-text" aria-hidden="true" />
                       {new Date(event.date).toLocaleDateString('en-US', {
                         weekday: 'long',
@@ -99,7 +99,7 @@ export function EventsBlock({ events }: EventsBlockProps) {
                       })}
                     </div>
                     {event.location && (
-                      <div className="flex items-center gap-1.5 text-white/80 text-xs font-heebo">
+                      <div className="flex items-center gap-1.5 text-white/80 text-sm font-heebo">
                         <MapPin className="w-3 h-3 shrink-0 text-blaze-text" aria-hidden="true" />
                         {event.location}
                       </div>

@@ -20,7 +20,7 @@ export const RobynBellClient = ({ data }) => {
         {/* Page Header */}
         <header className="relative z-10 pt-32 pb-20 px-4 990:px-12 xl:px-4 text-center border-b border-white/10">
           <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 mx-auto flex flex-col items-center">
-            <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-4">
+            <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">
               {field('robyn_bell_eyebrow')}
             </p>
             <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
@@ -58,7 +58,7 @@ export const RobynBellClient = ({ data }) => {
                   <div>
                     <div className="flex items-center gap-3 mb-5">
                       <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                      <span className="font-changa text-xs uppercase tracking-[0.25em] text-blaze-text">Biography</span>
+                      <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">Biography</span>
                     </div>
                     <h2
                       id="robyn-bell-heading"
@@ -88,14 +88,14 @@ export const RobynBellClient = ({ data }) => {
                   <div className="flex flex-col gap-3 border-t border-white/10 pt-8">
                     <div className="flex items-center gap-3 mb-2">
                       <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                      <span className="font-changa text-xs uppercase tracking-[0.25em] text-blaze-text">
+                      <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
                         Credentials
                       </span>
                     </div>
-                    <p className="font-changa text-xs tracking-wider text-sunburst uppercase leading-relaxed">
+                    <p className="font-changa text-sm tracking-wider text-sunburst uppercase leading-relaxed">
                       {field('robyn_bell_credentials')}
                     </p>
-                    <p className="font-changa text-xs tracking-wider text-sunburst uppercase leading-relaxed">
+                    <p className="font-changa text-sm tracking-wider text-sunburst uppercase leading-relaxed">
                       {field('robyn_bell_roles')}
                     </p>
                   </div>
@@ -108,7 +108,7 @@ export const RobynBellClient = ({ data }) => {
                   <div>
                     <div className="flex items-center gap-3 mb-5">
                       <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                      <span className="font-changa text-xs uppercase tracking-[0.25em] text-blaze-text">About</span>
+                      <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">About</span>
                     </div>
                     <h2 className="font-changa text-xl 430:text-2xl text-white mb-4 leading-tight">
                       {field('robyn_bell_side_title')}

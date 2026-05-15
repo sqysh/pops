@@ -73,20 +73,20 @@ const Footer = ({ data }: { data: FooterData }) => {
             <div className="760:col-span-3 bg-black p-5 430:p-6 flex flex-col gap-3">
               <div className="flex items-center gap-2 mb-1">
                 <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                <p className="font-changa text-[11px] 430:text-xs uppercase tracking-[0.25em] text-blaze-text">
+                <p className="font-changa text-sm 430:text-sm uppercase tracking-[0.25em] text-blaze-text">
                   {d('footer_contact_title')}
                 </p>
               </div>
               <ul className="flex flex-col gap-2" aria-label="Contact information">
                 <li className="flex items-start gap-2">
                   <Pencil className="text-blaze-text w-3 h-3 shrink-0 mt-0.5" aria-hidden="true" />
-                  <span className="font-lato text-[12px] 430:text-xs text-white leading-relaxed">
+                  <span className="font-lato text-[12px] 430:text-sm text-white leading-relaxed">
                     {d('footer_contact_line1')}
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <MapPin className="text-blaze-text w-3 h-3 shrink-0 mt-0.5" aria-hidden="true" />
-                  <span className="font-lato text-[12px] 430:text-xs text-white leading-relaxed">
+                  <span className="font-lato text-[12px] 430:text-sm text-white leading-relaxed">
                     {d('footer_contact_line2')}
                   </span>
                 </li>
@@ -96,7 +96,7 @@ const Footer = ({ data }: { data: FooterData }) => {
                   <a
                     href={`tel:${d('footer_contact_line3').replace(/\D/g, '')}`}
                     aria-label={`Call us at ${d('footer_contact_line3')}`}
-                    className="font-lato text-[12px] 430:text-xs text-white hover:text-blaze-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
+                    className="font-lato text-[12px] 430:text-sm text-white hover:text-blaze-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
                   >
                     {d('footer_contact_line3')}
                   </a>
@@ -108,7 +108,7 @@ const Footer = ({ data }: { data: FooterData }) => {
             <nav aria-label="Footer quick links" className="760:col-span-3 bg-black p-5 430:p-6 flex flex-col gap-3">
               <div className="flex items-center gap-2 mb-1">
                 <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                <p className="font-changa text-[11px] 430:text-xs uppercase tracking-[0.25em] text-blaze-text">
+                <p className="font-changa text-sm 430:text-sm uppercase tracking-[0.25em] text-blaze-text">
                   {d('footer_quick_links_title')}
                 </p>
               </div>
@@ -120,7 +120,7 @@ const Footer = ({ data }: { data: FooterData }) => {
                       target={link.linkKey.startsWith('http') ? '_blank' : undefined}
                       rel={link.linkKey.startsWith('http') ? 'noopener noreferrer' : undefined}
                       aria-label={link.linkKey.startsWith('http') ? `${link.textKey} (opens in new tab)` : link.textKey}
-                      className="font-lato text-[12px] 430:text-xs text-white hover:text-blaze-text transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
+                      className="font-lato text-[12px] 430:text-sm text-white hover:text-blaze-text transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
                     >
                       {link.textKey}
                     </Link>
@@ -133,11 +133,11 @@ const Footer = ({ data }: { data: FooterData }) => {
             <div className="760:col-span-3 bg-black p-5 430:p-6 flex flex-col gap-3">
               <div className="flex items-center gap-2 mb-1">
                 <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                <p className="font-changa text-[11px] 430:text-xs uppercase tracking-[0.25em] text-blaze-text">
+                <p className="font-changa text-sm 430:text-sm uppercase tracking-[0.25em] text-blaze-text">
                   {d('footer_tagline_label')}
                 </p>
               </div>
-              <p className="font-lato text-[12px] 430:text-xs text-white leading-relaxed">
+              <p className="font-lato text-[12px] 430:text-sm text-white leading-relaxed">
                 {d('footer_tagline_description')}
               </p>
             </div>
@@ -148,7 +148,7 @@ const Footer = ({ data }: { data: FooterData }) => {
       {/* Credits bar */}
       <section aria-label="Footer credits" className="border-t border-white/10 px-4 990:px-12 xl:px-4 py-3 430:py-4">
         <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 mx-auto flex flex-col 430:flex-row items-center justify-between gap-2">
-          <p className="font-changa text-[11px] uppercase tracking-widest text-white/70">
+          <p className="font-changa text-sm uppercase tracking-widest text-white/70">
             <small>© {new Date().getFullYear()} The Pops Orchestra. All rights reserved.</small>
           </p>
           <div className="flex items-center gap-3 430:gap-4">
@@ -159,10 +159,8 @@ const Footer = ({ data }: { data: FooterData }) => {
               aria-label="Website designed and developed by Sqysh (opens in new tab)"
               className="flex items-center gap-1 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
             >
-              <span className="font-lato text-[11px] text-white/70 group-hover:text-white transition-colors">
-                Built by
-              </span>
-              <span className="sqysh-gradient text-[11px] font-bold font-mono">Sqysh</span>
+              <span className="font-lato text-sm text-white/70 group-hover:text-white transition-colors">Built by</span>
+              <span className="sqysh-gradient text-sm font-bold font-mono">Sqysh</span>
             </Link>
             <div className="w-px h-3 bg-white/10" aria-hidden="true" />
             <button

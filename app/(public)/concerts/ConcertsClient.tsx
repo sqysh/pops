@@ -44,7 +44,7 @@ export default function ConcertsClient({ events }: Props) {
     return (
       <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-6 text-center">
         <div className="relative z-10 flex flex-col items-center gap-6 max-w-lg">
-          <p className="font-mono text-[11px] tracking-[0.3em] uppercase text-blaze-text">The Pops Orchestra</p>
+          <p className="font-mono text-sm tracking-[0.3em] uppercase text-blaze-text">The Pops Orchestra</p>
           <h1 className="font-changa text-6xl sm:text-7xl font-bold text-white leading-none">Coming Soon</h1>
           <div className="w-12 h-px bg-blaze" />
           <p className="font-lato text-white/60 text-sm leading-relaxed">
@@ -53,7 +53,7 @@ export default function ConcertsClient({ events }: Props) {
           </p>
           <Link
             href="/"
-            className="font-mono text-[11px] tracking-widest uppercase px-6 py-3 border border-white/20 text-white/60 hover:border-blaze hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze-text focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            className="font-mono text-sm tracking-widest uppercase px-6 py-3 border border-white/20 text-white/60 hover:border-blaze hover:text-white transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze-text focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
             Back to Home
           </Link>
@@ -77,7 +77,7 @@ export default function ConcertsClient({ events }: Props) {
         />
         <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
-            <p className="font-mono text-[11px] tracking-[0.3em] uppercase text-blaze-text mb-3">2025–2026 Season</p>
+            <p className="font-mono text-sm tracking-[0.3em] uppercase text-blaze-text mb-3">2025–2026 Season</p>
             <h1 className="font-changa text-7xl md:text-9xl font-bold text-white leading-none tracking-tight">
               Concerts
             </h1>
@@ -142,7 +142,7 @@ export default function ConcertsClient({ events }: Props) {
                       {/* Date block */}
                       <div className="flex md:flex-col items-center md:justify-center gap-4 md:gap-0 px-8 py-8 md:py-0 md:w-35 md:min-w-35 border-b md:border-b-0 md:border-r border-white/10 shrink-0">
                         <div className="flex md:flex-col items-baseline md:items-center gap-1.5 md:gap-0">
-                          <span className="font-mono text-[11px] tracking-widest text-white/40 md:mb-2">
+                          <span className="font-mono text-sm tracking-widest text-white/40 md:mb-2">
                             {d.weekday.slice(0, 3)}
                           </span>
                           <span
@@ -155,7 +155,7 @@ export default function ConcertsClient({ events }: Props) {
                             <span className="font-mono text-[12px] tracking-widest text-blaze-text font-bold">
                               {d.monthShort}
                             </span>
-                            <span className="font-mono text-[11px] tracking-widest text-white/40">{d.year}</span>
+                            <span className="font-mono text-sm tracking-widest text-white/40">{d.year}</span>
                           </div>
                         </div>
                       </div>
@@ -173,11 +173,11 @@ export default function ConcertsClient({ events }: Props) {
                         {/* Meta row */}
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
                           {range ? (
-                            <span className="font-mono text-xs text-blaze-text tracking-widest uppercase">{range}</span>
+                            <span className="font-mono text-sm text-blaze-text tracking-widest uppercase">{range}</span>
                           ) : null}
-                          <span className="font-mono text-xs text-white/50 tracking-wide">{d.time}</span>
+                          <span className="font-mono text-sm text-white/50 tracking-wide">{d.time}</span>
                           {event.venues?.length > 0 && (
-                            <span className="font-mono text-xs text-white/40">
+                            <span className="font-mono text-sm text-white/40">
                               {event.venues.map((v) => v.name).join('  ·  ')}
                             </span>
                           )}
@@ -202,7 +202,7 @@ export default function ConcertsClient({ events }: Props) {
                           <button
                             onClick={() => setExpanded(isOpen ? null : event.id)}
                             aria-expanded={isOpen}
-                            className="mt-1 self-start font-mono text-[11px] tracking-widest uppercase text-white/30 hover:text-blaze-text transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blaze-text"
+                            className="mt-1 self-start font-mono text-sm tracking-widest uppercase text-white/30 hover:text-blaze-text transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blaze-text"
                           >
                             {isOpen ? '− Hide details' : '+ About this concert'}
                           </button>
@@ -212,17 +212,17 @@ export default function ConcertsClient({ events }: Props) {
                       {/* CTA — bottom-right on mobile, right-center on desktop */}
                       <div className="flex md:items-center px-8 pb-8 md:py-0 md:pr-12 shrink-0">
                         {isCancelled ? (
-                          <span className="font-mono text-xs tracking-widest uppercase text-white/25 line-through">
+                          <span className="font-mono text-sm tracking-widest uppercase text-white/25 line-through">
                             Cancelled
                           </span>
                         ) : isSoldOut ? (
                           <div className="flex flex-col items-start md:items-center gap-1">
-                            <span className="font-mono text-xs tracking-widest uppercase text-white/25">Sold Out</span>
+                            <span className="font-mono text-sm tracking-widest uppercase text-white/25">Sold Out</span>
                             <Link
                               href={event.publicTicketsUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="font-mono text-[11px] tracking-widest uppercase text-white/40 underline underline-offset-4 hover:text-white/60 transition-colors duration-200"
+                              className="font-mono text-sm tracking-widest uppercase text-white/40 underline underline-offset-4 hover:text-white/60 transition-colors duration-200"
                             >
                               Join waitlist
                             </Link>
@@ -234,7 +234,7 @@ export default function ConcertsClient({ events }: Props) {
                             rel="noopener noreferrer"
                             className="group/btn relative flex flex-col items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze-text focus-visible:ring-offset-4 focus-visible:ring-offset-black"
                           >
-                            <span className="font-mono text-[11px] tracking-[0.3em] uppercase text-white/40 group-hover/btn:text-white/60 transition-colors duration-200">
+                            <span className="font-mono text-sm tracking-[0.3em] uppercase text-white/40 group-hover/btn:text-white/60 transition-colors duration-200">
                               Tickets
                             </span>
                             <span className="font-changa text-5xl font-bold text-blaze group-hover/btn:text-blaze-text transition-colors duration-200 leading-none">

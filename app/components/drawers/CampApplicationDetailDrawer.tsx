@@ -80,7 +80,7 @@ export function CampApplicationDetailDrawer({
           >
             {/* Drawer header */}
             <div className="shrink-0 flex items-center justify-between px-4 py-3 border-b border-border-dark">
-              <span className="text-[11px] font-mono text-muted-dark/70 uppercase tracking-widest">
+              <span className="text-[12px] font-mono text-muted-dark/70 uppercase tracking-widest">
                 [ APPLICATION ]
               </span>
               <button
@@ -105,7 +105,7 @@ export function CampApplicationDetailDrawer({
                         year: 'numeric'
                       })}
                     </span>
-                    <span className="text-[11px] font-mono text-muted-dark/70 tabular-nums">
+                    <span className="text-[12px] font-mono text-muted-dark/70 tabular-nums">
                       {new Date(application.createdAt).toLocaleTimeString('en-US', {
                         hour: 'numeric',
                         minute: '2-digit'
@@ -114,7 +114,7 @@ export function CampApplicationDetailDrawer({
                   </div>
                   <div className="flex flex-col items-end gap-1">
                     <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark">Instrument</span>
-                    <span className="text-[11px] font-mono uppercase tracking-widest px-2 py-1 border text-violet-400 border-violet-400/30 bg-violet-400/5">
+                    <span className="text-[12px] font-mono uppercase tracking-widest px-2 py-1 border text-violet-400 border-violet-400/30 bg-violet-400/5">
                       {application.instrument || '—'}
                     </span>
                   </div>
@@ -134,13 +134,13 @@ export function CampApplicationDetailDrawer({
                         </span>
                         <span className="text-[10px] font-mono text-muted-dark">Grade {s.grade}</span>
                       </div>
-                      <span className="text-[11px] font-mono text-muted-dark">{s.school}</span>
+                      <span className="text-[12px] font-mono text-muted-dark">{s.school}</span>
                       <div className="flex flex-col gap-1 pt-1 border-t border-border-dark/40">
                         <div className="flex items-center gap-2">
                           <Mail className="w-2.5 h-2.5 text-muted-dark/60 shrink-0" />
                           <a
                             href={`mailto:${s.studentEmailAddress}`}
-                            className="text-[11px] font-mono text-primary-dark hover:text-blaze-text transition-colors truncate"
+                            className="text-[12px] font-mono text-primary-dark hover:text-blaze-text transition-colors truncate"
                           >
                             {s.studentEmailAddress}
                           </a>
@@ -149,7 +149,7 @@ export function CampApplicationDetailDrawer({
                           <Phone className="w-2.5 h-2.5 text-muted-dark/60 shrink-0" />
                           <a
                             href={`tel:${s.studentPhoneNumber}`}
-                            className="text-[11px] font-mono text-muted-dark hover:text-text-dark transition-colors"
+                            className="text-[12px] font-mono text-muted-dark hover:text-text-dark transition-colors"
                           >
                             {s.studentPhoneNumber}
                           </a>
@@ -184,7 +184,7 @@ export function CampApplicationDetailDrawer({
                           <Mail className="w-2.5 h-2.5 text-muted-dark/60 shrink-0" />
                           <a
                             href={`mailto:${p.parentEmailAddress}`}
-                            className="text-[11px] font-mono text-primary-dark hover:text-blaze-text transition-colors truncate"
+                            className="text-[12px] font-mono text-primary-dark hover:text-blaze-text transition-colors truncate"
                           >
                             {p.parentEmailAddress}
                           </a>
@@ -193,7 +193,7 @@ export function CampApplicationDetailDrawer({
                           <Phone className="w-2.5 h-2.5 text-muted-dark/60 shrink-0" />
                           <a
                             href={`tel:${p.parentPhoneNumber}`}
-                            className="text-[11px] font-mono text-muted-dark hover:text-text-dark transition-colors"
+                            className="text-[12px] font-mono text-muted-dark hover:text-text-dark transition-colors"
                           >
                             {p.parentPhoneNumber}
                           </a>
@@ -211,7 +211,7 @@ export function CampApplicationDetailDrawer({
                       <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark">Address</span>
                     </div>
                     <div className="bg-surface-dark border border-border-dark px-3 py-3">
-                      <p className="text-[11px] font-mono text-muted-dark leading-relaxed">
+                      <p className="text-[12px] font-mono text-muted-dark leading-relaxed">
                         {[a.addressLine1, a.addressLine2, a.city, a.state, a.zipPostalCode].filter(Boolean).join(', ')}
                       </p>
                     </div>
@@ -238,7 +238,7 @@ export function CampApplicationDetailDrawer({
                           <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/70">
                             {label}
                           </span>
-                          <span className="text-[11px] font-mono text-text-dark">{value}</span>
+                          <span className="text-[12px] font-mono text-text-dark">{value}</span>
                         </div>
                       ))}
                     {/* Consent */}

@@ -56,7 +56,7 @@ export const HiddenGemsClient = ({ data }) => {
               transition={{ duration: 0.8 }}
               className="w-full text-center flex flex-col items-center pt-32 pb-20 border-b border-white/10"
             >
-              <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-4">
+              <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">
                 {field('hidden_gems_eyebrow')}
               </p>
               <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
@@ -251,7 +251,7 @@ export const HiddenGemsClient = ({ data }) => {
                                 {highlights.map((highlight, i) => (
                                   <li
                                     key={i}
-                                    className={`px-3 py-1 rounded-full text-xs font-changa uppercase tracking-wider bg-linear-to-r ${org.color} text-white`}
+                                    className={`px-3 py-1 rounded-full text-sm font-changa uppercase tracking-wider bg-linear-to-r ${org.color} text-white`}
                                   >
                                     {highlight}
                                   </li>
@@ -259,7 +259,7 @@ export const HiddenGemsClient = ({ data }) => {
                               </ul>
                             )}
 
-                            <address className="not-italic space-y-2 font-lato text-xs text-white/60 border-t border-white/10 pt-4">
+                            <address className="not-italic space-y-2 font-lato text-sm text-white/60 border-t border-white/10 pt-4">
                               <div className="flex items-start gap-2">
                                 <MapPin className="w-3 h-3 shrink-0 mt-0.5 text-blaze-text" aria-hidden="true" />
                                 <span className="leading-tight">{address}</span>

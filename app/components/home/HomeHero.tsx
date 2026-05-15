@@ -145,7 +145,7 @@ const HomeHero = ({ pageData, ref }) => {
           className="absolute bottom-6 430:bottom-8 right-4 430:right-8 z-10 flex flex-col items-center gap-2"
           aria-hidden="true"
         >
-          <span className="font-lato text-[11px] uppercase tracking-widest text-white/50">Scroll</span>
+          <span className="font-lato text-[16px] uppercase tracking-widest text-white/50">Scroll</span>
           <motion.div
             animate={shouldReduceMotion ? {} : { y: [0, 6, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}

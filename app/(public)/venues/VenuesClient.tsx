@@ -71,7 +71,7 @@ function SeatSectionHeading({ id, children }: { id: string; children: React.Reac
   return (
     <div className="flex items-center gap-3 760:gap-4 mb-4 760:mb-6">
       <div className="flex-1 h-px bg-white/10" />
-      <h4 id={id} className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text shrink-0">
+      <h4 id={id} className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text shrink-0">
         {children}
       </h4>
       <div className="flex-1 h-px bg-white/10" />
@@ -233,7 +233,7 @@ function VenueCard({ venue, index }: { venue: any; index: number }) {
             <div className="w-6 h-px bg-blaze" aria-hidden="true" />
             <h3
               id={`seatmap-heading-${seatMapId}`}
-              className="font-changa text-[11px] uppercase tracking-[0.3em] text-blaze-text"
+              className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text"
             >
               Seating Chart
             </h3>

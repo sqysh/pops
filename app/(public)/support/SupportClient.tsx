@@ -77,7 +77,7 @@ export const SupportClient = ({ data }) => {
           <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 1590:max-w-7xl mx-auto">
             {/* Page Header */}
             <header className="w-full text-center flex flex-col items-center pt-32 pb-20 border-b border-white/10">
-              <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-4">The Pops Orchestra</p>
+              <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">The Pops Orchestra</p>
               <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
                 <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
                 <h1 className="text-4xl 430:text-5xl sm:text-6xl font-changa text-white leading-none">
@@ -108,7 +108,7 @@ export const SupportClient = ({ data }) => {
                 <div className="bg-black p-7 430:p-10 990:p-14 flex flex-col justify-center">
                   <div className="flex items-center gap-3 mb-5">
                     <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                    <span className="font-changa text-xs uppercase tracking-[0.25em] text-blaze-text">About</span>
+                    <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">About</span>
                   </div>
                   <h2
                     id="chair-hero-heading"
@@ -130,7 +130,7 @@ export const SupportClient = ({ data }) => {
             {/* Levels + table */}
             <section aria-labelledby="chair-levels-heading" className="pb-20 990:pb-32">
               <div className="flex flex-col items-center text-center mb-12 430:mb-16">
-                <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-4">Giving Levels</p>
+                <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">Giving Levels</p>
                 <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
                   <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
                   <h2 id="chair-levels-heading" className="font-changa text-3xl 430:text-4xl text-white leading-none">
@@ -151,7 +151,7 @@ export const SupportClient = ({ data }) => {
                     <tr className="border-b-2 border-blaze">
                       <th
                         scope="col"
-                        className="py-4 px-4 430:px-5 text-left font-changa text-xs uppercase tracking-[0.25em] text-white/60"
+                        className="py-4 px-4 430:px-5 text-left font-changa text-sm uppercase tracking-[0.25em] text-white/60"
                       />
                       {[
                         field('chair_table_col_bronze'),
@@ -162,7 +162,7 @@ export const SupportClient = ({ data }) => {
                         <th
                           key={i}
                           scope="col"
-                          className="py-4 px-4 430:px-5 font-changa text-xs uppercase tracking-[0.25em] text-blaze-text text-center"
+                          className="py-4 px-4 430:px-5 font-changa text-sm uppercase tracking-[0.25em] text-blaze-text text-center"
                         >
                           {col}
                         </th>
@@ -174,20 +174,20 @@ export const SupportClient = ({ data }) => {
                       <tr key={index} className="hover:bg-white/5 transition-colors duration-200">
                         <th
                           scope="row"
-                          className="py-4 px-4 430:px-5 text-left font-lato text-xs 430:text-sm text-white/70 font-normal"
+                          className="py-4 px-4 430:px-5 text-left font-lato text-sm 430:text-sm text-white/70 font-normal"
                         >
                           {row.label}
                         </th>
-                        <td className="py-4 px-4 430:px-5 text-center font-lato text-xs 430:text-sm text-white/60">
+                        <td className="py-4 px-4 430:px-5 text-center font-lato text-sm 430:text-sm text-white/60">
                           {row.bronze}
                         </td>
-                        <td className="py-4 px-4 430:px-5 text-center font-lato text-xs 430:text-sm text-white/60">
+                        <td className="py-4 px-4 430:px-5 text-center font-lato text-sm 430:text-sm text-white/60">
                           {row.silver}
                         </td>
-                        <td className="py-4 px-4 430:px-5 text-center font-lato text-xs 430:text-sm text-white/60">
+                        <td className="py-4 px-4 430:px-5 text-center font-lato text-sm 430:text-sm text-white/60">
                           {row.gold}
                         </td>
-                        <td className="py-4 px-4 430:px-5 text-center font-lato text-xs 430:text-sm text-white/60">
+                        <td className="py-4 px-4 430:px-5 text-center font-lato text-sm 430:text-sm text-white/60">
                           {row.platinum}
                         </td>
                       </tr>
@@ -200,7 +200,7 @@ export const SupportClient = ({ data }) => {
             {/* Community carousel */}
             <section aria-labelledby="chair-community-heading" className="pb-28 990:pb-40">
               <div className="flex flex-col items-center text-center mb-12 430:mb-16">
-                <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-4">Community</p>
+                <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">Community</p>
                 <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
                   <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
                   <h2

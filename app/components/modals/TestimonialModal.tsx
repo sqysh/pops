@@ -187,7 +187,7 @@ export default function TestimonialModal({ testimonial, onClose }: Props) {
 
             <div className="flex flex-col">
               <div className="flex items-center justify-between px-3 py-2.5 border border-border-dark bg-bg-dark h-10.5">
-                <span className="text-text-dark text-xs">Published</span>
+                <span className="text-text-dark text-sm">Published</span>
                 <button
                   type="button"
                   role="switch"

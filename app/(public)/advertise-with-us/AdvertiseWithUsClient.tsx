@@ -88,7 +88,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
         />
         <div className="absolute inset-0 bg-linear-to-b from-black via-transparent to-black" aria-hidden="true" />
         <div className="relative z-10 max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 1590:max-w-7xl mx-auto flex flex-col items-center text-center">
-          <p className="font-changa text-xs uppercase tracking-[0.3em] text-blaze-text mb-2">The Pops Orchestra</p>
+          <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-2">The Pops Orchestra</p>
           <h1 className="text-4xl sm:text-5xl font-changa text-white leading-none mb-3">Advertise With Us</h1>
           <div className="w-12 h-px bg-blaze mx-auto mb-3" aria-hidden="true" />
           <p className="font-lato text-white/80 text-sm max-w-xl leading-relaxed">{field('advertise_main_heading')}</p>
@@ -114,10 +114,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
             <section aria-labelledby="benefits-heading" className="990:col-span-8 bg-black p-5 990:p-10">
               <div className="flex items-center gap-2 mb-6">
                 <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                <h2
-                  id="benefits-heading"
-                  className="font-changa text-[11px] uppercase tracking-[0.25em] text-blaze-text"
-                >
+                <h2 id="benefits-heading" className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
                   Why Advertise
                 </h2>
               </div>
@@ -132,15 +129,12 @@ export const AdvertiseWithUsClient = ({ data }) => {
             </section>
 
             {/* Stats + Download */}
-            <aside
-              aria-label="Audience statistics"
-              className="990:col-span-4 bg-black flex flex-col gap-px bg-white/10"
-            >
+            <aside aria-label="Audience statistics" className="990:col-span-4 bg-black flex flex-col gap-px">
               {/* Stats */}
               <div className="bg-black p-5 990:p-8">
                 <div className="flex items-center gap-2 mb-6">
                   <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                  <h2 className="font-changa text-[11px] uppercase tracking-[0.25em] text-blaze-text">
+                  <h2 className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
                     {field('advertise_stats_heading')}
                   </h2>
                 </div>
@@ -158,7 +152,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
               <div className="bg-black p-5 990:p-8">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                  <h2 className="font-changa text-[11px] uppercase tracking-[0.25em] text-blaze-text">
+                  <h2 className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
                     {field('advertise_program_book_heading')}
                   </h2>
                 </div>
@@ -170,7 +164,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                   href="/pdf/advertising.pdf"
                   download="Pops 2025-26 Advertising Form.pdf"
                   aria-label="Download the 2025-26 Season Rate Card PDF"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 border border-blaze/30 hover:border-blaze text-blaze-text hover:bg-blaze/10 font-changa text-[11px] uppercase tracking-[0.2em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 border border-blaze/30 hover:border-blaze text-blaze-text hover:bg-blaze/10 font-changa text-sm uppercase tracking-[0.2em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
                 >
                   <Download className="w-3.5 h-3.5" aria-hidden="true" />
                   {field('advertise_program_book_download_label')}
@@ -183,7 +177,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
           <section aria-labelledby="rates-heading" className="bg-black p-5 990:p-10">
             <div className="flex items-center gap-2 mb-8">
               <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <h2 id="rates-heading" className="font-changa text-[11px] uppercase tracking-[0.25em] text-blaze-text">
+              <h2 id="rates-heading" className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
                 {field('advertise_rates_heading')}
               </h2>
             </div>
@@ -202,7 +196,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                     >
                       <div className="min-w-0">
                         <p className="font-changa text-white text-sm">{item.name}</p>
-                        <p className="font-mono text-[11px] text-white/40 mt-0.5">{item.spec}</p>
+                        <p className="font-mono text-sm text-white/40 mt-0.5">{item.spec}</p>
                       </div>
                       <span className="font-changa text-blaze-text text-sm shrink-0">{item.price}</span>
                     </li>
@@ -223,7 +217,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                     >
                       <div className="min-w-0">
                         <p className="font-changa text-white text-sm">{item.name}</p>
-                        <p className="font-mono text-[11px] text-white/40 mt-0.5">{item.spec}</p>
+                        <p className="font-mono text-sm text-white/40 mt-0.5">{item.spec}</p>
                       </div>
                       <span className="font-changa text-blaze-text text-sm shrink-0">{item.price}</span>
                     </li>
@@ -242,7 +236,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                     >
                       <div className="min-w-0">
                         <p className="font-changa text-white text-sm">{item.name}</p>
-                        <p className="font-mono text-[11px] text-white/40 mt-0.5">{item.spec}</p>
+                        <p className="font-mono text-sm text-white/40 mt-0.5">{item.spec}</p>
                       </div>
                       <span className="font-changa text-blaze-text text-sm shrink-0">{item.price}</span>
                     </li>
@@ -264,10 +258,10 @@ export const AdvertiseWithUsClient = ({ data }) => {
                   ))}
                 </ul>
                 <div className="border-t border-white/10 pt-4 flex flex-col gap-2">
-                  <p className="font-lato text-white/50 text-xs leading-relaxed">
+                  <p className="font-lato text-white/50 text-sm leading-relaxed">
                     {field('advertise_rates_footnote_1')}
                   </p>
-                  <p className="font-lato text-white/50 text-xs leading-relaxed">
+                  <p className="font-lato text-white/50 text-sm leading-relaxed">
                     {field('advertise_rates_footnote_2')}
                   </p>
                 </div>

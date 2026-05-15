@@ -142,7 +142,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
               <div className="hidden 760:flex items-center divide-x divide-border-dark border-x border-border-dark">
                 {ROLES.map((role) => (
                   <div key={role} className="flex flex-col items-center justify-center px-3 py-1.5 shrink-0 gap-0.5">
-                    <span className="font-mono text-xs font-bold tabular-nums text-text-dark">
+                    <span className="font-mono text-sm font-bold tabular-nums text-text-dark">
                       {lists[role].length}
                     </span>
                     <span className="text-[9px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
@@ -179,7 +179,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
           <div className="760:hidden flex items-center divide-x divide-border-dark border-t border-border-dark overflow-x-auto">
             {ROLES.map((role) => (
               <div key={role} className="flex flex-col items-center justify-center px-4 py-1.5 shrink-0 gap-0.5">
-                <span className="font-mono text-xs font-bold tabular-nums text-text-dark">{lists[role].length}</span>
+                <span className="font-mono text-sm font-bold tabular-nums text-text-dark">{lists[role].length}</span>
                 <span className="text-[9px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
                   {ROLE_LABELS[role]}
                 </span>
