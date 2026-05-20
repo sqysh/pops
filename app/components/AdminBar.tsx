@@ -3,9 +3,13 @@
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { LayoutDashboard } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 export function AdminBar() {
   const { data: session, status } = useSession()
+  const pathname = usePathname()
+
+  if (pathname.startsWith('/v2')) return null
 
   if (status === 'loading') return null
   if (!session?.user?.role) return null
