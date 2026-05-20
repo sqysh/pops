@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import TeamMemberCard from './TeamMemberCard'
 import type { TeamMember } from '@prisma/client'
+import { PageHero } from '../common/PageHero'
 
 interface Props {
   title: string
@@ -20,23 +21,10 @@ export default function TeamMemberGrid({ title, description, teamMembers, headin
   }
 
   return (
-    <section aria-labelledby={headingId} className="px-4 py-12 430:px-6 768:px-8 768:py-16">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-8 768:mb-12 pb-8 768:pb-12 border-b border-white/10">
-          <h2
-            id={headingId}
-            className="font-changa text-2xl 430:text-3xl uppercase tracking-[0.3em] text-blaze-text mb-3"
-          >
-            {title}
-          </h2>
-          {description && (
-            <p className="font-lato text-white/50 text-sm 430:text-base max-w-xl leading-relaxed mx-auto">
-              {description}
-            </p>
-          )}
-        </div>
-
+    <section aria-labelledby={headingId} className="px-4 430:px-6 768:px-8 relative">
+      {/* Section Header */}
+      <PageHero eyebrow="The Pops Orchestra" heading={title} subheading={description} />
+      <div className="max-w-7xl mx-auto py-12 768:py-16">
         {/* Grid */}
         <ul
           role="list"

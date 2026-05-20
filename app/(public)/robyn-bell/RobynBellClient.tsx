@@ -1,6 +1,7 @@
 'use client'
 
 import Breadcrumb from '@/app/components/common/Breadcrumb'
+import { PageHero } from '@/app/components/common/PageHero'
 import Picture from '@/app/components/common/Picture'
 
 export const RobynBellClient = ({ data }) => {
@@ -18,23 +19,11 @@ export const RobynBellClient = ({ data }) => {
         />
 
         {/* Page Header */}
-        <header className="relative z-10 pt-32 pb-20 px-4 990:px-12 xl:px-4 text-center border-b border-white/10">
-          <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 mx-auto flex flex-col items-center">
-            <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">
-              {field('robyn_bell_eyebrow')}
-            </p>
-            <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
-              <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <h1 className="text-4xl 430:text-5xl sm:text-6xl font-changa text-white leading-none">
-                {field('robyn_bell_heading')}
-              </h1>
-              <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
-            </div>
-            <p className="font-lato text-white/50 text-sm 430:text-base max-w-xl leading-relaxed mt-4">
-              {field('robyn_bell_subheading')}
-            </p>
-          </div>
-        </header>
+        <PageHero
+          eyebrow={field('robyn_bell_eyebrow')}
+          heading={field('robyn_bell_heading')}
+          subheading={field('robyn_bell_subheading')}
+        />
 
         {/* Main Content */}
         <section aria-labelledby="robyn-bell-heading" className="relative z-10 px-4 990:px-12 xl:px-4 py-20 990:py-32">

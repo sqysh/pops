@@ -12,6 +12,8 @@ import OperaHouseMainFloor from '@/app/components/venues/OperaHouseMainFloor'
 import { IVenue } from '@/app/types/entities/venue'
 import Picture from '@/app/components/common/Picture'
 import Breadcrumb from '@/app/components/common/Breadcrumb'
+import { PageHero } from '@/app/components/common/PageHero'
+import { seatInfoVariants } from '@/app/lib/constants/motion'
 
 interface SVGSeatProps {
   seat?: string
@@ -20,11 +22,6 @@ interface SVGSeatProps {
 }
 
 const EMPTY_SEAT: SVGSeatProps = {}
-
-const seatInfoVariants = {
-  hidden: { opacity: 0, y: 4 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.2 } }
-}
 
 // ── Seat info ─────────────────────────────────────────────────────────────────
 function SeatInfo({ data }: { data: SVGSeatProps }) {
@@ -202,6 +199,7 @@ function VenueCard({ venue, index }: { venue: any; index: number }) {
             src={venue.imageUrl}
             alt={`${venue.name} performance hall`}
             fill
+            sizes="(max-width: 760px) 100vw, (max-width: 990px) 50vw, 33vw"
             className="object-cover"
             priority={index === 0}
           />
@@ -250,28 +248,16 @@ export function VenuesClient({ venues }: { venues: any[] }) {
   return (
     <main id="main-content">
       <Breadcrumb breadcrumb="Venues" />
-      <div className="relative bg-black">
-        <div
-          className="absolute inset-0 w-full h-full bg-no-repeat bg-center bg-cover opacity-5"
-          style={{ backgroundImage: `url('/images/bio-bg.webp')`, backgroundAttachment: 'fixed' }}
-          aria-hidden="true"
-        />
 
-        <div className="relative z-10">
-          <header className="text-center flex flex-col items-center pt-12 760:pt-16 pb-8 760:pb-10 px-4 border-b border-white/10">
-            <p className="font-changa text-[10px] uppercase tracking-[0.35em] text-blaze-text mb-3">
-              The Pops Orchestra
-            </p>
-            <h1 className="text-3xl 430:text-4xl 760:text-5xl font-changa text-white leading-none">Venues</h1>
-          </header>
+      <div className="min-h-dvh bg-black text-white">
+        <PageHero eyebrow="The Pops Orchestra" heading="Venues" subheading="" />
 
-          <div className="max-w-6xl mx-auto px-4 760:px-6 990:px-8 py-12 760:py-20 990:py-32">
-            <ul role="list" aria-label="Performance venues" className="flex flex-col gap-10 760:gap-16 990:gap-24">
-              {venues.map((venue, index) => (
-                <VenueCard key={index} venue={venue} index={index} />
-              ))}
-            </ul>
-          </div>
+        <div className="max-w-6xl mx-auto px-4 760:px-6 990:px-8 py-12 760:py-20 990:py-32">
+          <ul role="list" aria-label="Performance venues" className="flex flex-col gap-10 760:gap-16 990:gap-24">
+            {venues.map((venue, index) => (
+              <VenueCard key={index} venue={venue} index={index} />
+            ))}
+          </ul>
         </div>
       </div>
     </main>

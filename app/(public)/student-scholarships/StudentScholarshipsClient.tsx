@@ -5,6 +5,7 @@ import Picture from '@/app/components/common/Picture'
 import { ArrowRight, Lock, Shield } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { PageHero } from '@/app/components/common/PageHero'
 
 export const StudentScholarshipsClient = ({ data }) => {
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
@@ -13,25 +14,13 @@ export const StudentScholarshipsClient = ({ data }) => {
     <main id="main-content">
       <Breadcrumb breadcrumb="Student Scholarships" />
 
-      <div className="relative min-h-dvh px-4 990:px-12 xl:px-4">
+      <div className="relative px-4 990:px-12 xl:px-4">
         {/* Page Header */}
-        <header className="relative z-10 pt-32 pb-20 text-center border-b border-white/10">
-          <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 mx-auto flex flex-col items-center">
-            <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">
-              {field('scholarships_eyebrow')}
-            </p>
-            <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
-              <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <h1 className="text-4xl 430:text-5xl sm:text-6xl font-changa text-white leading-none">
-                Student Scholarships
-              </h1>
-              <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
-            </div>
-            <p className="font-lato text-white/50 text-sm 430:text-base max-w-xl leading-relaxed mt-4">
-              {field('scholarships_subheading')}
-            </p>
-          </div>
-        </header>
+        <PageHero
+          eyebrow={field('scholarships_eyebrow')}
+          heading={field('scholarships_heading')}
+          subheading={field('scholarships_subheading')}
+        />
 
         {/* Main Content */}
         <section aria-labelledby="scholarships-heading" className="relative z-10 py-20 990:py-32">

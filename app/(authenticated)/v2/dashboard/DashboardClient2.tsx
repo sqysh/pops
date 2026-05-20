@@ -47,7 +47,7 @@ const getStatPills = (data: Props & { pendingCount: number }) => [
   { label: 'Events', value: data.eventsCount, accent: false, href: '/v2/events' },
   { label: 'Testimonials', value: data.testimonialsCount, accent: false, href: '/v2/testimonials' },
   { label: 'News', value: data.newsCount, accent: false, href: '/v2/news' },
-  { label: 'Changelog', value: 'v3.7.0', href: '/v2/changelog' }
+  { label: 'Changelog', value: 'v3.9.0', href: '/v2/changelog' }
 ]
 
 export default function DashboardClient2(props: Props) {

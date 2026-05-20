@@ -38,7 +38,19 @@ const CHANGELOG: ChangelogEntry[] = [
         type: 'fixed',
         text: 'Team member card images now fill the full container height correctly — switched to fill prop with proper sizes attribute for responsive performance'
       },
-      { type: 'improved', text: "Sponsor logos are now clickable and link to the sponsor's website" }
+      { type: 'improved', text: "Sponsor logos are now clickable and link to the sponsor's website" },
+      {
+        type: 'new',
+        text: 'PageHero — reusable centered hero component with eyebrow, heading, blaze divider lines, subheading, and FloatingParticles animation. Used across Student Performers, About, Contact, and other public pages for consistent hero styling'
+      },
+      {
+        type: 'improved',
+        text: 'PageHero is fully mobile responsive down to 320px — font sizes, padding, divider line lengths, and subheading max-width all scale progressively'
+      },
+      {
+        type: 'improved',
+        text: 'Footer fully mobile responsive down to 320px — link columns stack to single column, logo scales down, newsletter button goes full width'
+      }
     ]
   },
   {

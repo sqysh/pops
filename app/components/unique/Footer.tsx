@@ -1,179 +1,284 @@
 'use client'
 
 import Link from 'next/link'
-import { ChevronUp, MapPin, Pencil, Phone } from 'lucide-react'
+import { Phone, MapPin, ChevronUp, Mail, ArrowRight } from 'lucide-react'
 import { FacebookIcon, InstagramIcon, YouTubeIcon } from '@/public/data/home.data'
-import { ContentItem, FooterData } from '@/app/types/common.types'
-import LogoSVG from '../svg/logo/LogoSVG'
+import Picture from '../common/Picture'
+import { FloatingParticles } from '../FloatingParticles'
+
+interface ContentItem {
+  id: string
+  value: string
+}
+
+interface FooterData {
+  content: ContentItem[]
+}
 
 const Footer = ({ data }: { data: FooterData }) => {
   const d = (id: string) => {
     if (!Array.isArray(data?.content)) return ''
     return (data.content as ContentItem[]).find((item) => item.id === id)?.value ?? ''
   }
+
   const socialLinks = [
-    { icon: FacebookIcon, linkKey: d('footer_social_facebook') },
-    { icon: InstagramIcon, linkKey: d('footer_social_instagram') },
-    { icon: YouTubeIcon, linkKey: d('footer_social_youtube') }
-  ].filter((l) => l.linkKey)
+    { icon: FacebookIcon, url: d('footer_social_facebook'), platform: 'Facebook' },
+    { icon: InstagramIcon, url: d('footer_social_instagram'), platform: 'Instagram' },
+    { icon: YouTubeIcon, url: d('footer_social_youtube'), platform: 'YouTube' }
+  ].filter((l) => l.url)
 
   const footerLinks = [1, 2, 3, 4]
-    .map((n) => ({
-      textKey: d(`footer_link_${n}_text`),
-      linkKey: d(`footer_link_${n}_url`)
-    }))
-    .filter((l) => l.textKey)
-
-  const extractPlatform = (url: string): string => {
-    if (url.includes('facebook.com')) return 'Facebook'
-    if (url.includes('instagram.com')) return 'Instagram'
-    if (url.includes('twitter.com') || url.includes('x.com')) return 'Twitter'
-    if (url.includes('youtube.com')) return 'YouTube'
-    if (url.includes('linkedin.com')) return 'LinkedIn'
-    if (url.includes('tiktok.com')) return 'TikTok'
-    return 'Unknown'
-  }
+    .map((n) => ({ text: d(`footer_link_${n}_text`), href: d(`footer_link_${n}_url`) }))
+    .filter((l) => l.text)
 
   return (
-    <footer className="border-t border-blaze/40 bg-black">
-      <section aria-label="Footer main" className="px-4 990:px-12 xl:px-4 py-10 430:py-14">
-        <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 mx-auto">
-          <div className="grid grid-cols-1 990:grid-cols-12 gap-px bg-white/10">
-            {/* Logo + social */}
-            <div className="760:col-span-3 bg-black p-5 430:p-6 flex flex-col gap-5">
-              <Link
-                href="/"
-                aria-label="The Pops Orchestra — return to homepage"
-                className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm w-fit"
-              >
-                <LogoSVG className="w-24 430:w-28 h-16 430:h-20" />
-              </Link>
-              <ul role="list" aria-label="Social media links" className="flex flex-wrap gap-2">
-                {socialLinks.map((link, i) => {
-                  const IconComponent = link.icon
-                  const platform = extractPlatform(link.linkKey)
-                  return (
-                    <li key={i}>
-                      <a
-                        href={link.linkKey}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Follow us on ${platform} (opens in new tab)`}
-                        className="w-8 h-8 bg-white/5 border border-white/10 hover:border-blaze/50 hover:bg-blaze/5 flex items-center justify-center transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm"
-                      >
-                        <IconComponent className="w-3.5 h-3.5 text-white" aria-hidden="true" />
-                      </a>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
+    <footer className="bg-black border-t border-white/10 overflow-hidden">
+      {/* ── Tier 1 — Brand ─────────────────────────────────────────────── */}
+      <div className="relative border-b border-white/10">
+        <FloatingParticles count={80} />
 
-            {/* Contact */}
-            <div className="760:col-span-3 bg-black p-5 430:p-6 flex flex-col gap-3">
-              <div className="flex items-center gap-2 mb-1">
-                <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                <p className="font-changa text-sm 430:text-sm uppercase tracking-[0.25em] text-blaze-text">
-                  {d('footer_contact_title')}
-                </p>
-              </div>
-              <ul className="flex flex-col gap-2" aria-label="Contact information">
-                <li className="flex items-start gap-2">
-                  <Pencil className="text-blaze-text w-3 h-3 shrink-0 mt-0.5" aria-hidden="true" />
-                  <span className="font-lato text-[12px] 430:text-sm text-white leading-relaxed">
-                    {d('footer_contact_line1')}
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <MapPin className="text-blaze-text w-3 h-3 shrink-0 mt-0.5" aria-hidden="true" />
-                  <span className="font-lato text-[12px] 430:text-sm text-white leading-relaxed">
-                    {d('footer_contact_line2')}
-                  </span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Phone className="text-blaze-text w-3 h-3 shrink-0" aria-hidden="true" />
+        {/* Decorative diagonal lines */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+          <svg width="100%" height="100%" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="100%" x2="20%" y2="0" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+            <line x1="10%" y1="100%" x2="30%" y2="0" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
+            <line x1="70%" y1="100%" x2="90%" y2="0" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
+            <line x1="80%" y1="100%" x2="100%" y2="0" stroke="rgba(255,255,255,0.03)" strokeWidth="1" />
+            {/* Red accent lines */}
+            <line x1="45%" y1="100%" x2="55%" y2="0" stroke="rgba(220,38,38,0.06)" strokeWidth="1" />
+            <line x1="48%" y1="100%" x2="52%" y2="0" stroke="rgba(220,38,38,0.04)" strokeWidth="1" />
+          </svg>
+        </div>
 
+        <div className="relative max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 1590:max-w-300 mx-auto px-4 990:px-0 py-14 760:py-20 flex flex-col items-center text-center gap-7">
+          {/* Logo */}
+          <Link
+            href="/"
+            aria-label="The Pops Orchestra — return to homepage"
+            className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+          >
+            <Picture
+              src="/images/logo-2.png"
+              priority={false}
+              className="h-full object-contain w-32 480:w-40 760:w-52"
+            />
+          </Link>
+
+          {/* Tagline */}
+          <p className="font-lato text-white/50 text-xs 480:text-sm 760:text-base leading-relaxed max-w-md">
+            {d('footer_tagline_description') ||
+              'World-class orchestral music in the heart of Sarasota and Bradenton. Music you love, musicians you know.'}
+          </p>
+
+          {/* Blaze divider */}
+          <div className="flex items-center gap-4 w-full max-w-xs" aria-hidden="true">
+            <div className="flex-1 h-px bg-white/10" />
+            <div className="w-1.5 h-1.5 bg-blaze rotate-45 shrink-0" />
+            <div className="flex-1 h-px bg-white/10" />
+          </div>
+
+          {/* Newsletter + Social */}
+          <div className="flex flex-col items-center gap-4">
+            <Link
+              href="/connect-with-us"
+              className="inline-flex items-center gap-2.5 px-5 py-3 w-full justify-center bg-blaze hover:bg-blazehover text-white font-changa text-[11px] uppercase tracking-widest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+              aria-label="Sign up for The Pops Orchestra newsletter"
+            >
+              <Mail className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+              Sign Up for Updates
+            </Link>
+
+            <div className="hidden 480:block w-px h-6 bg-white/10" aria-hidden="true" />
+
+            <ul role="list" aria-label="Social media links" className="flex items-center gap-2">
+              {' '}
+              {socialLinks.map(({ icon: Icon, url, platform }) => (
+                <li key={platform}>
                   <a
-                    href={`tel:${d('footer_contact_line3').replace(/\D/g, '')}`}
-                    aria-label={`Call us at ${d('footer_contact_line3')}`}
-                    className="font-lato text-[12px] 430:text-sm text-white hover:text-blaze-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Follow us on ${platform} (opens in new tab)`}
+                    className="w-9 h-9 border border-white/10 hover:border-blaze/50 hover:bg-blaze/5 flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                   >
-                    {d('footer_contact_line3')}
+                    <Icon className="w-4 h-4 text-white/50 hover:text-white transition-colors" aria-hidden="true" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Tier 2 — Links ─────────────────────────────────────────────── */}
+      <div className="relative border-b border-white/10">
+        {/* Dot grid */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px)',
+            backgroundSize: '28px 28px'
+          }}
+          aria-hidden="true"
+        />
+
+        <div className="relative max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 1590:max-w-300 mx-auto px-4 990:px-0 py-12 760:py-16">
+          <div className="grid grid-cols-1 760:grid-cols-2 990:grid-cols-4 gap-8 760:gap-10">
+            {/* Contact */}
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
+                <span className="font-changa text-[9px] uppercase tracking-[0.3em] text-blaze-text">
+                  {d('footer_contact_title') || 'Contact'}
+                </span>
+              </div>
+              <ul className="flex flex-col gap-3" aria-label="Contact information">
+                <li className="flex items-start gap-2.5">
+                  <MapPin className="w-3.5 h-3.5 text-blaze shrink-0 mt-0.5" aria-hidden="true" />
+                  <span className="font-lato text-sm text-white/60 leading-relaxed">
+                    {d('footer_contact_line1') || '502 3rd Ave W, Bradenton, FL 34205'}
+                  </span>
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <Phone className="w-3.5 h-3.5 text-blaze shrink-0" aria-hidden="true" />
+                  <a
+                    href={`tel:${(d('footer_contact_line3') || '9419267677').replace(/\D/g, '')}`}
+                    className="font-lato text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+                  >
+                    {d('footer_contact_line3') || '941-926-POPS (7677)'}
+                  </a>
+                </li>
+                <li className="flex items-center gap-2.5">
+                  <Mail className="w-3.5 h-3.5 text-blaze shrink-0" aria-hidden="true" />
+                  <a
+                    href="mailto:Info@ThePopsOrchestra.org"
+                    className="font-lato text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+                  >
+                    Info@ThePopsOrchestra.org
                   </a>
                 </li>
               </ul>
             </div>
-
             {/* Quick links */}
-            <nav aria-label="Footer quick links" className="760:col-span-3 bg-black p-5 430:p-6 flex flex-col gap-3">
-              <div className="flex items-center gap-2 mb-1">
+            <nav aria-label="Footer quick links" className="flex flex-col gap-4">
+              <div className="flex items-center gap-3">
                 <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                <p className="font-changa text-sm 430:text-sm uppercase tracking-[0.25em] text-blaze-text">
-                  {d('footer_quick_links_title')}
-                </p>
+                <span className="font-changa text-[9px] uppercase tracking-[0.3em] text-blaze-text">
+                  {d('footer_quick_links_title') || 'Quick Links'}
+                </span>
               </div>
-              <ul role="list" className="grid grid-cols-2 760:grid-cols-1 gap-x-4 gap-y-2">
-                {footerLinks.map((link, i) => (
-                  <li key={i}>
+              <ul role="list" className="flex flex-col gap-2.5">
+                {footerLinks.map(({ text, href }, i) => (
+                  <li key={i} className="flex items-center gap-2 group">
+                    <ArrowRight
+                      className="w-2.5 h-2.5 text-blaze/40 group-hover:text-blaze transition-colors shrink-0"
+                      aria-hidden="true"
+                    />
                     <Link
-                      href={link.linkKey}
-                      target={link.linkKey.startsWith('http') ? '_blank' : undefined}
-                      rel={link.linkKey.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      aria-label={link.linkKey.startsWith('http') ? `${link.textKey} (opens in new tab)` : link.textKey}
-                      className="font-lato text-[12px] 430:text-sm text-white hover:text-blaze-text transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
+                      href={href}
+                      target={href.startsWith('http') ? '_blank' : undefined}
+                      rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="font-lato text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
                     >
-                      {link.textKey}
+                      {text}
                     </Link>
                   </li>
                 ))}
               </ul>
             </nav>
-
-            {/* Tagline */}
-            <div className="760:col-span-3 bg-black p-5 430:p-6 flex flex-col gap-3">
-              <div className="flex items-center gap-2 mb-1">
+            {/* Season */}
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3">
                 <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                <p className="font-changa text-sm 430:text-sm uppercase tracking-[0.25em] text-blaze-text">
-                  {d('footer_tagline_label')}
-                </p>
+                <span className="font-changa text-[9px] uppercase tracking-[0.3em] text-blaze-text">
+                  2026–27 Season
+                </span>
               </div>
-              <p className="font-lato text-[12px] 430:text-sm text-white leading-relaxed">
-                {d('footer_tagline_description')}
-              </p>
+              <ul className="flex flex-col gap-2.5">
+                {[
+                  { text: 'Season Concerts', href: '/concerts' },
+                  { text: 'Season Packages', href: '/subscriptions' },
+                  { text: 'Support the Pops', href: '/donate' },
+                  { text: 'Youth Music Camp', href: '/camp-application' }
+                ].map(({ text, href }) => (
+                  <li key={text} className="flex items-center gap-2 group">
+                    <ArrowRight
+                      className="w-2.5 h-2.5 text-blaze/40 group-hover:text-blaze transition-colors shrink-0"
+                      aria-hidden="true"
+                    />
+                    <Link
+                      href={href}
+                      className="font-lato text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+                    >
+                      {text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {/* Get Involved */}
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
+                <span className="font-changa text-[9px] uppercase tracking-[0.3em] text-blaze-text">Get Involved</span>
+              </div>
+              <ul className="flex flex-col gap-2.5">
+                {[
+                  { text: 'Sponsorships', href: '/sponsorship-opportunities' },
+                  { text: 'Advertise With Us', href: '/advertise-with-us' },
+                  { text: 'Chair Sponsorships', href: '/chair-sponsorships' },
+                  { text: 'Connect With Us', href: '/connect-with-us' }
+                ].map(({ text, href }) => (
+                  <li key={text} className="flex items-center gap-2 group">
+                    <ArrowRight
+                      className="w-2.5 h-2.5 text-blaze/40 group-hover:text-blaze transition-colors shrink-0"
+                      aria-hidden="true"
+                    />
+                    <Link
+                      href={href}
+                      className="font-lato text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+                    >
+                      {text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Credits bar */}
-      <section aria-label="Footer credits" className="border-t border-white/10 px-4 990:px-12 xl:px-4 py-3 430:py-4">
-        <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 mx-auto flex flex-col 430:flex-row items-center justify-between gap-2">
-          <p className="font-changa text-sm uppercase tracking-widest text-white/70">
-            <small>© {new Date().getFullYear()} The Pops Orchestra. All rights reserved.</small>
+      {/* ── Tier 3 — Credits ───────────────────────────────────────────── */}
+      <div className="px-4 990:px-0 py-4">
+        <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 1590:max-w-300 mx-auto flex flex-col items-center gap-2 sm:flex-row sm:justify-between">
+          <p className="font-changa text-[10px] 480:text-[12px] uppercase tracking-widest text-white/25 text-center 480:text-left">
+            <small>© {new Date().getFullYear()} The Pops Orchestra of Bradenton & Sarasota. All rights reserved.</small>
           </p>
-          <div className="flex items-center gap-3 430:gap-4">
+          <div className="flex items-center gap-4">
             <Link
               href="https://sqysh.io?lead_source=the_pops_orchestra"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Website designed and developed by Sqysh (opens in new tab)"
-              className="flex items-center gap-1 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
+              className="flex items-center gap-1 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
             >
-              <span className="font-lato text-sm text-white/70 group-hover:text-white transition-colors">Built by</span>
-              <span className="sqysh-gradient text-sm font-bold font-mono">Sqysh</span>
+              <span className="font-lato text-xs text-white/25 group-hover:text-white/60 transition-colors">
+                Built by
+              </span>
+              <span className="sqysh-gradient text-xs font-bold font-mono">Sqysh</span>
             </Link>
             <div className="w-px h-3 bg-white/10" aria-hidden="true" />
             <button
               type="button"
               aria-label="Scroll back to top of page"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="text-white/50 hover:text-blaze-text transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm p-1"
+              className="text-white/25 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze p-1"
             >
               <ChevronUp className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
           </div>
         </div>
-      </section>
+      </div>
     </footer>
   )
 }

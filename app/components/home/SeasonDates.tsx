@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useTransform } from 'framer-motion'
 import Picture from '@/app/components/common/Picture'
 import { useEffect } from 'react'
+import { FloatingParticles } from '../FloatingParticles'
 
 const CONCERTS = [
   { name: 'Hocus Pocus Pops II', date: 'October 30', image: '/images/season-4.jpg' },
@@ -61,6 +62,8 @@ export function SeasonDates() {
           }}
           aria-hidden="true"
         />
+
+        <FloatingParticles count={80} />
 
         {/* Red glow */}
         <div
@@ -135,44 +138,49 @@ export function SeasonDates() {
       </div>
 
       {/* ── Concert grid ── */}
-      <div className="px-4 990:px-8 pb-20 max-w-5xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex items-center gap-3 mb-8"
-        >
-          <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-          <h3 className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">This Season&apos;s Lineup</h3>
-        </motion.div>
+      <div className="relative ">
+        <FloatingParticles count={80} />
+        <div className="px-4 990:px-8 pb-20 max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center gap-3 mb-8"
+          >
+            <div className="w-6 h-px bg-blaze" aria-hidden="true" />
+            <h3 className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
+              This Season&apos;s Lineup
+            </h3>
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-2 760:grid-cols-3 gap-px bg-white/10"
-        >
-          {CONCERTS.map((concert, i) => (
-            <div key={concert.name} className="relative overflow-hidden bg-black group aspect-3/4">
-              <Picture
-                src={concert.image}
-                alt={concert.name}
-                fill
-                priority={i === 0}
-                quality={50}
-                className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
-                sizes="(max-width: 760px) 50vw, 33vw"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                <p className="font-changa text-blaze-text text-sm uppercase tracking-[0.2em] mb-1">{concert.date}</p>
-                <h4 className="font-changa text-white text-lg leading-tight">{concert.name}</h4>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="grid grid-cols-2 760:grid-cols-3 gap-px bg-white/10"
+          >
+            {CONCERTS.map((concert, i) => (
+              <div key={concert.name} className="relative overflow-hidden bg-black group aspect-3/4">
+                <Picture
+                  src={concert.image}
+                  alt={concert.name}
+                  fill
+                  priority={i === 0}
+                  quality={50}
+                  className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
+                  sizes="(max-width: 760px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <p className="font-changa text-blaze-text text-sm uppercase tracking-[0.2em] mb-1">{concert.date}</p>
+                  <h4 className="font-changa text-white text-lg leading-tight">{concert.name}</h4>
+                </div>
               </div>
-            </div>
-          ))}
-        </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
 
       {/* ── Tickets on sale ── */}

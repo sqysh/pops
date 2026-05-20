@@ -1,6 +1,7 @@
 'use client'
 
 import Breadcrumb from '@/app/components/common/Breadcrumb'
+import { PageHero } from '@/app/components/common/PageHero'
 import Picture from '@/app/components/common/Picture'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
@@ -14,30 +15,12 @@ export const StudentPerformersClient = ({ data }) => {
       <Breadcrumb breadcrumb="Student Performers" />
 
       <div className="relative min-h-dvh px-4 990:px-12 xl:px-4">
-        <div
-          className="absolute inset-0 w-full h-full bg-no-repeat bg-center bg-cover opacity-15"
-          style={{ backgroundImage: `url('/images/bio-bg.webp')`, backgroundAttachment: 'fixed' }}
-          aria-hidden="true"
-        />
-
         {/* Page Header */}
-        <header className="relative z-10 pt-32 pb-20 text-center border-b border-white/10">
-          <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 mx-auto flex flex-col items-center">
-            <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">
-              {field('student_performers_eyebrow')}
-            </p>
-            <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
-              <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <h1 className="text-4xl 430:text-5xl sm:text-6xl font-changa text-white leading-none">
-                {field('student_performers_heading')}
-              </h1>
-              <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
-            </div>
-            <p className="font-lato text-white/50 text-sm 430:text-base max-w-xl leading-relaxed mt-4">
-              {field('student_performers_subheading')}
-            </p>
-          </div>
-        </header>
+        <PageHero
+          eyebrow={field('student_performers_eyebrow')}
+          heading={field('student_performers_heading')}
+          subheading={field('student_performers_subheading')}
+        />
 
         {/* Main Content */}
         <section aria-labelledby="student-performers-heading" className="relative z-10 py-20 990:py-32">

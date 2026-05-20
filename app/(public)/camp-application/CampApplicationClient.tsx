@@ -19,6 +19,7 @@ import {
   variants
 } from '@/app/lib/constants/camp-application.constants'
 import { FormState } from '@/app/types/entities/camp-application'
+import { PageHero } from '@/app/components/common/PageHero'
 
 function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
@@ -125,20 +126,11 @@ export default function CampApplicationClient({ data }) {
       <Breadcrumb breadcrumb="Camp Application" classname="1200:max-w-screen-1400" />
 
       <div className="min-h-screen bg-black text-white">
-        {/* Header */}
-        <section className="relative px-6 py-8 bg-black border-b border-white/10">
-          <div className="max-w-7xl mx-auto flex flex-col items-center text-center gap-2">
-            <div className="flex items-center gap-3">
-              <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <span className="font-changa text-sm uppercase tracking-[0.3em] text-white/30">The Pops Orchestra</span>
-              <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
-            </div>
-            <h1 className="font-changa font-black text-2xl 760:text-3xl text-white leading-none">Youth Music Camp</h1>
-            <p className="font-lato text-white/60 text-sm leading-relaxed max-w-lg">
-              Complete the application below. At least two years of playing experience required.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="The Pops Orchestra"
+          heading="Youth Music Camp"
+          subheading="Complete the application below. At least two years of playing experience required."
+        />
 
         {/* ── Body ── */}
         <div className="px-4 990:px-12 xl:px-4 py-12">

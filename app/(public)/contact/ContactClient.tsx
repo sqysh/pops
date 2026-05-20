@@ -4,6 +4,7 @@ import Breadcrumb from '@/app/components/common/Breadcrumb'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { FacebookIcon, InstagramIcon, YouTubeIcon } from '@/public/data/home.data'
 import ContactForm from '@/app/components/forms/ContactForm'
+import { PageHero } from '@/app/components/common/PageHero'
 
 export const ContactClient = ({ data }) => {
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
@@ -12,20 +13,12 @@ export const ContactClient = ({ data }) => {
     <main id="main-content">
       <Breadcrumb breadcrumb="Contact" />
 
-      <div className="relative bg-black min-h-[calc(100vh-525px)]">
-        <div className="relative z-10">
-          {/* Page Header */}
-          <header className="text-center flex flex-col items-center pt-24 pb-16 px-4 border-b border-white/10">
-            <p className="font-changa text-[10px] uppercase tracking-[0.35em] text-blaze-text mb-3">
-              The Pops Orchestra
-            </p>
-            <h1 className="text-4xl 430:text-5xl font-changa text-white leading-none">
-              {field('contact_form_heading')}
-            </h1>
-          </header>
+      <div className="relative px-4 990:px-12 xl:px-4">
+        <PageHero eyebrow="  The Pops Orchestra" heading={field('contact_form_heading')} subheading="" />
 
-          {/* Content */}
-          <div className="max-w-5xl mx-auto px-4 990:px-8 py-16 990:py-24">
+        {/* Content */}
+        <section aria-labelledby="scholarships-heading" className="relative z-10 py-20 990:py-32">
+          <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 mx-auto">
             <div className="grid grid-cols-1 990:grid-cols-12 gap-12 990:gap-16">
               {/* Form */}
               <div className="990:col-span-7">
@@ -166,7 +159,7 @@ export const ContactClient = ({ data }) => {
               </aside>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </main>
   )

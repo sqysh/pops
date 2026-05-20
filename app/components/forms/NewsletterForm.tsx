@@ -86,8 +86,7 @@ const Input: FC<InputProps> = ({ name, value, handleInput, placeholder, error, r
   </div>
 )
 
-const NewsletterForm = ({ data }) => {
-  const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
+const NewsletterForm = () => {
   const { success } = useMailchimpSelector()
   const { newsletterForm } = useFormSelector()
   const { setErrors, handleInput, handleToggle } = createFormActions('newsletterForm', store.dispatch)
@@ -202,21 +201,6 @@ const NewsletterForm = ({ data }) => {
           </section>
         ) : (
           <>
-            <header className="w-full text-center flex flex-col items-center pt-32 pb-20 border-b border-white/10">
-              <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">The Pops Orchestra</p>
-              <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
-                <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
-                <h1 className="text-4xl 430:text-5xl sm:text-6xl font-changa text-white leading-none">
-                  {field('connect_with_us_heading')}
-                </h1>
-                <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
-              </div>
-              <div className="w-16 h-px bg-blaze mx-auto mt-2 mb-6" aria-hidden="true" />
-              <p className="font-lato text-white/50 text-sm 430:text-base max-w-xl leading-relaxed">
-                {field('connect_with_us_subheading')}
-              </p>
-            </header>
-
             <div className="flex flex-col gap-y-7 mt-14 max-w-3xl mx-auto w-full relative">
               <fieldset className="flex flex-col gap-y-7 border-0 p-0 m-0">
                 <legend className="font-changa text-2xl mt-5">User Details</legend>
