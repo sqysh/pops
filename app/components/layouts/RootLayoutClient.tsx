@@ -12,6 +12,7 @@ import ContactSubmissionSuccessModal from '../modals/ContactSubmissionSuccessMod
 import Footer from '../unique/Footer'
 import { Header } from '../unique/Header'
 import NavigationDrawer from '../unique/NavigationDrawer'
+import { AdminBar } from '../AdminBar'
 
 interface Props {
   children: React.ReactNode
@@ -33,7 +34,7 @@ export default function RootLayoutClient({ children, campApplicationsSetting, fo
         <Toast />
         <CampApplicationSuccessModal />
         <ContactSubmissionSuccessModal />
-
+        <AdminBar />
         {showHeader && <Header campApplicationsSetting={campApplicationsSetting} />}
         {children}
         {showFooter && <Footer data={footerData} />}

@@ -4,6 +4,8 @@ import { siteMetadata } from './metadata'
 import './globals.css'
 import RootLayoutClient from './components/layouts/RootLayoutClient'
 import { getLayoutData } from './lib/actions/getLayoutData'
+import { SessionProvider } from 'next-auth/react'
+import { auth } from './lib/auth'
 
 export const dynamic = 'force-dynamic'
 export const metadata = siteMetadata
@@ -36,8 +38,9 @@ const c_infant = Cormorant_Infant({
 })
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [layoutData] = await Promise.all([
-    getLayoutData().catch(() => ({ campApplicationsSetting: null, footerData: null }))
+  const [layoutData, session] = await Promise.all([
+    getLayoutData().catch(() => ({ campApplicationsSetting: null, footerData: null })),
+    auth()
   ])
 
   return (
@@ -57,12 +60,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </Script>
       </head>
       <body className={`${changa.variable} ${lato.variable} ${heebo.variable} ${c_infant.variable} antialiased`}>
-        <RootLayoutClient
-          campApplicationsSetting={layoutData?.campApplicationsSetting?.value}
-          footerData={layoutData?.footerData}
-        >
-          {children}
-        </RootLayoutClient>
+        <SessionProvider session={session}>
+          <RootLayoutClient
+            campApplicationsSetting={layoutData?.campApplicationsSetting?.value}
+            footerData={layoutData?.footerData}
+          >
+            {children}
+          </RootLayoutClient>
+        </SessionProvider>
       </body>
     </html>
   )

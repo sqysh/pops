@@ -4,9 +4,12 @@ import { ArrowRightIcon } from 'lucide-react'
 import Link from 'next/link'
 import { sectionVariants } from '@/app/lib/constants/motion'
 import Picture from '../common/Picture'
+import { useSession } from 'next-auth/react'
 
 const HomeHero = ({ pageData, ref }) => {
   const shouldReduceMotion = useReducedMotion()
+  const { data: session } = useSession()
+  const isAdmin = session?.user?.role && ['ADMIN', 'CONDUCTOR', 'SUPER_USER'].includes(session.user.role)
 
   if (!pageData || !Array.isArray(pageData)) {
     return null
@@ -42,7 +45,9 @@ const HomeHero = ({ pageData, ref }) => {
       initial={sectionVariants(shouldReduceMotion).initial}
       animate={sectionVariants(shouldReduceMotion).animate}
       transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.35, ease: 'easeIn' }}
-      className="relative w-full min-h-200 h-dvh max-h-1000 -mt-16 sm:-mt-28"
+      className={`relative w-full min-h-200 h-dvh max-h-1000 ${
+        isAdmin ? '-mt-16 sm:-mt-[79.5px]' : '-mt-23.5 sm:-mt-28'
+      }`}
     >
       {/* Carousel overlays on top once hydrated */}
       <HeroCarousel images={galleryImages} interval={5000} />

@@ -50,6 +50,14 @@ const CHANGELOG: ChangelogEntry[] = [
       {
         type: 'improved',
         text: 'Footer fully mobile responsive down to 320px — link columns stack to single column, logo scales down, newsletter button goes full width'
+      },
+      {
+        type: 'new',
+        text: "Admin bar — thin black bar at the top of all public pages for signed-in admin. Shows the user's name, role badge, and a Dashboard link. Automatically adjusts the home hero margin to account for the bar height"
+      },
+      {
+        type: 'improved',
+        text: 'SessionProvider moved from the authenticated /v2 layout up to the root layout — enables useSession across all public pages including the admin bar and home hero without requiring a separate provider'
       }
     ]
   },
