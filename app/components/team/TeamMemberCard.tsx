@@ -33,11 +33,11 @@ export default function TeamMemberCard({ teamMember, index, onClick }: Props) {
         ) : teamMember.imageUrl ? (
           <Picture
             priority
+            fill
             src={teamMember.imageUrl}
             alt={`${teamMember.firstName} ${teamMember.lastName}`}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            width={400}
-            height={500}
+            sizes="(max-width: 430px) 100vw, (max-width: 760px) 50vw, (max-width: 990px) 33vw, 25vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-700"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

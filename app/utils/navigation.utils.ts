@@ -93,11 +93,6 @@ export const getNavigationLinks = (
         textKey: 'Musicians',
         linkKey: '/musicians',
         active: path === '/musicians'
-      },
-      {
-        textKey: 'Hidden Gems',
-        linkKey: '/hidden-gems',
-        active: path === '/hidden-gems'
       }
     ]
   },

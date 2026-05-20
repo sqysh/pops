@@ -79,7 +79,9 @@ export const SponsorsBlock = ({ pageData, sponsors }) => {
               style={{ width: 'max-content' }}
             >
               {doubled.map((sponsor, i) => (
-                <div
+                <a
+                  href={sponsor.externalLink}
+                  target="_blank"
                   key={`${sponsor.id}-${i}`}
                   className="shrink-0 w-28 h-16 bg-white/95 border border-white/10 flex items-center justify-center p-3"
                 >
@@ -91,7 +93,7 @@ export const SponsorsBlock = ({ pageData, sponsors }) => {
                     className="w-full h-full object-contain"
                     sizes="112px"
                   />
-                </div>
+                </a>
               ))}
             </motion.div>
           </div>

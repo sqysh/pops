@@ -71,7 +71,9 @@ const SPAM_CATEGORIES = [
       /see it live within/i,
       /rank (higher|better|faster)/i,
       /dominate search/i,
-      /boost your (rankings|visibility|traffic)/i
+      /boost your (rankings|visibility|traffic)/i,
+      /business development/i,
+      /sales rep/i
     ]
   },
   {
@@ -88,6 +90,16 @@ const SPAM_CATEGORIES = [
   {
     name: 'offshore_financial',
     patterns: [/offshore/i, /crypto/i, /affiliate earnings/i, /income channel/i, /access credentials/i]
+  },
+  {
+    name: 'local_solicitation',
+    patterns: [
+      /i work in (sarasota|bradenton|your area|the area)/i,
+      /local (companies|businesses|clients)/i,
+      /come by and/i,
+      /complimentary (bid|quote|cleaning|consultation)/i,
+      /business development/i
+    ]
   }
 ]
 
@@ -98,7 +110,22 @@ const HIGH_CONFIDENCE_PATTERNS = [
   /submit.*details immediately/i,
   /!{3,}/,
   /asset vault/i,
-  /dormant.*asset/i
+  /dormant.*asset/i,
+  /reply stop to unsubscribe/i,
+  /reply stop/i,
+  /to unsubscribe/i,
+  /per keyword/i,
+  /starting from (usd|\\$)/i,
+  /affordable (seo|marketing|plans)/i,
+  /improve (your )?(online visibility|search rankings)/i,
+  /recently reached out/i,
+  /respond with stop/i,
+  /to opt.?out/i,
+  /complimentary (cleaning|quote|bid|consultation|assessment|estimate)/i,
+  /cleaning bid/i,
+  /business development rep/i,
+  /come by and/i,
+  /hoping (i could|we could)/i
 ]
 
 export function detectSpam(text: string): boolean {

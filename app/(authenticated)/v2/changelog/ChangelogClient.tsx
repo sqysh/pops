@@ -25,6 +25,23 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.9.0',
+    date: 'May 20, 2026',
+    summary: 'Hidden Gems removed, team member image fix, and sponsors now clickable.',
+    changes: [
+      { type: 'removed', text: 'Hidden Gems page removed from the public site and navigation' },
+      {
+        type: 'removed',
+        text: 'Tockify calendar script removed — Lighthouse Best Practices score jumped from 78 to 100, site now scores 100 on Accessibility, Best Practices, and SEO'
+      },
+      {
+        type: 'fixed',
+        text: 'Team member card images now fill the full container height correctly — switched to fill prop with proper sizes attribute for responsive performance'
+      },
+      { type: 'improved', text: "Sponsor logos are now clickable and link to the sponsor's website" }
+    ]
+  },
+  {
     version: '3.8.0',
     date: 'May 13, 2026',
     summary: 'Donate page intro section, fund card images, and legacy giving.',

@@ -63,12 +63,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         >
           {children}
         </RootLayoutClient>
-        <Script
-          src="https://public.tockify.com/browser/embed.js"
-          data-cfasync="false"
-          data-tockify-script="embed"
-          strategy="lazyOnload"
-        />
       </body>
     </html>
   )
