@@ -188,7 +188,7 @@ model Question {
   name            String   @db.VarChar(255)
   email           String   @db.VarChar(255)
   message         String   @db.VarChar(500)
-  replyMessage    String?  @db.VarChar(500)
+  replyMessage    String?  @db.VarChar(2000)
   hasResponded    Boolean  @default(false)
   isPotentialSpam Boolean  @default(false) // flagged automatically on create
   isSpam          Boolean  @default(false)

@@ -231,7 +231,13 @@ export function QuestionDrawer({
                   onChange={(e) => setReply(e.target.value)}
                   placeholder="Write your reply..."
                   rows={6}
+                  maxLength={2000}
                 />
+                <span
+                  className={`text-[13px] font-mono tabular-nums ${reply.length > 1800 ? 'text-amber-400' : 'text-muted-dark'}`}
+                >
+                  {reply.length} / 2000
+                </span>
               </FormField>
             ) : null}
 

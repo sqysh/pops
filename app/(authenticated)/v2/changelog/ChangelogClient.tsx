@@ -25,6 +25,21 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.9.2',
+    date: 'May 21, 2026',
+    summary: 'Reply message character limit increased and counter added.',
+    changes: [
+      {
+        type: 'fixed',
+        text: 'Reply message column increased from VarChar(500) to VarChar(2000) — replies longer than 500 characters were silently failing with a Prisma error'
+      },
+      {
+        type: 'improved',
+        text: 'Character counter added to the reply textarea in the question drawer — turns amber when approaching the limit so admins know before hitting send'
+      }
+    ]
+  },
+  {
     version: '3.9.1',
     date: 'May 21, 2026',
     summary: 'Footer content fully dynamic and editable from the page content editor.',

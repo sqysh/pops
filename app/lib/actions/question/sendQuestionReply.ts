@@ -17,6 +17,7 @@ interface SendQuestionReplyInput {
 }
 
 export async function sendQuestionReply(data: SendQuestionReplyInput) {
+  console.log('sendQuestionReply called with:', data)
   if (!data.message.trim()) return { success: false, error: 'Reply message is required' }
 
   const [actor, context] = await Promise.all([getActor(), getRequestContext()])
@@ -43,11 +44,16 @@ export async function sendQuestionReply(data: SendQuestionReplyInput) {
     await createLog(
       'error',
       await buildLogMessage(`failed to update question "${data.questionId}" with reply`, 'admin', context),
-      { questionId: data.questionId, error: 'Prisma update failed', request: context }
+      { questionId: data.questionId, error: 'Prisma returned null — check catch log above', request: context }
     ).catch(() => null)
 
     return { success: false, error: 'Connection error — please try again' }
   }
+
+  const existing = await prisma.question.findUnique({
+    where: { id: data.questionId }
+  })
+  console.log('existing:', existing)
 
   const emailResult = await resend.emails
     .send({
