@@ -25,6 +25,17 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.9.1',
+    date: 'May 21, 2026',
+    summary: 'Footer content fully dynamic and editable from the page content editor.',
+    changes: [
+      {
+        type: 'improved',
+        text: 'All footer text is now fully dynamic — contact info, social links, quick links, tagline, and section headings are all pulled from the database and editable directly from the Page Content Editor in the admin dashboard under the footer page'
+      }
+    ]
+  },
+  {
     version: '3.9.0',
     date: 'May 20, 2026',
     summary: 'Hidden Gems removed, team member image fix, and sponsors now clickable.',

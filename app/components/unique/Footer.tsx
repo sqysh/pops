@@ -31,6 +31,14 @@ const Footer = ({ data }: { data: FooterData }) => {
     .map((n) => ({ text: d(`footer_link_${n}_text`), href: d(`footer_link_${n}_url`) }))
     .filter((l) => l.text)
 
+  const footerLinksSeason = [1, 2, 3, 4]
+    .map((n) => ({ text: d(`footer_season_link_${n}_text`), href: d(`footer_season_link_${n}_url`) }))
+    .filter((l) => l.text)
+
+  const footerLinksGetInvolved = [1, 2, 3, 4]
+    .map((n) => ({ text: d(`footer_involved_link_${n}_text`), href: d(`footer_involved_link_${n}_url`) }))
+    .filter((l) => l.text)
+
   return (
     <footer className="bg-black border-t border-white/10 overflow-hidden">
       {/* ── Tier 1 — Brand ─────────────────────────────────────────────── */}
@@ -66,8 +74,7 @@ const Footer = ({ data }: { data: FooterData }) => {
 
           {/* Tagline */}
           <p className="font-lato text-white/50 text-xs 480:text-sm 760:text-base leading-relaxed max-w-md">
-            {d('footer_tagline_description') ||
-              'World-class orchestral music in the heart of Sarasota and Bradenton. Music you love, musicians you know.'}
+            {d('footer_tagline_description')}
           </p>
 
           {/* Blaze divider */}
@@ -85,13 +92,12 @@ const Footer = ({ data }: { data: FooterData }) => {
               aria-label="Sign up for The Pops Orchestra newsletter"
             >
               <Mail className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
-              Sign Up for Updates
+              {d('footer_newsletter_link_text')}
             </Link>
 
             <div className="hidden 480:block w-px h-6 bg-white/10" aria-hidden="true" />
 
             <ul role="list" aria-label="Social media links" className="flex items-center gap-2">
-              {' '}
               {socialLinks.map(({ icon: Icon, url, platform }) => (
                 <li key={platform}>
                   <a
@@ -114,9 +120,9 @@ const Footer = ({ data }: { data: FooterData }) => {
       <div className="relative border-b border-white/10">
         {/* Dot grid */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute z-100 inset-0 pointer-events-none"
           style={{
-            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
             backgroundSize: '28px 28px'
           }}
           aria-hidden="true"
@@ -195,12 +201,7 @@ const Footer = ({ data }: { data: FooterData }) => {
                 </span>
               </div>
               <ul className="flex flex-col gap-2.5">
-                {[
-                  { text: 'Season Concerts', href: '/concerts' },
-                  { text: 'Season Packages', href: '/subscriptions' },
-                  { text: 'Support the Pops', href: '/donate' },
-                  { text: 'Youth Music Camp', href: '/camp-application' }
-                ].map(({ text, href }) => (
+                {footerLinksSeason.map(({ text, href }) => (
                   <li key={text} className="flex items-center gap-2 group">
                     <ArrowRight
                       className="w-2.5 h-2.5 text-blaze/40 group-hover:text-blaze transition-colors shrink-0"
@@ -223,12 +224,7 @@ const Footer = ({ data }: { data: FooterData }) => {
                 <span className="font-changa text-[9px] uppercase tracking-[0.3em] text-blaze-text">Get Involved</span>
               </div>
               <ul className="flex flex-col gap-2.5">
-                {[
-                  { text: 'Sponsorships', href: '/sponsorship-opportunities' },
-                  { text: 'Advertise With Us', href: '/advertise-with-us' },
-                  { text: 'Chair Sponsorships', href: '/chair-sponsorships' },
-                  { text: 'Connect With Us', href: '/connect-with-us' }
-                ].map(({ text, href }) => (
+                {footerLinksGetInvolved.map(({ text, href }) => (
                   <li key={text} className="flex items-center gap-2 group">
                     <ArrowRight
                       className="w-2.5 h-2.5 text-blaze/40 group-hover:text-blaze transition-colors shrink-0"
