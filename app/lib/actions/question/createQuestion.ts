@@ -59,7 +59,7 @@ export async function createQuestion(data: CreateQuestionInput) {
   await resend.emails
     .send({
       from: 'New Contact Submission <noreply@thepopsorchestra.org>',
-      to: ['info@thepopsorchestra.org', 'robyn@thepopsorchestra.org'],
+      to: ['info@thepopsorchestra.org'],
       bcc: ['sqysh@sqysh.io'],
       subject: 'New contact form submission',
       html: contactSubmissionTemplate(data.name)
