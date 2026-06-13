@@ -3,7 +3,7 @@ import { getNavigationLinks, NavigationLinksProps } from '@/app/utils/navigation
 import { openNavigationDrawer } from '@/app/redux/features/appSlice'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Heart, Menu } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useHeaderAtTop } from '@/app/lib/hooks/useHeaderAtTop'
 import { store } from '@/app/redux/store'
@@ -174,10 +174,6 @@ export const Header = ({ campApplicationsSetting }) => {
             aria-label="Donate to The Pops Orchestra"
           >
             <span>Donate</span>
-            <Heart
-              className="w-3 h-3 sm:w-4 sm:h-4 shrink-0 group-hover:scale-110 transition-transform"
-              aria-hidden="true"
-            />
           </Link>
         </motion.div>
       </div>
