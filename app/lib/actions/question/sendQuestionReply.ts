@@ -61,7 +61,6 @@ export async function sendQuestionReply(data: SendQuestionReplyInput) {
       to: [data.toEmail],
       replyTo: 'info@thepopsorchestra.org',
       subject: 'Re: Your message to The Pops Orchestra',
-      bcc: 'sqysh@sqysh.io',
       html: replyToQuestionTemplate(data.toName, data.message.trim(), data.originalMessage)
     })
     .catch(() => null)
