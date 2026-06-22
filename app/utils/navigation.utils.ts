@@ -12,6 +12,7 @@ export const getNavigationLinks = (
   campApplicationsSetting: boolean
 ): NavigationLinksProps[] => [
   { linkKey: '/', textKey: 'Home', active: path === '/' },
+  { linkKey: '/subscriptions', textKey: 'Subscriptions', active: path === '/subscriptions' },
   // ...(thereAreConcerts
   //   ? [
   //       {

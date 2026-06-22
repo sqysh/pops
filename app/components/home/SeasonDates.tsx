@@ -4,6 +4,7 @@ import { motion, useMotionValue, useTransform } from 'framer-motion'
 import Picture from '@/app/components/common/Picture'
 import { useEffect } from 'react'
 import { FloatingParticles } from '../FloatingParticles'
+import Link from 'next/link'
 
 const CONCERTS = [
   { name: 'Hocus Pocus Pops II', date: 'October 30', image: '/images/season-4.jpg' },
@@ -16,7 +17,7 @@ const CONCERTS = [
 
 const ON_SALE_DATES = [
   { date: 'May 13', label: 'Season Renewals' },
-  { date: 'June 22', label: 'New Season Subscriptions' },
+  { date: 'June 22', label: 'New Season Subscriptions', linkKey: '/subscriptions' },
   { date: 'August 3', label: 'Individual & Flex Packages' }
 ]
 
@@ -199,27 +200,42 @@ export function SeasonDates() {
             <div className="w-8 430:w-12 h-px bg-blaze shrink-0" aria-hidden="true" />
           </div>
         </motion.div>
-
         <div className="flex flex-col divide-y divide-white/10 max-w-2xl mx-auto">
-          {ON_SALE_DATES.map(({ date, label }, i) => (
-            <motion.div
-              key={label}
-              initial={{ opacity: 0, x: -12 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center justify-between gap-6 py-6 group"
-            >
-              <div className="flex items-center gap-6 min-w-0">
-                <span className="font-changa text-blaze-text text-sm uppercase tracking-[0.2em] shrink-0 w-24">
-                  {date}
-                </span>
-                <div className="w-px h-5 bg-white/10 shrink-0" aria-hidden="true" />
-                <h4 className="font-changa text-2xl 430:text-3xl text-white leading-none">{label}</h4>
-              </div>
-              <div className="w-6 h-px bg-white/10 group-hover:w-12 group-hover:bg-blaze transition-all duration-300 shrink-0" />
-            </motion.div>
-          ))}
+          {ON_SALE_DATES.map(({ date, label, linkKey }, i) => {
+            const inner = (
+              <>
+                <div className="flex items-center gap-6 min-w-0">
+                  <span className="font-changa text-blaze-text text-sm uppercase tracking-[0.2em] shrink-0 w-24">
+                    {date}
+                  </span>
+                  <div className="w-px h-5 bg-white/10 shrink-0" aria-hidden="true" />
+                  <h4 className="font-changa text-2xl 430:text-3xl text-white leading-none">{label}</h4>
+                </div>
+                <div className="w-6 h-px bg-white/10 group-hover:w-12 group-hover:bg-blaze transition-all duration-300 shrink-0" />
+              </>
+            )
+
+            return (
+              <motion.div
+                key={label}
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {linkKey ? (
+                  <Link
+                    href={linkKey}
+                    className="flex items-center justify-between gap-6 py-6 group cursor-pointer hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+                  >
+                    {inner}
+                  </Link>
+                ) : (
+                  <div className="flex items-center justify-between gap-6 py-6 group">{inner}</div>
+                )}
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>
