@@ -24,8 +24,8 @@ const ITEMS: SubscriptionItem[] = [
     id: '1',
     name: 'Season 2026–27 Monday Night',
     type: 'SUBSCRIPTION',
-    status: 'NOT_ON_SALE',
-    isVisible: false,
+    status: 'ON_SALE',
+    isVisible: true,
     publicUrl: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/L3L2V70R',
     cueboxEditUrl: `https://app.getcuebox.com/a/${CUEBOX_ORG_ID}/season-subscriptions/L3L2V70R`
   },
@@ -33,8 +33,8 @@ const ITEMS: SubscriptionItem[] = [
     id: '2',
     name: 'Season 2026–27 Saturday Matinee (A)',
     type: 'SUBSCRIPTION',
-    status: 'NOT_ON_SALE',
-    isVisible: false,
+    status: 'ON_SALE',
+    isVisible: true,
     publicUrl: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/KFWWP30J',
     cueboxEditUrl: `https://app.getcuebox.com/a/${CUEBOX_ORG_ID}/season-subscriptions/KFWWP30J`
   },
@@ -42,8 +42,8 @@ const ITEMS: SubscriptionItem[] = [
     id: '3',
     name: 'Season 2026–27 Saturday Matinee (B)',
     type: 'SUBSCRIPTION',
-    status: 'NOT_ON_SALE',
-    isVisible: false,
+    status: 'ON_SALE',
+    isVisible: true,
     publicUrl: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/3082ZPSN',
     cueboxEditUrl: `https://app.getcuebox.com/a/${CUEBOX_ORG_ID}/season-subscriptions/3082ZPSN`
   },
@@ -52,7 +52,7 @@ const ITEMS: SubscriptionItem[] = [
     name: 'Season 2026–27 Sunday Matinee',
     type: 'SUBSCRIPTION',
     status: 'ON_SALE',
-    isVisible: false,
+    isVisible: true,
     publicUrl: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/WSP2SB74',
     cueboxEditUrl: `https://app.getcuebox.com/a/${CUEBOX_ORG_ID}/season-subscriptions/WSP2SB74`
   },
