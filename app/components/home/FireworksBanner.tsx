@@ -76,7 +76,6 @@ export function FireworksBanner() {
                 <Picture
                   src="/images/pops-fireworks-logo.jpg"
                   alt="The Pops Fireworks Logo"
-                  fill
                   className="object-contain"
                   priority
                 />
