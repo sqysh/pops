@@ -1,19 +1,22 @@
 import { listCueBoxEvents } from '@/app/lib/actions/cuebox/listCueBoxEvents'
 import ConcertsClient from './ConcertsClient'
+import { listCueBoxEventInstances } from '@/app/lib/actions/cuebox/listCueBoxEventInstances'
+import prisma from '@/prisma/client'
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 export default async function ConcertsPage() {
-  const now = new Date()
-  const twoYearsOut = new Date(now)
-  twoYearsOut.setFullYear(twoYearsOut.getFullYear() + 2)
+  const [concertsPageLive, eventsResult, instancesResult] = await Promise.all([
+    prisma.siteSetting.findUnique({ where: { key: 'concertsPageLive' } }).catch(() => null),
+    listCueBoxEvents(),
+    listCueBoxEventInstances({
+      startsAtFrom: '2026-01-01T00:00:00.000Z',
+      startsAtTo: '2027-12-31T00:00:00.000Z'
+    }).catch(() => ({ success: false as const, data: [] }))
+  ])
 
-  const result = await listCueBoxEvents({
-    instanceDatetimeStartFrom: now.toISOString(),
-    instanceDatetimeStartTo: twoYearsOut.toISOString()
-  })
+  const events = eventsResult.data ?? []
+  const instances = instancesResult.data ?? []
 
-  const events = result.success ? (result.data ?? []) : []
-
-  return <ConcertsClient events={events} />
+  return <ConcertsClient instances={instances} events={events} concertsPageLive={concertsPageLive.value} />
 }

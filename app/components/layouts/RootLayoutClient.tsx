@@ -13,14 +13,24 @@ import Footer from '../unique/Footer'
 import { Header } from '../unique/Header'
 import NavigationDrawer from '../unique/NavigationDrawer'
 import { AdminBar } from '../AdminBar'
+import { SiteSetting } from '@prisma/client'
+import { FooterDataParsed } from '@/app/types/common.types'
 
 interface Props {
   children: React.ReactNode
-  campApplicationsSetting?: any
-  footerData?: any
+  campApplicationsSetting?: SiteSetting['value']
+  concertsPageLive?: SiteSetting['value']
+  subscriptionsLive?: SiteSetting['value']
+  footerData: FooterDataParsed | null
 }
 
-export default function RootLayoutClient({ children, campApplicationsSetting, footerData }: Props) {
+export default function RootLayoutClient({
+  children,
+  campApplicationsSetting,
+  concertsPageLive,
+  subscriptionsLive,
+  footerData
+}: Props) {
   useScrollToTop()
   const pathname = usePathname()
 
@@ -30,12 +40,22 @@ export default function RootLayoutClient({ children, campApplicationsSetting, fo
   return (
     <Provider store={store}>
       <div className="main-content">
-        <NavigationDrawer campApplicationsSetting={campApplicationsSetting} />
+        <NavigationDrawer
+          campApplicationsSetting={campApplicationsSetting}
+          concertsPageLive={concertsPageLive}
+          subscriptionsLive={subscriptionsLive}
+        />
         <Toast />
         <CampApplicationSuccessModal />
         <ContactSubmissionSuccessModal />
         <AdminBar />
-        {showHeader && <Header campApplicationsSetting={campApplicationsSetting} />}
+        {showHeader && (
+          <Header
+            campApplicationsSetting={campApplicationsSetting}
+            concertsPageLive={concertsPageLive}
+            subscriptionsLive={subscriptionsLive}
+          />
+        )}
         {children}
         {showFooter && <Footer data={footerData} />}
       </div>

@@ -5,9 +5,7 @@ import './globals.css'
 import RootLayoutClient from './components/layouts/RootLayoutClient'
 import { getLayoutData } from './lib/actions/getLayoutData'
 import { SessionProvider } from 'next-auth/react'
-import { auth } from './lib/auth'
 
-export const dynamic = 'force-dynamic'
 export const metadata = siteMetadata
 
 const changa = Changa({
@@ -38,10 +36,12 @@ const c_infant = Cormorant_Infant({
 })
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [layoutData, session] = await Promise.all([
-    getLayoutData().catch(() => ({ campApplicationsSetting: null, footerData: null })),
-    auth()
-  ])
+  const layoutData = await getLayoutData().catch(() => ({
+    campApplicationsSetting: null,
+    concertsPageLive: null,
+    subscriptionsLive: null,
+    footerData: null
+  }))
 
   return (
     <html lang="en">
@@ -60,9 +60,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </Script>
       </head>
       <body className={`${changa.variable} ${lato.variable} ${heebo.variable} ${c_infant.variable} antialiased`}>
-        <SessionProvider session={session}>
+        <SessionProvider>
           <RootLayoutClient
             campApplicationsSetting={layoutData?.campApplicationsSetting?.value}
+            concertsPageLive={layoutData?.concertsPageLive?.value}
+            subscriptionsLive={layoutData?.subscriptionsLive?.value}
             footerData={layoutData?.footerData}
           >
             {children}

@@ -4,7 +4,7 @@ import prisma from '@/prisma/client'
 import { createLog } from '@/app/utils/logHelper'
 import { getActor } from '../user/getActor'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath } from 'next/cache'
 
 export async function updatePageContent(pageId: string, content) {
   if (!pageId) return { success: false, error: 'Page ID is required' }
@@ -29,7 +29,7 @@ export async function updatePageContent(pageId: string, content) {
     request: context
   }).catch(() => null)
 
-  revalidateTag('pages', '')
+  revalidatePath('/', 'layout')
 
   return { success: true, data: page }
 }

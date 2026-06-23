@@ -5,17 +5,9 @@ import { Phone, MapPin, ChevronUp, Mail, ArrowRight } from 'lucide-react'
 import { FacebookIcon, InstagramIcon, YouTubeIcon } from '@/public/data/home.data'
 import Picture from '../common/Picture'
 import { FloatingParticles } from '../FloatingParticles'
+import { ContentItem, FooterDataParsed } from '@/app/types/common.types'
 
-interface ContentItem {
-  id: string
-  value: string
-}
-
-interface FooterData {
-  content: ContentItem[]
-}
-
-const Footer = ({ data }: { data: FooterData }) => {
+const Footer = ({ data }: { data: FooterDataParsed }) => {
   const d = (id: string) => {
     if (!Array.isArray(data?.content)) return ''
     return (data.content as ContentItem[]).find((item) => item.id === id)?.value ?? ''

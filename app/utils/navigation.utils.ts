@@ -8,21 +8,23 @@ export interface NavigationLinksProps {
 
 export const getNavigationLinks = (
   path: string,
-  thereAreConcerts: boolean,
-  campApplicationsSetting: boolean
+  concertsPageLive: boolean,
+  campApplicationsSetting: boolean,
+  subscriptionsLive: boolean
 ): NavigationLinksProps[] => [
   { linkKey: '/', textKey: 'Home', active: path === '/' },
-  { linkKey: '/subscriptions', textKey: 'Subscriptions', active: path === '/subscriptions' },
-  // ...(thereAreConcerts
-  //   ? [
-  //       {
-  //         textKey: 'Concerts',
-  //         linkKey: '/concerts',
-
-  //         active: path.includes('/concerts')
-  //       }
-  //     ]
-  //   : []),
+  ...(subscriptionsLive
+    ? [{ linkKey: '/subscriptions', textKey: 'Subscriptions', active: path === '/subscriptions' }]
+    : []),
+  ...(concertsPageLive
+    ? [
+        {
+          textKey: 'Concerts',
+          linkKey: '/concerts',
+          active: path.includes('/concerts')
+        }
+      ]
+    : []),
   // {
   //   linkKey: '/sundays-at-neel',
   //   textKey: 'Sundays@Neel',

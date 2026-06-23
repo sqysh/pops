@@ -21,7 +21,7 @@ const ON_SALE_DATES = [
   { date: 'August 3', label: 'Individual & Flex Packages' }
 ]
 
-export function SeasonDates() {
+export function SeasonDates({ concertsPageLive }) {
   const scrollY = useMotionValue(0)
   const bgY = useTransform(scrollY, [0, 953], ['0%', '20%'])
 
@@ -162,24 +162,43 @@ export function SeasonDates() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="grid grid-cols-2 760:grid-cols-3 gap-px bg-white/10"
           >
-            {CONCERTS.map((concert, i) => (
-              <div key={concert.name} className="relative overflow-hidden bg-black group aspect-3/4">
-                <Picture
-                  src={concert.image}
-                  alt={concert.name}
-                  fill
-                  priority={i === 0}
-                  quality={50}
-                  className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
-                  sizes="(max-width: 760px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <p className="font-changa text-blaze-text text-sm uppercase tracking-[0.2em] mb-1">{concert.date}</p>
-                  <h4 className="font-changa text-white text-lg leading-tight">{concert.name}</h4>
+            {CONCERTS.map((concert, i) => {
+              const card = (
+                <>
+                  <Picture
+                    src={concert.image}
+                    alt={concert.name}
+                    fill
+                    priority={i === 0}
+                    quality={50}
+                    className="object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
+                    sizes="(max-width: 760px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <p className="font-changa text-blaze-text text-sm uppercase tracking-[0.2em] mb-1">
+                      {concert.date}
+                    </p>
+                    <h4 className="font-changa text-white text-lg leading-tight">{concert.name}</h4>
+                  </div>
+                </>
+              )
+
+              return concertsPageLive ? (
+                <Link
+                  key={concert.name}
+                  href="/concerts"
+                  aria-label={`View ${concert.name}`}
+                  className="relative overflow-hidden bg-black group aspect-3/4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+                >
+                  {card}
+                </Link>
+              ) : (
+                <div key={concert.name} className="relative overflow-hidden bg-black group aspect-3/4">
+                  {card}
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </motion.div>
         </div>
       </div>

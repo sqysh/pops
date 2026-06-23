@@ -1,48 +1,175 @@
 'use client'
 
-import { useState } from 'react'
 import Link from 'next/link'
 import Picture from '@/app/components/common/Picture'
-import { CueBoxEvent } from '@/app/types/cuebox.types'
+import { CueBoxEvent, CueBoxEventInstance } from '@/app/types/cuebox.types'
+import { motion } from 'framer-motion'
+import { ArrowLeft, Calendar, ExternalLink, MapPin, Phone } from 'lucide-react'
+import { FloatingParticles } from '@/app/components/FloatingParticles'
+import { PublicMarquee } from '@/app/components/elements/PublicMarquee'
+import { SiteSetting } from '@prisma/client'
 
-type Props = { events: CueBoxEvent[] }
+type Props = { events: CueBoxEvent[]; instances: any[]; concertsPageLive: SiteSetting['value'] }
 
-const FALLBACK_COLORS = [
-  'from-red-950 to-black',
-  'from-slate-900 to-black',
-  'from-zinc-900 to-black',
-  'from-stone-900 to-black',
-  'from-neutral-900 to-black'
-]
-
-function formatDate(iso: string) {
-  const d = new Date(iso)
-  return {
-    weekday: d.toLocaleDateString('en-US', { weekday: 'long' }).toUpperCase(),
-    month: d.toLocaleDateString('en-US', { month: 'long' }).toUpperCase(),
-    monthShort: d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase(),
-    day: d.getDate(),
-    year: d.getFullYear(),
-    time: d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
-  }
+const STATUS_LABEL: Record<string, string> = {
+  ON_SALE: 'On Sale',
+  PRESALE: 'Presale',
+  NOT_ON_SALE: 'Coming Soon',
+  SOLD_OUT: 'Sold Out',
+  CANCELED: 'Canceled'
 }
 
-function dateRange(start: string, end: string) {
-  const s = new Date(start)
-  const e = new Date(end)
-  if (s.getDate() === e.getDate() && s.getMonth() === e.getMonth()) return null
-  const sm = s.toLocaleDateString('en-US', { month: 'short' }).toUpperCase()
-  const em = e.toLocaleDateString('en-US', { month: 'short' }).toUpperCase()
-  return sm === em ? `${sm} ${s.getDate()}–${e.getDate()}` : `${sm} ${s.getDate()} – ${em} ${e.getDate()}`
+const STATUS_COLOR: Record<string, string> = {
+  ON_SALE: 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5',
+  PRESALE: 'text-yellow-400 border-yellow-400/30 bg-yellow-400/5',
+  NOT_ON_SALE: 'text-white/40 border-white/10',
+  SOLD_OUT: 'text-orange-400 border-orange-400/30 bg-orange-400/5',
+  CANCELED: 'text-white/20 border-white/10'
 }
 
-export default function ConcertsClient({ events }: Props) {
-  const [expanded, setExpanded] = useState<string | null>(null)
-  const visible = events.filter((e) => e.isVisibleOnline)
+function formatInstanceDate(startsAt: string) {
+  const d = new Date(startsAt)
+  return (
+    d.toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    }) +
+    ' · ' +
+    d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
+  )
+}
 
-  if (true) {
+// ─── Concert Card ─────────────────────────────────────────────────────────────
+
+function ConcertCard({
+  event,
+  instances,
+  index
+}: {
+  event: CueBoxEvent
+  instances: CueBoxEventInstance[]
+  index: number
+}) {
+  const hasImage = !!event.publicImageUrl
+  const isOnSale = event.status === 'ON_SALE'
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: index * 0.04 }}
+      aria-label={event.name}
+      className="grid grid-cols-1 760:grid-cols-[320px_1fr] 990:grid-cols-[400px_1fr] border-b border-white/10 last:border-0"
+    >
+      {/* Square image */}
+      {hasImage ? (
+        <div className="relative aspect-square overflow-hidden">
+          <Picture
+            src={event.publicImageUrl}
+            alt={event.name}
+            fill
+            priority={index < 2}
+            className="object-cover object-center"
+            sizes="(max-width: 760px) 100vw, (max-width: 1080px) 320px, 400px"
+          />
+          {/* Status badge over image */}
+          <div className="absolute top-3 left-3">
+            <span
+              className={`text-[9px] font-mono uppercase tracking-widest px-2 py-1 border backdrop-blur-sm bg-black/40 ${STATUS_COLOR[event.status] ?? 'text-white/40 border-white/10'}`}
+            >
+              {STATUS_LABEL[event.status] ?? event.status}
+            </span>
+          </div>
+        </div>
+      ) : (
+        <div className="hidden 760:block aspect-square bg-white/2 border-r border-white/10" />
+      )}
+
+      {/* Content */}
+      <div className="flex flex-col justify-between px-6 760:px-10 py-8 760:py-10 bg-black">
+        <div className="flex flex-col gap-5">
+          {/* Eyebrow */}
+          <div className="flex items-center gap-3">
+            <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
+            <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/30">2026–27 Season</span>
+          </div>
+
+          {/* Title */}
+          <h2 className="font-changa font-black text-3xl 760:text-4xl 990:text-5xl text-white leading-[0.95]">
+            {event.name}
+          </h2>
+
+          {/* Description */}
+          {event.descriptionPlaintext && (
+            <p className="font-lato text-base text-white/60 leading-relaxed max-w-lg">{event.descriptionPlaintext}</p>
+          )}
+
+          {/* Performances */}
+          {instances.length > 0 && (
+            <div className="flex flex-col gap-0 border-t border-white/10 pt-5">
+              <div className="flex items-center gap-2 mb-3">
+                <Calendar className="w-3.5 h-3.5 text-blaze shrink-0" aria-hidden="true" />
+                <span className="font-changa text-[10px] uppercase tracking-[0.25em] text-white/30">Performances</span>
+              </div>
+              {instances.map((inst) => (
+                <div
+                  key={inst.id}
+                  className="flex flex-col 480:flex-row 480:items-center gap-0.5 480:gap-4 py-2.5 border-b border-white/5 last:border-0"
+                >
+                  <span className="font-lato text-sm 760:text-base text-white leading-snug">
+                    {formatInstanceDate(inst.startsAt)}
+                  </span>
+                  {inst.venue?.name && (
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <MapPin className="w-3 h-3 text-blaze shrink-0" aria-hidden="true" />
+                      <span className="font-lato text-sm text-white/50">{inst.venue.name}</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* CTA */}
+        <div className="pt-8">
+          {isOnSale ? (
+            <a
+              href={event.publicTicketsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Buy tickets for ${event.name}`}
+              className="inline-flex items-center gap-3 px-7 py-3.5 bg-blaze hover:bg-blazehover text-white font-changa text-sm uppercase tracking-widest transition-colors w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+            >
+              Buy Tickets
+              <ExternalLink className="w-4 h-4 shrink-0" aria-hidden="true" />
+            </a>
+          ) : (
+            <span
+              className={`inline-flex text-[10px] font-changa uppercase tracking-[0.25em] px-3 py-1.5 border ${STATUS_COLOR[event.status] ?? 'text-white/20 border-white/5'}`}
+            >
+              {STATUS_LABEL[event.status] ?? 'Unavailable'}
+            </span>
+          )}
+        </div>
+      </div>
+    </motion.article>
+  )
+}
+
+export default function ConcertsClient({ events, instances, concertsPageLive }: Props) {
+  const instancesByEvent = instances.reduce<Record<string, CueBoxEventInstance[]>>((acc, inst) => {
+    if (!acc[inst.eventId]) acc[inst.eventId] = []
+    acc[inst.eventId].push(inst)
+    return acc
+  }, {})
+
+  if (!concertsPageLive) {
     return (
-      <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center px-6 text-center">
+      <main className="min-h-[calc(100svh-1080px)] bg-black text-white flex flex-col items-center justify-center px-6 text-center">
         <div className="relative z-10 flex flex-col items-center gap-6 max-w-lg">
           <p className="font-mono text-sm tracking-[0.3em] uppercase text-blaze-text">The Pops Orchestra</p>
           <h1 className="font-changa text-6xl sm:text-7xl font-bold text-white leading-none">Coming Soon</h1>
@@ -63,206 +190,134 @@ export default function ConcertsClient({ events }: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-black text-white">
-      {/* ── Page Header ── */}
-      <div className="relative pt-28 pb-16 px-6 overflow-hidden border-b border-white/10">
+    <main className="min-h-screen bg-bg-dark text-text-dark">
+      <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-sm border-b border-border-dark">
+        <div className="max-w-5xl mx-auto px-4 760:px-6 h-12 flex items-center justify-between gap-4">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2 group focus-visible:outline-none">
+            <span className="text-primary-dark text-[11px] group-hover:text-white transition-colors" aria-hidden="true">
+              ▸
+            </span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark group-hover:text-text-dark transition-colors">
+              The Pops Orchestra
+            </span>
+          </Link>
+
+          {/* Right */}
+          <div className="flex items-center gap-3 760:gap-4">
+            <Link
+              href="/v2/dashboard"
+              className="flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-widest text-muted-dark/80 hover:text-text-dark transition-colors focus-visible:outline-none"
+            >
+              <ArrowLeft className="w-3 h-3" />
+              <span className="hidden 480:inline">Back to Dashboard</span>
+            </Link>
+          </div>
+        </div>
+      </header>
+      {/* Hero */}
+      <section className="relative border-b border-white/10">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: 'url(/images/bio-bg.webp)',
+            backgroundImage: "url('/images/nikki-fire.webp')",
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            opacity: 0.6
+            backgroundPosition: 'center center'
           }}
+          aria-hidden="true"
         />
-        <div className="relative max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-          <div>
-            <p className="font-mono text-sm tracking-[0.3em] uppercase text-blaze-text mb-3">2025–2026 Season</p>
-            <h1 className="font-changa text-7xl md:text-9xl font-bold text-white leading-none tracking-tight">
-              Concerts
-            </h1>
+        <FloatingParticles count={80} />
+        <div className="absolute inset-0 bg-linear-to-r from-black via-black/50 to-transparent" />
+
+        <div className="relative max-w-5xl mx-auto px-4 760:px-6 py-20 760:py-28 flex flex-col gap-5">
+          <div className="flex items-center gap-3">
+            <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
+            <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/30">The Pops Orchestra</span>
           </div>
-          <p className="font-lato text-white/50 text-sm max-w-xs leading-relaxed">
-            {visible.length} upcoming {visible.length === 1 ? 'performance' : 'performances'} at venues across the
-            Cultural Coast
+          <h1 className="font-changa font-black text-5xl 760:text-7xl text-white leading-[0.9] max-w-xl">
+            2026–27
+            <br />
+            Season
+            <br />
+            Concerts
+          </h1>
+          <p className="font-lato text-white/70 text-base 760:text-lg leading-relaxed max-w-lg">
+            Join us for an unforgettable season of live orchestral music in Sarasota and Bradenton.
           </p>
+          <div className="flex flex-wrap items-center gap-5 pt-2">
+            <Link
+              href="/donate"
+              className="inline-flex items-center gap-2 font-changa text-[11px] uppercase tracking-widest px-6 py-2.5 border border-white/20 text-white/60 hover:text-white hover:border-white/40 transition-colors"
+            >
+              Donate
+            </Link>
+            <a
+              href="tel:9419267677"
+              className="flex items-center gap-1.5 font-changa text-[10px] uppercase tracking-widest text-white/30 hover:text-white transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              941-926-POPS
+            </a>
+          </div>
         </div>
-      </div>
-
-      {/* ── Event Cards ── */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        {visible.length === 0 ? (
-          <div className="py-32 text-center">
-            <p className="font-mono text-sm tracking-widest uppercase text-white/30">
-              No upcoming concerts at this time
-            </p>
-          </div>
-        ) : (
-          <div className="flex flex-col gap-px bg-white/10">
-            {visible.map((event, idx) => {
-              const d = formatDate(event.firstInstanceDatetime)
-              const range = dateRange(event.firstInstanceDatetime, event.lastInstanceDatetime)
-              const hasImg = !!event.publicImageUrl
-              const hasDesc = !!event.descriptionHtml
-              const isOpen = expanded === event.id
-              const isSoldOut = event.status === 'SOLD_OUT'
-              const isCancelled = event.status === 'CANCELED'
-              const fallback = FALLBACK_COLORS[idx % FALLBACK_COLORS.length]
-
-              return (
-                <article key={event.id} className="bg-black group">
-                  {/* ── Card ── */}
-                  <div className="relative min-h-70 md:min-h-80 flex overflow-hidden">
-                    {/* Background image or gradient */}
-                    {hasImg ? (
-                      <>
-                        <Picture
-                          src={event.publicImageUrl}
-                          alt=""
-                          aria-hidden="true"
-                          className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-transform duration-700 scale-105 group-hover:scale-100"
-                        />
-                        <div className="absolute inset-0 bg-linear-to-r from-black via-black/80 to-transparent" />
-                      </>
-                    ) : (
-                      <div className={`absolute inset-0 bg-linear-to-br ${fallback} opacity-60`} />
-                    )}
-
-                    {/* Large index number — decorative */}
-                    <span
-                      aria-hidden="true"
-                      className="absolute right-6 top-1/2 -translate-y-1/2 font-changa font-bold text-white/4 leading-none select-none pointer-events-none"
-                      style={{ fontSize: 'clamp(120px, 20vw, 240px)' }}
-                    >
-                      {String(idx + 1).padStart(2, '0')}
-                    </span>
-
-                    {/* Content */}
-                    <div className="relative z-10 flex flex-col md:flex-row w-full">
-                      {/* Date block */}
-                      <div className="flex md:flex-col items-center md:justify-center gap-4 md:gap-0 px-8 py-8 md:py-0 md:w-35 md:min-w-35 border-b md:border-b-0 md:border-r border-white/10 shrink-0">
-                        <div className="flex md:flex-col items-baseline md:items-center gap-1.5 md:gap-0">
-                          <span className="font-mono text-sm tracking-widest text-white/40 md:mb-2">
-                            {d.weekday.slice(0, 3)}
-                          </span>
-                          <span
-                            className="font-changa font-bold text-white leading-none md:my-1"
-                            style={{ fontSize: 'clamp(3rem, 6vw, 5rem)' }}
-                          >
-                            {d.day}
-                          </span>
-                          <div className="flex md:flex-col items-center gap-1">
-                            <span className="font-mono text-[12px] tracking-widest text-blaze-text font-bold">
-                              {d.monthShort}
-                            </span>
-                            <span className="font-mono text-sm tracking-widest text-white/40">{d.year}</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Main info */}
-                      <div className="flex flex-1 flex-col justify-center px-8 py-10 gap-3 min-w-0">
-                        {/* Title */}
-                        <h2
-                          className="font-changa font-bold text-white leading-none"
-                          style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
-                        >
-                          {event.name}
-                        </h2>
-
-                        {/* Meta row */}
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                          {range ? (
-                            <span className="font-mono text-sm text-blaze-text tracking-widest uppercase">{range}</span>
-                          ) : null}
-                          <span className="font-mono text-sm text-white/50 tracking-wide">{d.time}</span>
-                          {event.venues?.length > 0 && (
-                            <span className="font-mono text-sm text-white/40">
-                              {event.venues.map((v) => v.name).join('  ·  ')}
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Tags */}
-                        {event.tags?.length > 0 && (
-                          <div className="flex flex-wrap gap-2">
-                            {event.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="font-mono text-[10px] tracking-[0.2em] uppercase px-2.5 py-1 border border-white/20 text-white/40"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-
-                        {/* Description toggle */}
-                        {hasDesc && (
-                          <button
-                            onClick={() => setExpanded(isOpen ? null : event.id)}
-                            aria-expanded={isOpen}
-                            className="mt-1 self-start font-mono text-sm tracking-widest uppercase text-white/30 hover:text-blaze-text transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blaze-text"
-                          >
-                            {isOpen ? '− Hide details' : '+ About this concert'}
-                          </button>
-                        )}
-                      </div>
-
-                      {/* CTA — bottom-right on mobile, right-center on desktop */}
-                      <div className="flex md:items-center px-8 pb-8 md:py-0 md:pr-12 shrink-0">
-                        {isCancelled ? (
-                          <span className="font-mono text-sm tracking-widest uppercase text-white/25 line-through">
-                            Cancelled
-                          </span>
-                        ) : isSoldOut ? (
-                          <div className="flex flex-col items-start md:items-center gap-1">
-                            <span className="font-mono text-sm tracking-widest uppercase text-white/25">Sold Out</span>
-                            <Link
-                              href={event.publicTicketsUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="font-mono text-sm tracking-widest uppercase text-white/40 underline underline-offset-4 hover:text-white/60 transition-colors duration-200"
-                            >
-                              Join waitlist
-                            </Link>
-                          </div>
-                        ) : (
-                          <Link
-                            href={event.publicTicketsUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group/btn relative flex flex-col items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze-text focus-visible:ring-offset-4 focus-visible:ring-offset-black"
-                          >
-                            <span className="font-mono text-sm tracking-[0.3em] uppercase text-white/40 group-hover/btn:text-white/60 transition-colors duration-200">
-                              Tickets
-                            </span>
-                            <span className="font-changa text-5xl font-bold text-blaze group-hover/btn:text-blaze-text transition-colors duration-200 leading-none">
-                              →
-                            </span>
-                          </Link>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* ── Expandable description ── */}
-                  {hasDesc && isOpen && (
-                    <div className="border-t border-white/10 bg-surface-dark">
-                      <div className="max-w-3xl px-8 md:px-43 py-8">
-                        <div
-                          className="font-lato text-[15px] text-white/70 leading-relaxed prose prose-invert prose-sm max-w-none prose-p:my-0"
-                          dangerouslySetInnerHTML={{ __html: event.descriptionHtml! }}
-                        />
-                      </div>
-                    </div>
-                  )}
-                </article>
-              )
-            })}
-          </div>
-        )}
       </section>
+
+      <PublicMarquee
+        items={[
+          '2026–27 Season Now On Sale',
+          'Performing in Sarasota & Bradenton',
+          'Save with a Season Subscription or Flex Package',
+          'Call 941-926-POPS to Order by Phone',
+          'World-Class Guest Artists · Live Orchestral Music'
+        ]}
+      />
+
+      {/* Concert list */}
+      {events.length > 0 ? (
+        <div className="max-w-5xl mx-auto px-4 760:px-6">
+          {events.map((event, i) => (
+            <ConcertCard key={event.id} event={event} index={i} instances={instancesByEvent[event.id] ?? []} />
+          ))}
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center py-40 gap-4 text-center px-6">
+          <p className="font-changa text-2xl text-white/20">No concerts found</p>
+          <p className="font-lato text-base text-white/15">Concerts will appear here once entered in CueBox</p>
+        </div>
+      )}
+
+      {/* Footer */}
+      <footer className="border-t border-white/10 px-6 760:px-12 990:px-16 py-5">
+        <div className="max-w-5xl mx-auto px-4 760:px-6 flex flex-col 480:flex-row items-start 480:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
+            <span className="font-changa text-[10px] uppercase tracking-[0.25em] text-white/30">
+              The Pops Orchestra · 2026–27 Season
+            </span>
+          </div>
+          <div className="flex items-center gap-5">
+            <Link
+              href="/"
+              className="font-changa text-[10px] uppercase tracking-widest text-white/25 hover:text-white transition-colors"
+            >
+              Home
+            </Link>
+            <Link
+              href="/donate"
+              className="font-changa text-[10px] uppercase tracking-widest text-white/25 hover:text-white transition-colors"
+            >
+              Donate
+            </Link>
+
+            <a
+              href="tel:9419267677"
+              className="font-changa text-[10px] uppercase tracking-widest text-white/25 hover:text-white transition-colors"
+            >
+              941-926-7677
+            </a>
+          </div>
+        </div>
+      </footer>
     </main>
   )
 }

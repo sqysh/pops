@@ -19,7 +19,7 @@ const EventsBlock = dynamic(() => import('@/app/components/home/EventsBlock').th
 const NewsBlock = dynamic(() => import('@/app/components/home/NewsBlock').then((m) => m.NewsBlock))
 const FireworksBanner = dynamic(() => import('@/app/components/home/FireworksBanner').then((m) => m.FireworksBanner))
 
-export function HomeClient({ pageData, sponsors, testimonials, events, news }) {
+export function HomeClient({ pageData, sponsors, testimonials, events, news, concertsPageLive }) {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   return (
@@ -27,7 +27,7 @@ export function HomeClient({ pageData, sponsors, testimonials, events, news }) {
       <HomeHero pageData={pageData} ref={scrollRef} />
       <FireworksBanner />
       <div ref={scrollRef}>
-        <SeasonSection />
+        <SeasonSection concertsPageLive={concertsPageLive} />
       </div>
       <ContactUsBlock data={pageData} />
       <SponsorsBlock pageData={pageData} sponsors={sponsors} />

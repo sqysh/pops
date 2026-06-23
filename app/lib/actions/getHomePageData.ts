@@ -6,7 +6,7 @@ import { getSponsors } from './sponsor/getSponsors'
 import { getTestimonials } from './testimonial/getTestimonials'
 
 export async function getHomePageData() {
-  const [pageData, sponsorsData, testimonialsData, events, news] = await Promise.all([
+  const [pageData, sponsorsData, testimonialsData, events, news, concertsPageLive] = await Promise.all([
     getPage('home').catch(() => null),
     getSponsors().catch(() => ({ data: [] })),
     getTestimonials().catch(() => ({ data: [] })),
@@ -22,7 +22,8 @@ export async function getHomePageData() {
         orderBy: { createdAt: 'desc' },
         take: 5
       })
-      .catch(() => [])
+      .catch(() => []),
+    prisma.siteSetting.findUnique({ where: { key: 'concertsPageLive' } }).catch(() => null)
   ])
 
   return {
@@ -30,6 +31,7 @@ export async function getHomePageData() {
     sponsors: sponsorsData?.data,
     testimonials: testimonialsData.data,
     events,
-    news
+    news,
+    concertsPageLive: concertsPageLive.value
   }
 }

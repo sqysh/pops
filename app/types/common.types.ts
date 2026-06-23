@@ -19,3 +19,6 @@ export type FooterData = {
 
 export type SortKey = 'name' | 'level' | 'amount' | 'isActive' | 'createdAt'
 export type SortDir = 'asc' | 'desc'
+
+// types file
+export type FooterDataParsed = Omit<FooterData, 'content'> & { content: ContentItem[] }

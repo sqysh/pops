@@ -101,10 +101,9 @@ export const HeaderNavLink: FC<HeaderNavLinkProps> = ({ link, openDropdown, setO
   )
 }
 
-export const Header = ({ campApplicationsSetting }) => {
+export const Header = ({ campApplicationsSetting, concertsPageLive, subscriptionsLive }) => {
   const path = usePathname()
-  const thereAreConcerts = true
-  const navLinks = getNavigationLinks(path, thereAreConcerts, campApplicationsSetting)
+  const navLinks = getNavigationLinks(path, concertsPageLive, campApplicationsSetting, subscriptionsLive)
   const [openDropdown, setOpenDropdown] = useState({ open: false, textKey: '' })
   const { headerRef } = useHeaderAtTop()
 

@@ -4,7 +4,7 @@ import prisma from '@/prisma/client'
 import { getActor } from '../user/getActor'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { createLog } from '@/app/utils/logHelper'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath } from 'next/cache'
 
 export async function toggleSiteSetting(key: string, value: boolean) {
   if (!key) return { success: false, error: 'Setting key is required' }
@@ -40,8 +40,7 @@ export async function toggleSiteSetting(key: string, value: boolean) {
     request: context
   }).catch(() => null)
 
-  revalidateTag('dashboard', '')
-  revalidateTag('layout-data', '')
+  revalidatePath('/', 'layout')
 
   return { success: true, data: setting }
 }

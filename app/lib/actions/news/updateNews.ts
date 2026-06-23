@@ -5,7 +5,7 @@ import { getActor } from '../user/getActor'
 import prisma from '@/prisma/client'
 import { createLog } from '@/app/utils/logHelper'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath } from 'next/cache'
 
 export async function updateNews(id: string, data: NewsInput) {
   if (!id) return { success: false, error: 'Article ID is required' }
@@ -47,7 +47,7 @@ export async function updateNews(id: string, data: NewsInput) {
     request: context
   }).catch(() => null)
 
-  revalidateTag('dashboard', 'default')
+  revalidatePath('/', 'layout')
 
   return { success: true, data: article }
 }

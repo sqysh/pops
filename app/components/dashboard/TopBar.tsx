@@ -6,6 +6,8 @@ import { useSession } from 'next-auth/react'
 
 export function TopBar({ time, date }) {
   const session = useSession()
+  const user = session.data?.user
+
   return (
     <motion.header
       initial={{ opacity: 0 }}
@@ -38,21 +40,19 @@ export function TopBar({ time, date }) {
           <span className="text-[10px] font-mono text-muted-dark/70" aria-hidden="true">
             [
           </span>
-          <span className="text-[10px] font-mono tracking-widest uppercase text-muted-dark">
-            {session.data.user.email}
-          </span>
+          <span className="text-[10px] font-mono tracking-widest uppercase text-muted-dark">{user?.email}</span>
           <span
             className={`text-[9px] font-mono tracking-widest uppercase px-1.5 py-0.5 border ${
-              session.data.user.role === 'SUPER_USER'
+              user?.role === 'SUPER_USER'
                 ? 'text-primary-dark border-primary-dark/30 bg-primary-dark/5'
-                : session.data.user.role === 'CONDUCTOR'
+                : user?.role === 'CONDUCTOR'
                   ? 'text-purple-400 border-purple-400/30 bg-purple-400/5'
-                  : session.data.user.role === 'ADMIN'
+                  : user?.role === 'ADMIN'
                     ? 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
                     : 'text-muted-dark border-border-dark'
             }`}
           >
-            {session.data.user.role}
+            {user?.role}
           </span>
           <span className="text-[10px] font-mono text-muted-dark/70" aria-hidden="true">
             ]
@@ -62,21 +62,17 @@ export function TopBar({ time, date }) {
         {/* Role badge only on mobile */}
         <span
           className={`sm:hidden text-[9px] font-mono tracking-widest uppercase px-1.5 py-0.5 border ${
-            session.data.user.role === 'SUPER_USER'
+            user?.role === 'SUPER_USER'
               ? 'text-primary-dark border-primary-dark/30 bg-primary-dark/5'
-              : session.data.user.role === 'CONDUCTOR'
+              : user?.role === 'CONDUCTOR'
                 ? 'text-purple-400 border-purple-400/30 bg-purple-400/5'
                 : 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5'
           }`}
         >
-          {session.data.user.role === 'SUPER_USER'
-            ? 'Super'
-            : session.data.user.role === 'CONDUCTOR'
-              ? 'Conductor'
-              : 'Admin'}
+          {user?.role === 'SUPER_USER' ? 'Super' : user?.role === 'CONDUCTOR' ? 'Conductor' : 'Admin'}
         </span>
 
-        {session.data.user.role === 'SUPER_USER' && (
+        {user?.role === 'SUPER_USER' && (
           <>
             <div className="w-px h-4 bg-border-dark" aria-hidden="true" />
             <Link

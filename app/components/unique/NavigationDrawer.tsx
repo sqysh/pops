@@ -9,12 +9,11 @@ import { getNavigationLinks } from '@/app/utils/navigation.utils'
 import { closeNavigationDrawer } from '@/app/redux/features/appSlice'
 import Picture from '../common/Picture'
 
-const NavigationDrawer = ({ campApplicationsSetting }) => {
+const NavigationDrawer = ({ campApplicationsSetting, concertsPageLive, subscriptionsLive }) => {
   const path = usePathname()
   const { navigationDrawer } = useAppSelector((state: RootState) => state.app)
   const overlayRef = useRef(null)
-  const thereAreConcerts = true
-  const navLinks = getNavigationLinks(path, thereAreConcerts, campApplicationsSetting)
+  const navLinks = getNavigationLinks(path, concertsPageLive, campApplicationsSetting, subscriptionsLive)
   const closeDrawer = () => store.dispatch(closeNavigationDrawer())
 
   return (
