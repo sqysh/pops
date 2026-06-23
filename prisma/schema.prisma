@@ -42,6 +42,16 @@ enum CampStatus {
   DENIED
 }
 
+enum SubscriptionType {
+  SUBSCRIPTION
+  FLEX
+}
+
+enum SubscriptionStatus {
+  NOT_ON_SALE
+  ON_SALE
+}
+
 // MODELS -------------------------------------
 
 model User {
@@ -299,4 +309,17 @@ model SiteSetting {
   type        String   @default("boolean")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Subscription {
+  id            String             @id @default(cuid())
+  name          String
+  type          SubscriptionType   @default(SUBSCRIPTION)
+  status        SubscriptionStatus @default(NOT_ON_SALE)
+  isVisible     Boolean            @default(false)
+  publicUrl     String
+  cueboxEditUrl String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
