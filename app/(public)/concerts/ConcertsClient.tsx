@@ -202,17 +202,6 @@ export default function ConcertsClient({ events, instances, concertsPageLive }: 
               The Pops Orchestra
             </span>
           </Link>
-
-          {/* Right */}
-          <div className="flex items-center gap-3 760:gap-4">
-            <Link
-              href="/v2/dashboard"
-              className="flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-widest text-muted-dark/80 hover:text-text-dark transition-colors focus-visible:outline-none"
-            >
-              <ArrowLeft className="w-3 h-3" />
-              <span className="hidden 480:inline">Back to Dashboard</span>
-            </Link>
-          </div>
         </div>
       </header>
       {/* Hero */}
