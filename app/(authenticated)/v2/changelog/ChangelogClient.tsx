@@ -25,6 +25,38 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.10.0',
+    date: 'June 25, 2026',
+    summary:
+      'Added a full subscriptions management system so season packages and flex passes can be created and edited directly from the dashboard, plus a second call-to-action on the homepage hero and a reorganized dashboard layout.',
+    changes: [
+      {
+        type: 'new',
+        text: 'Subscriptions admin page — create, edit, and delete season subscriptions and flex passes from a full-bleed table with search, type filters, and a slide-in editor.'
+      },
+      {
+        type: 'new',
+        text: 'Each subscription has a visibility toggle and an On Sale / Coming Soon status — only packages set to both Visible and On Sale appear on the public Season Packages page.'
+      },
+      {
+        type: 'new',
+        text: 'Added a "See Season Subscription Options" button to the homepage hero, next to "See Concerts," linking to the subscriptions page.'
+      },
+      {
+        type: 'improved',
+        text: 'Subscriptions are now managed on the site instead of being hard-coded — changes go live without a developer deploy.'
+      },
+      {
+        type: 'improved',
+        text: 'Reorganized the dashboard with a left navigation rail for faster access to each section.'
+      },
+      {
+        type: 'improved',
+        text: 'The public Season Packages page now pulls subscriptions live from the database rather than a fixed list.'
+      }
+    ]
+  },
+  {
     version: '3.9.2',
     date: 'May 21, 2026',
     summary: 'Reply message character limit increased and counter added.',

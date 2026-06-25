@@ -129,7 +129,8 @@ export function ConcertsCard({ concerts }: { concerts: CueBoxEvent[] }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Edit ${c.name} in CueBox`}
-                className="shrink-0 text-muted-dark/20 hover:text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark opacity-0 group-hover:opacity-100"
+                title={`Edit ${c.name} in CueBox`}
+                className="shrink-0 text-primary-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark"
               >
                 <ExternalLink className="w-3 h-3" />
               </a>
@@ -138,9 +139,7 @@ export function ConcertsCard({ concerts }: { concerts: CueBoxEvent[] }) {
         )}
       </div>
 
-      {/* CueBox API — expandable */}
       <div className="shrink-0 border-t border-border-dark">
-        {/* Toggle bar */}
         <button
           type="button"
           onClick={() => setApiExpanded((v) => !v)}
@@ -167,7 +166,6 @@ export function ConcertsCard({ concerts }: { concerts: CueBoxEvent[] }) {
           </div>
         </button>
 
-        {/* Endpoint list */}
         <AnimatePresence initial={false}>
           {apiExpanded && (
             <motion.div
@@ -178,7 +176,6 @@ export function ConcertsCard({ concerts }: { concerts: CueBoxEvent[] }) {
               className="overflow-hidden"
             >
               <div className="border-t border-border-dark/60">
-                {/* Sub-header */}
                 <div className="flex items-center justify-between px-3 py-1.5 bg-bg-dark border-b border-border-dark/40">
                   <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">
                     {ENDPOINTS.length} endpoints
@@ -193,7 +190,6 @@ export function ConcertsCard({ concerts }: { concerts: CueBoxEvent[] }) {
                   </a>
                 </div>
 
-                {/* Endpoints */}
                 <div className="max-h-44 overflow-y-auto divide-y divide-border-dark/40">
                   {ENDPOINTS.map(({ method, path, label, note, href }) => (
                     <a

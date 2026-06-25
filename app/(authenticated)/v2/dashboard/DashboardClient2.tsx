@@ -4,10 +4,8 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import type { TeamMember, Question, CampApplication } from '@prisma/client'
 import { useClock } from '@/app/lib/hooks/useClock'
-import { DashMarquees } from '../../../components/dashboard/DashMarquees'
 import { InquiriesCard } from '../../../components/dashboard/InquiriesCard'
 import { CueBoxEvent } from '@/app/types/cuebox.types'
-import { TeamCard } from '../../../components/dashboard/TeamCard'
 import { ConcertsCard } from '../../../components/dashboard/ConcertsCard'
 import { TopBar } from '../../../components/dashboard/TopBar'
 import { CampHeatmapCard } from '@/app/components/dashboard/HeatMapCard'
@@ -35,6 +33,12 @@ interface Props {
 }
 
 const getStatPills = (data: Props & { pendingCount: number }) => [
+  {
+    label: 'Subscriptions',
+    value: 0,
+    accent: false,
+    href: '/v2/subscriptions'
+  },
   { label: 'Inquiries', value: data.pendingCount, accent: data.pendingCount > 0, href: '/v2/questions' },
   { label: 'Team', value: data.teamMembers.length, accent: false, href: '/v2/team' },
   { label: 'Camp Apps', value: data.campApplicationsCount, accent: false, href: '/v2/camp-applications' },
@@ -47,13 +51,13 @@ const getStatPills = (data: Props & { pendingCount: number }) => [
   { label: 'Events', value: data.eventsCount, accent: false, href: '/v2/events' },
   { label: 'Testimonials', value: data.testimonialsCount, accent: false, href: '/v2/testimonials' },
   { label: 'News', value: data.newsCount, accent: false, href: '/v2/news' },
+  { label: 'Settings', value: 0, accent: false, href: '/v2/settings' },
   { label: 'Changelog', value: 'v3.9.2', href: '/v2/changelog' }
 ]
 
 export default function DashboardClient2(props: Props) {
   const {
     concerts,
-    teamMembers,
     questions,
     campApplications,
     campApplicationsEnabled,
@@ -100,63 +104,48 @@ export default function DashboardClient2(props: Props) {
         {/* ── Top Bar ── */}
         <TopBar date={date} time={time} />
 
-        {/* ── Marquees ── */}
-        <DashMarquees />
-
-        {/* Greeting + stat pills */}
-        <div className="shrink-0 flex flex-col 760:flex-row 760:items-center 760:justify-between border-b border-border-dark bg-bg-dark">
-          {/* Greeting */}
-          <div className="flex items-center gap-3 px-4 py-2.5 760:py-2.5">
-            <span className="text-[10px] font-mono text-muted-dark uppercase tracking-widest hidden sm:block">
-              {date}
-            </span>
-            <div className="w-px h-3 bg-border-dark hidden sm:block" aria-hidden="true" />
-            <span className="text-sm font-mono text-text-dark">
-              {greeting}, <span className="text-primary-dark">{firstName}.</span>
-            </span>
-          </div>
-
-          {/* Stat pills */}
-          <div className="flex items-center divide-x divide-border-dark border-t border-border-dark 760:border-t-0 760:border-l 760:border-r overflow-x-auto">
-            {statPills.map(({ label, value, accent, href }) => {
-              const inner = (
-                <div
-                  className={`flex flex-col items-center justify-center px-3 py-1 shrink-0 gap-0.5 ${href ? 'hover:bg-surface-dark transition-colors cursor-pointer' : ''}`}
-                >
-                  <span
-                    className={`font-mono text-sm font-bold tabular-nums ${accent ? 'text-yellow-400' : 'text-text-dark'}`}
-                  >
-                    {value}
-                  </span>
-                  <span className="text-[9px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
-                    {label}
-                  </span>
-                </div>
-              )
-              return href ? (
-                <Link key={label} href={href} aria-label={`View ${label}`}>
-                  {inner}
-                </Link>
-              ) : (
-                <div key={label}>{inner}</div>
-              )
-            })}
-          </div>
-        </div>
-
         {/* Main grid */}
         <div className="flex-1 min-h-0 p-2">
           <div
-            className="760:h-full flex flex-col gap-2 760:grid 760:grid-cols-4 1336:grid-cols-5 760:gap-2"
+            className="760:h-full flex flex-col gap-2 760:grid 760:grid-cols-[140px_repeat(3,minmax(0,1fr))] 1336:grid-cols-[160px_repeat(4,minmax(0,1fr))] 760:gap-2"
             style={{ gridAutoRows: 'minmax(0, 1fr)' }}
           >
-            {/* TEAM */}
-            <div className="order-2 760:order-1 760:col-span-1 760:row-span-10 h-100 760:h-full">
-              <TeamCard teamMembers={teamMembers} />
+            {/* PILLS RAIL — thin first column: greeting + vertical stat pills */}
+            <div className="760:col-span-1 760:row-span-10 flex flex-col min-h-0">
+              {/* Greeting */}
+              <div className="shrink-0 flex flex-col gap-1.5 px-3 py-2.5 border border-border-dark bg-bg-dark">
+                <span className="text-[10px] font-mono text-muted-dark uppercase tracking-widest">{date}</span>
+                <span className="text-sm font-mono text-text-dark leading-snug">
+                  {greeting}, <span className="text-primary-dark">{firstName}.</span>
+                </span>
+              </div>
+
+              {/* Stat pills — vertical labels only, scrolls if tall */}
+              <div className="mt-2 flex-1 min-h-0 overflow-y-auto flex flex-col divide-y divide-border-dark border border-border-dark bg-bg-dark">
+                {statPills.map(({ label, href, value }) => {
+                  const inner = (
+                    <div
+                      className={`flex items-center px-3 py-2 ${href ? 'hover:bg-surface-dark transition-colors cursor-pointer' : ''}`}
+                      title={`${value}`}
+                    >
+                      <span className="text-[10px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
+                        {label}
+                      </span>
+                    </div>
+                  )
+                  return href ? (
+                    <Link key={label} href={href} aria-label={`View ${label}`} className="block">
+                      {inner}
+                    </Link>
+                  ) : (
+                    <div key={label}>{inner}</div>
+                  )
+                })}
+              </div>
             </div>
 
             {/* CONCERTS */}
-            <div className="order-1 760:order-2 760:col-span-2 760:row-span-10 min-h-100 760:min-h-0">
+            <div className="760:col-span-2 760:row-span-10 min-h-100 760:min-h-0">
               <ConcertsCard concerts={concerts} />
             </div>
 

@@ -1,4 +1,4 @@
-import { footerPageData } from '../app/lib/constants/pages/footer.constants.ts'
+import { footerPageData } from '../app/lib/constants/footer.constants.js'
 import prisma from '../prisma/client.ts'
 
 async function seedPages() {

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { BarChart2, Settings } from 'lucide-react'
+import { BarChart2 } from 'lucide-react'
 import { LogoutButton } from '../common/LogoutButton'
 import { useSession } from 'next-auth/react'
 
@@ -84,15 +84,6 @@ export function TopBar({ time, date }) {
             </Link>
           </>
         )}
-
-        <div className="w-px h-4 bg-border-dark" aria-hidden="true" />
-
-        <Link
-          href="/v2/settings"
-          className="text-muted-dark hover:text-text-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark"
-        >
-          <Settings className="w-3.5 h-3.5" />
-        </Link>
 
         <div className="w-px h-4 bg-border-dark" aria-hidden="true" />
 

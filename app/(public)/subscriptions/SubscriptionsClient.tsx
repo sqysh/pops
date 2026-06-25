@@ -2,78 +2,10 @@
 
 import { PublicMarquee } from '@/app/components/elements/PublicMarquee'
 import { FloatingParticles } from '@/app/components/FloatingParticles'
+import { ISubscription } from '@/app/types/entities/subscription.types'
 import { motion } from 'framer-motion'
 import { Bell, ExternalLink, Phone } from 'lucide-react'
 import Link from 'next/link'
-
-const CUEBOX_ORG_ID = '21NL0B8D'
-
-type SubscriptionItem = {
-  id: string
-  name: string
-  type: 'SUBSCRIPTION' | 'FLEX'
-  status: 'ON_SALE' | 'NOT_ON_SALE'
-  isVisible: boolean
-  publicUrl: string
-  cueboxEditUrl: string
-}
-
-const ITEMS: SubscriptionItem[] = [
-  {
-    id: '1',
-    name: 'Season 2026–27 Saturday Matinee (A)',
-    type: 'SUBSCRIPTION',
-    status: 'ON_SALE',
-    isVisible: true,
-    publicUrl: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/KFWWP30J',
-    cueboxEditUrl: `https://app.getcuebox.com/a/${CUEBOX_ORG_ID}/season-subscriptions/KFWWP30J`
-  },
-  {
-    id: '2',
-    name: 'Season 2026–27 Saturday Matinee (B)',
-    type: 'SUBSCRIPTION',
-    status: 'ON_SALE',
-    isVisible: true,
-    publicUrl: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/3082ZPSN',
-    cueboxEditUrl: `https://app.getcuebox.com/a/${CUEBOX_ORG_ID}/season-subscriptions/3082ZPSN`
-  },
-  {
-    id: '3',
-    name: 'Season 2026–27 Sunday Matinee',
-    type: 'SUBSCRIPTION',
-    status: 'ON_SALE',
-    isVisible: true,
-    publicUrl: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/WSP2SB74',
-    cueboxEditUrl: `https://app.getcuebox.com/a/${CUEBOX_ORG_ID}/season-subscriptions/WSP2SB74`
-  },
-  {
-    id: '4',
-    name: 'Season 2026–27 Monday Night',
-    type: 'SUBSCRIPTION',
-    status: 'ON_SALE',
-    isVisible: true,
-    publicUrl: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/L3L2V70R',
-    cueboxEditUrl: `https://app.getcuebox.com/a/${CUEBOX_ORG_ID}/season-subscriptions/L3L2V70R`
-  },
-  {
-    id: '5',
-    name: 'Three Show Flex',
-    type: 'FLEX',
-    status: 'NOT_ON_SALE',
-    isVisible: false,
-    publicUrl: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/609J27T0',
-    cueboxEditUrl: `https://app.getcuebox.com/a/${CUEBOX_ORG_ID}/season-subscriptions/609J27T0`
-  },
-  {
-    id: '6',
-    name: 'Four Show Flex',
-    type: 'FLEX',
-    status: 'NOT_ON_SALE',
-    isVisible: false,
-    publicUrl: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/Q3TYSH38',
-    cueboxEditUrl: `https://app.getcuebox.com/a/${CUEBOX_ORG_ID}/season-subscriptions/Q3TYSH38`
-  }
-]
 
 const statusCls = (status: string) => {
   switch (status) {
@@ -97,8 +29,6 @@ const STATUS_LABEL: Record<string, string> = {
   SOLD_OUT: 'Sold Out',
   CANCELED: 'Canceled'
 }
-
-// ─── Item Row ─────────────────────────────────────────────────────────────────
 
 function ItemRow({ item, index, delay = 0 }: { item: any; index: number; delay?: number }) {
   return (
@@ -126,7 +56,7 @@ function ItemRow({ item, index, delay = 0 }: { item: any; index: number; delay?:
 
       {/* Right — CTAs */}
       <div className="flex items-center gap-3 shrink-0">
-        {item.publicUrl && item.isVisible && (
+        {item.publicUrl && item.isVisible && item.status === 'ON_SALE' && (
           <a
             href={item.publicUrl}
             target="_blank"
@@ -137,15 +67,13 @@ function ItemRow({ item, index, delay = 0 }: { item: any; index: number; delay?:
             <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
           </a>
         )}
-        {!item.isVisible && (
+        {item.isVisible && item.status === 'NOT_ON_SALE' && (
           <span className="font-changa text-[12px] uppercase tracking-[0.25em] text-white/60">Available Soon</span>
         )}
       </div>
     </motion.div>
   )
 }
-
-// ─── Section ──────────────────────────────────────────────────────────────────
 
 function Section({ title, items, delay = 0 }: { title: string; items: any[]; delay?: number }) {
   return (
@@ -223,11 +151,15 @@ export function SubscriptionsComingSoon() {
   )
 }
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
-
-export default function SubscriptionsClient({ subscriptionsLive }: { subscriptionsLive: boolean }) {
-  const subscriptions = ITEMS.filter((i) => i.type === 'SUBSCRIPTION')
-  const flex = ITEMS.filter((i) => i.type === 'FLEX')
+export default function SubscriptionsClient({
+  subscriptionsLive,
+  subscriptions: items
+}: {
+  subscriptionsLive: boolean
+  subscriptions: ISubscription[]
+}) {
+  const subscriptions = items.filter((i) => i.type === 'SUBSCRIPTION')
+  const flex = items.filter((i) => i.type === 'FLEX')
 
   if (!subscriptionsLive) {
     return <SubscriptionsComingSoon />
