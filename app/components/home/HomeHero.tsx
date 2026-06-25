@@ -120,6 +120,7 @@ const HomeHero = ({ pageData, ref }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.6, delay: 0.75 }}
+            className="flex flex-wrap items-center gap-3 430:gap-4"
           >
             <motion.button
               type="button"
@@ -139,6 +140,28 @@ const HomeHero = ({ pageData, ref }) => {
                 aria-hidden="true"
               />
             </motion.button>
+
+            <motion.div
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+              className="inline-block"
+            >
+              <Link
+                href="/subscriptions"
+                aria-label="See season subscription options"
+                className="group inline-flex items-center gap-2 bg-blaze hover:bg-blazehover text-white font-changa uppercase tracking-widest transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer"
+                style={{
+                  fontSize: 'clamp(0.65rem, 1.5vw, 0.875rem)',
+                  padding: 'clamp(0.625rem, 1.5vw, 1rem) clamp(1.25rem, 3vw, 2rem)'
+                }}
+              >
+                <span>See Season Subscription Options</span>
+                <ArrowRightIcon
+                  className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform"
+                  aria-hidden="true"
+                />
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
 
