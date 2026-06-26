@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 type ChangeType = 'new' | 'improved' | 'fixed' | 'removed'
 
 interface Change {
@@ -21,9 +19,35 @@ interface ChangelogEntry {
   changes: Change[]
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
 const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '3.11.0',
+    date: 'June 26, 2026',
+    summary:
+      'Season packages can now carry full details — a tagline, a description, and pricing tiers — all editable from the dashboard and shown on the public Subscriptions page.',
+    changes: [
+      {
+        type: 'new',
+        text: 'Added a tagline to each subscription — a short line under the package name, like "4 shows per subscription."'
+      },
+      {
+        type: 'new',
+        text: "Added a description field where you can paste the full package details: what's included, the show list, and the season blurb."
+      },
+      {
+        type: 'new',
+        text: 'Added pricing tiers — list each seat level and price (e.g. General $130, Premium $180, Ultra $230) and they display as cards on the public page.'
+      },
+      {
+        type: 'improved',
+        text: 'The public Season Packages page now shows each package\'s tagline, "From" price, pricing tiers, and full description.'
+      },
+      {
+        type: 'improved',
+        text: 'Pricing is now its own set of fields rather than part of the description, so prices display in a clean, consistent layout.'
+      }
+    ]
+  },
   {
     version: '3.10.0',
     date: 'June 25, 2026',

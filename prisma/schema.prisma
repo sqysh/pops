@@ -320,6 +320,17 @@ model Subscription {
   publicUrl     String
   cueboxEditUrl String
 
+  // Optional short tagline shown under the package name.
+  tagline String?
+
+  // Free-form blurb: "This 4 Show Season Package Includes…", the show list,
+  // and the closing season description. Plain text / markdown, one paste.
+  description String? @db.Text
+
+  // Pricing tiers as an ordered JSON array:
+  // [{ "label": "General Seats", "price": "$130" }, { "label": "Premium Seats", "price": "$180" }]
+  pricingTiers Json?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -56,8 +56,10 @@ export const EMPTY_SUBSCRIPTION: ISubscription = {
   isVisible: false,
   publicUrl: '',
   cueboxEditUrl: '',
+  tagline: null,
+  description: null,
+  pricingTiers: [],
   createdAt: '',
   updatedAt: ''
 }
-
 export const ALLOWED_ROLES = ['SUPER_USER', 'ADMIN'] as const

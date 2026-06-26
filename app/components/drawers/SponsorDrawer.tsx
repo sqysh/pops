@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation'
 import { deleteSponsor } from '@/app/lib/actions/sponsor/deleteSponsor'
 import { DrawerShell } from '../elements/DrawerShell'
 import { PictureUpload } from '../elements/PictureUpload'
-import useSoundEffect from '@/app/lib/hooks/useSoundEffect'
 import { FormError, FormField, FormInput, FormToggle } from '../elements/FormField'
 import { formatLevel, levelColor } from '@/app/lib/utils/sponsor.utils'
 import { DangerZone } from '../elements/DangerZone'
@@ -42,8 +41,6 @@ export function SponsorDrawer({ open, onClose, sponsor }: TSponsorDrawer) {
   const [saving, setSaving] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const { play: savedSE } = useSoundEffect('/mp3/se-1.mp3', true)
-  const { play: deletedSE } = useSoundEffect('/mp3/se-2.mp3', true)
 
   const busy = uploading || saving || deleting
 
@@ -81,7 +78,6 @@ export function SponsorDrawer({ open, onClose, sponsor }: TSponsorDrawer) {
     const result = isEdit ? await updateSponsor(sponsor!.id, payload) : await createSponsor(payload)
     setSaving(false)
     if (result.success) {
-      savedSE()
       router.refresh()
       handleClose()
     } else {
@@ -95,7 +91,6 @@ export function SponsorDrawer({ open, onClose, sponsor }: TSponsorDrawer) {
     const result = await deleteSponsor(sponsor.id)
     setDeleting(false)
     if (result.success) {
-      deletedSE()
       router.refresh()
       handleClose()
     } else {

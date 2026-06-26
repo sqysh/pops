@@ -1,4 +1,4 @@
-import { FooterDataParsed } from '@/app/types/common.types'
+import { FooterDataParsed } from '@/app/types/footer.types'
 import prisma from '@/prisma/client'
 
 export async function getLayoutData() {

@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { X, Trash2, Loader2, ExternalLink } from 'lucide-react'
+import { X, Trash2, Loader2, ExternalLink, Plus } from 'lucide-react'
 import { STATUS_SELECT_OPTIONS, TYPE_SELECT_OPTIONS } from '@/app/lib/constants/subscription.constants'
 import {
+  IPricingTier,
   ISubscription,
   ISubscriptionInput,
   SubscriptionStatus,
@@ -32,7 +33,10 @@ export function SubscriptionDrawer({ open, mode, subscription, onClose, onSaved,
     status: subscription?.status ?? 'NOT_ON_SALE',
     isVisible: subscription?.isVisible ?? false,
     publicUrl: subscription?.publicUrl ?? '',
-    cueboxEditUrl: subscription?.cueboxEditUrl ?? ''
+    cueboxEditUrl: subscription?.cueboxEditUrl ?? '',
+    tagline: subscription?.tagline ?? '',
+    description: subscription?.description ?? '',
+    pricingTiers: subscription?.pricingTiers ?? []
   })
 
   const [saving, setSaving] = useState(false)
@@ -42,6 +46,17 @@ export function SubscriptionDrawer({ open, mode, subscription, onClose, onSaved,
 
   const set = <K extends keyof ISubscriptionInput>(key: K, value: ISubscriptionInput[K]) =>
     setForm((f) => ({ ...f, [key]: value }))
+
+  const addTier = () => setForm((f) => ({ ...f, pricingTiers: [...f.pricingTiers, { label: '', price: '' }] }))
+
+  const updateTier = (index: number, key: keyof IPricingTier, value: string) =>
+    setForm((f) => ({
+      ...f,
+      pricingTiers: f.pricingTiers.map((t, i) => (i === index ? { ...t, [key]: value } : t))
+    }))
+
+  const removeTier = (index: number) =>
+    setForm((f) => ({ ...f, pricingTiers: f.pricingTiers.filter((_, i) => i !== index) }))
 
   const handleSave = async () => {
     setSaving(true)
@@ -134,6 +149,21 @@ export function SubscriptionDrawer({ open, mode, subscription, onClose, onSaved,
                   value={form.name}
                   onChange={(e) => set('name', e.target.value)}
                   placeholder="Season 2026–27 Saturday Matinee (A)"
+                  className={FIELD}
+                />
+              </div>
+
+              {/* Tagline */}
+              <div>
+                <label className={LABEL} htmlFor="sub-tagline">
+                  Tagline <span className="text-muted-dark/50 normal-case">(optional, shows under the name)</span>
+                </label>
+                <input
+                  id="sub-tagline"
+                  type="text"
+                  value={form.tagline}
+                  onChange={(e) => set('tagline', e.target.value)}
+                  placeholder="4 Show Season Package · December at Riverview"
                   className={FIELD}
                 />
               </div>
@@ -241,6 +271,82 @@ export function SubscriptionDrawer({ open, mode, subscription, onClose, onSaved,
                   placeholder="https://app.getcuebox.com/a/.../season-subscriptions/..."
                   className={FIELD}
                 />
+              </div>
+
+              {/* Description */}
+              <div>
+                <label className={LABEL} htmlFor="sub-description">
+                  Description{' '}
+                  <span className="text-muted-dark/50 normal-case">
+                    (what&apos;s included, show list, season blurb)
+                  </span>
+                </label>
+                <textarea
+                  id="sub-description"
+                  value={form.description}
+                  onChange={(e) => set('description', e.target.value)}
+                  rows={8}
+                  placeholder={
+                    'This 4 Show Season Package Includes:\n\nBorn in the U.S.A. — Saturday, November 14, 3:00 p.m., Riverview\nRing in the Holidays — Sunday, December 13, 3:00 p.m., Riverview\n…\n\nThis season, Like No Other, will absolutely live up to its name…'
+                  }
+                  className={`${FIELD} resize-y leading-relaxed`}
+                />
+                <p className="mt-1 text-[9px] font-mono text-muted-dark/60 leading-relaxed">
+                  You can paste this straight from CueBox. Blank lines create paragraph breaks on the website.
+                </p>
+              </div>
+
+              {/* Pricing tiers */}
+              <div>
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className={`${LABEL} mb-0`}>Pricing Tiers</span>
+                  <button
+                    type="button"
+                    onClick={addTier}
+                    className="inline-flex items-center gap-1 text-[9px] font-mono uppercase tracking-[0.12em] text-muted-dark hover:text-primary-dark transition-colors"
+                  >
+                    <Plus className="w-3 h-3" />
+                    Add tier
+                  </button>
+                </div>
+
+                {form.pricingTiers.length === 0 ? (
+                  <p className="text-[10px] font-mono text-muted-dark/60 border border-dashed border-border-dark px-3 py-3 text-center">
+                    No pricing tiers yet. Add one for each seat level (e.g. General, Premium, Ultra).
+                  </p>
+                ) : (
+                  <div className="flex flex-col gap-2">
+                    {form.pricingTiers.map((tier, i) => (
+                      <div key={i} className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          value={tier.price}
+                          onChange={(e) => updateTier(i, 'price', e.target.value)}
+                          placeholder="$130"
+                          className={`${FIELD} flex-1`}
+                          aria-label={`Tier ${i + 1} price`}
+                        />
+                        <input
+                          type="text"
+                          value={tier.label}
+                          onChange={(e) => updateTier(i, 'label', e.target.value)}
+                          placeholder="General Seats"
+                          className={`${FIELD} flex-1`}
+                          aria-label={`Tier ${i + 1} label`}
+                        />
+
+                        <button
+                          type="button"
+                          onClick={() => removeTier(i)}
+                          className="shrink-0 text-muted-dark/70 hover:text-primary-dark transition-colors p-1"
+                          aria-label={`Remove tier ${i + 1}`}
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {error && (

@@ -14,7 +14,7 @@ import { Header } from '../unique/Header'
 import NavigationDrawer from '../unique/NavigationDrawer'
 import { AdminBar } from '../AdminBar'
 import { SiteSetting } from '@prisma/client'
-import { FooterDataParsed } from '@/app/types/common.types'
+import { FooterDataParsed } from '@/app/types/footer.types'
 
 interface Props {
   children: React.ReactNode

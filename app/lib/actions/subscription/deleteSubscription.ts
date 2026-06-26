@@ -1,6 +1,6 @@
 'use server'
 
-import { ActionResult } from '@/app/types/entities/subscription.types'
+import { ActionResult } from '@/app/types/common.types'
 import { getActor } from '../user/getActor'
 import prisma from '@/prisma/client'
 import { createLog } from '@/app/utils/logHelper'

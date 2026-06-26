@@ -5,7 +5,7 @@ import { Phone, MapPin, ChevronUp, Mail, ArrowRight } from 'lucide-react'
 import { FacebookIcon, InstagramIcon, YouTubeIcon } from '@/public/data/home.data'
 import Picture from '../common/Picture'
 import { FloatingParticles } from '../FloatingParticles'
-import { ContentItem, FooterDataParsed } from '@/app/types/common.types'
+import { ContentItem, FooterDataParsed } from '@/app/types/footer.types'
 
 const Footer = ({ data }: { data: FooterDataParsed }) => {
   const d = (id: string) => {

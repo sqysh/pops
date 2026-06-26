@@ -85,17 +85,13 @@ export default function LoginClient() {
         <section aria-labelledby="signin-heading">
           {/* Header */}
           <div className="mb-8">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-6 h-px bg-primary-dark" aria-hidden="true" />
-              <span className="text-[11px] font-mono tracking-[0.25em] uppercase text-primary-dark">All Access</span>
-            </div>
             <h1
               id="signin-heading"
               className="font-quicksand font-black text-3xl sm:text-4xl text-text-dark leading-tight"
             >
               Sign In
             </h1>
-            <p className="text-muted-dark text-sm mt-3 leading-relaxed">Access your account to continue</p>
+            <p className="text-muted-dark text-sm mt-3 leading-relaxed">Admin portal</p>
           </div>
 
           {/* Google */}

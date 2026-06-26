@@ -1,24 +1,18 @@
-import { ISubscription, ISubscriptionInput } from '@/app/types/entities/subscription.types'
+import { IPricingTier, ISubscription, ISubscriptionInput } from '@/app/types/entities/subscription.types'
+import { Subscription } from '@prisma/client'
 
-export function serialize(s: {
-  id: string
-  name: string
-  type: string
-  status: string
-  isVisible: boolean
-  publicUrl: string
-  cueboxEditUrl: string
-  createdAt: Date
-  updatedAt: Date
-}): ISubscription {
+export function serialize(s: Subscription): ISubscription {
   return {
     id: s.id,
     name: s.name,
-    type: s.type as ISubscription['type'],
-    status: s.status as ISubscription['status'],
+    type: s.type,
+    status: s.status,
     isVisible: s.isVisible,
     publicUrl: s.publicUrl,
     cueboxEditUrl: s.cueboxEditUrl,
+    tagline: s.tagline ?? null,
+    description: s.description ?? null,
+    pricingTiers: Array.isArray(s.pricingTiers) ? (s.pricingTiers as unknown as IPricingTier[]) : [],
     createdAt: s.createdAt.toISOString(),
     updatedAt: s.updatedAt.toISOString()
   }

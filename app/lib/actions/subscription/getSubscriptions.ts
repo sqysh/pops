@@ -1,9 +1,10 @@
 'use server'
 
-import { ActionResult, ISubscription } from '@/app/types/entities/subscription.types'
+import { ISubscription } from '@/app/types/entities/subscription.types'
 import { createLog } from '@/app/utils/logHelper'
 import prisma from '@/prisma/client'
 import { serialize } from '../../utils/subscription.utils'
+import { ActionResult } from '@/app/types/common.types'
 
 export async function getSubscriptions(): Promise<ActionResult<ISubscription[]>> {
   try {

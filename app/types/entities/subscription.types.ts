@@ -1,6 +1,11 @@
 export type SubscriptionType = 'SUBSCRIPTION' | 'FLEX'
 export type SubscriptionStatus = 'NOT_ON_SALE' | 'ON_SALE'
 
+export interface IPricingTier {
+  label: string
+  price: string
+}
+
 export interface ISubscription {
   id: string
   name: string
@@ -9,6 +14,9 @@ export interface ISubscription {
   isVisible: boolean
   publicUrl: string
   cueboxEditUrl: string
+  tagline: string | null
+  description: string | null
+  pricingTiers: IPricingTier[]
   createdAt: string
   updatedAt: string
 }
@@ -21,10 +29,7 @@ export interface ISubscriptionInput {
   isVisible: boolean
   publicUrl: string
   cueboxEditUrl: string
-}
-
-export type ActionResult<T = undefined> = {
-  success: boolean
-  data?: T
-  error?: string
+  tagline: string
+  description: string
+  pricingTiers: IPricingTier[]
 }
