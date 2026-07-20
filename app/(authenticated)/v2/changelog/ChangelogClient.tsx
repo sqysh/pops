@@ -21,6 +21,46 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.12.0',
+    date: 'July 20, 2026',
+    summary:
+      'Reworked the Sponsorship Opportunities page so every tier has the same set of benefit fields, added a Chair Sponsors section, reorganized the Support navigation, and brought breadcrumbs and page headers into line across the whole site.',
+    changes: [
+      {
+        type: 'improved',
+        text: 'Every sponsorship tier now has the same fields — a description plus four lines each for Print, Online Recognition, and Tickets — so all levels can be filled out consistently.'
+      },
+      {
+        type: 'new',
+        text: 'Added a Chair Sponsors section below the sponsorship tiers, with its own heading and a button linking to the Chair Sponsorships page.'
+      },
+      {
+        type: 'removed',
+        text: 'Removed the "Email & Advertising" and "Additional Options" categories from the sponsorship tiers.'
+      },
+      {
+        type: 'improved',
+        text: 'Sponsorship tier descriptions now display as full paragraphs instead of small print, making them easier to read.'
+      },
+      {
+        type: 'improved',
+        text: 'The Support link in the main navigation is now a dropdown with its own set of links, making support options easier to find.'
+      },
+      {
+        type: 'removed',
+        text: 'Removed the support links from the "More" dropdown now that they live under Support.'
+      },
+      {
+        type: 'improved',
+        text: 'Breadcrumb navigation now appears on every page, so it is always clear where you are on the site.'
+      },
+      {
+        type: 'improved',
+        text: 'Page headers across the site now use consistent colors and text sizes for a more unified look.'
+      }
+    ]
+  },
+  {
     version: '3.11.0',
     date: 'June 26, 2026',
     summary:

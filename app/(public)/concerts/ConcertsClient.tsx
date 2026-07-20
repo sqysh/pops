@@ -8,6 +8,7 @@ import { Calendar, ExternalLink, MapPin, Phone } from 'lucide-react'
 import { FloatingParticles } from '@/app/components/FloatingParticles'
 import { PublicMarquee } from '@/app/components/elements/PublicMarquee'
 import { SiteSetting } from '@prisma/client'
+import Breadcrumb from '@/app/components/common/Breadcrumb'
 
 type Props = { events: CueBoxEvent[]; instances: any[]; concertsPageLive: SiteSetting['value'] }
 
@@ -191,19 +192,7 @@ export default function ConcertsClient({ events, instances, concertsPageLive }: 
 
   return (
     <main className="min-h-screen bg-bg-dark text-text-dark">
-      <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-sm border-b border-border-dark">
-        <div className="max-w-5xl mx-auto px-4 760:px-6 h-12 flex items-center justify-between gap-4">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group focus-visible:outline-none">
-            <span className="text-primary-dark text-[11px] group-hover:text-white transition-colors" aria-hidden="true">
-              ▸
-            </span>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark group-hover:text-text-dark transition-colors">
-              The Pops Orchestra
-            </span>
-          </Link>
-        </div>
-      </header>
+      <Breadcrumb breadcrumb="Concerts" />
       {/* Hero */}
       <section className="relative border-b border-white/10">
         <div
@@ -216,12 +205,12 @@ export default function ConcertsClient({ events, instances, concertsPageLive }: 
           aria-hidden="true"
         />
         <FloatingParticles count={80} />
-        <div className="absolute inset-0 bg-linear-to-r from-black via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-black via-black/30 to-transparent" />
 
         <div className="relative max-w-5xl mx-auto px-4 760:px-6 py-20 760:py-28 flex flex-col gap-5">
           <div className="flex items-center gap-3">
             <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
-            <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/30">The Pops Orchestra</span>
+            <span className="font-changa text-[12px] uppercase tracking-[0.3em] text-white/70">The Pops Orchestra</span>
           </div>
           <h1 className="font-changa font-black text-5xl 760:text-7xl text-white leading-[0.9] max-w-xl">
             2026–27
@@ -230,19 +219,13 @@ export default function ConcertsClient({ events, instances, concertsPageLive }: 
             <br />
             Concerts
           </h1>
-          <p className="font-lato text-white/70 text-base 760:text-lg leading-relaxed max-w-lg">
+          <p className="font-lato text-white/90 text-base 760:text-lg leading-relaxed max-w-lg">
             Join us for an unforgettable season of live orchestral music in Sarasota and Bradenton.
           </p>
           <div className="flex flex-wrap items-center gap-5 pt-2">
-            <Link
-              href="/donate"
-              className="inline-flex items-center gap-2 font-changa text-[11px] uppercase tracking-widest px-6 py-2.5 border border-white/20 text-white/60 hover:text-white hover:border-white/40 transition-colors"
-            >
-              Donate
-            </Link>
             <a
               href="tel:9419267677"
-              className="flex items-center gap-1.5 font-changa text-[10px] uppercase tracking-widest text-white/30 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 font-changa text-[12px] uppercase tracking-widest text-white/70 hover:text-white transition-colors"
             >
               <Phone className="w-3.5 h-3.5" />
               941-926-POPS

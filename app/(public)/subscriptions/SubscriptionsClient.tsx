@@ -1,5 +1,6 @@
 'use client'
 
+import Breadcrumb from '@/app/components/common/Breadcrumb'
 import { PublicMarquee } from '@/app/components/elements/PublicMarquee'
 import { FloatingParticles } from '@/app/components/FloatingParticles'
 import { ISubscription } from '@/app/types/entities/subscription.types'
@@ -207,20 +208,7 @@ export default function SubscriptionsClient({
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-sm border-b border-border-dark">
-        <div className="max-w-5xl mx-auto px-4 760:px-6 h-12 flex items-center justify-between gap-4">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group focus-visible:outline-none">
-            <span className="text-primary-dark text-[11px] group-hover:text-white transition-colors" aria-hidden="true">
-              ▸
-            </span>
-            <span className="text-[12px] font-mono uppercase tracking-widest text-muted-dark group-hover:text-text-dark transition-colors">
-              The Pops Orchestra
-            </span>
-          </Link>
-        </div>
-      </header>
-
+      <Breadcrumb breadcrumb="Subscriptions" />
       {/* Hero */}
       <section className="relative border-b border-white/10">
         <div

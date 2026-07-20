@@ -28,7 +28,9 @@ export const toggleHeaderFooter = (pathname: string) => {
     '/hidden-gems',
     '/sponsorship-opportunities',
     '/musicians',
-    '/news'
+    '/news',
+    '/donate',
+    '/subscriptions'
   ]
 
   const validPatterns = [/^\/concerts\/[^\/]+$/]

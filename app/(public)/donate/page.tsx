@@ -1,10 +1,10 @@
 'use client'
 
+import Breadcrumb from '@/app/components/common/Breadcrumb'
 import { PublicMarquee } from '@/app/components/elements/PublicMarquee'
 import { FloatingParticles } from '@/app/components/FloatingParticles'
 import { FundCard } from '@/app/components/FundCard'
 import { Phone } from 'lucide-react'
-import Link from 'next/link'
 
 const FUNDS = [
   {
@@ -107,19 +107,7 @@ const FUNDS = [
 export default function DonatePage() {
   return (
     <main className="min-h-screen bg-bg-dark text-text-dark">
-      <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-sm border-b border-border-dark">
-        <div className="max-w-5xl mx-auto px-4 760:px-6 h-12 flex items-center justify-between gap-4">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group focus-visible:outline-none">
-            <span className="text-primary-dark text-sm group-hover:text-white transition-colors" aria-hidden="true">
-              ▸
-            </span>
-            <span className="text-sm font-mono uppercase tracking-widest text-muted-dark group-hover:text-text-dark transition-colors">
-              The Pops Orchestra
-            </span>
-          </Link>
-        </div>
-      </header>
+      <Breadcrumb breadcrumb="Donate" />
       {/* Hero */}
       <section className="relative border-b border-border-dark">
         {/* Background image with fade */}
@@ -139,7 +127,7 @@ export default function DonatePage() {
         <div className="relative max-w-5xl mx-auto px-6 py-20 760:py-28 flex flex-col gap-5">
           <div className="flex items-center gap-3">
             <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
-            <span className="font-changa text-sm uppercase tracking-[0.3em] text-white/30">The Pops Orchestra</span>
+            <span className="font-changa text-[12px] uppercase tracking-[0.3em] text-white/70">The Pops Orchestra</span>
           </div>
           <h1 className="font-changa font-black text-5xl 760:text-7xl text-text-dark leading-[0.9] max-w-xl">
             Support
@@ -153,7 +141,7 @@ export default function DonatePage() {
           <div className="flex flex-wrap items-center gap-5 pt-2">
             <a
               href="tel:9419267677"
-              className="flex items-center gap-1.5 font-changa text-sm uppercase tracking-widest text-white/30 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 font-changa text-[12px] uppercase tracking-widest text-white/70 hover:text-white transition-colors"
             >
               <Phone className="w-3.5 h-3.5" />
               941-926-POPS

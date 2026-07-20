@@ -99,21 +99,29 @@ export const getNavigationLinks = (
       }
     ]
   },
-  { linkKey: '/support', textKey: 'Support', active: path === '/support' },
-  ,
   {
     isButton: true,
-    textKey: 'More',
-    active: ['/advertise-with-us', '/sponsorship-opportunities', '/contact', '/connect-with-us', '/media'].includes(
-      path
-    ),
+    textKey: 'Support',
+    active: ['/donate', '/advertise-with-us', '/sponsorship-opportunities'].includes(path),
     links: [
+      {
+        textKey: 'Donate',
+        linkKey: '/donate',
+        active: path === '/donate'
+      },
       { linkKey: '/advertise-with-us', textKey: 'Advertise With Us', active: path === '/advertise-with-us' },
       {
         linkKey: '/sponsorship-opportunities',
         textKey: 'Sponsorship Opportunities',
         active: path === '/sponsorship-opportunities'
-      },
+      }
+    ]
+  },
+  {
+    isButton: true,
+    textKey: 'More',
+    active: ['/contact', '/connect-with-us', '/media'].includes(path),
+    links: [
       { linkKey: '/contact', textKey: 'Contact', active: path === '/contact' },
       { linkKey: '/connect-with-us', textKey: 'Connect With Us', active: path === '/connect-with-us' },
       { linkKey: '/media', textKey: 'Media', active: path === '/media' }
