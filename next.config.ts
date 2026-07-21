@@ -23,6 +23,9 @@ const nextConfig: NextConfig = {
     ],
     formats: ['image/avif', 'image/webp'],
     qualities: [50, 60, 75]
+  },
+  async redirects() {
+    return [{ source: '/connect-with-us', destination: '/subscribe', permanent: true }]
   }
 }
 

@@ -120,10 +120,10 @@ export const getNavigationLinks = (
   {
     isButton: true,
     textKey: 'More',
-    active: ['/contact', '/connect-with-us', '/media'].includes(path),
+    active: ['/contact', '/subscribe', '/media'].includes(path),
     links: [
       { linkKey: '/contact', textKey: 'Contact', active: path === '/contact' },
-      { linkKey: '/connect-with-us', textKey: 'Connect With Us', active: path === '/connect-with-us' },
+      { linkKey: '/subscribe', textKey: 'Subscribe to our Newsletter', active: path === '/subscribe' },
       { linkKey: '/media', textKey: 'Media', active: path === '/media' }
     ]
   }

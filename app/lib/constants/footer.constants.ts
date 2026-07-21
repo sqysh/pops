@@ -245,7 +245,7 @@ export const footerPageData = [
         id: 'footer_involved_link_4_url',
         type: 'text',
         label: 'Get Involved Link 4 URL',
-        value: '/connect-with-us',
+        value: '/subscribe',
         section: 'footer'
       }
     ]

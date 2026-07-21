@@ -4,7 +4,7 @@ export const pageContentEditorFolders = [
   { textKey: 'advertiseWithUs', value: 'advertise-with-us' },
   { textKey: 'campApplication', value: 'camp-application' },
   { textKey: 'chairSponsorships', value: 'chair-sponsorships' },
-  { textKey: 'connectWithUs', value: 'connect-with-us' },
+  { textKey: 'subscribe', value: 'subscribe' },
   { textKey: 'contact', value: 'contact' },
   { textKey: 'footer', value: 'footer' },
   { textKey: 'hiddenGems', value: 'hidden-gems' },

@@ -98,7 +98,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9
     },
     {
-      url: `${baseUrl}/connect-with-us`,
+      url: `${baseUrl}/subscribe`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.9

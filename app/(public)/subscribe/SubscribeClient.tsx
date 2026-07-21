@@ -4,7 +4,7 @@ import Breadcrumb from '@/app/components/common/Breadcrumb'
 import { PageHero } from '@/app/components/common/PageHero'
 import NewsletterForm from '@/app/components/forms/NewsletterForm'
 
-export const ConnectWithUsClient = ({ data }) => {
+export const SubscribeClient = ({ data }) => {
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
   return (
     <>

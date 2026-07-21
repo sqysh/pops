@@ -21,6 +21,34 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.12.1',
+    date: 'July 21, 2026',
+    summary:
+      'Renamed the "Connect With Us" page to "Subscribe" everywhere on the site, including the web address, navigation, footer, and the Page Content editor.',
+    changes: [
+      {
+        type: 'improved',
+        text: 'The "Connect With Us" page is now called "Subscribe," and its web address changed from /connect-with-us to /subscribe.'
+      },
+      {
+        type: 'improved',
+        text: 'The header navigation link reads "Subscribe to Our Newsletter" so it is not confused with season subscriptions.'
+      },
+      {
+        type: 'improved',
+        text: 'Updated the name and links in the footer and sitemap to match.'
+      },
+      {
+        type: 'improved',
+        text: 'The page is listed as "Subscribe" in the Page Content editor.'
+      },
+      {
+        type: 'fixed',
+        text: 'The old /connect-with-us address now forwards to /subscribe, so any existing links still work.'
+      }
+    ]
+  },
+  {
     version: '3.12.0',
     date: 'July 20, 2026',
     summary:
