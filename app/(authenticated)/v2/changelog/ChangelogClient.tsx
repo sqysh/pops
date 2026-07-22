@@ -21,6 +21,26 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.13.0',
+    date: 'July 22, 2026',
+    summary:
+      'Added Flex Package pricing to the Subscriptions page and set the page to update on its own when single-ticket sales open on August 3.',
+    changes: [
+      {
+        type: 'new',
+        text: 'The Three Show Flex and Four Show Flex packages now show their seating prices (General, Premium, Ultra) and discount right on the Subscriptions page.'
+      },
+      {
+        type: 'improved',
+        text: 'Flex packages show an "Available August 3" note until single-ticket sales open, then switch to a Purchase button automatically on August 3 — no change needed on the day.'
+      },
+      {
+        type: 'improved',
+        text: 'On August 3, Flex Packages move above Season Subscriptions on the page automatically.'
+      }
+    ]
+  },
+  {
     version: '3.12.2',
     date: 'July 22, 2026',
     summary: 'Added Musician Chair Sponsorship as a sixth box on the Sponsorship Opportunities page.',

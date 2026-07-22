@@ -2,6 +2,8 @@ import { getSubscriptions } from '@/app/lib/actions/subscription'
 import prisma from '@/prisma/client'
 import SubscriptionsClient from './SubscriptionsClient'
 
+export const revalidate = 3600
+
 export default async function SubscriptionsPage() {
   const [setting, subsResult] = await Promise.all([
     prisma.siteSetting.findUnique({ where: { key: 'subscriptionsLive' } }).catch(() => null),

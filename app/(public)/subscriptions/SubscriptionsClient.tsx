@@ -3,6 +3,7 @@
 import Breadcrumb from '@/app/components/common/Breadcrumb'
 import { PublicMarquee } from '@/app/components/elements/PublicMarquee'
 import { FloatingParticles } from '@/app/components/FloatingParticles'
+import { FLEX_LAUNCH_LABEL, getFlexPricing, isFlexLaunched } from '@/app/lib/constants/subscription.constants'
 import { ISubscription } from '@/app/types/entities/subscription.types'
 import { motion } from 'framer-motion'
 import { Bell, ExternalLink, Phone } from 'lucide-react'
@@ -32,7 +33,16 @@ const STATUS_LABEL: Record<string, string> = {
 }
 
 function ItemRow({ item, index, delay = 0 }: { item: ISubscription; index: number; delay?: number }) {
-  const fromPrice = item.pricingTiers?.[0]?.price
+  // Prefer pricing entered on the record; fall back to the flex pricing defined
+  // in constants (CueBox doesn't expose subscription pricing to the site).
+  const flexFallback = getFlexPricing(item.name)
+  const tiers = item.pricingTiers && item.pricingTiers.length > 0 ? item.pricingTiers : (flexFallback?.tiers ?? [])
+  const priceNote = item.pricingTiers && item.pricingTiers.length > 0 ? null : (flexFallback?.note ?? null)
+  const fromPrice = tiers[0]?.price
+
+  const launched = isFlexLaunched()
+  const isBuyable = item.isVisible && (item.status === 'ON_SALE' || launched)
+  const showComingSoon = item.isVisible && item.status === 'NOT_ON_SALE' && !launched
 
   return (
     <motion.div
@@ -56,9 +66,13 @@ function ItemRow({ item, index, delay = 0 }: { item: ISubscription; index: numbe
           )}
 
           <div className="flex items-center gap-2 flex-wrap pt-0.5">
-            <span className={`font-changa text-[11px] tracking-widest uppercase px-2 py-0.5 ${statusCls(item.status)}`}>
-              {STATUS_LABEL[item.status] ?? item.status.replace('_', ' ')}
-            </span>
+            {item.type !== 'FLEX' && (
+              <span
+                className={`font-changa text-[11px] tracking-widest uppercase px-2 py-0.5 ${statusCls(item.status)}`}
+              >
+                {STATUS_LABEL[item.status] ?? item.status.replace('_', ' ')}
+              </span>
+            )}
             {!item.isVisible && (
               <span className="font-changa text-[11px] tracking-widest uppercase px-2 py-0.5 text-white/60 border border-white/10">
                 Not Yet Available
@@ -69,7 +83,7 @@ function ItemRow({ item, index, delay = 0 }: { item: ISubscription; index: numbe
 
         {/* CTAs */}
         <div className="flex items-center gap-3 shrink-0">
-          {item.publicUrl && item.isVisible && item.status === 'ON_SALE' && (
+          {item.publicUrl && isBuyable && (
             <a
               href={item.publicUrl}
               target="_blank"
@@ -80,21 +94,28 @@ function ItemRow({ item, index, delay = 0 }: { item: ISubscription; index: numbe
               <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
             </a>
           )}
-          {item.isVisible && item.status === 'NOT_ON_SALE' && (
-            <span className="font-changa text-[12px] uppercase tracking-[0.25em] text-white/60">Available Soon</span>
+          {showComingSoon && (
+            <span className="font-changa text-[12px] uppercase tracking-[0.25em] text-white/60">
+              Available {FLEX_LAUNCH_LABEL}
+            </span>
           )}
         </div>
       </div>
 
       {/* Pricing tiers */}
-      {item.pricingTiers && item.pricingTiers.length > 0 && (
-        <div className="flex flex-wrap gap-3">
-          {item.pricingTiers.map((tier, i) => (
-            <div key={i} className="flex flex-col gap-0.5 border border-white/10 px-4 py-3 min-w-32">
-              <span className="font-changa text-white text-lg leading-none">{tier.price}</span>
-              <span className="font-lato text-white/60 text-[12px] uppercase tracking-wider">{tier.label}</span>
-            </div>
-          ))}
+      {tiers.length > 0 && (
+        <div className="flex flex-col gap-2">
+          {priceNote && (
+            <span className="font-changa text-[11px] uppercase tracking-widest text-blaze-text">{priceNote}</span>
+          )}
+          <div className="flex flex-wrap gap-3">
+            {tiers.map((tier, i) => (
+              <div key={i} className="flex flex-col gap-0.5 border border-white/10 px-4 py-3 min-w-32">
+                <span className="font-changa text-white text-lg leading-none">{tier.price}</span>
+                <span className="font-lato text-white/60 text-[12px] uppercase tracking-wider">{tier.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
@@ -202,6 +223,19 @@ export default function SubscriptionsClient({
   const subscriptions = items.filter((i) => i.type === 'SUBSCRIPTION')
   const flex = items.filter((i) => i.type === 'FLEX')
 
+  // On/after the flex launch date, Flex Packages lead; before then, Season
+  // Subscriptions lead. Keyed off the shared FLEX_LAUNCH constant.
+  const flexFirst = isFlexLaunched()
+
+  const seasonSection =
+    subscriptions.length > 0 ? (
+      <Section key="season" title="Season Subscriptions" items={subscriptions} delay={0} />
+    ) : null
+
+  const flexSection = flex.length > 0 ? <Section key="flex" title="Flex Packages" items={flex} delay={0.1} /> : null
+
+  const orderedSections = flexFirst ? [flexSection, seasonSection] : [seasonSection, flexSection]
+
   if (!subscriptionsLive) {
     return <SubscriptionsComingSoon />
   }
@@ -261,9 +295,7 @@ export default function SubscriptionsClient({
 
       {/* Content */}
       <div className="max-w-5xl mx-auto px-4 760:px-6 py-16 760:py-20 flex flex-col gap-16">
-        {subscriptions.length > 0 && <Section title="Season Subscriptions" items={subscriptions} delay={0} />}
-
-        {flex.length > 0 && <Section title="Flex Packages" items={flex} delay={0.1} />}
+        {orderedSections}
 
         {/* Contact block */}
         <div className="border-t border-white/10 pt-12 flex flex-col 760:flex-row 760:items-center justify-between gap-6">
