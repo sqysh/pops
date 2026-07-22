@@ -21,6 +21,21 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.12.2',
+    date: 'July 22, 2026',
+    summary: 'Added Musician Chair Sponsorship as a sixth box on the Sponsorship Opportunities page.',
+    changes: [
+      {
+        type: 'new',
+        text: 'Added a Musician Chair Sponsorship box to the sponsorship tiers, priced $250 to $10,000, with an editable description and Print recognition only (no online recognition or tickets).'
+      },
+      {
+        type: 'improved',
+        text: 'The Musician Chair Sponsorship box shows its title without a tier number, setting it apart from the numbered tiers.'
+      }
+    ]
+  },
+  {
     version: '3.12.1',
     date: 'July 21, 2026',
     summary:

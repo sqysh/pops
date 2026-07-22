@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Breadcrumb from '@/app/components/common/Breadcrumb'
-import { Award, ArrowRight, Calendar, Eye, Mail, Music, TrendingUp, Users } from 'lucide-react'
+import { Award, Calendar, Eye, Mail, Music, TrendingUp, Users } from 'lucide-react'
 import Link from 'next/link'
 import { PageHero } from '@/app/components/common/PageHero'
 
@@ -10,7 +10,10 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
 
   // Every tier now shares the same shape: description + 4 lines per category
-  const TIER_NUMBERS = [1, 2, 3, 4, 5]
+  const TIER_NUMBERS = [1, 2, 3, 4, 5, 6]
+
+  // Tier 6 (Musician Chair Sponsorship) is print-only and hides the tier label
+  const CHAIR_TIER = 6
 
   const CATEGORIES = [
     { key: 'print', label: 'Print' },
@@ -22,10 +25,6 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
 
   const statIcons = [Users, TrendingUp, Eye, Users, Music, Award]
   const benefitIcons = [Users, Award, TrendingUp, Eye, Calendar, Music]
-
-  const chairTitle = field('sponsorship_chair_title')
-  const chairButtonLabel = field('sponsorship_chair_button_label')
-  const chairButtonUrl = field('sponsorship_chair_button_url')
 
   return (
     <main id="main-content">
@@ -106,10 +105,12 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
                 >
                   {/* Tier header */}
                   <div className="border-b border-white/10 p-5 430:p-6">
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-3 h-px bg-blaze shrink-0" aria-hidden="true" />
-                      <p className="font-mono text-sm uppercase tracking-[0.2em] text-blaze-text">Tier {n}</p>
-                    </div>
+                    {n !== CHAIR_TIER && (
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-3 h-px bg-blaze shrink-0" aria-hidden="true" />
+                        <p className="font-mono text-sm uppercase tracking-[0.2em] text-blaze-text">Tier {n}</p>
+                      </div>
+                    )}
                     <h3 className="font-changa text-xl text-white mb-1">{title}</h3>
                     <p className="font-changa text-2xl text-blaze-text">{price}</p>
                     {description && (
@@ -119,7 +120,7 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
 
                   {/* Tier features */}
                   <div className="p-5 430:p-6 flex flex-col gap-5 grow">
-                    {CATEGORIES.map((cat) => {
+                    {(n === CHAIR_TIER ? CATEGORIES.filter((c) => c.key === 'print') : CATEGORIES).map((cat) => {
                       const items = LINES.map((i) => field(`sponsorship_tier_${n}_${cat.key}_${i}`))
                         .map((v) => v.trim())
                         .filter(Boolean)
@@ -143,39 +144,6 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
               )
             })}
           </ul>
-
-          {/* ── Chair Sponsors — own block beneath the tiers ── */}
-          {(chairTitle || chairButtonLabel) && (
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              viewport={{ once: true }}
-              className="mt-px bg-black border border-white/10 p-5 430:p-6 flex flex-col 760:flex-row 760:items-center justify-between gap-5"
-            >
-              <div className="flex flex-col gap-1">
-                {field('sponsorship_chair_eyebrow') && (
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-px bg-blaze shrink-0" aria-hidden="true" />
-                    <p className="font-mono text-sm uppercase tracking-[0.2em] text-blaze-text">
-                      {field('sponsorship_chair_eyebrow')}
-                    </p>
-                  </div>
-                )}
-                {chairTitle && <h3 className="font-changa text-xl text-white">{chairTitle}</h3>}
-              </div>
-
-              {chairButtonLabel && chairButtonUrl && (
-                <Link
-                  href={chairButtonUrl}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-blaze hover:bg-blazehover text-white font-changa uppercase tracking-widest text-sm transition-colors w-fit shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                >
-                  {chairButtonLabel}
-                  <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-                </Link>
-              )}
-            </motion.div>
-          )}
         </section>
 
         {/* ── Benefits ── */}
