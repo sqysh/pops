@@ -2,25 +2,20 @@
 
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import type { TeamMember, Question, CampApplication } from '@prisma/client'
 import { useClock } from '@/app/lib/hooks/useClock'
-import { InquiriesCard } from '../../../components/dashboard/InquiriesCard'
-import { CueBoxEvent } from '@/app/types/cuebox.types'
-import { ConcertsCard } from '../../../components/dashboard/ConcertsCard'
-import { TopBar } from '../../../components/dashboard/TopBar'
-import { CampHeatmapCard } from '@/app/components/dashboard/HeatMapCard'
+import { CueBoxEvent, CueBoxEventInstance } from '@/app/types/cuebox.types'
+import { ConcertsBoard } from './_components/ConcertsBoard'
+import { TopBar } from './_components/TopBar'
 
 interface Props {
   concerts: CueBoxEvent[]
+  instances: CueBoxEventInstance[]
   venuesCount: number
-  teamMembers: TeamMember[]
+  teamCount: number
   photosCount: number
-  questions: Question[]
+  pendingInquiriesCount: number
   usersCount: number
   campApplicationsCount: number
-  campApplications: CampApplication[]
-  campApplicationsEnabled: boolean
-  newApplicationsCount: number
   pageContentCount: number
   newsCount: number
   newsLiveCount: number
@@ -32,16 +27,11 @@ interface Props {
   mailchimpCount: number
 }
 
-const getStatPills = (data: Props & { pendingCount: number }) => [
-  {
-    label: 'Subscriptions',
-    value: 0,
-    accent: false,
-    href: '/v2/subscriptions'
-  },
-  { label: 'Inquiries', value: data.pendingCount, accent: data.pendingCount > 0, href: '/v2/questions' },
-  { label: 'Team', value: data.teamMembers.length, accent: false, href: '/v2/team' },
-  { label: 'Camp Apps', value: data.campApplicationsCount, accent: false, href: '/v2/camp-applications' },
+const getSections = (data: Props & { pendingCount: number }) => [
+  { label: 'Inquiries', value: data.pendingInquiriesCount, accent: data.pendingInquiriesCount > 0, href: '/v2/questions' },
+  { label: 'Camp Applications', value: data.campApplicationsCount, accent: false, href: '/v2/camp-applications' },
+  { label: 'Subscriptions', value: null, accent: false, href: '/v2/subscriptions' },
+  { label: 'Team', value: data.teamCount, accent: false, href: '/v2/team' },
   { label: 'Users', value: data.usersCount, accent: false, href: '/v2/users' },
   { label: 'Mailchimp', value: data.mailchimpCount, accent: false, href: '/v2/mailchimp-members' },
   { label: 'Sponsors', value: data.sponsorsActiveCount, accent: false, href: '/v2/sponsors' },
@@ -51,17 +41,15 @@ const getStatPills = (data: Props & { pendingCount: number }) => [
   { label: 'Events', value: data.eventsCount, accent: false, href: '/v2/events' },
   { label: 'Testimonials', value: data.testimonialsCount, accent: false, href: '/v2/testimonials' },
   { label: 'News', value: data.newsCount, accent: false, href: '/v2/news' },
-  { label: 'Settings', value: 0, accent: false, href: '/v2/settings' },
-  { label: 'Changelog', value: 'v3.9.2', href: '/v2/changelog' }
+  { label: 'Settings', value: null, accent: false, href: '/v2/settings' },
+  { label: 'Changelog', value: null, accent: false, href: '/v2/changelog' }
 ]
 
 export default function DashboardClient2(props: Props) {
   const {
     concerts,
-    questions,
-    campApplications,
-    campApplicationsEnabled,
-    newApplicationsCount,
+    instances,
+    pendingInquiriesCount,
     newsCount,
     newsLiveCount,
     eventsCount,
@@ -76,119 +64,73 @@ export default function DashboardClient2(props: Props) {
   const firstName = session.data?.user?.name?.split(' ')[0] ?? 'there'
   const hour = new Date().getHours()
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening'
-  const pendingCount = questions.filter((q) => !q.hasResponded).length
-  const statPills = getStatPills({ ...props, pendingCount })
+  const pendingCount = pendingInquiriesCount
+  const sections = getSections({ ...props, pendingCount })
 
   return (
-    <>
-      {/* Dot grid background */}
-      <div
-        className="fixed inset-0 pointer-events-none z-0"
-        style={{
-          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)',
-          backgroundSize: '24px 24px'
-        }}
-        aria-hidden="true"
-      />
-      {/* Scanline overlay */}
-      <div
-        className="fixed inset-0 pointer-events-none z-50"
-        style={{
-          backgroundImage:
-            'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.012) 3px, rgba(255,255,255,0.012) 4px)'
-        }}
-        aria-hidden="true"
-      />
+    // below 1160 the page scrolls normally; at 1160 and up the shell is pinned
+    // to the viewport and only the board scrolls
+    <div className="min-h-dvh 1160:h-dvh 1160:overflow-hidden flex flex-col bg-neutral-50 text-neutral-900">
+      <TopBar date={date} time={time} />
 
-      <div className="min-h-dvh 760:h-screen flex flex-col overflow-hidden bg-bg-dark text-text-dark relative z-10">
-        {/* ── Top Bar ── */}
-        <TopBar date={date} time={time} />
+      <div className="flex-1 1160:min-h-0 flex flex-col 1160:flex-row gap-6 p-4 760:p-6">
+        {/* Nav rail — fixed, scrolls internally only if it outgrows the viewport */}
+        <aside className="1160:w-64 1160:shrink-0 1160:h-full 1160:overflow-y-auto flex flex-col gap-4">
+          <div className="shrink-0 flex flex-col gap-2 px-5 py-4 border border-neutral-200 bg-white rounded-sm">
+            <span className="text-sm font-medium text-neutral-600">{date}</span>
+            <span className="text-xl font-semibold leading-snug">
+              {greeting}, <span className="text-blaze-text">{firstName}</span>
+            </span>
+          </div>
 
-        {/* Main grid */}
-        <div className="flex-1 min-h-0 p-2">
-          <div
-            className="760:h-full flex flex-col gap-2 760:grid 760:grid-cols-[140px_repeat(3,minmax(0,1fr))] 1336:grid-cols-[160px_repeat(4,minmax(0,1fr))] 760:gap-2"
-            style={{ gridAutoRows: 'minmax(0, 1fr)' }}
-          >
-            {/* PILLS RAIL — thin first column: greeting + vertical stat pills */}
-            <div className="760:col-span-1 760:row-span-10 flex flex-col min-h-0">
-              {/* Greeting */}
-              <div className="shrink-0 flex flex-col gap-1.5 px-3 py-2.5 border border-border-dark bg-bg-dark">
-                <span className="text-[10px] font-mono text-muted-dark uppercase tracking-widest">{date}</span>
-                <span className="text-sm font-mono text-text-dark leading-snug">
-                  {greeting}, <span className="text-primary-dark">{firstName}.</span>
-                </span>
-              </div>
-
-              {/* Stat pills — vertical labels only, scrolls if tall */}
-              <div className="mt-2 flex-1 min-h-0 overflow-y-auto flex flex-col divide-y divide-border-dark border border-border-dark bg-bg-dark">
-                {statPills.map(({ label, href, value }) => {
-                  const inner = (
-                    <div
-                      className={`flex items-center px-3 py-2 ${href ? 'hover:bg-surface-dark transition-colors cursor-pointer' : ''}`}
-                      title={`${value}`}
-                    >
-                      <span className="text-[10px] font-mono tracking-[0.12em] uppercase text-muted-dark whitespace-nowrap">
-                        {label}
+          <nav aria-label="Dashboard sections" className="border border-neutral-200 bg-white rounded-sm">
+            <ul role="list" className="flex flex-col divide-y divide-neutral-200">
+              {sections.map(({ label, href, value, accent }) => (
+                <li key={label}>
+                  <Link
+                    href={href}
+                    className="flex items-center justify-between gap-3 px-5 py-3.5 min-h-14 hover:bg-neutral-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-inset"
+                  >
+                    <span className="text-base font-medium text-neutral-800">{label}</span>
+                    {value !== null && (
+                      <span
+                        className={`text-base font-semibold tabular-nums shrink-0 ${
+                          accent ? 'text-blaze-text' : 'text-neutral-500'
+                        }`}
+                      >
+                        {value}
                       </span>
-                    </div>
-                  )
-                  return href ? (
-                    <Link key={label} href={href} aria-label={`View ${label}`} className="block">
-                      {inner}
-                    </Link>
-                  ) : (
-                    <div key={label}>{inner}</div>
-                  )
-                })}
-              </div>
-            </div>
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </aside>
 
-            {/* CONCERTS */}
-            <div className="760:col-span-2 760:row-span-10 min-h-100 760:min-h-0">
-              <ConcertsCard concerts={concerts} />
-            </div>
-
-            {/* INQUIRIES */}
-            <div className="order-3 760:col-span-1 760:row-span-2 760:min-h-0">
-              <InquiriesCard
-                pending={questions.filter((q) => !q.hasResponded && !q.isSpam && !q.isPotentialSpam).length}
-                responded={questions.filter((q) => q.hasResponded).length}
-                potentialSpam={questions.filter((q) => q.isPotentialSpam && !q.isSpam).length}
-                href="/v2/questions"
-              />
-            </div>
-
-            {/* CAMP HEATMAP */}
-            <div className="order-4 760:col-span-1 760:row-span-8 min-h-75 760:min-h-0">
-              <CampHeatmapCard
-                campApplications={campApplications}
-                campApplicationsEnabled={campApplicationsEnabled}
-                newApplicationsCount={newApplicationsCount}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="shrink-0 border-t border-border-dark bg-surface-dark px-4 py-1.5 flex flex-col 760:flex-row 760:items-center 760:justify-between gap-1 760:gap-0">
-          <span className="text-[9.5px] font-mono text-muted-dark uppercase tracking-widest">
-            The Pops Orchestra · Sqysh
-          </span>
-          <div className="flex items-center gap-3 flex-wrap">
-            {[
-              `News · ${newsLiveCount} live / ${newsCount}`,
-              `Events · ${eventsLiveCount} live / ${eventsCount}`,
-              `Testimonials · ${testimonialsLiveCount} live / ${testimonialsCount}`,
-              `Photos · ${photosCount}`
-            ].map((label) => (
-              <span key={label} className="text-[10px] font-mono text-muted-dark">
-                {label}
-              </span>
-            ))}
-          </div>
-        </div>
+        {/* Concerts — the only scrolling region on desktop */}
+        <main className="flex-1 min-w-0 1160:h-full 1160:overflow-y-auto">
+          <ConcertsBoard concerts={concerts} instances={instances} />
+        </main>
       </div>
-    </>
+
+      {/* Footer */}
+      <div className="shrink-0 border-t border-neutral-200 bg-white px-5 760:px-6 py-4 flex flex-col 990:flex-row 990:items-center 990:justify-between gap-3">
+        <span className="text-sm font-medium text-neutral-600">The Pops Orchestra · Sqysh</span>
+        <dl className="flex items-center gap-x-6 gap-y-2 flex-wrap">
+          {[
+            { label: 'News', value: `${newsLiveCount} live / ${newsCount}` },
+            { label: 'Events', value: `${eventsLiveCount} live / ${eventsCount}` },
+            { label: 'Testimonials', value: `${testimonialsLiveCount} live / ${testimonialsCount}` },
+            { label: 'Photos', value: `${photosCount}` }
+          ].map(({ label, value }) => (
+            <div key={label} className="flex items-center gap-2">
+              <dt className="text-sm text-neutral-600">{label}</dt>
+              <dd className="text-sm font-semibold text-neutral-900 tabular-nums">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
   )
 }

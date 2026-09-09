@@ -19,19 +19,52 @@ const STATUS_COLOR: Record<string, string> = {
   CANCELED: 'text-white/20 border-white/10'
 }
 
-function formatInstanceDate(startsAt: string) {
-  const d = new Date(startsAt)
-  return (
-    d.toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
-    }) +
-    ' · ' +
-    d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
-  )
+/** CueBox sends UTC. The orchestra is in Florida, so pin display to its
+ *  timezone rather than the visitor's, or a patron out of state sees the
+ *  wrong start time and occasionally the wrong day. */
+const TIMEZONE = 'America/New_York'
+
+const formatDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: TIMEZONE
+  })
+
+const formatTime = (iso: string) =>
+  new Date(iso).toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZone: TIMEZONE
+  })
+
+/** Status shown on the card as a whole, taken from the showtimes patrons can
+ *  actually see. An event marked ON_SALE whose every showtime has sold out
+ *  should not still say On Sale. */
+const deriveStatus = (event: CueBoxEvent, instances: CueBoxEventInstance[]) => {
+  if (!instances.length) return event.status
+
+  const statuses = instances.map((inst) => inst.status)
+
+  if (statuses.includes('ON_SALE')) return 'ON_SALE'
+  if (statuses.includes('PRESALE')) return 'PRESALE'
+  if (statuses.every((status) => status === 'CANCELED')) return 'CANCELED'
+  if (statuses.every((status) => status === 'SOLD_OUT' || status === 'CANCELED')) return 'SOLD_OUT'
+
+  return event.status
 }
+
+const StatusChip = ({ status, size = 'sm' }: { status: string; size?: 'sm' | 'xs' }) => (
+  <span
+    className={`inline-flex shrink-0 font-mono uppercase border ${
+      size === 'xs' ? 'text-[9px] tracking-widest px-1.5 py-0.5' : 'text-[10px] tracking-[0.25em] px-2 py-1'
+    } ${STATUS_COLOR[status] ?? 'text-white/40 border-white/10'}`}
+  >
+    {STATUS_LABEL[status] ?? status}
+  </span>
+)
 
 export function ConcertCard({
   event,
@@ -44,8 +77,18 @@ export function ConcertCard({
   index: number
   ref?: (node: HTMLElement | null) => void
 }) {
+  // showtimes hidden in CueBox never reach the page, same rule as events
+  const visibleInstances = instances
+    .filter((inst) => inst.isVisibleOnline)
+    .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime())
+
   const hasImage = !!event.publicImageUrl
-  const isOnSale = event.status === 'ON_SALE'
+  const status = deriveStatus(event, visibleInstances)
+
+  const venues = Array.from(new Set(visibleInstances.map((inst) => inst.venue?.name).filter((name): name is string => !!name)))
+
+  const buyable = visibleInstances.filter((inst) => inst.status === 'ON_SALE' || inst.status === 'PRESALE')
+  const singleBuyable = buyable.length === 1 ? buyable[0] : null
 
   return (
     <motion.article
@@ -68,12 +111,9 @@ export function ConcertCard({
             className="object-cover object-center"
             sizes="(max-width: 760px) 100vw, (max-width: 1080px) 320px, 400px"
           />
-          {/* Status badge over image */}
           <div className="absolute top-3 left-3">
-            <span
-              className={`text-[9px] font-mono uppercase tracking-widest px-2 py-1 border backdrop-blur-sm bg-black/40 ${STATUS_COLOR[event.status] ?? 'text-white/40 border-white/10'}`}
-            >
-              {STATUS_LABEL[event.status] ?? event.status}
+            <span className="backdrop-blur-sm bg-black/40">
+              <StatusChip status={status} />
             </span>
           </div>
         </div>
@@ -91,9 +131,15 @@ export function ConcertCard({
           </div>
 
           {/* Title */}
-          <h2 className="font-changa font-black text-3xl 760:text-4xl 990:text-5xl text-white leading-[0.95]">
-            {event.name}
-          </h2>
+          <h2 className="font-changa font-black text-3xl 760:text-4xl 990:text-5xl text-white leading-[0.95]">{event.name}</h2>
+
+          {/* Venues, when the run moves between halls */}
+          {venues.length > 1 && (
+            <div className="flex items-center gap-2 flex-wrap">
+              <MapPin className="w-3 h-3 text-blaze shrink-0" aria-hidden="true" />
+              <span className="font-lato text-sm text-white/50">{venues.join(' · ')}</span>
+            </div>
+          )}
 
           {/* Description */}
           {event.descriptionPlaintext && (
@@ -101,37 +147,81 @@ export function ConcertCard({
           )}
 
           {/* Performances */}
-          {instances.length > 0 && (
-            <div className="flex flex-col gap-0 border-t border-white/10 pt-5">
+          {visibleInstances.length > 0 && (
+            <div className="flex flex-col border-t border-white/10 pt-5">
               <div className="flex items-center gap-2 mb-3">
                 <Calendar className="w-3.5 h-3.5 text-blaze shrink-0" aria-hidden="true" />
-                <span className="font-changa text-[10px] uppercase tracking-[0.25em] text-white/30">Performances</span>
+                <span className="font-changa text-[10px] uppercase tracking-[0.25em] text-white/30">
+                  {visibleInstances.length === 1 ? 'Performance' : `${visibleInstances.length} Performances`}
+                </span>
               </div>
-              {instances.map((inst) => (
-                <div
-                  key={inst.id}
-                  className="flex flex-col 480:flex-row 480:items-center gap-0.5 480:gap-4 py-2.5 border-b border-white/5 last:border-0"
-                >
-                  <span className="font-lato text-sm 760:text-base text-white leading-snug">
-                    {formatInstanceDate(inst.startsAt)}
-                  </span>
-                  {inst.venue?.name && (
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      <MapPin className="w-3 h-3 text-blaze shrink-0" aria-hidden="true" />
-                      <span className="font-lato text-sm text-white/50">{inst.venue.name}</span>
-                    </div>
-                  )}
-                </div>
-              ))}
+
+              <ul role="list" className="flex flex-col">
+                {visibleInstances.map((inst) => {
+                  const isBuyable = inst.status === 'ON_SALE' || inst.status === 'PRESALE'
+                  const isOff = inst.status === 'CANCELED'
+
+                  return (
+                    <li
+                      key={inst.id}
+                      className="flex flex-col 760:flex-row 760:items-center 760:justify-between gap-1.5 760:gap-4 py-3 border-b border-white/5 last:border-0"
+                    >
+                      <div className="flex flex-col gap-0.5 min-w-0">
+                        <div className="flex items-center gap-2.5 flex-wrap">
+                          <span
+                            className={`font-lato text-sm 760:text-base leading-snug ${
+                              isOff ? 'text-white/35 line-through' : 'text-white'
+                            }`}
+                          >
+                            {formatDate(inst.startsAt)}
+                            <span className="text-white/50"> · {formatTime(inst.startsAt)}</span>
+                          </span>
+                          {inst.status !== 'ON_SALE' && <StatusChip status={inst.status} size="xs" />}
+                        </div>
+
+                        {/* only worth repeating per showtime when the run moves around */}
+                        {venues.length > 1 && inst.venue?.name && (
+                          <div className="flex items-center gap-1.5">
+                            <MapPin className="w-3 h-3 text-blaze shrink-0" aria-hidden="true" />
+                            <span className="font-lato text-sm text-white/50">{inst.venue.name}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* per-showtime link, so patrons land on the right ticket selection */}
+                      {isBuyable && !singleBuyable && inst.publicTicketsUrl && (
+                        <a
+                          href={inst.publicTicketsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Buy tickets for ${event.name} on ${formatDate(inst.startsAt)} at ${formatTime(inst.startsAt)}`}
+                          className="inline-flex items-center gap-1.5 shrink-0 font-changa text-[11px] uppercase tracking-widest text-blaze-text hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                        >
+                          Tickets
+                          <ExternalLink className="w-3 h-3 shrink-0" aria-hidden="true" />
+                        </a>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          )}
+
+          {/* Single venue, stated once */}
+          {venues.length === 1 && (
+            <div className="flex items-center gap-1.5">
+              <MapPin className="w-3 h-3 text-blaze shrink-0" aria-hidden="true" />
+              <span className="font-lato text-sm text-white/50">{venues[0]}</span>
             </div>
           )}
         </div>
 
         {/* CTA */}
         <div className="pt-8">
-          {isOnSale ? (
+          {singleBuyable ? (
             <a
-              href={event.publicTicketsUrl}
+              href={singleBuyable.publicTicketsUrl ?? event.publicTicketsUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Buy tickets for ${event.name}`}
@@ -140,12 +230,10 @@ export function ConcertCard({
               Buy Tickets
               <ExternalLink className="w-4 h-4 shrink-0" aria-hidden="true" />
             </a>
+          ) : buyable.length > 1 ? (
+            <p className="font-lato text-sm text-white/40">Choose a performance above to buy tickets.</p>
           ) : (
-            <span
-              className={`inline-flex text-[10px] font-changa uppercase tracking-[0.25em] px-3 py-1.5 border ${STATUS_COLOR[event.status] ?? 'text-white/20 border-white/5'}`}
-            >
-              {STATUS_LABEL[event.status] ?? 'Unavailable'}
-            </span>
+            <StatusChip status={status} />
           )}
         </div>
       </div>

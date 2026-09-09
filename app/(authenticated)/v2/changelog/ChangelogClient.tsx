@@ -21,6 +21,38 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.17.0',
+    date: '2026-09-09',
+    summary:
+      'Individual performances are now handled properly on the concerts page, and the dashboard has been rebuilt around them.',
+    changes: [
+      {
+        type: 'fixed',
+        text: 'Individual performances marked as not visible in CueBox no longer show on the concerts page. Previously this only worked at the concert level, so a single hidden date could still appear under a concert that was public.'
+      },
+      {
+        type: 'improved',
+        text: 'Each performance now links straight to its own ticket page, so patrons no longer have to pick the date again after leaving the site.'
+      },
+      {
+        type: 'improved',
+        text: 'Canceled and sold out performances are now marked individually, rather than every date under a concert sharing one status.'
+      },
+      {
+        type: 'improved',
+        text: 'The dashboard has been redesigned in a light theme with larger, higher contrast text throughout.'
+      },
+      {
+        type: 'new',
+        text: 'The dashboard now lists every concert with all of its performances visible at once, showing the venue, ticket status, and whether each one is live on the website. It also flags concerts that need attention, such as a concert with no performances scheduled, or one that is live on the website with no bookable dates.'
+      },
+      {
+        type: 'removed',
+        text: 'The inquiries and camp application panels have been taken off the dashboard so the concerts view can use the full page.'
+      }
+    ]
+  },
+  {
     version: '3.16.0',
     date: '2026-09-06',
     summary: 'Seating charts are here, starting with Parrish High School.',
