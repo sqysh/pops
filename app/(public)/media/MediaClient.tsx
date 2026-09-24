@@ -1,11 +1,11 @@
 'use client'
 
-import { MediaVideoPlayer } from '@/app/components/media/MediaVideoPlayer'
-import Picture from '@/app/components/common/Picture'
+import { MediaVideoPlayer } from '@/app/(public)/media/_components/MediaVideoPlayer'
+import Picture from '@/components/common/Picture'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
-import CompactPageHero from '@/app/components/common/CompactPageHero'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 
 export const MediaClient = ({ photoGalleryImages }) => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
@@ -39,10 +39,7 @@ export const MediaClient = ({ photoGalleryImages }) => {
 
         {/* ── Photo grid ── */}
         <section aria-label="Photo gallery" className="w-full bg-black">
-          <ul
-            role="list"
-            className="grid grid-cols-2 430:grid-cols-2 760:grid-cols-3 990:grid-cols-4 gap-px bg-white/5"
-          >
+          <ul role="list" className="grid grid-cols-2 430:grid-cols-2 760:grid-cols-3 990:grid-cols-4 gap-px bg-white/5">
             {photoGalleryImages?.map((photo, i) => (
               <li key={photo.id} className="bg-black group overflow-hidden">
                 <button

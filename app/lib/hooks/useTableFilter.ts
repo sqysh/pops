@@ -7,7 +7,7 @@ interface SortConfig<T> {
 
 interface UseTableFilterOptions<T> {
   data: T[]
-  searchKeys: (keyof T)[]
+  searchKeys?: (keyof T)[]
   sortConfigs?: Partial<Record<string, SortConfig<T>>>
   defaultSortKey?: string
   defaultSortDir?: SortDir

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { Calendar, ArrowRight } from 'lucide-react'
 import type { News } from '@prisma/client'
-import Picture from '../../components/common/Picture'
+import Picture from '@/components/common/Picture'
 import { itemVariants } from '@/app/lib/constants/motion'
 import Link from 'next/link'
 

@@ -1,6 +1,6 @@
 'use client'
 
-import TeamMemberGrid from '../../components/team/TeamMemberGrid'
+import TeamMemberGrid from '@/app/(public)/_components/TeamMemberGrid'
 
 export const MusiciansClient = ({ data }) => {
   const sortedMusicians = [...data].sort((a, b) => a.displayOrder - b.displayOrder)

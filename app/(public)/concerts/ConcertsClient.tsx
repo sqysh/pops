@@ -6,7 +6,7 @@ import { SiteSetting } from '@prisma/client'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 import { ConcertCard } from './_components/ConcertCard'
-import CompactPageHero from '@/app/components/common/CompactPageHero'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 
 type Props = { events: CueBoxEvent[]; instances: any[]; concertsPageLive: SiteSetting['value'] }
 
@@ -41,8 +41,7 @@ export default function ConcertsClient({ events, instances, concertsPageLive }: 
           <h1 className="font-changa text-6xl sm:text-7xl font-bold text-white leading-none">Coming Soon</h1>
           <div className="w-12 h-px bg-blaze" />
           <p className="font-lato text-white/60 text-sm leading-relaxed">
-            Our concerts page is on its way. In the meantime, visit our homepage for the latest news and upcoming
-            performances.
+            Our concerts page is on its way. In the meantime, visit our homepage for the latest news and upcoming performances.
           </p>
           <Link
             href="/"

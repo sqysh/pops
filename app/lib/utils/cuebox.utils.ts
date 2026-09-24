@@ -3,8 +3,7 @@ export async function cueboxFetch<T>(path: string): Promise<T | null> {
     headers: {
       Authorization: `Bearer ${process.env.CUEBOX_API_KEY}`,
       'Content-Type': 'application/json'
-    },
-    next: { revalidate: 300 }
+    }
   }).catch(() => null)
 
   if (!res || !res.ok) {

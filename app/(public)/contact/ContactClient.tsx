@@ -2,8 +2,8 @@
 
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { FacebookIcon, InstagramIcon, YouTubeIcon } from '@/public/data/home.data'
-import ContactForm from '@/app/components/forms/ContactForm'
-import CompactPageHero from '@/app/components/common/CompactPageHero'
+import ContactForm from '@/app/(public)/contact/_components/ContactForm'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 
 export const ContactClient = ({ data }) => {
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
@@ -38,10 +38,7 @@ export const ContactClient = ({ data }) => {
               <section aria-labelledby="contact-info-heading">
                 <div className="flex items-center gap-3 mb-5 990:mb-6">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                  <h2
-                    id="contact-info-heading"
-                    className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text"
-                  >
+                  <h2 id="contact-info-heading" className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
                     {field('contact_sidebar_heading')}
                   </h2>
                 </div>
@@ -92,9 +89,7 @@ export const ContactClient = ({ data }) => {
                     >
                       <div className="mt-0.5">{icon}</div>
                       <div>
-                        <p className="font-changa text-[10px] uppercase tracking-[0.2em] text-white/25 mb-1.5">
-                          {label}
-                        </p>
+                        <p className="font-changa text-[10px] uppercase tracking-[0.2em] text-white/25 mb-1.5">{label}</p>
                         {content}
                       </div>
                     </div>
@@ -106,10 +101,7 @@ export const ContactClient = ({ data }) => {
               <section aria-labelledby="contact-social-heading">
                 <div className="flex items-center gap-3 mb-5 990:mb-6">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                  <h2
-                    id="contact-social-heading"
-                    className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text"
-                  >
+                  <h2 id="contact-social-heading" className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
                     {field('contact_follow_us_heading')}
                   </h2>
                 </div>
@@ -141,10 +133,7 @@ export const ContactClient = ({ data }) => {
               <section aria-labelledby="contact-hours-heading" className="760:col-span-2 990:col-span-1">
                 <div className="flex items-center gap-3 mb-5 990:mb-6">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                  <h2
-                    id="contact-hours-heading"
-                    className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text"
-                  >
+                  <h2 id="contact-hours-heading" className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
                     {field('contact_office_hours_heading')}
                   </h2>
                 </div>

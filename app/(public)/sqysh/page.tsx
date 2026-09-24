@@ -1,6 +1,6 @@
 'use client'
 
-import { SqyshMascot } from '@/app/components/SqyshMascot'
+import { SqyshMascot } from '@/components/layout/SqyshMascot'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
@@ -113,12 +113,7 @@ export default function SqyshSplash() {
               const label = l.slice(0, l.lastIndexOf(' '))
               const status = l.slice(l.lastIndexOf(' ') + 1)
               return (
-                <TypedLine
-                  key={l}
-                  delay={T.lines[i]}
-                  duration={T.lineDur}
-                  className="font-mono text-xs text-muted-dark"
-                >
+                <TypedLine key={l} delay={T.lines[i]} duration={T.lineDur} className="font-mono text-xs text-muted-dark">
                   {'> '}
                   {label} <span className="font-bold text-primary-dark">{status}</span>
                 </TypedLine>
@@ -130,9 +125,7 @@ export default function SqyshSplash() {
             <span className="inline-flex items-center gap-1.5 bg-primary-dark px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.15em] uppercase text-bg-dark">
               ✓ build complete
             </span>
-            <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-muted-dark">
-              deployed to production
-            </span>
+            <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-muted-dark">deployed to production</span>
           </motion.div>
         </div>
 

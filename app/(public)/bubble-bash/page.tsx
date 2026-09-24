@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import Picture from '@/app/components/common/Picture'
+import Picture from '@/components/common/Picture'
 
 const PopsLogo = () => (
   <div className="absolute top-4 left-4">

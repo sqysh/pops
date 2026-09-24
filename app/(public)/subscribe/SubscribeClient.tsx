@@ -1,7 +1,7 @@
 'use client'
 
-import CompactPageHero from '@/app/components/common/CompactPageHero'
-import NewsletterForm from '@/app/components/forms/NewsletterForm'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
+import NewsletterForm from '@/app/(public)/subscribe/_components/NewsletterForm'
 
 export const SubscribeClient = ({ data }) => {
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''

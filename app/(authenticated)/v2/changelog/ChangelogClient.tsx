@@ -21,6 +21,65 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.18.0',
+    date: '2026-09-24',
+    summary: 'The admin area has been rebuilt: lighter, larger, and organised around what needs your attention.',
+    changes: [
+      {
+        type: 'improved',
+        text: 'Every admin page(almost — working on it :)) has been redesigned in a light theme with larger, higher contrast text. Nothing is smaller than it needs to be, and the same colours now mean the same thing on every page.'
+      },
+      {
+        type: 'new',
+        text: 'A menu now runs down the left of every admin page, so you can move between sections without going back to the dashboard first. It collapses to a narrow strip of icons if you want more room, and highlights the section you are in.'
+      },
+      {
+        type: 'new',
+        text: 'The dashboard opens with anything that needs you: unanswered inquiries, new camp applications, and concerts with a problem, each linking straight to the fix. When there is nothing outstanding it says so. Below that it shows the next performance on sale, how much of the season is live on the website, and your mailing list, sponsor, and gallery totals.'
+      },
+      {
+        type: 'new',
+        text: 'Concerts now have a page of their own, listing every concert with all of its performances, the venue, ticket status, and whether patrons can see and book each date.'
+      },
+      {
+        type: 'new',
+        text: 'A Sundays at Neel page on the public site, which picks up the Sunday performances at Neel Performing Arts Center automatically. Nothing to keep in step by hand.'
+      },
+      {
+        type: 'improved',
+        text: 'Inquiries can now be deleted outright, with a confirmation step first. The old spam handling has been removed, so a message is either answered or waiting for a reply.'
+      },
+      {
+        type: 'improved',
+        text: 'Adding an image now shows a large preview so you can tell at a glance that it is the right one, responds when you drag a file over it, and tells you if a file is too big before you try to save.'
+      },
+      {
+        type: 'improved',
+        text: 'When something is missing from a form, the message now appears next to the field it belongs to rather than at the bottom of the page, and clears as soon as you start fixing it.'
+      },
+      {
+        type: 'improved',
+        text: 'Links and buttons show a spinner while a page is loading, so it is clear the click registered.'
+      },
+      {
+        type: 'fixed',
+        text: 'Clicking a role on the users page opened the edit panel at the same time. It now does one or the other. A failed role change also reported nothing at all, and now says what went wrong.'
+      },
+      {
+        type: 'fixed',
+        text: 'Removing an image from an article did not actually remove it once saved. It does now.'
+      },
+      {
+        type: 'fixed',
+        text: 'If an image upload failed partway, the panel stayed stuck with no way out except reloading. It now explains the problem and lets you try again.'
+      },
+      {
+        type: 'fixed',
+        text: 'Dates and times across the admin now always show in Sarasota time, matching what CueBox displays.'
+      }
+    ]
+  },
+  {
     version: '3.17.0',
     date: '2026-09-09',
     summary:

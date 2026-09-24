@@ -8,7 +8,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import type { TeamMember } from '@prisma/client'
 import { updateTeamMembersOrder } from '@/app/lib/actions/team/updateTeamMemberOrder'
 import { Role, ROLE_LABELS, ROLES, TeamClientProps } from '@/app/types/entities/team-member'
-import { TeamMemberDrawer } from '@/app/components/drawers/TeamMemberDrawer'
+import { TeamMemberDrawer } from '@/app/(authenticated)/v2/team/_components/TeamMemberDrawer'
 import { COL } from '@/app/lib/constants/team-member.constants'
 import { useSession } from 'next-auth/react'
 
@@ -133,18 +133,14 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
                 [ TEAM ]
               </span>
               <div className="w-px h-3 bg-border-dark shrink-0 hidden 480:block" aria-hidden="true" />
-              <span className="text-[10px] font-mono text-muted-dark hidden 480:block shrink-0">
-                {totalCount} members
-              </span>
+              <span className="text-[10px] font-mono text-muted-dark hidden 480:block shrink-0">{totalCount} members</span>
 
               {/* Pills — hidden on mobile, shown inline on 760+ */}
               <div className="w-px h-3 bg-border-dark shrink-0 hidden 760:block" aria-hidden="true" />
               <div className="hidden 760:flex items-center divide-x divide-border-dark border-x border-border-dark">
                 {ROLES.map((role) => (
                   <div key={role} className="flex flex-col items-center justify-center px-3 py-1.5 shrink-0 gap-0.5">
-                    <span className="font-mono text-sm font-bold tabular-nums text-text-dark">
-                      {lists[role].length}
-                    </span>
+                    <span className="font-mono text-sm font-bold tabular-nums text-text-dark">{lists[role].length}</span>
                     <span className="text-[9px] font-mono tracking-[0.12em] uppercase text-muted-dark/80 whitespace-nowrap">
                       {ROLE_LABELS[role]}
                     </span>
@@ -211,17 +207,12 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
         {/* Three columns */}
         <div className="flex-1 flex-col lg:flex-row min-h-0 flex overflow-hidden bg-surface-dark mx-2 my-2">
           {ROLES.map((role) => (
-            <div
-              key={role}
-              className="flex-1 border-r border-border-dark last:border-0 flex flex-col overflow-hidden min-w-0"
-            >
+            <div key={role} className="flex-1 border-r border-border-dark last:border-0 flex flex-col overflow-hidden min-w-0">
               {/* Column header */}
               <div className="shrink-0 flex items-center justify-between px-3 py-2 border-b border-border-dark bg-surface-dark">
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-px bg-primary-dark shrink-0" aria-hidden="true" />
-                  <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-primary-dark">
-                    {ROLE_LABELS[role]}
-                  </span>
+                  <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-primary-dark">{ROLE_LABELS[role]}</span>
                 </div>
                 <span className="text-[9px] font-mono text-muted-dark/70 tabular-nums">{lists[role].length}</span>
               </div>
@@ -256,9 +247,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
                 <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">#</span>
                 <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">Name</span>
                 <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60">Position</span>
-                <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60 text-right">
-                  Status
-                </span>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark/60 text-right">Status</span>
                 <span />
               </div>
 
@@ -266,9 +255,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
               <div className="flex-1 min-h-0 overflow-y-auto">
                 {getFiltered(role).length === 0 ? (
                   <div className="flex items-center justify-center h-32">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark/60">
-                      No members
-                    </span>
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark/60">No members</span>
                   </div>
                 ) : (
                   getFiltered(role).map((member, i) => (
@@ -331,7 +318,7 @@ export default function TeamClient({ teamMembers }: TeamClientProps) {
                       </div>
 
                       {/* Actions */}
-                      {(member.id !== 'cm9kbaggn000dpe0q4oitqt2s' || session.data.user.role === 'SUPER_USER') && (
+                      {(member.id !== 'cm9kbaggn000dpe0q4oitqt2s' || session.data?.user?.role === 'SUPER_USER') && (
                         <div className="relative flex items-center justify-end gap-1.5">
                           <button
                             type="button"

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { TableEmptyState, TableFilterPills, TableSearch, TableShell } from '@/app/components/elements/TableShell'
+import { TableEmptyState, TableFilterPills, TableSearch, TableShell } from '@/app/(authenticated)/v2/_components/TableShell'
 import { useTableFilter } from '@/app/lib/hooks/useTableFilter'
 import {
   COL,
@@ -12,8 +12,8 @@ import {
   TYPE_ORDER
 } from '@/app/lib/constants/subscription.constants'
 import { ISubscription } from '@/app/types/entities/subscription.types'
-import { SubscriptionDrawer } from '@/app/components/drawers/SubscriptionDrawer'
-import { SubscriptionRow } from '@/app/components/rows/SubscriptionRow'
+import { SubscriptionDrawer } from '@/app/(authenticated)/v2/subscriptions/_components/SubscriptionDrawer'
+import { SubscriptionRow } from './_components/SubscriptionRow'
 
 export function SubscriptionsClient({ subscriptions }: { subscriptions: ISubscription[] }) {
   const [rows, setRows] = useState<ISubscription[]>(subscriptions)
@@ -40,9 +40,9 @@ export function SubscriptionsClient({ subscriptions }: { subscriptions: ISubscri
 
   const subCount = rows.filter((s) => s.type === 'SUBSCRIPTION').length
   const flexCount = rows.filter((s) => s.type === 'FLEX').length
-  const onSaleCount = rows.filter((s) => s.status === 'ON_SALE').length
+  // what a patron can actually find and buy needs both flags, not just the status
+  const liveCount = rows.filter((s) => s.status === 'ON_SALE' && s.isVisible).length
 
-  // ── local-state callbacks (no router.refresh) ──
   const handleSaved = (saved: ISubscription) => {
     setRows((prev) => {
       const exists = prev.some((s) => s.id === saved.id)
@@ -76,21 +76,20 @@ export function SubscriptionsClient({ subscriptions }: { subscriptions: ISubscri
       />
 
       <TableShell
-        label="SUBSCRIPTIONS"
-        backHref="/v2/dashboard"
+        label="Subscriptions"
         count={rows.length}
         pills={[
-          { label: 'Subscriptions', value: subCount, accent: false },
-          { label: 'Flex', value: flexCount, accent: false },
-          { label: 'On Sale', value: onSaleCount, accent: true }
+          { label: 'season', value: subCount, accent: false },
+          { label: 'flex', value: flexCount, accent: false },
+          { label: 'live on the site', value: liveCount, accent: liveCount > 0 }
         ]}
-        action={{ label: '+ New Subscription', onClick: () => setIsCreating(true) }}
-        marquee="Subscriptions are managed here, not in CueBox — CueBox does not expose subscriptions to the website · Set a subscription to On Sale and Visible for it to appear on the public site · The Public URL is where patrons buy · The CueBox Edit URL is your private management link"
+        action={{ label: 'New subscription', onClick: () => setIsCreating(true) }}
+        note="Subscriptions live here, not in CueBox, because CueBox does not send them to the website. A subscription appears on the public site once it is both On Sale and visible."
         toolbar={
           <>
             <TableSearch value={search} onChange={setSearch} placeholder="Search subscriptions..." />
             <div className="ml-auto">
-              <TableFilterPills options={TYPE_OPTIONS} active={typeFilter} onChange={setTypeFilter} accentColor="red" />
+              <TableFilterPills options={TYPE_OPTIONS} active={typeFilter} onChange={setTypeFilter} />
             </div>
           </>
         }

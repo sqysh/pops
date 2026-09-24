@@ -1,4 +1,4 @@
-import Picture from '@/app/components/common/Picture'
+import Picture from '@/components/common/Picture'
 import { CueBoxEvent, CueBoxEventInstance } from '@/app/types/cuebox.types'
 import { motion } from 'framer-motion'
 import { Calendar, ExternalLink, MapPin } from 'lucide-react'

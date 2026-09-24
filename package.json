@@ -1,6 +1,6 @@
 {
   "name": "popsorch",
-  "version": "3.17.0",
+  "version": "3.18.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,12 +11,15 @@
     "generate": "prisma generate",
     "seed:site-setting": "node scripts/seed-site-setting.js",
     "seed:pages": "node scripts/seed-pages.js",
-    "fix-enums": "node scripts/fix-enums.js"
+    "fix-enums": "node scripts/fix-enums.js",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run build"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.2",
     "@prisma/client": "^6.19.3",
     "@reduxjs/toolkit": "^2.5.0",
+    "@vercel/analytics": "^2.0.1",
     "error-stack-parser-es": "^1.0.5",
     "firebase": "^11.9.1",
     "framer-motion": "^12.4.3",

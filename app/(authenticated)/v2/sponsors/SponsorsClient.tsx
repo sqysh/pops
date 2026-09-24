@@ -1,14 +1,14 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { formatLevel } from '@/app/lib/utils/sponsor.utils'
+import { formatLevel } from '@/app/lib/constants/sponsor.constants'
 import { ISponsor } from '@/app/types/entities/sponsor'
 import { ACTIVE_OPTIONS, COL, COLUMNS, LEVEL_ORDER } from '@/app/lib/constants/sponsor.constants'
-import { SponsorRow } from '../../../components/rows/SponsorRow'
+import { SponsorRow } from './_components/SponsorRow'
 import { formatAmount } from '@/app/utils/currency.utils'
-import { SponsorDrawer } from '@/app/components/drawers/SponsorDrawer'
+import { SponsorDrawer } from '@/app/(authenticated)/v2/sponsors/_components/SponsorDrawer'
 import { useTableFilter } from '@/app/lib/hooks/useTableFilter'
-import { TableEmptyState, TableFilterPills, TableSearch, TableShell } from '@/app/components/elements/TableShell'
+import { TableEmptyState, TableFilterPills, TableSearch, TableShell } from '@/app/(authenticated)/v2/_components/TableShell'
 
 export function SponsorsClient({ sponsors }: { sponsors: ISponsor[] }) {
   const [editingSponsor, setEditingSponsor] = useState<ISponsor | null | 'new'>(null)
@@ -59,22 +59,15 @@ export function SponsorsClient({ sponsors }: { sponsors: ISponsor[] }) {
           { label: 'Total Value', value: formatAmount(totalAmount) }
         ]}
         action={{ label: '+ New Sponsor', onClick: () => setEditingSponsor('new') }}
-        marquee="Click any row to open · Edit sponsor details, level, and amount · Toggle active to show or hide on the public site · Logo uploads go to Firebase Storage"
         toolbar={
           <>
             <TableSearch value={search} onChange={setSearch} placeholder="Search sponsors..." />
-            <TableFilterPills
-              options={levels}
-              active={filters.level ?? 'ALL'}
-              onChange={(v) => setFilter('level', v)}
-              accentColor="red"
-            />
+            <TableFilterPills options={levels} active={filters.level ?? 'ALL'} onChange={(v) => setFilter('level', v)} />
             <div className="ml-auto">
               <TableFilterPills
                 options={ACTIVE_OPTIONS}
                 active={filters.isActive ?? 'ALL'}
                 onChange={(v) => setFilter('isActive', v)}
-                accentColor="emerald"
               />
             </div>
           </>

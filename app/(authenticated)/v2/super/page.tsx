@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { auth } from '@/app/lib/auth'
 import { getSuperDashboardData } from '@/app/lib/actions/super/getSuperDashboardData'
-import SuperClient from '@/app/components/pages/SuperClient'
+import SuperClient from '@/app/(authenticated)/v2/super/SuperClient'
 
 export default async function SuperPage() {
   const session = await auth()

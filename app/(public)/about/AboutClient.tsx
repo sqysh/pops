@@ -1,7 +1,7 @@
 'use client'
 
-import CompactPageHero from '@/app/components/common/CompactPageHero'
-import Picture from '@/app/components/common/Picture'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
+import Picture from '@/components/common/Picture'
 import { motion } from 'framer-motion'
 
 export const AboutClient = ({ data }) => {
@@ -58,10 +58,7 @@ export const AboutClient = ({ data }) => {
               {additionalDetails.length > 0 && (
                 <ul role="list" aria-label="Additional details" className="flex flex-col divide-y divide-white/10">
                   {additionalDetails.map((detail) => (
-                    <li
-                      key={detail.id}
-                      className="py-3 font-changa text-sm font-medium tracking-widest text-sunburst uppercase"
-                    >
+                    <li key={detail.id} className="py-3 font-changa text-sm font-medium tracking-widest text-sunburst uppercase">
                       {detail.value}
                     </li>
                   ))}

@@ -1,6 +1,6 @@
 'use client'
 
-import CompactPageHero from '@/app/components/common/CompactPageHero'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 import { FLEX_LAUNCH_LABEL, getFlexPricing, isFlexLaunched } from '@/app/lib/constants/subscription.constants'
 import { ISubscription } from '@/app/types/entities/subscription.types'
 import { motion } from 'framer-motion'
@@ -65,9 +65,7 @@ function ItemRow({ item, index, delay = 0 }: { item: ISubscription; index: numbe
 
           <div className="flex items-center gap-2 flex-wrap pt-0.5">
             {item.type !== 'FLEX' && (
-              <span
-                className={`font-changa text-[11px] tracking-widest uppercase px-2 py-0.5 ${statusCls(item.status)}`}
-              >
+              <span className={`font-changa text-[11px] tracking-widest uppercase px-2 py-0.5 ${statusCls(item.status)}`}>
                 {STATUS_LABEL[item.status] ?? item.status.replace('_', ' ')}
               </span>
             )}
@@ -103,9 +101,7 @@ function ItemRow({ item, index, delay = 0 }: { item: ISubscription; index: numbe
       {/* Pricing tiers */}
       {tiers.length > 0 && (
         <div className="flex flex-col gap-2">
-          {priceNote && (
-            <span className="font-changa text-[11px] uppercase tracking-widest text-blaze-text">{priceNote}</span>
-          )}
+          {priceNote && <span className="font-changa text-[11px] uppercase tracking-widest text-blaze-text">{priceNote}</span>}
           <div className="flex flex-wrap gap-3">
             {tiers.map((tier, i) => (
               <div key={i} className="flex flex-col gap-0.5 border border-white/10 px-4 py-3 min-w-32">
@@ -186,8 +182,8 @@ export function SubscriptionsComingSoon() {
           </h1>
 
           <p className="font-lato text-white/60 text-base 760:text-lg leading-relaxed">
-            Subscriptions and flex packages for the 2026–27 season aren&apos;t available just yet. Check back soon, or
-            call our box office and we&apos;ll help you plan ahead.
+            Subscriptions and flex packages for the 2026–27 season aren&apos;t available just yet. Check back soon, or call our
+            box office and we&apos;ll help you plan ahead.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
@@ -226,9 +222,7 @@ export default function SubscriptionsClient({
   const flexFirst = isFlexLaunched()
 
   const seasonSection =
-    subscriptions.length > 0 ? (
-      <Section key="season" title="Season Subscriptions" items={subscriptions} delay={0} />
-    ) : null
+    subscriptions.length > 0 ? <Section key="season" title="Season Subscriptions" items={subscriptions} delay={0} /> : null
 
   const flexSection = flex.length > 0 ? <Section key="flex" title="Flex Packages" items={flex} delay={0.1} /> : null
 
@@ -255,9 +249,7 @@ export default function SubscriptionsClient({
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-3">
               <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <span className="font-changa text-[12px] uppercase tracking-[0.25em] text-white/70">
-                Need Help Choosing?
-              </span>
+              <span className="font-changa text-[12px] uppercase tracking-[0.25em] text-white/70">Need Help Choosing?</span>
             </div>
             <p className="font-lato text-white/80 text-base max-w-md">
               Our box office team is happy to help you find the right package for your schedule and interests.

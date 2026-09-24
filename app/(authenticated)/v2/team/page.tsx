@@ -1,5 +1,6 @@
 import prisma from '@/prisma/client'
 import TeamClient from './TeamClient'
+import { Suspense } from 'react'
 
 export default async function TeamPage() {
   const teamMembers = await prisma.teamMember
@@ -8,5 +9,9 @@ export default async function TeamPage() {
     })
     .catch(() => [])
 
-  return <TeamClient key={teamMembers.map((m) => m.updatedAt.getTime()).join()} teamMembers={teamMembers} />
+  return (
+    <Suspense fallback={null}>
+      <TeamClient key={teamMembers.map((m) => m.updatedAt.getTime()).join()} teamMembers={teamMembers} />
+    </Suspense>
+  )
 }

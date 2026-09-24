@@ -1,10 +1,10 @@
 'use client'
 
-import Picture from '@/app/components/common/Picture'
+import Picture from '@/components/common/Picture'
 import { ArrowRight, Lock, Shield } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import CompactPageHero from '@/app/components/common/CompactPageHero'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 
 export const StudentScholarshipsClient = ({ data }) => {
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
@@ -91,11 +91,7 @@ export const StudentScholarshipsClient = ({ data }) => {
                 </p>
 
                 {/* Metadata rows */}
-                <ul
-                  role="list"
-                  aria-label="Scholarship program details"
-                  className="flex flex-col divide-y divide-white/10 mb-10"
-                >
+                <ul role="list" aria-label="Scholarship program details" className="flex flex-col divide-y divide-white/10 mb-10">
                   {[
                     {
                       label: field('scholarships_card_1_title'),
@@ -142,10 +138,7 @@ export const StudentScholarshipsClient = ({ data }) => {
                   className="group inline-flex items-center gap-3 bg-blaze hover:bg-blazehover text-white px-8 py-4 font-changa text-sm uppercase tracking-widest transition-colors duration-300 w-full 430:w-fit justify-center 430:justify-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <span className="whitespace-nowrap">{field('scholarships_donation_button')}</span>
-                  <ArrowRight
-                    className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform"
-                    aria-hidden="true"
-                  />
+                  <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                 </Link>
               </motion.div>
             </div>

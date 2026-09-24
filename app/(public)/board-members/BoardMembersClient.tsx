@@ -1,6 +1,6 @@
 'use client'
 
-import TeamMemberGrid from '../../components/team/TeamMemberGrid'
+import TeamMemberGrid from '@/app/(public)/_components/TeamMemberGrid'
 
 export const BoardMembersClient = ({ data }) => {
   const sortedBoardMembers = [...data].sort((a, b) => a.displayOrder - b.displayOrder)

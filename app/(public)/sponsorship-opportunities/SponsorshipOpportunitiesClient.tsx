@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Award, Calendar, Eye, Mail, Music, TrendingUp, Users } from 'lucide-react'
 import Link from 'next/link'
-import CompactPageHero from '@/app/components/common/CompactPageHero'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 
 export const SponsorshipOpportunitiesClient = ({ data }) => {
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
@@ -45,11 +45,7 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
               Pops by the Numbers
             </h2>
           </div>
-          <ul
-            role="list"
-            aria-label="Pops Orchestra statistics"
-            className="grid grid-cols-2 760:grid-cols-3 gap-px bg-white/10"
-          >
+          <ul role="list" aria-label="Pops Orchestra statistics" className="grid grid-cols-2 760:grid-cols-3 gap-px bg-white/10">
             {[1, 2, 3, 4, 5, 6].map((n, i) => {
               const Icon = statIcons[i]
               return (
@@ -62,12 +58,8 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
                   className="bg-black p-5 430:p-6 flex flex-col gap-2"
                 >
                   <Icon className="w-4 h-4 text-blaze-text" aria-hidden="true" />
-                  <p className="font-changa text-2xl 430:text-3xl text-white">
-                    {field(`sponsorship_stat_${n}_number`)}
-                  </p>
-                  <p className="font-lato text-sm text-white/70 leading-relaxed">
-                    {field(`sponsorship_stat_${n}_label`)}
-                  </p>
+                  <p className="font-changa text-2xl 430:text-3xl text-white">{field(`sponsorship_stat_${n}_number`)}</p>
+                  <p className="font-lato text-sm text-white/70 leading-relaxed">{field(`sponsorship_stat_${n}_label`)}</p>
                 </motion.li>
               )
             })}
@@ -110,9 +102,7 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
                     )}
                     <h3 className="font-changa text-xl text-white mb-1">{title}</h3>
                     <p className="font-changa text-2xl text-blaze-text">{price}</p>
-                    {description && (
-                      <p className="font-lato text-sm text-white/70 leading-relaxed mt-3">{description}</p>
-                    )}
+                    {description && <p className="font-lato text-sm text-white/70 leading-relaxed mt-3">{description}</p>}
                   </div>
 
                   {/* Tier features */}
@@ -151,11 +141,7 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
               Why Become a Pops Partner?
             </h2>
           </div>
-          <ul
-            role="list"
-            aria-label="Partnership benefits"
-            className="grid grid-cols-1 760:grid-cols-2 gap-px bg-white/10"
-          >
+          <ul role="list" aria-label="Partnership benefits" className="grid grid-cols-1 760:grid-cols-2 gap-px bg-white/10">
             {[1, 2, 3, 4, 5, 6].map((n, i) => {
               const Icon = benefitIcons[i]
               return (
@@ -241,8 +227,8 @@ export const SponsorshipOpportunitiesClient = ({ data }) => {
 
             <div className="bg-black p-5 430:p-6 flex flex-col justify-center gap-4">
               <p className="font-lato text-white/80 text-sm leading-relaxed">
-                To discuss sponsorship options or learn more about how your business can partner with The Pops
-                Orchestra, reach out directly.
+                To discuss sponsorship options or learn more about how your business can partner with The Pops Orchestra, reach
+                out directly.
               </p>
 
               <Link

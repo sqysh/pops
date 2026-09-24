@@ -13,9 +13,7 @@ export const getNavigationLinks = (
   subscriptionsLive: boolean
 ): NavigationLinksProps[] => [
   { linkKey: '/', textKey: 'Home', active: path === '/' },
-  ...(subscriptionsLive
-    ? [{ linkKey: '/subscriptions', textKey: 'Subscriptions', active: path === '/subscriptions' }]
-    : []),
+  ...(subscriptionsLive ? [{ linkKey: '/subscriptions', textKey: 'Subscriptions', active: path === '/subscriptions' }] : []),
   ...(concertsPageLive
     ? [
         {
@@ -25,11 +23,11 @@ export const getNavigationLinks = (
         }
       ]
     : []),
-  // {
-  //   linkKey: '/sundays-at-neel',
-  //   textKey: 'Sundays@Neel',
-  //   active: path === '/sundays-at-neel'
-  // },
+  {
+    linkKey: '/sundays-at-neel',
+    textKey: 'Sundays@Neel',
+    active: path === '/sundays-at-neel'
+  },
   // {
   //   linkKey: '/bubble-bash',
   //   textKey: 'Golden Bubbles Bash',

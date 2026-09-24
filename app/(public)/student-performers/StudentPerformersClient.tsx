@@ -1,7 +1,7 @@
 'use client'
 
-import CompactPageHero from '@/app/components/common/CompactPageHero'
-import Picture from '@/app/components/common/Picture'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
+import Picture from '@/components/common/Picture'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
@@ -132,10 +132,7 @@ export const StudentPerformersClient = ({ data }) => {
                   className="group inline-flex items-center gap-3 bg-blaze hover:bg-blazehover text-white px-8 py-4 font-changa text-sm uppercase tracking-widest transition-colors duration-300 w-full 430:w-fit justify-center 430:justify-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   <span className="whitespace-nowrap">{field('student_performers_donation_button')}</span>
-                  <ArrowRight
-                    className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform"
-                    aria-hidden="true"
-                  />
+                  <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                 </Link>
               </motion.div>
             </div>

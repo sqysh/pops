@@ -18,7 +18,7 @@ import {
   variants
 } from '@/app/lib/constants/camp-application.constants'
 import { FormState } from '@/app/types/entities/camp-application'
-import CompactPageHero from '@/app/components/common/CompactPageHero'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 
 function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
@@ -166,11 +166,7 @@ export default function CampApplicationClient({ data }) {
               {/* Step indicators */}
               {step > 0 && (
                 <div className="border-b border-white/10 px-5 990:px-8 py-4">
-                  <div
-                    className="flex items-center max-w-sm mx-auto 990:mx-0"
-                    role="list"
-                    aria-label="Application steps"
-                  >
+                  <div className="flex items-center max-w-sm mx-auto 990:mx-0" role="list" aria-label="Application steps">
                     {formSteps.map((s, i) => {
                       const Icon = s.icon
                       const done = step > s.id
@@ -493,8 +489,8 @@ export default function CampApplicationClient({ data }) {
                               {form.consent && <Check className="w-3 h-3 text-white" aria-hidden="true" />}
                             </div>
                             <span className="font-lato text-sm text-white/80 leading-relaxed">
-                              I consent to the terms and conditions of the Pops Orchestra Youth Music Camp and confirm
-                              all information provided is accurate.
+                              I consent to the terms and conditions of the Pops Orchestra Youth Music Camp and confirm all
+                              information provided is accurate.
                             </span>
                           </label>
                         </Field>

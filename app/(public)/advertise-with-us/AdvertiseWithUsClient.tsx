@@ -1,7 +1,7 @@
 'use client'
 
-import CompactPageHero from '@/app/components/common/CompactPageHero'
-import { Download } from 'lucide-react'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
+import { Download, ExternalLink } from 'lucide-react'
 
 export const AdvertiseWithUsClient = ({ data }) => {
   const field = (id: string) => data?.find((item) => item.id === id)?.value ?? ''
@@ -48,39 +48,25 @@ export const AdvertiseWithUsClient = ({ data }) => {
     return { value: field(valueMap[num]), label: field(labelMap[num]) }
   })
 
-  const artworkSpecs = [
-    field('advertise_artwork_spec_1'),
-    field('advertise_artwork_spec_2'),
-    field('advertise_artwork_spec_3')
-  ]
+  const artworkSpecs = [field('advertise_artwork_spec_1'), field('advertise_artwork_spec_2'), field('advertise_artwork_spec_3')]
 
   const fullPageRates = [
     { name: 'Outside Back Cover*', price: '$1,250', spec: '4-color | 5.75"w x 8.75"h' },
     { name: 'Inside Front Cover*', price: '$1,000', spec: '4-color | 5.75"w x 8.75"h' },
     { name: 'Inside Back Cover*', price: '$1,000', spec: '4-color | 5.75"w x 8.75"h' },
-    { name: 'Regular*', price: '$800', spec: '4-color | 4.5"w x 7.5"h' },
-    { name: 'Regular*', price: '$750', spec: 'B&W | 4.5"w x 7.5"h' }
+    { name: 'Regular*', price: '$800', spec: '4-color | 4.5"w x 7.5"h' }
   ]
 
-  const halfPageRates = [
-    { name: 'Horizontal**', price: '$350', spec: '4-color | 4.5"w x 3.625"h' },
-    { name: 'Horizontal**', price: '$300', spec: 'B&W | 4.5"w x 3.625"h' }
-  ]
+  const halfPageRates = [{ name: 'Horizontal**', price: '$350', spec: '4-color | 4.5"w x 3.625"h' }]
 
   const quarterPageRates = [
     { name: 'Vertical', price: '$200', spec: '4-color | 2.25"w x 3.625"h' },
-    { name: 'Vertical', price: '$150', spec: 'B&W | 2.25"w x 3.625"h' },
-    { name: 'Horizontal**', price: '$200', spec: '4-color | 4.5"w x 1.75"h' },
-    { name: 'Horizontal**', price: '$150', spec: 'B&W | 4.5"w x 1.75"h' }
+    { name: 'Horizontal**', price: '$200', spec: '4-color | 4.5"w x 1.75"h' }
   ]
 
   return (
     <main id="main-content">
-      <CompactPageHero
-        breadcrumb="Advertise With Us"
-        heading="Advertise With Us"
-        description={field('advertise_main_heading')}
-      />
+      <CompactPageHero breadcrumb="Advertise With Us" heading="Advertise With Us" description={field('advertise_main_heading')} />
 
       <div className="px-4 990:px-12 xl:px-4">
         <section className="relative z-10 py-20 990:py-32">
@@ -167,10 +153,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                   </h3>
                   <ul role="list" className="flex flex-col gap-3">
                     {fullPageRates.map((item, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start justify-between gap-4 py-2 border-b border-white/5 last:border-0"
-                      >
+                      <li key={i} className="flex items-start justify-between gap-4 py-2 border-b border-white/5 last:border-0">
                         <div className="min-w-0">
                           <p className="font-changa text-white text-sm">{item.name}</p>
                           <p className="font-mono text-sm text-white/40 mt-0.5">{item.spec}</p>
@@ -188,10 +171,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                   </h3>
                   <ul role="list" className="flex flex-col gap-3">
                     {halfPageRates.map((item, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start justify-between gap-4 py-2 border-b border-white/5 last:border-0"
-                      >
+                      <li key={i} className="flex items-start justify-between gap-4 py-2 border-b border-white/5 last:border-0">
                         <div className="min-w-0">
                           <p className="font-changa text-white text-sm">{item.name}</p>
                           <p className="font-mono text-sm text-white/40 mt-0.5">{item.spec}</p>
@@ -207,10 +187,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                   </h3>
                   <ul role="list" className="flex flex-col gap-3">
                     {quarterPageRates.map((item, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start justify-between gap-4 py-2 border-b border-white/5 last:border-0"
-                      >
+                      <li key={i} className="flex items-start justify-between gap-4 py-2 border-b border-white/5 last:border-0">
                         <div className="min-w-0">
                           <p className="font-changa text-white text-sm">{item.name}</p>
                           <p className="font-mono text-sm text-white/40 mt-0.5">{item.spec}</p>
@@ -235,13 +212,45 @@ export const AdvertiseWithUsClient = ({ data }) => {
                     ))}
                   </ul>
                   <div className="border-t border-white/10 pt-4 flex flex-col gap-2">
-                    <p className="font-lato text-white/50 text-sm leading-relaxed">
-                      {field('advertise_rates_footnote_1')}
-                    </p>
-                    <p className="font-lato text-white/50 text-sm leading-relaxed">
-                      {field('advertise_rates_footnote_2')}
-                    </p>
+                    <p className="font-lato text-white/50 text-sm leading-relaxed">{field('advertise_rates_footnote_1')}</p>
+                    <p className="font-lato text-white/50 text-sm leading-relaxed">{field('advertise_rates_footnote_2')}</p>
                   </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ── Reserve your space ── */}
+            <section aria-labelledby="advertise-cta-heading" className="bg-black p-5 990:p-10">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
+                <h2 id="advertise-cta-heading" className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
+                  {field('advertise_cta_heading') || 'Reserve Your Space'}
+                </h2>
+              </div>
+
+              <div className="flex flex-col 990:flex-row 990:items-center 990:justify-between gap-6">
+                <p className="font-lato text-white/80 text-base leading-relaxed max-w-xl">
+                  {field('advertise_cta_description') ||
+                    'Ready to appear in the program book? Submit your payment through our secure portal, and send artwork to the address on the rate card.'}
+                </p>
+
+                <div className="flex flex-col 430:flex-row 430:items-center gap-3 shrink-0">
+                  <a
+                    href="https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/donate/VCC335D5"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-blaze hover:bg-blazehover text-white font-changa text-sm uppercase tracking-[0.2em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                  >
+                    {field('advertise_cta_button_label') || 'Pay Online'}
+                    <ExternalLink className="w-4 h-4 shrink-0" aria-hidden="true" />
+                  </a>
+
+                  <a
+                    href="/contact"
+                    className="inline-flex items-center justify-center px-7 py-3.5 border border-white/15 hover:border-blaze/40 hover:bg-blaze/5 text-white font-changa text-sm uppercase tracking-[0.2em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+                  >
+                    Ask a Question
+                  </a>
                 </div>
               </div>
             </section>

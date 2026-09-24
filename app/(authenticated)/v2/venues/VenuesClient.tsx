@@ -1,12 +1,12 @@
 'use client'
 
-import { TableEmptyState, TableSearch, TableShell } from '@/app/components/elements/TableShell'
+import { TableEmptyState, TableSearch, TableShell } from '@/app/(authenticated)/v2/_components/TableShell'
 import { COL, COLUMNS } from '@/app/lib/constants/venue.constants'
 import { useTableFilter } from '@/app/lib/hooks/useTableFilter'
 import { IVenue } from '@/app/types/entities/venue'
 import { useState } from 'react'
-import { VenueRow } from '../../../components/rows/VenueRow'
-import { VenueDrawer } from '@/app/components/drawers/VenueDrawer'
+import { VenueRow } from './_components/VenueRow'
+import { VenueDrawer } from '@/app/(authenticated)/v2/venues/_components/VenueDrawer'
 
 export function VenuesClient({ venues }: { venues: IVenue[] }) {
   const [editingVenue, setEditingVenue] = useState<IVenue | null | 'new'>(null)
@@ -41,7 +41,6 @@ export function VenuesClient({ venues }: { venues: IVenue[] }) {
         backHref="/v2/dashboard"
         count={venues.length}
         action={{ label: '+ New Venue', onClick: () => setEditingVenue('new') }}
-        marquee="Click any row to open · Edit venue details, address, and accessibility info · Upload a venue photo · Changes reflect immediately after saving"
         toolbar={<TableSearch value={search} onChange={setSearch} placeholder="Search venues..." />}
         columns={COLUMNS}
         colClass={COL}

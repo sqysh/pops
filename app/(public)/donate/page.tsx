@@ -1,7 +1,7 @@
 'use client'
 
-import CompactPageHero from '@/app/components/common/CompactPageHero'
-import { FundCard } from '@/app/components/FundCard'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
+import { FundCard } from '@/app/(public)/donate/_components/FundCard'
 import { Phone } from 'lucide-react'
 
 const FUNDS = [
@@ -121,11 +121,10 @@ export default function DonatePage() {
               <span className="font-changa text-sm uppercase tracking-[0.3em] text-white/30">Ways to Give</span>
             </div>
             <p className="font-lato text-white/70 text-base 760:text-lg leading-relaxed">
-              The Pops Orchestra is proud to offer several different ways our patrons can support the orchestra beyond
-              the purchase of their show tickets. Whether you wish to make a gift to our general operating fund, sponsor
-              the chair of one of our musicians, support our youth education initiatives, sponsor an entire season,
-              concert, or guest artist, or purchase an ad in our printed show program, every gesture counts and is
-              appreciated.
+              The Pops Orchestra is proud to offer several different ways our patrons can support the orchestra beyond the
+              purchase of their show tickets. Whether you wish to make a gift to our general operating fund, sponsor the chair of
+              one of our musicians, support our youth education initiatives, sponsor an entire season, concert, or guest artist,
+              or purchase an ad in our printed show program, every gesture counts and is appreciated.
             </p>
           </div>
 
@@ -139,9 +138,8 @@ export default function DonatePage() {
               <span className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">Legacy Giving</span>
             </div>
             <p className="font-lato text-white/70 text-base 760:text-lg leading-relaxed">
-              If you are interested in leaving a legacy gift to The Pops, ensuring your support for our orchestra for
-              generations to come, we would love to visit with you about our plans for the future and how you can
-              forever be a part of it.
+              If you are interested in leaving a legacy gift to The Pops, ensuring your support for our orchestra for generations
+              to come, we would love to visit with you about our plans for the future and how you can forever be a part of it.
             </p>
             <div className="flex flex-col gap-2 pt-1">
               <a
@@ -157,9 +155,7 @@ export default function DonatePage() {
               >
                 941-926-POPS (7677)
               </a>
-              <span className="font-lato text-sm text-white/70 italic pt-1">
-                Melissa Warthen · Chief Administrative Officer
-              </span>
+              <span className="font-lato text-sm text-white/70 italic pt-1">Melissa Warthen · Chief Administrative Officer</span>
             </div>
           </div>
         </div>
@@ -179,9 +175,7 @@ export default function DonatePage() {
         <div className="max-w-5xl mx-auto px-6 flex flex-col 760:flex-row 760:items-center 760:justify-between gap-4">
           <div className="flex flex-col gap-1">
             <span className="text-sm font-mono uppercase tracking-[0.2em] text-primary-dark">Questions?</span>
-            <p className="font-lato text-text-dark/90 text-sm">
-              We&apos;re happy to help you find the right giving opportunity.
-            </p>
+            <p className="font-lato text-text-dark/90 text-sm">We&apos;re happy to help you find the right giving opportunity.</p>
           </div>
           <div className="flex flex-col 480:flex-row gap-3">
             <a
@@ -199,10 +193,9 @@ export default function DonatePage() {
       <section className="border-t border-border-dark/40 px-6 py-6">
         <p className="text-sm font-mono text-muted-dark/80 leading-relaxed max-w-4xl mx-auto uppercase tracking-wider">
           The Sarasota Pops Orchestra, Inc (&quot;The Pops&quot;) is a registered 501(c)(3) with EIN # 59-1694954 and is
-          registered with the FL Division of Consumer Services # CH9116. A copy of the official registration and
-          financial information may be obtained from the Division of Consumer Services by calling toll-free
-          (800-435-7352) within the state. Registration does not imply endorsement, approval, or recommendation by the
-          state.
+          registered with the FL Division of Consumer Services # CH9116. A copy of the official registration and financial
+          information may be obtained from the Division of Consumer Services by calling toll-free (800-435-7352) within the state.
+          Registration does not imply endorsement, approval, or recommendation by the state.
         </p>
       </section>
     </main>

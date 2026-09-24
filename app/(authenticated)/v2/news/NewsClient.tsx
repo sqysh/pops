@@ -3,10 +3,10 @@
 import { useState } from 'react'
 import type { News } from '@prisma/client'
 import { useTableFilter } from '@/app/lib/hooks/useTableFilter'
-import { NewsDrawer } from '@/app/components/drawers/NewsDrawer'
-import { TableEmptyState, TableFilterPills, TableSearch, TableShell } from '@/app/components/elements/TableShell'
+import { TableEmptyState, TableFilterPills, TableSearch, TableShell } from '@/app/(authenticated)/v2/_components/TableShell'
 import { COL, COLUMNS, VISIBILITY_OPTIONS } from '@/app/lib/constants/news.constants'
-import { NewsRow } from '@/app/components/rows/NewsRow'
+import { NewsRow } from '@/app/(authenticated)/v2/news/_components/NewsRow'
+import { NewsDrawer } from './_components/NewsDrawer'
 
 export function NewsClient({ news: initialNews }: { news: News[] }) {
   const [editingNews, setEditingNews] = useState<News | null | 'new'>(null)
@@ -55,17 +55,11 @@ export function NewsClient({ news: initialNews }: { news: News[] }) {
           { label: 'Draft', value: draftCount, accent: false }
         ]}
         action={{ label: '+ New Article', onClick: () => setEditingNews('new') }}
-        marquee="Click any row to edit · Published articles appear on the public site · Add an external link to point to a news source"
         toolbar={
           <>
             <TableSearch value={search} onChange={setSearch} placeholder="Search articles..." />
             <div className="ml-auto">
-              <TableFilterPills
-                options={VISIBILITY_OPTIONS}
-                active={visibilityFilter}
-                onChange={setVisibilityFilter}
-                accentColor="emerald"
-              />
+              <TableFilterPills options={VISIBILITY_OPTIONS} active={visibilityFilter} onChange={setVisibilityFilter} />
             </div>
           </>
         }

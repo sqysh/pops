@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 import type { Testimonial } from '@prisma/client'
-import { TestimonialDrawer } from '../../../components/drawers/TestimonialDrawer'
+import { TestimonialDrawer } from './_components/TestimonialDrawer'
 import { useTableFilter } from '@/app/lib/hooks/useTableFilter'
-import { TableEmptyState, TableFilterPills, TableSearch, TableShell } from '../../../components/elements/TableShell'
+import { TableEmptyState, TableFilterPills, TableSearch, TableShell } from '../_components/TableShell'
 import { COL, COLUMNS, VISIBILITY_OPTIONS } from '@/app/lib/constants/testimonial.constants'
-import { TestimonialRow } from '../../../components/rows/TestimonialRow'
+import { TestimonialRow } from './_components/TestimonialRow'
 
 export default function TestimonialsClient({ testimonials: initial }: { testimonials: Testimonial[] }) {
   const [testimonials, setTestimonials] = useState(initial)
@@ -70,17 +70,11 @@ export default function TestimonialsClient({ testimonials: initial }: { testimon
           { label: 'Draft', value: draftCount, accent: false }
         ]}
         action={{ label: '+ New Testimonial', onClick: () => setEditingTestimonial('new') }}
-        marquee="Click any row to edit · Published testimonials appear on the public site · Drag to reorder coming soon"
         toolbar={
           <>
             <TableSearch value={search} onChange={setSearch} placeholder="Search testimonials..." />
             <div className="ml-auto">
-              <TableFilterPills
-                options={VISIBILITY_OPTIONS}
-                active={visibilityFilter}
-                onChange={setVisibilityFilter}
-                accentColor="emerald"
-              />
+              <TableFilterPills options={VISIBILITY_OPTIONS} active={visibilityFilter} onChange={setVisibilityFilter} />
             </div>
           </>
         }

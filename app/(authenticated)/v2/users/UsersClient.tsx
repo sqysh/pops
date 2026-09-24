@@ -1,22 +1,20 @@
 'use client'
 
 import { useState } from 'react'
-import { TableEmptyState, TableFilterPills, TableSearch, TableShell } from '../../../components/elements/TableShell'
+import { User, UserRole } from '@prisma/client'
 import { useTableFilter } from '@/app/lib/hooks/useTableFilter'
-import { CreateAdminDrawer } from '@/app/components/drawers/CreateAdminDrawer'
-import { COL, COLUMNS, ROLE_OPTIONS, ROLE_ORDER } from '@/app/lib/constants/user.constants'
-import { UserRow } from '@/app/components/rows/UserRow'
-import { IUser } from '@/app/types/entities/user'
-import { UserDrawer } from '@/app/components/drawers/UserDrawer'
+import { COL, COLUMNS, ROLE_ORDER } from '@/app/lib/constants/user.constants'
+import { TableEmptyState, TableShell } from '../_components/TableShell'
+import { CreateAdminDrawer } from './_components/CreateAdminDrawer'
+import { UserDrawer } from './_components/UserDrawer'
+import { UserRow } from './_components/UserRow'
 
-export function UsersClient({ users }: { users: any[] }) {
-  const [drawerOpen, setDrawerOpen] = useState(false)
-  const [roleFilter, setRoleFilter] = useState('ALL')
-  const [editingUser, setEditingUser] = useState<IUser | null>(null)
+export function UsersClient({ users }: { users: User[] }) {
+  const [creating, setCreating] = useState(false)
+  const [editingUser, setEditingUser] = useState<User | null>(null)
 
-  const { filtered, search, setSearch, sortKey, sortDir, toggleSort, clearFilters, isFiltered } = useTableFilter({
+  const { filtered, sortKey, sortDir, toggleSort } = useTableFilter({
     data: users,
-    searchKeys: ['firstName', 'lastName', 'email'],
     defaultSortKey: 'role',
     sortConfigs: {
       firstName: { getValue: (u) => `${u.firstName ?? ''} ${u.lastName ?? ''}`.toLowerCase() },
@@ -26,11 +24,12 @@ export function UsersClient({ users }: { users: any[] }) {
     }
   })
 
-  const visibleFiltered = filtered.filter((u) => (roleFilter === 'ALL' ? true : u.role === roleFilter))
+  const byRole = users.reduce<Record<string, number>>((acc, u) => {
+    acc[u.role] = (acc[u.role] ?? 0) + 1
+    return acc
+  }, {})
 
-  const superCount = users.filter((u) => u.role === 'SUPER_USER').length
-  const conductorCount = users.filter((u) => u.role === 'CONDUCTOR').length
-  const adminCount = users.filter((u) => u.role === 'ADMIN').length
+  const count = (role: UserRole) => byRole[role] ?? 0
 
   return (
     <>
@@ -41,46 +40,28 @@ export function UsersClient({ users }: { users: any[] }) {
         user={editingUser}
       />
 
-      <CreateAdminDrawer key={drawerOpen ? 'open' : 'closed'} open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      <CreateAdminDrawer key={creating ? 'open' : 'closed'} open={creating} onClose={() => setCreating(false)} />
 
       <TableShell
-        label="USERS"
-        backHref="/v2/dashboard"
+        label="Users"
         count={users.length}
         pills={[
-          { label: 'Super', value: superCount, accent: false },
-          { label: 'Conductor', value: conductorCount, accent: false },
-          { label: 'Admin', value: adminCount, accent: false }
+          { label: 'super', value: count('SUPER_USER') },
+          { label: 'conductor', value: count('CONDUCTOR') },
+          { label: 'admin', value: count('ADMIN') }
         ]}
-        action={{ label: '+ New Admin', onClick: () => setDrawerOpen(true) }}
-        marquee="Delete removes access immediately · Super User accounts cannot be deleted · New admins receive a verification email · Role changes must be made directly in the database"
-        toolbar={
-          <>
-            <TableSearch value={search} onChange={setSearch} placeholder="Search users..." />
-            <div className="ml-auto">
-              <TableFilterPills options={ROLE_OPTIONS} active={roleFilter} onChange={setRoleFilter} accentColor="red" />
-            </div>
-          </>
-        }
+        action={{ label: 'New admin', onClick: () => setCreating(true) }}
+        note="New admins get a verification email before they can sign in. Change someone's role from their row or by opening it. Deleting a user removes their access straight away."
         columns={COLUMNS}
         colClass={COL}
         sortKey={sortKey}
         sortDir={sortDir}
         toggleSort={toggleSort}
-        filteredCount={visibleFiltered.length}
+        filteredCount={filtered.length}
         totalCount={users.length}
-        empty={
-          <TableEmptyState
-            noun="users"
-            isFiltered={isFiltered || roleFilter !== 'ALL'}
-            onClear={() => {
-              clearFilters()
-              setRoleFilter('ALL')
-            }}
-          />
-        }
+        empty={<TableEmptyState noun="users" isFiltered={false} onClear={() => {}} />}
       >
-        {visibleFiltered.map((user, i) => (
+        {filtered.map((user, i) => (
           <UserRow key={user.id} user={user} index={i} onEdit={setEditingUser} />
         ))}
       </TableShell>

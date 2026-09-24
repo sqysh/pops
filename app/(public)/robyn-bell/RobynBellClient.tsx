@@ -1,7 +1,7 @@
 'use client'
 
-import CompactPageHero from '@/app/components/common/CompactPageHero'
-import Picture from '@/app/components/common/Picture'
+import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
+import Picture from '@/components/common/Picture'
 
 export const RobynBellClient = ({ data }) => {
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
@@ -45,10 +45,7 @@ export const RobynBellClient = ({ data }) => {
                       <div className="w-6 h-px bg-blaze" aria-hidden="true" />
                       <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">Biography</span>
                     </div>
-                    <h2
-                      id="robyn-bell-heading"
-                      className="font-changa text-2xl 430:text-3xl text-white mb-6 leading-tight"
-                    >
+                    <h2 id="robyn-bell-heading" className="font-changa text-2xl 430:text-3xl text-white mb-6 leading-tight">
                       {field('robyn_bell_main_title')}
                     </h2>
                     <div className="w-8 h-px bg-blaze mb-8" aria-hidden="true" />
@@ -73,9 +70,7 @@ export const RobynBellClient = ({ data }) => {
                   <div className="flex flex-col gap-3 border-t border-white/10 pt-8">
                     <div className="flex items-center gap-3 mb-2">
                       <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                      <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
-                        Credentials
-                      </span>
+                      <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">Credentials</span>
                     </div>
                     <p className="font-changa text-sm tracking-wider text-sunburst uppercase leading-relaxed">
                       {field('robyn_bell_credentials')}

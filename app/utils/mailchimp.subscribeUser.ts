@@ -1,5 +1,5 @@
-import { formatPhoneNumberForMailchimp } from './string.functions'
 import { createLog } from './logHelper'
+import { formatPhoneNumberForMailchimp } from './phone.utils'
 
 export const subscribeUser = async (
   interestMapping: Record<string, boolean>,

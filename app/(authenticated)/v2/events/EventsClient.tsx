@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import { useTableFilter } from '@/app/lib/hooks/useTableFilter'
-import { EventDrawer } from '../../../components/drawers/EventDrawer'
-import { TableEmptyState, TableFilterPills, TableSearch, TableShell } from '../../../components/elements/TableShell'
+import { EventDrawer } from './_components/EventDrawer'
+import { TableEmptyState, TableFilterPills, TableSearch, TableShell } from '../_components/TableShell'
 import { COL, COLUMNS, STATUS_OPTIONS } from '@/app/lib/constants/event.constants'
-import { EventRow } from '../../../components/rows/EventRow'
+import { EventRow } from './_components/EventRow'
 import { Event } from '@prisma/client'
 
 export function EventsClient({ events: initialEvents }: { events: Event[] }) {
@@ -54,7 +54,6 @@ export function EventsClient({ events: initialEvents }: { events: Event[] }) {
           { label: 'Upcoming', value: upcomingCount, accent: upcomingCount > 0 }
         ]}
         action={{ label: '+ New Event', onClick: () => setEditingEvent('new') }}
-        marquee="Click any row to edit · Past events are dimmed · Published events appear on the public site"
         toolbar={
           <>
             <TableSearch value={search} onChange={setSearch} placeholder="Search events..." />
@@ -63,7 +62,6 @@ export function EventsClient({ events: initialEvents }: { events: Event[] }) {
                 options={STATUS_OPTIONS}
                 active={filters.status ?? 'ALL'}
                 onChange={(v) => setFilter('status', v)}
-                accentColor="emerald"
               />
             </div>
           </>

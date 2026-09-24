@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft, Calendar, ExternalLink } from 'lucide-react'
 import type { News } from '@prisma/client'
-import Picture from '../../../components/common/Picture'
+import Picture from '@/components/common/Picture'
 
 interface Props {
   article: News

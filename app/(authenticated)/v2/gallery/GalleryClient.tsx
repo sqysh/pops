@@ -8,7 +8,7 @@ import type { PhotoGalleryImage } from '@prisma/client'
 import uploadFileToFirebase from '@/app/utils/firebase.upload'
 import { createGalleryPhoto } from '@/app/lib/actions/photo-gallery-image/createGalleryPhoto'
 import { deleteGalleryPhoto } from '@/app/lib/actions/super/deleteGalleryPhoto'
-import Picture from '../../../components/common/Picture'
+import Picture from '@/components/common/Picture'
 import { useRouter } from 'next/navigation'
 import useSoundEffect from '@/app/lib/hooks/useSoundEffect'
 

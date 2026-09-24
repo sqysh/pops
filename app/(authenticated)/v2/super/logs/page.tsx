@@ -1,4 +1,4 @@
-import LogsClient from '@/app/components/pages/LogsClient'
+import LogsClient from '@/app/(authenticated)/v2/super/logs/LogsClient'
 import { auth } from '@/app/lib/auth'
 import prisma from '@/prisma/client'
 import { redirect } from 'next/navigation'

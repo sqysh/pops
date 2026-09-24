@@ -2,11 +2,12 @@ import Script from 'next/script'
 import { Changa, Cormorant_Infant, Heebo, Lato } from 'next/font/google'
 import { siteMetadata } from './metadata'
 import './globals.css'
-import RootLayoutClient from './components/layouts/RootLayoutClient'
+import RootLayoutClient from './RootLayoutClient'
 import { getLayoutData } from './lib/actions/getLayoutData'
 import { SessionProvider } from 'next-auth/react'
 import { MetaPixel } from './lib/layout/Metapixel'
 import { CookieConsent } from './lib/layout/CookieConsent'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata = siteMetadata
 
@@ -48,10 +49,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <head>
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-          strategy="lazyOnload"
-        />
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} strategy="lazyOnload" />
         <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -74,6 +72,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             {children}
           </RootLayoutClient>
         </SessionProvider>
+        <Analytics />
       </body>
     </html>
   )

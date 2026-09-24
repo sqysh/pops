@@ -2,7 +2,7 @@ import { FormState } from '@/app/types/entities/camp-application'
 import { MapPin, Music, User, Users } from 'lucide-react'
 
 export const COL = 'grid-cols-[minmax(0,1fr)_minmax(0,1fr)_7rem_5rem_5rem_2rem]'
-export const YEAR_COLORS = ['text-violet-400', 'text-emerald-400', 'text-sky-400', 'text-amber-400', 'text-red-400']
+export const YEAR_COLORS = ['text-violet-700', 'text-emerald-700', 'text-sky-700', 'text-amber-800', 'text-red-700']
 
 export const formSteps = [
   { id: 1, label: 'Student', icon: User },
