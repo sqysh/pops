@@ -2,7 +2,7 @@
 
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { FacebookIcon, InstagramIcon, YouTubeIcon } from '@/public/data/home.data'
-import ContactForm from '@/app/(public)/contact/_components/ContactForm'
+import { ContactForm } from '@/app/(public)/contact/_components/ContactForm'
 import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 
 export const ContactClient = ({ data }) => {
@@ -26,7 +26,7 @@ export const ContactClient = ({ data }) => {
                 <div className="w-6 h-px bg-blaze" aria-hidden="true" />
                 <span className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">Send a Message</span>
               </div>
-              <ContactForm btnClassname="justify-start" />
+              <ContactForm btnClassName="justify-start" />
             </div>
 
             {/* Sidebar */}

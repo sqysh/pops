@@ -22,12 +22,6 @@ export const uiSlice = createSlice({
     setCloseContactSubmissionSuccessModal: (state) => {
       state.contactSubmissionModal = false
     },
-    setOpenUserDrawer: (state) => {
-      state.userDrawer = true
-    },
-    setCloseUserDrawer: (state) => {
-      state.userDrawer = false
-    },
     setOpenCampApplicationSuccessModal: (state) => {
       state.campApplicationSuccessModal = true
     },
@@ -42,8 +36,6 @@ export const uiReducer = uiSlice.reducer as Reducer<UiStatePayload>
 export const {
   setCloseContactSubmissionSuccessModal,
   setOpenContactSubmissionSuccessModal,
-  setCloseUserDrawer,
-  setOpenUserDrawer,
   setCloseCampApplicationSuccessModal,
   setOpenCampApplicationSuccessModal
 } = uiSlice.actions
