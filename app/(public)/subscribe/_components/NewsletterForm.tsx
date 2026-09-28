@@ -1,15 +1,19 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Controller, useForm, useWatch } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { CheckCircle } from 'lucide-react'
-import { store, useFormSelector } from '@/app/redux/store'
-import { createFormActions, resetForm, setInputs } from '@/app/redux/features/formSlice'
 import { subscribeToMailchimp } from '@/app/lib/actions/mailchimp/subscribe'
-import validateNewsletterForm from '@/app/lib/validations/validateNewsletterForm'
 import { FormError, FormField, FormInput, FormToggle } from '@/app/(public)/_components/FormField'
-import { SubmitHandler } from '@/app/types/dom.types'
+import {
+  EMPTY_NEWSLETTER,
+  NewsletterFormInput,
+  NewsletterFormValues,
+  newsletterSchema
+} from '@/app/lib/schemas/newsletter.schema'
 
 const DETAILS = [
   { name: 'firstName', label: 'First name', required: true, autoComplete: 'given-name' },
@@ -32,6 +36,8 @@ const INTERESTS = [
   { name: 'isOption4', label: 'Other' }
 ] as const
 
+const INTEREST_NAMES = INTERESTS.map((interest) => interest.name)
+
 const SECTIONS = [
   { legend: 'Your details', fields: DETAILS },
   { legend: 'Address', fields: ADDRESS }
@@ -40,41 +46,49 @@ const SECTIONS = [
 const LEGEND = 'font-changa text-xl 760:text-2xl'
 
 export default function NewsletterForm() {
-  const { newsletterForm } = useFormSelector()
-  const { setErrors, handleInput } = createFormActions('newsletterForm', store.dispatch)
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    setError,
+    setValue,
+    formState: { errors, isSubmitting }
+  } = useForm<NewsletterFormInput, unknown, NewsletterFormValues>({
+    resolver: zodResolver(newsletterSchema),
+    defaultValues: EMPTY_NEWSLETTER
+  })
 
-  const inputs = newsletterForm?.inputs
-  const errors = newsletterForm?.errors
-
-  const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
-  const [submitError, setSubmitError] = useState<string | null>(null)
 
-  const setField = (data: Record<string, boolean>) => store.dispatch(setInputs({ formName: 'newsletterForm', data }))
+  useEffect(() => {
+    setValue('renderedAt', Date.now())
+  }, [setValue])
+
+  const interests = useWatch({ control, name: INTEREST_NAMES })
+  const allSelected = interests.every(Boolean)
 
   const toggleAll = () => {
-    const next = !inputs?.isSelectAll
-    setField(Object.fromEntries([['isSelectAll', next], ...INTERESTS.map((i) => [i.name, next])]))
+    INTEREST_NAMES.forEach((name) => setValue(name, !allSelected))
   }
 
-  const handleSubmit: SubmitHandler = async (e) => {
-    e.preventDefault()
-    setSubmitError(null)
+  const onSubmit = async (values: NewsletterFormValues) => {
+    const result = await subscribeToMailchimp(values)
 
-    if (!validateNewsletterForm(inputs, setErrors)) return
-
-    setLoading(true)
-
-    try {
-      const { isSelectAll: _isSelectAll, ...payload } = inputs
-      await subscribeToMailchimp(payload)
-      setSubmitted(true)
-      store.dispatch(resetForm('newsletterForm'))
-    } catch {
-      setSubmitError('We could not add you to the list just then. Please try again in a moment.')
-    } finally {
-      setLoading(false)
+    if (!result.success) {
+      if (result.fieldErrors) {
+        for (const [field, messages] of Object.entries(result.fieldErrors)) {
+          setError(field as keyof NewsletterFormInput, { message: messages[0] })
+        }
+      }
+      setError('root', {
+        message: result.error ?? 'We could not add you to the list just then. Please try again in a moment.'
+      })
+      return
     }
+
+    reset(EMPTY_NEWSLETTER)
+    setSubmitted(true)
   }
 
   if (submitted) {
@@ -105,7 +119,10 @@ export default function NewsletterForm() {
 
         <button
           type="button"
-          onClick={() => setSubmitted(false)}
+          onClick={() => {
+            setSubmitted(false)
+            setValue('renderedAt', Date.now())
+          }}
           className="font-lato text-sm text-white/50 hover:text-white/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
         >
           Subscribe another email
@@ -116,7 +133,7 @@ export default function NewsletterForm() {
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       noValidate
       aria-label="Connect with us subscription form"
       className="w-full px-5 760:px-8 990:px-12"
@@ -128,8 +145,8 @@ export default function NewsletterForm() {
 
             <div className="grid 760:grid-cols-2 gap-6 mt-6">
               {fields.map(({ name, label, ...rest }) => (
-                <FormField key={name} label={label} required={'required' in rest && rest.required} error={errors?.[name]}>
-                  <FormInput {...rest} name={name} value={inputs?.[name]} onChange={handleInput} placeholder={label} />
+                <FormField key={name} label={label} required={'required' in rest && rest.required} error={errors[name]?.message}>
+                  <FormInput {...rest} {...register(name)} placeholder={label} />
                 </FormField>
               ))}
             </div>
@@ -142,11 +159,11 @@ export default function NewsletterForm() {
 
           <div className="mt-4">
             {INTERESTS.map(({ name, label }) => (
-              <FormToggle
+              <Controller
                 key={name}
-                label={label}
-                value={inputs?.[name] || false}
-                onChange={(val) => setField({ [name]: val })}
+                name={name}
+                control={control}
+                render={({ field }) => <FormToggle label={label} value={field.value} onChange={field.onChange} />}
               />
             ))}
           </div>
@@ -154,10 +171,10 @@ export default function NewsletterForm() {
           <button
             type="button"
             onClick={toggleAll}
-            aria-pressed={inputs?.isSelectAll || false}
+            aria-pressed={allSelected}
             className="w-fit mt-4 min-h-12 px-4 py-2.5 -ml-4 font-lato text-base font-semibold text-sunburst hover:text-sunbursthover hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst focus-visible:ring-offset-2 focus-visible:ring-offset-bg-dark"
           >
-            {inputs?.isSelectAll ? 'Deselect all' : 'Select all'}
+            {allSelected ? 'Deselect all' : 'Select all'}
           </button>
         </fieldset>
 
@@ -165,35 +182,38 @@ export default function NewsletterForm() {
           <legend className={LEGEND}>About you</legend>
 
           <div className="mt-4">
-            <FormToggle
-              label="Are you a new patron of The Pops?"
-              value={inputs?.isNewPatron || false}
-              onChange={(val) => setField({ isNewPatron: val })}
+            <Controller
+              name="isNewPatron"
+              control={control}
+              render={({ field }) => (
+                <FormToggle label="Are you a new patron of The Pops?" value={field.value} onChange={field.onChange} />
+              )}
             />
 
-            <FormToggle
-              label="I agree with the storage and handling of my data by this website."
-              description="We use your details to send you concert news and updates. We never sell your information."
-              value={inputs?.agreedToPrivacyStatement || false}
-              onChange={(val) => setField({ agreedToPrivacyStatement: val })}
+            <Controller
+              name="agreedToPrivacyStatement"
+              control={control}
+              render={({ field, fieldState }) => (
+                <FormToggle
+                  label="I agree with the storage and handling of my data by this website."
+                  description="We use your details to send you concert news and updates. We never sell your information."
+                  value={field.value}
+                  onChange={field.onChange}
+                  error={fieldState.error?.message}
+                />
+              )}
             />
           </div>
-
-          {errors?.agreedToPrivacyStatement && (
-            <p role="alert" className="font-changa text-sm uppercase tracking-widest text-blaze-text mt-3">
-              {errors.agreedToPrivacyStatement}
-            </p>
-          )}
         </fieldset>
 
         <div className="flex flex-col gap-y-3">
           <button
             type="submit"
-            disabled={loading}
-            aria-disabled={loading}
+            disabled={isSubmitting}
+            aria-disabled={isSubmitting}
             className="bg-blaze/90 hover:bg-blaze disabled:opacity-60 disabled:cursor-not-allowed transition-colors w-full 760:w-40 px-8 py-3.5 font-changa uppercase tracking-widest font-medium text-sm flex items-center justify-center cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
-            {loading ? (
+            {isSubmitting ? (
               <>
                 <div
                   className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"
@@ -206,7 +226,7 @@ export default function NewsletterForm() {
             )}
           </button>
 
-          <FormError error={submitError} />
+          <FormError error={errors.root?.message ?? null} />
         </div>
       </div>
     </form>

@@ -4,17 +4,18 @@ import { useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Heart, X } from 'lucide-react'
-import { RootState, store, useAppSelector } from '@/app/redux/store'
+
 import { getNavigationLinks } from '@/app/utils/navigation.utils'
-import { closeNavigationDrawer } from '@/app/redux/features/appSlice'
 import Picture from '@/components/common/Picture'
+import { useAppStore } from '@/stores/useAppStore'
 
 const NavigationDrawer = ({ campApplicationsSetting, concertsPageLive, subscriptionsLive }) => {
   const path = usePathname()
-  const { navigationDrawer } = useAppSelector((state: RootState) => state.app)
+  const navigationDrawerOpen = useAppStore((s) => s.navigationDrawerOpen)
+  const closeDrawer = useAppStore((s) => s.closeNavigationDrawer)
+
   const overlayRef = useRef(null)
   const navLinks = getNavigationLinks(path, concertsPageLive, campApplicationsSetting, subscriptionsLive)
-  const closeDrawer = () => store.dispatch(closeNavigationDrawer())
 
   return (
     <>
@@ -23,7 +24,7 @@ const NavigationDrawer = ({ campApplicationsSetting, concertsPageLive, subscript
         onClick={closeDrawer}
         aria-hidden="true"
         className={`${
-          navigationDrawer ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          navigationDrawerOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         } fixed inset-0 z-99 bg-black/70 backdrop-blur-sm transition-opacity duration-500`}
       />
 
@@ -34,7 +35,7 @@ const NavigationDrawer = ({ campApplicationsSetting, concertsPageLive, subscript
         aria-modal="true"
         aria-label="Navigation menu"
         className={`${
-          navigationDrawer ? 'translate-x-0' : 'translate-x-full'
+          navigationDrawerOpen ? 'translate-x-0' : 'translate-x-full'
         } duration-500 ease-in-out no-scrollbar fixed top-0 right-0 z-100 h-full w-full sm:w-md bg-black border-l border-white/10 overflow-y-auto transition-transform flex flex-col`}
       >
         {/* Header */}

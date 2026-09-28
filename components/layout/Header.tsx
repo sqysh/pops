@@ -7,10 +7,9 @@ import { motion } from 'framer-motion'
 import { Menu } from 'lucide-react'
 import { SiteSetting } from '@prisma/client'
 import { getNavigationLinks, NavigationLinksProps } from '@/app/utils/navigation.utils'
-import { openNavigationDrawer } from '@/app/redux/features/appSlice'
 import { useHeaderAtTop } from '@/app/lib/hooks/useHeaderAtTop'
-import { store } from '@/app/redux/store'
 import LogoSVG from './LogoSVG'
+import { useAppStore } from '@/stores/useAppStore'
 
 const NAV_LINK =
   'relative group font-changa text-sm uppercase tracking-[0.2em] whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm'
@@ -104,6 +103,7 @@ export function Header({ campApplicationsSetting, concertsPageLive, subscription
   const navLinks = getNavigationLinks(path, concertsPageLive, campApplicationsSetting, subscriptionsLive)
   const [openTextKey, setOpenTextKey] = useState('')
   const { headerRef } = useHeaderAtTop()
+  const open = useAppStore((s) => s.openNavigationDrawer)
 
   return (
     <nav ref={headerRef} aria-label="Main site navigation" className="relative z-50 px-3 430:px-4 990:px-8 1200:px-12">
@@ -144,7 +144,7 @@ export function Header({ campApplicationsSetting, concertsPageLive, subscription
         >
           <button
             type="button"
-            onClick={() => store.dispatch(openNavigationDrawer())}
+            onClick={() => open()}
             aria-label="Open navigation menu"
             className="w-11 h-11 flex items-center justify-center text-white/70 hover:text-blaze-text 1160:hidden transition-colors duration-300 rounded-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
           >

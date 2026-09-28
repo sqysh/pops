@@ -1,105 +1,115 @@
 'use client'
 
-import { useState } from 'react'
-import { ArrowRightIcon, Loader2 } from 'lucide-react'
-import { store, useFormSelector } from '@/app/redux/store'
-import { createFormActions, resetForm } from '@/app/redux/features/formSlice'
-import { setOpenContactSubmissionSuccessModal } from '@/app/redux/features/uiSlice'
+import { useEffect, useState } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ArrowRightIcon, CheckCircle, Loader2 } from 'lucide-react'
 import { createQuestion } from '@/app/lib/actions/question/createQuestion'
-import validateContactForm from '@/app/lib/validations/validateContactForm'
 import { CharCount, FormError, FormField, FormInput, FormTextarea } from '@/app/(public)/_components/FormField'
-
-type SubmitHandler = NonNullable<React.ComponentProps<'form'>['onSubmit']>
+import { EMPTY_QUESTION, QuestionFormInput, QuestionFormValues, questionSchema } from '@/app/lib/schemas/question.schema'
 
 const MAX_MESSAGE = 500
 
 export function ContactForm({ btnClassName }: { btnClassName?: string }) {
-  const { questionForm } = useFormSelector()
-  const { handleInput, setErrors } = createFormActions('questionForm', store.dispatch)
+  const {
+    control,
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    setValue,
+    formState: { errors, isSubmitting }
+  } = useForm<QuestionFormInput, unknown, QuestionFormValues>({
+    resolver: zodResolver(questionSchema),
+    defaultValues: EMPTY_QUESTION
+  })
 
-  const inputs = questionForm?.inputs
-  const errors = questionForm?.errors
+  const [success, setSuccess] = useState(false)
 
-  const [loading, setLoading] = useState(false)
-  const [submitError, setSubmitError] = useState<string | null>(null)
+  useEffect(() => {
+    setValue('renderedAt', Date.now())
+  }, [setValue])
 
-  const handleSubmit: SubmitHandler = async (e) => {
-    e.preventDefault()
-    setSubmitError(null)
+  const message = useWatch({ control, name: 'message' }) ?? ''
 
-    if (!validateContactForm(inputs, setErrors)) return
+  const onSubmit = async (values: QuestionFormValues) => {
+    const result = await createQuestion(values)
 
-    setLoading(true)
-
-    try {
-      const res = await createQuestion({
-        name: inputs.name,
-        email: inputs.email,
-        message: inputs.message
-      })
-
-      if (res.success) {
-        store.dispatch(setOpenContactSubmissionSuccessModal())
-        store.dispatch(resetForm('questionForm'))
-      } else {
-        setSubmitError(res.error ?? 'Your question could not be sent. Please try again in a moment.')
+    if (!result.success) {
+      if (result.fieldErrors) {
+        for (const [field, messages] of Object.entries(result.fieldErrors)) {
+          setError(field as keyof QuestionFormInput, { message: messages[0] })
+        }
       }
-    } catch {
-      setSubmitError('Your question could not be sent. Check your connection and try again.')
-    } finally {
-      setLoading(false)
+      setError('root', { message: result.error ?? 'Something went wrong. Please try again.' })
+      return
     }
+
+    reset(EMPTY_QUESTION)
+    setSuccess(true)
+  }
+
+  if (success) {
+    return (
+      <div role="status" aria-live="polite" className="flex flex-col items-center text-center gap-4 w-full max-w-3xl py-12">
+        <div className="w-12 h-12 border border-blaze/30 bg-blaze/10 flex items-center justify-center" aria-hidden="true">
+          <CheckCircle className="w-6 h-6 text-blaze-text" />
+        </div>
+
+        <h3 className="font-changa text-2xl text-white">Thanks, we got it</h3>
+        <p className="font-lato text-base text-white/80 max-w-md leading-relaxed">
+          Someone from The Pops will get back to you shortly.
+        </p>
+
+        <button
+          type="button"
+          onClick={() => {
+            setSuccess(false)
+            setValue('renderedAt', Date.now())
+          }}
+          className="font-lato text-sm text-white/50 hover:text-white/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+        >
+          Ask another question
+        </button>
+      </div>
+    )
   }
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       noValidate
       aria-label="Contact question form"
       className="grid grid-cols-12 gap-y-8 990:gap-8 w-full max-w-3xl"
     >
       <div className="col-span-12 990:col-span-6">
-        <FormField label="Your name" required error={errors?.name}>
-          <FormInput name="name" value={inputs?.name} onChange={handleInput} placeholder="Your name" />
+        <FormField label="Your name" required error={errors.name?.message}>
+          <FormInput {...register('name')} placeholder="Your name" autoComplete="name" />
         </FormField>
       </div>
 
       <div className="col-span-12 990:col-span-6">
-        <FormField label="Your email" required error={errors?.email}>
-          <FormInput
-            name="email"
-            type="email"
-            value={inputs?.email}
-            onChange={handleInput}
-            placeholder="Your email"
-            autoComplete="email"
-          />
+        <FormField label="Your email" required error={errors.email?.message}>
+          <FormInput {...register('email')} type="email" placeholder="Your email" autoComplete="email" />
         </FormField>
       </div>
 
       <div className="col-span-12">
-        <FormField label="Your question" required error={errors?.message}>
-          <FormTextarea
-            name="message"
-            value={inputs?.message}
-            onChange={handleInput}
-            placeholder="Ask your question here..."
-            rows={4}
-            maxLength={MAX_MESSAGE}
-          />
+        <FormField label="Your question" required error={errors.message?.message}>
+          <FormTextarea {...register('message')} placeholder="Ask your question here..." rows={4} maxLength={MAX_MESSAGE} />
         </FormField>
 
-        <CharCount value={inputs?.message ?? ''} max={MAX_MESSAGE} />
+        <CharCount value={message} max={MAX_MESSAGE} />
       </div>
 
       <div className={`col-span-12 flex flex-col gap-4 mt-6 ${btnClassName ?? 'items-center'}`}>
         <button
           type="submit"
-          disabled={loading}
-          aria-disabled={loading}
+          disabled={isSubmitting}
+          aria-disabled={isSubmitting}
           className="group inline-flex items-center gap-3 bg-blaze hover:bg-blazehover text-white px-8 py-4 font-changa text-sm uppercase tracking-widest transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
         >
-          {loading ? (
+          {isSubmitting ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin shrink-0" aria-hidden="true" />
               <span aria-hidden="true">Submitting...</span>
@@ -113,7 +123,7 @@ export function ContactForm({ btnClassName }: { btnClassName?: string }) {
           )}
         </button>
 
-        <FormError error={submitError} />
+        <FormError error={errors.root?.message ?? null} />
       </div>
     </form>
   )

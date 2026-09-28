@@ -97,7 +97,7 @@ export function FormField({
   )
 }
 
-export function FormInput({ className, id, type = 'text', ...props }: React.InputHTMLAttributes<HTMLInputElement>) {
+export function FormInput({ className, id, type = 'text', ...props }: React.ComponentProps<'input'>) {
   const field = useField(id)
 
   return (
@@ -105,7 +105,6 @@ export function FormInput({ className, id, type = 'text', ...props }: React.Inpu
       {...props}
       id={field.id}
       type={type}
-      value={props.value ?? ''}
       autoCapitalize={type === 'email' ? 'off' : props.autoCapitalize}
       spellCheck={type === 'email' ? false : props.spellCheck}
       aria-invalid={field.hasError || undefined}
@@ -115,7 +114,7 @@ export function FormInput({ className, id, type = 'text', ...props }: React.Inpu
   )
 }
 
-export function FormTextarea({ className, id, rows = 4, ...props }: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+export function FormTextarea({ className, id, rows = 4, ...props }: React.ComponentProps<'textarea'>) {
   const field = useField(id)
 
   return (
@@ -123,7 +122,6 @@ export function FormTextarea({ className, id, rows = 4, ...props }: React.Textar
       {...props}
       id={field.id}
       rows={rows}
-      value={props.value ?? ''}
       aria-invalid={field.hasError || undefined}
       aria-describedby={props['aria-describedby'] ?? field.describedBy}
       className={`${fieldClass(field.hasError, className)} resize-none`}
@@ -131,12 +129,7 @@ export function FormTextarea({ className, id, rows = 4, ...props }: React.Textar
   )
 }
 
-export function FormSelect({
-  className,
-  id,
-  children,
-  ...props
-}: React.SelectHTMLAttributes<HTMLSelectElement> & { children: React.ReactNode }) {
+export function FormSelect({ className, id, children, ...props }: React.ComponentProps<'select'>) {
   const field = useField(id)
 
   return (
