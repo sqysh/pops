@@ -5,6 +5,7 @@ import { Calendar, ExternalLink, MapPin } from 'lucide-react'
 import Picture from '@/components/common/Picture'
 import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 import { CueBoxEvent, CueBoxEventInstance } from '@/app/types/cuebox.types'
+import { ISubscription } from '@/app/types/entities/subscription.types'
 import { formatDateLong, formatTime, isSunday } from '@/app/lib/utils/date.utils'
 
 /** The series is every Sunday performance at Neel Performing Arts Center. */
@@ -13,31 +14,21 @@ const VENUE_MATCH = 'neel'
 const VENUE_ADDRESS = '5840 26th St. W., Bradenton, FL 34207'
 const VENUE_MAP_URL = 'https://www.google.com/maps/search/5840+26th+St.+W.,+Bradenton,+FL+34207'
 
-const SINGLE_TICKET_PRICE = 35
-
-/** Set up by Robyn in CueBox. Prices and links change each season. */
-const SUBSCRIPTIONS = [
-  {
-    name: 'Pick Two Shows',
-    detail: 'Any two shows in the series',
-    price: 30,
-    cta: 'Pick Two Shows',
-    url: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/JTTTG43D'
-  },
-  {
-    name: 'All Three Shows',
-    detail: 'The full series at our best price',
-    price: 25,
-    cta: 'Choose All Three',
-    url: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/ZKJM5H54'
-  }
-]
-
 const BOX_OFFICE_PHONE = '941-926-POPS (7677)'
 const BOX_OFFICE_TEL = '+19419267677'
 const BOX_OFFICE_EMAIL = 'tickets@thepopsorchestra.org'
 
-export const SundaysAtNeelClient = ({ concerts, instances }: { concerts: CueBoxEvent[]; instances: CueBoxEventInstance[] }) => {
+/** She names them "Sundays@Neel-Two Show Series Subscription", and the heading
+ *  above already says the series, so the prefix is noise on the card. */
+const displayName = (name: string) => name.replace(/^Sundays@Neel\s*[-–—]\s*/i, '')
+
+interface Props {
+  concerts: CueBoxEvent[]
+  instances: CueBoxEventInstance[]
+  subscriptions: ISubscription[]
+}
+
+export const SundaysAtNeelClient = ({ concerts, instances, subscriptions }: Props) => {
   // Only what a patron is allowed to see: the concert and the performance both
   // have to be visible in CueBox.
   const visible = instances.filter((inst) => {
@@ -167,7 +158,7 @@ export const SundaysAtNeelClient = ({ concerts, instances }: { concerts: CueBoxE
             </ul>
           )}
 
-          {cards.length > 0 && (
+          {subscriptions.length > 0 && (
             <div className="mt-20 760:mt-24 pt-14 760:pt-16 border-t border-white/10">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-6 h-px bg-blaze shrink-0" aria-hidden="true" />
@@ -177,7 +168,7 @@ export const SundaysAtNeelClient = ({ concerts, instances }: { concerts: CueBoxE
               </div>
 
               <p className="font-lato text-base text-white/70 leading-relaxed max-w-xl mb-8 760:mb-10">
-                Single tickets are ${SINGLE_TICKET_PRICE}. Come to more than one show and every seat costs less.
+                Coming to more than one show? Every seat costs less when you book them together.
               </p>
 
               <ul
@@ -185,30 +176,35 @@ export const SundaysAtNeelClient = ({ concerts, instances }: { concerts: CueBoxE
                 aria-labelledby="subscriptions-heading"
                 className="grid grid-cols-1 760:grid-cols-2 gap-5 760:gap-6"
               >
-                {SUBSCRIPTIONS.map((sub) => (
-                  <li key={sub.url} className="flex flex-col gap-5 border border-white/10 bg-white/[0.03] p-6 760:p-8">
+                {subscriptions.map((sub) => (
+                  <li key={sub.id} className="flex flex-col gap-5 border border-white/10 bg-white/3 p-6 760:p-8">
                     <div className="flex flex-col gap-1.5">
-                      <h3 className="font-changa font-black text-xl 760:text-2xl text-white leading-tight">{sub.name}</h3>
-                      <p className="font-lato text-sm text-white/60 leading-relaxed">{sub.detail}</p>
+                      <h3 className="font-changa font-black text-xl 760:text-2xl text-white leading-tight">
+                        {displayName(sub.name)}
+                      </h3>
+                      {sub.tagline && <p className="font-lato text-sm text-blaze-text leading-relaxed">{sub.tagline}</p>}
+                      {sub.description && <p className="font-lato text-sm text-white/60 leading-relaxed">{sub.description}</p>}
                     </div>
 
-                    <div className="flex items-baseline gap-2.5 flex-wrap">
-                      <span className="font-changa font-black text-4xl 760:text-5xl text-white tabular-nums leading-none">
-                        ${sub.price}
-                      </span>
-                      <span className="font-lato text-sm text-white/60">
-                        each, saving ${SINGLE_TICKET_PRICE - sub.price} a show
-                      </span>
-                    </div>
+                    {sub.pricingTiers.length > 0 && (
+                      <dl className="flex flex-col divide-y divide-white/10 border-y border-white/10">
+                        {sub.pricingTiers.map((tier) => (
+                          <div key={tier.label} className="flex items-baseline justify-between gap-4 py-2.5">
+                            <dt className="font-lato text-sm text-white/60">{tier.label}</dt>
+                            <dd className="font-changa font-black text-lg 760:text-xl text-white tabular-nums">{tier.price}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    )}
 
                     <a
-                      href={sub.url}
+                      href={sub.publicUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`${sub.cta}, opens our ticketing site in a new tab`}
+                      aria-label={`${displayName(sub.name)}, opens our ticketing site in a new tab`}
                       className="inline-flex items-center gap-2.5 w-fit mt-auto px-6 py-3 bg-blaze hover:bg-blazehover text-white font-changa text-sm uppercase tracking-widest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                     >
-                      {sub.cta}
+                      Buy This Package
                       <ExternalLink className="w-4 h-4 shrink-0" aria-hidden="true" />
                     </a>
                   </li>

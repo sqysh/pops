@@ -5,6 +5,7 @@ import { getActor } from '../user/getActor'
 import prisma from '@/prisma/client'
 import { createLog } from '@/app/utils/logHelper'
 import { revalidatePath } from 'next/cache'
+import { SUBSCRIPTION_PAGES } from '../../constants/subscription.constants'
 
 export async function deleteSubscription(id: string): Promise<ActionResult> {
   const actor = await getActor()
@@ -17,7 +18,7 @@ export async function deleteSubscription(id: string): Promise<ActionResult> {
 
     await createLog('INFO', 'Subscription deleted', { id, by: actor })
 
-    revalidatePath('/', 'layout')
+    SUBSCRIPTION_PAGES.forEach((path) => revalidatePath(path))
 
     return { success: true }
   } catch (err) {

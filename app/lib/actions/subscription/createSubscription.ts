@@ -7,6 +7,7 @@ import prisma from '@/prisma/client'
 import { createLog } from '@/app/utils/logHelper'
 import { revalidatePath } from 'next/cache'
 import { ActionResult } from '@/app/types/common.types'
+import { SUBSCRIPTION_PAGES } from '../../constants/subscription.constants'
 
 export async function createSubscription(input: ISubscriptionInput): Promise<ActionResult<ISubscription>> {
   const actor = await getActor()
@@ -41,7 +42,7 @@ export async function createSubscription(input: ISubscriptionInput): Promise<Act
       by: actor
     })
 
-    revalidatePath('/', 'layout')
+    SUBSCRIPTION_PAGES.forEach((path) => revalidatePath(path))
 
     return { success: true, data: serialize(created) }
   } catch (err) {

@@ -1,12 +1,13 @@
 import { Metadata } from 'next'
 import { listCueBoxEvents } from '@/app/lib/actions/cuebox/listCueBoxEvents'
 import { listCueBoxEventInstances } from '@/app/lib/actions/cuebox/listCueBoxEventInstances'
+import { getSubscriptions } from '@/app/lib/actions/subscription'
 import { SundaysAtNeelClient } from './SundaysAtNeelClient'
 
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Sundays at Neel | The Pops Orchestra',
+  title: 'Sundays@Neel | The Pops Orchestra',
   description: 'Sunday afternoon performances at Neel Performing Arts Center.'
 }
 
@@ -19,11 +20,20 @@ function seasonRange() {
   }
 }
 
+/** Robyn names these "Sundays@Neel-Two Show Series Subscription" in the admin. */
+const SERIES_PREFIX = 'Sundays@Neel'
+
 export default async function SundaysAtNeelPage() {
-  const [events, instances] = await Promise.all([
+  const [events, instances, subs] = await Promise.all([
     listCueBoxEvents().catch(() => ({ success: false as const, data: [] })),
-    listCueBoxEventInstances(seasonRange()).catch(() => ({ success: false as const, data: [] }))
+    listCueBoxEventInstances(seasonRange()).catch(() => ({ success: false as const, data: [] })),
+    getSubscriptions().catch(() => ({ success: false as const, data: [] }))
   ])
 
-  return <SundaysAtNeelClient concerts={events.data ?? []} instances={instances.data ?? []} />
+  // same rule as the admin states: On Sale and visible
+  const subscriptions = (subs.data ?? []).filter(
+    (sub) => sub.isVisible && sub.status === 'ON_SALE' && sub.name.startsWith(SERIES_PREFIX)
+  )
+
+  return <SundaysAtNeelClient concerts={events.data ?? []} instances={instances.data ?? []} subscriptions={subscriptions} />
 }
