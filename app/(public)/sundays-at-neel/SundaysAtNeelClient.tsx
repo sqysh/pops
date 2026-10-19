@@ -10,6 +10,33 @@ import { formatDateLong, formatTime, isSunday } from '@/app/lib/utils/date.utils
 /** The series is every Sunday performance at Neel Performing Arts Center. */
 const VENUE_MATCH = 'neel'
 
+const VENUE_ADDRESS = '5840 26th St. W., Bradenton, FL 34207'
+const VENUE_MAP_URL = 'https://www.google.com/maps/search/5840+26th+St.+W.,+Bradenton,+FL+34207'
+
+const SINGLE_TICKET_PRICE = 35
+
+/** Set up by Robyn in CueBox. Prices and links change each season. */
+const SUBSCRIPTIONS = [
+  {
+    name: 'Pick Two Shows',
+    detail: 'Any two shows in the series',
+    price: 30,
+    cta: 'Pick Two Shows',
+    url: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/JTTTG43D'
+  },
+  {
+    name: 'All Three Shows',
+    detail: 'The full series at our best price',
+    price: 25,
+    cta: 'Choose All Three',
+    url: 'https://thepopsorchestra.app.getcuebox.com/o/21NL0B8D/season-subscriptions/ZKJM5H54'
+  }
+]
+
+const BOX_OFFICE_PHONE = '941-926-POPS (7677)'
+const BOX_OFFICE_TEL = '+19419267677'
+const BOX_OFFICE_EMAIL = 'tickets@thepopsorchestra.org'
+
 export const SundaysAtNeelClient = ({ concerts, instances }: { concerts: CueBoxEvent[]; instances: CueBoxEventInstance[] }) => {
   // Only what a patron is allowed to see: the concert and the performance both
   // have to be visible in CueBox.
@@ -33,9 +60,22 @@ export const SundaysAtNeelClient = ({ concerts, instances }: { concerts: CueBoxE
   return (
     <main id="main-content">
       <CompactPageHero
-        breadcrumb="Sundays at Neel"
-        heading="Sundays at Neel"
-        description="Sunday afternoons at Neel Performing Arts Center. Come early, stay late, and let us handle the rest."
+        breadcrumb="Sundays@Neel"
+        heading="Sundays@Neel"
+        description={
+          <>
+            Though The Pops Orchestra won&apos;t be performing, these are acts we know you will love. All shows are on Sundays at
+            3:00 p.m., at the Neel Performing Arts Center on the campus of State College of Florida:{' '}
+            <a
+              href={VENUE_MAP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sunburst underline underline-offset-2 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
+            >
+              {VENUE_ADDRESS}
+            </a>
+          </>
+        }
       />
 
       <div className="px-4 760:px-6 990:px-12">
@@ -125,6 +165,74 @@ export const SundaysAtNeelClient = ({ concerts, instances }: { concerts: CueBoxE
                 </motion.li>
               ))}
             </ul>
+          )}
+
+          {cards.length > 0 && (
+            <div className="mt-20 760:mt-24 pt-14 760:pt-16 border-t border-white/10">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-6 h-px bg-blaze shrink-0" aria-hidden="true" />
+                <h2 id="subscriptions-heading" className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
+                  Bundle and Save
+                </h2>
+              </div>
+
+              <p className="font-lato text-base text-white/70 leading-relaxed max-w-xl mb-8 760:mb-10">
+                Single tickets are ${SINGLE_TICKET_PRICE}. Come to more than one show and every seat costs less.
+              </p>
+
+              <ul
+                role="list"
+                aria-labelledby="subscriptions-heading"
+                className="grid grid-cols-1 760:grid-cols-2 gap-5 760:gap-6"
+              >
+                {SUBSCRIPTIONS.map((sub) => (
+                  <li key={sub.url} className="flex flex-col gap-5 border border-white/10 bg-white/[0.03] p-6 760:p-8">
+                    <div className="flex flex-col gap-1.5">
+                      <h3 className="font-changa font-black text-xl 760:text-2xl text-white leading-tight">{sub.name}</h3>
+                      <p className="font-lato text-sm text-white/60 leading-relaxed">{sub.detail}</p>
+                    </div>
+
+                    <div className="flex items-baseline gap-2.5 flex-wrap">
+                      <span className="font-changa font-black text-4xl 760:text-5xl text-white tabular-nums leading-none">
+                        ${sub.price}
+                      </span>
+                      <span className="font-lato text-sm text-white/60">
+                        each, saving ${SINGLE_TICKET_PRICE - sub.price} a show
+                      </span>
+                    </div>
+
+                    <a
+                      href={sub.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${sub.cta}, opens our ticketing site in a new tab`}
+                      className="inline-flex items-center gap-2.5 w-fit mt-auto px-6 py-3 bg-blaze hover:bg-blazehover text-white font-changa text-sm uppercase tracking-widest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                    >
+                      {sub.cta}
+                      <ExternalLink className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              <p className="font-lato text-base text-white/70 leading-relaxed mt-8 760:mt-10 max-w-xl">
+                Prefer a little assistance? Call{' '}
+                <a
+                  href={`tel:${BOX_OFFICE_TEL}`}
+                  className="text-sunburst underline underline-offset-2 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
+                >
+                  {BOX_OFFICE_PHONE}
+                </a>{' '}
+                or email{' '}
+                <a
+                  href={`mailto:${BOX_OFFICE_EMAIL}`}
+                  className="text-sunburst underline underline-offset-2 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
+                >
+                  {BOX_OFFICE_EMAIL}
+                </a>{' '}
+                and we will walk you through it.
+              </p>
+            </div>
           )}
         </section>
       </div>

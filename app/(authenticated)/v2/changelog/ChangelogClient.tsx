@@ -21,6 +21,33 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.19.0',
+    date: '2026-10-19',
+    summary: 'Sundays@Neel now carries the subscription packages, the new series wording, and the box office details.',
+    changes: [
+      {
+        type: 'new',
+        text: 'The two show and three show subscription packages are on the Sundays@Neel page, each with its per show price and what it saves against a single ticket. Both buttons go straight to that package on the ticketing site.'
+      },
+      {
+        type: 'new',
+        text: 'The box office phone number and ticketing email sit below the packages, so anyone who would rather not book online can call or write without hunting for the number. On a phone the number dials with one tap.'
+      },
+      {
+        type: 'improved',
+        text: 'The wording at the top of Sundays@Neel now explains that The Pops is not performing in this series, and gives the time and venue. The Neel address links straight to directions.'
+      },
+      {
+        type: 'improved',
+        text: 'The series is called Sundays@Neel everywhere on the site. The web address has not changed, so links already sent out still work.'
+      },
+      {
+        type: 'fixed',
+        text: 'On smaller phones the top of every page heading was being cut off above the screen. It now sits correctly under the menu bar at every size, with more of the page visible before you scroll.'
+      }
+    ]
+  },
+  {
     version: '3.18.0',
     date: '2026-09-24',
     summary: 'The admin area has been rebuilt: lighter, larger, and organised around what needs your attention.',
