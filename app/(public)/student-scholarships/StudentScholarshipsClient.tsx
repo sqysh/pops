@@ -76,7 +76,9 @@ export const StudentScholarshipsClient = ({ data }) => {
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                  <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">Our Program</span>
+                  <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
+                    {field('scholarships_section_eyebrow')}
+                  </span>
                 </div>
 
                 <h2

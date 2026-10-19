@@ -1,7 +1,7 @@
 import { getPage } from '@/app/lib/actions/page/getPage'
-import { SubscribeClient } from '@/app/(public)/subscribe/SubscribeClient'
+import { NewsletterClient } from '@/app/(public)/subscribe/NewsletterClient'
 
-export default async function SubscribePage() {
+export default async function NewsletterPage() {
   const data = await getPage('subscribe')
-  return <SubscribeClient data={data} />
+  return <NewsletterClient data={data} />
 }

@@ -9,12 +9,12 @@ import { EMPTY_VENUE_FORM } from '@/app/lib/constants/venue.constants'
 import { IVenue } from '@/app/types/entities/venue'
 import uploadFileToFirebase from '@/app/utils/firebase.upload'
 import { DrawerShell } from '@/app/(authenticated)/v2/_components/DrawerShell'
-import { PictureUpload } from '@/app/(authenticated)/v2/_components/PictureUpload'
 import { FormError, FormField, FormInput, FormSelect, FormTextarea } from '@/app/(authenticated)/v2/_components/FormField'
 import { DrawerFormFooter } from '@/app/(authenticated)/v2/_components/DrawerFormFooter'
 import { DangerZone } from '@/app/(authenticated)/v2/_components/DangerZone'
 import { DrawerBody } from '@/app/(authenticated)/v2/_components/DrawerElements'
 import useSoundEffect from '@/app/lib/hooks/useSoundEffect'
+import { MediaUpload } from '../../_components/MediaUpload'
 
 interface FormData {
   name: string
@@ -144,7 +144,7 @@ export function VenueDrawer({ open, onClose, venue }: { open: boolean; onClose: 
     <DrawerShell open={open} onClose={handleClose} label={isEdit ? venue.name : 'New venue'} width="w-[32rem]">
       <form onSubmit={handleSubmit} noValidate className="flex-1 min-h-0 flex flex-col overflow-hidden bg-white text-sm">
         <DrawerBody>
-          <PictureUpload
+          <MediaUpload
             file={file}
             preview={preview}
             uploading={uploading}

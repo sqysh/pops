@@ -13,7 +13,7 @@ import { DrawerFormFooter } from '@/app/(authenticated)/v2/_components/DrawerFor
 import { DangerZone } from '@/app/(authenticated)/v2/_components/DangerZone'
 import { CharCount, DrawerBody } from '@/app/(authenticated)/v2/_components/DrawerElements'
 import useSoundEffect from '@/app/lib/hooks/useSoundEffect'
-import { PictureUpload } from '../../_components/PictureUpload'
+import { MediaUpload } from '../../_components/MediaUpload'
 
 interface NewsFormData {
   title: string
@@ -131,7 +131,7 @@ export function NewsDrawer({ open, onClose, news }: { open: boolean; onClose: ()
     <DrawerShell open={open} onClose={handleClose} label={isEdit ? news.title : 'New article'} width="w-[36rem]">
       <form onSubmit={handleSubmit} noValidate className="flex-1 min-h-0 flex flex-col overflow-hidden bg-white text-sm">
         <DrawerBody>
-          <PictureUpload
+          <MediaUpload
             file={file}
             preview={preview}
             uploading={uploading}

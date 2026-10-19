@@ -7,10 +7,10 @@ import { updateSponsor } from '@/app/lib/actions/sponsor/updateSponsor'
 import { useRouter } from 'next/navigation'
 import { deleteSponsor } from '@/app/lib/actions/sponsor/deleteSponsor'
 import { DrawerShell } from '@/app/(authenticated)/v2/_components/DrawerShell'
-import { PictureUpload } from '@/app/(authenticated)/v2/_components/PictureUpload'
 import { FormError, FormField, FormInput, FormToggle } from '@/app/(authenticated)/v2/_components/FormField'
 import { DangerZone } from '@/app/(authenticated)/v2/_components/DangerZone'
 import { DrawerFormFooter } from '@/app/(authenticated)/v2/_components/DrawerFormFooter'
+import { MediaUpload } from '../../_components/MediaUpload'
 
 type TSponsorDrawer = {
   open: boolean
@@ -101,7 +101,7 @@ export function SponsorDrawer({ open, onClose, sponsor }: TSponsorDrawer) {
     <DrawerShell open={open} onClose={handleClose} label={isEdit ? 'EDIT SPONSOR' : 'NEW SPONSOR'} width="w-[28rem]">
       <form onSubmit={handleSubmit} className="flex-1 min-h-0 flex flex-col overflow-hidden">
         <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4 flex flex-col gap-5">
-          <PictureUpload
+          <MediaUpload
             file={file}
             preview={preview}
             uploading={uploading}

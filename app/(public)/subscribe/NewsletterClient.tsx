@@ -3,7 +3,7 @@
 import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 import NewsletterForm from '@/app/(public)/subscribe/_components/NewsletterForm'
 
-export const SubscribeClient = ({ data }) => {
+export function NewsletterClient({ data }) {
   const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
   return (
     <main id="main-content">

@@ -5,6 +5,8 @@ import { ImagePlus, Upload, X } from 'lucide-react'
 import { LABEL } from './FormField'
 import Picture from '@/components/common/Picture'
 
+type MediaKind = 'image' | 'video'
+
 interface Props {
   file: File | null
   preview: string | null
@@ -12,26 +14,36 @@ interface Props {
   uploadProgress: number
   onFileChange: (file: File, preview: string) => void
   onRemove: () => void
+  kind?: MediaKind
   label?: string
-  accept?: string
   maxSizeMb?: number
 }
 
-export function PictureUpload({
+const DEFAULTS: Record<MediaKind, { label: string; maxSizeMb: number }> = {
+  image: { label: 'Image', maxSizeMb: 5 },
+  video: { label: 'Video', maxSizeMb: 50 }
+}
+
+export function MediaUpload({
   file,
   preview,
   uploading,
   uploadProgress,
   onFileChange,
   onRemove,
-  label = 'Image',
-  accept = 'image/*',
-  maxSizeMb = 5
+  kind = 'image',
+  label,
+  maxSizeMb
 }: Props) {
   const fileRef = useRef<HTMLInputElement>(null)
   const objectUrlRef = useRef<string | null>(null)
   const [dragging, setDragging] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const heading = label ?? DEFAULTS[kind].label
+  const limitMb = maxSizeMb ?? DEFAULTS[kind].maxSizeMb
+  const noun = heading.toLowerCase()
+  const accept = `${kind}/*`
 
   // every createObjectURL needs a matching revoke or the blob is held for the
   // life of the document
@@ -44,25 +56,26 @@ export function PictureUpload({
 
   useEffect(() => releaseObjectUrl, [])
 
-  const accept_ = accept
   const acceptFile = useCallback(
     (f: File) => {
-      if (accept_ === 'image/*' && !f.type.startsWith('image/')) {
-        setError('That file is not an image.')
+      if (!f.type.startsWith(`${kind}/`)) {
+        setError(`That file is not ${kind === 'image' ? 'an image' : 'a video'}.`)
         return
       }
-      if (f.size > maxSizeMb * 1024 * 1024) {
-        setError(`That file is larger than ${maxSizeMb}MB. Please choose a smaller one.`)
+
+      if (f.size > limitMb * 1024 * 1024) {
+        setError(`That file is larger than ${limitMb}MB. Please choose a smaller one.`)
         return
       }
 
       setError(null)
       releaseObjectUrl()
+
       const url = URL.createObjectURL(f)
       objectUrlRef.current = url
       onFileChange(f, url)
     },
-    [accept_, maxSizeMb, onFileChange]
+    [kind, limitMb, onFileChange]
   )
 
   const openPicker = () => fileRef.current?.click()
@@ -76,14 +89,16 @@ export function PictureUpload({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <span className={LABEL}>{label}</span>
+      <span className={LABEL}>{heading}</span>
 
       <div
         onDragOver={(e) => {
           e.preventDefault()
           setDragging(true)
         }}
-        onDragLeave={() => setDragging(false)}
+        onDragLeave={(e) => {
+          if (!(e.currentTarget as HTMLElement).contains(e.relatedTarget as Node)) setDragging(false)
+        }}
         onDrop={(e) => {
           e.preventDefault()
           setDragging(false)
@@ -98,19 +113,31 @@ export function PictureUpload({
           // once there is a preview the area is no longer one big button, so
           // Replace and Remove can be real buttons rather than nested ones
           <div className="flex flex-col">
-            {/* big enough to tell at a glance whether it is the right picture */}
+            {/* big enough to tell at a glance whether it is the right one */}
             <div className="flex items-center justify-center p-3 bg-white">
-              <Picture
-                src={preview}
-                alt=""
-                width={640}
-                height={360}
-                className="object-contain w-auto h-auto max-w-full max-h-60"
-              />
+              {kind === 'video' ? (
+                <video
+                  src={preview}
+                  controls
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="w-auto h-auto max-w-full max-h-60 bg-black"
+                />
+              ) : (
+                <Picture
+                  src={preview}
+                  alt=""
+                  width={640}
+                  height={360}
+                  className="object-contain w-auto h-auto max-w-full max-h-60"
+                />
+              )}
             </div>
 
             <div className="flex items-center justify-between gap-3 px-3 py-2.5 border-t border-neutral-200 bg-neutral-50">
-              <span className="truncate text-neutral-600 min-w-0">{file?.name ?? 'Current image'}</span>
+              <span className="truncate text-neutral-600 min-w-0">{file?.name ?? `Current ${noun}`}</span>
+
               <div className="flex items-center gap-2 shrink-0">
                 <button
                   type="button"
@@ -144,22 +171,23 @@ export function PictureUpload({
             ) : (
               <Upload className="w-6 h-6 text-neutral-400 group-hover:text-neutral-600 transition-colors" aria-hidden="true" />
             )}
+
             <span className="text-neutral-700">
-              {dragging ? `Drop the ${label.toLowerCase()} here` : `Drop an ${label.toLowerCase()} here, or click to choose one`}
+              {dragging ? `Drop the ${noun} here` : `Drop your ${noun} here, or click to choose one`}
             </span>
-            <span className="text-neutral-500">Up to {maxSizeMb}MB</span>
+            <span className="text-neutral-500">Up to {limitMb}MB</span>
           </button>
         )}
 
         {uploading && (
-          <div className="absolute inset-0 bg-white/90 flex flex-col items-center justify-center gap-2 px-6">
+          <div className="absolute inset-0 bg-white/90 flex flex-col items-center justify-center gap-2 px-6 z-10">
             <div
               className="w-full max-w-60 h-1.5 bg-neutral-200 overflow-hidden"
               role="progressbar"
               aria-valuenow={uploadProgress}
               aria-valuemin={0}
               aria-valuemax={100}
-              aria-label={`Uploading ${label.toLowerCase()}`}
+              aria-label={`Uploading ${noun}`}
             >
               <div className="h-full bg-blaze transition-all" style={{ width: `${uploadProgress}%` }} />
             </div>

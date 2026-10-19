@@ -25,7 +25,6 @@ export const toggleHeaderFooter = (pathname: string) => {
     '/student-performers',
     '/student-scholarships',
     '/media',
-    '/hidden-gems',
     '/sponsorship-opportunities',
     '/musicians',
     '/news',

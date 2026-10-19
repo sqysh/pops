@@ -68,12 +68,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9
     },
     {
-      url: `${baseUrl}/hidden-gems`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.9
-    },
-    {
       url: `${baseUrl}/support`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,

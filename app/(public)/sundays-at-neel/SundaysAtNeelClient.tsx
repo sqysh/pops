@@ -7,28 +7,41 @@ import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 import { CueBoxEvent, CueBoxEventInstance } from '@/app/types/cuebox.types'
 import { ISubscription } from '@/app/types/entities/subscription.types'
 import { formatDateLong, formatTime, isSunday } from '@/app/lib/utils/date.utils'
+import { PageField, pageText } from '@/app/types/page.types'
 
 /** The series is every Sunday performance at Neel Performing Arts Center. */
 const VENUE_MATCH = 'neel'
-
-const VENUE_ADDRESS = '5840 26th St. W., Bradenton, FL 34207'
-const VENUE_MAP_URL = 'https://www.google.com/maps/search/5840+26th+St.+W.,+Bradenton,+FL+34207'
-
-const BOX_OFFICE_PHONE = '941-926-POPS (7677)'
-const BOX_OFFICE_TEL = '+19419267677'
-const BOX_OFFICE_EMAIL = 'tickets@thepopsorchestra.org'
 
 /** She names them "Sundays@Neel-Two Show Series Subscription", and the heading
  *  above already says the series, so the prefix is noise on the card. */
 const displayName = (name: string) => name.replace(/^Sundays@Neel\s*[-–—]\s*/i, '')
 
+const LINK =
+  'text-sunburst underline underline-offset-2 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm'
+
+const BUTTON =
+  'inline-flex items-center gap-2.5 w-fit mt-auto px-6 py-3 bg-blaze hover:bg-blazehover text-white font-changa text-sm uppercase tracking-widest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black'
+
 interface Props {
   concerts: CueBoxEvent[]
   instances: CueBoxEventInstance[]
   subscriptions: ISubscription[]
+  content: PageField[]
 }
 
-export const SundaysAtNeelClient = ({ concerts, instances, subscriptions }: Props) => {
+export const SundaysAtNeelClient = ({ concerts, instances, subscriptions, content }: Props) => {
+  const text = (id: string, fallback: string) => pageText(content, id, fallback)
+
+  const heading = text('sundays_hero_heading', 'Sundays@Neel')
+  const address = text('sundays_venue_address', '5840 26th St. W., Bradenton, FL 34207')
+  const phone = text('sundays_box_office_phone', '941-926-POPS (7677)')
+  const email = text('sundays_box_office_email', 'tickets@thepopsorchestra.org')
+
+  const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(address)}`
+  // "941-926-POPS (7677)" strips to 9419267677, so the printed number stays
+  // friendly while the link still dials
+  const tel = `+1${phone.replace(/\D/g, '')}`
+
   // Only what a patron is allowed to see: the concert and the performance both
   // have to be visible in CueBox.
   const visible = instances.filter((inst) => {
@@ -51,19 +64,17 @@ export const SundaysAtNeelClient = ({ concerts, instances, subscriptions }: Prop
   return (
     <main id="main-content">
       <CompactPageHero
-        breadcrumb="Sundays@Neel"
-        heading="Sundays@Neel"
+        breadcrumb={heading}
+        heading={heading}
+        eyebrow={text('sundays_page_title', 'A Concert Series Sponsored by The Pops Orchestra!')}
         description={
           <>
-            Though The Pops Orchestra won&apos;t be performing, these are acts we know you will love. All shows are on Sundays at
-            3:00 p.m., at the Neel Performing Arts Center on the campus of State College of Florida:{' '}
-            <a
-              href={VENUE_MAP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sunburst underline underline-offset-2 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
-            >
-              {VENUE_ADDRESS}
+            {text(
+              'sundays_page_subtitle',
+              "Though The Pops Orchestra won't be performing, these are acts we know you will love."
+            )}{' '}
+            <a href={mapUrl} target="_blank" rel="noopener noreferrer" className={LINK}>
+              {address}
             </a>
           </>
         }
@@ -74,13 +85,16 @@ export const SundaysAtNeelClient = ({ concerts, instances, subscriptions }: Prop
           <div className="flex items-center gap-3 mb-10 760:mb-12">
             <div className="w-6 h-px bg-blaze shrink-0" aria-hidden="true" />
             <h2 id="series-heading" className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
-              This Season
+              {text('sundays_season_heading', 'This Season')}
             </h2>
           </div>
 
           {cards.length === 0 ? (
-            <p className="font-lato text-base text-white/60 leading-relaxed max-w-lg">
-              Dates for this series have not been announced yet. Check back soon, or join our mailing list to hear first.
+            <p className="font-lato text-base text-white/60 leading-relaxed max-w-lg whitespace-pre-line">
+              {text(
+                'sundays_empty_message',
+                'Dates for this series have not been announced yet. Check back soon, or join our mailing list to hear first.'
+              )}
             </p>
           ) : (
             <ul
@@ -146,9 +160,9 @@ export const SundaysAtNeelClient = ({ concerts, instances, subscriptions }: Prop
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={`Buy tickets for ${concert.name} on ${formatDateLong(inst.startsAt)}`}
-                        className="inline-flex items-center gap-2.5 w-fit mt-auto px-6 py-3 bg-blaze hover:bg-blazehover text-white font-changa text-sm uppercase tracking-widest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                        className={BUTTON}
                       >
-                        Buy Tickets
+                        {text('sundays_tickets_button', 'Buy Tickets')}
                         <ExternalLink className="w-4 h-4 shrink-0" aria-hidden="true" />
                       </a>
                     )}
@@ -163,12 +177,12 @@ export const SundaysAtNeelClient = ({ concerts, instances, subscriptions }: Prop
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-6 h-px bg-blaze shrink-0" aria-hidden="true" />
                 <h2 id="subscriptions-heading" className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
-                  Bundle and Save
+                  {text('sundays_bundle_heading', 'Bundle and Save')}
                 </h2>
               </div>
 
-              <p className="font-lato text-base text-white/70 leading-relaxed max-w-xl mb-8 760:mb-10">
-                Coming to more than one show? Every seat costs less when you book them together.
+              <p className="font-lato text-base text-white/70 leading-relaxed max-w-xl mb-8 760:mb-10 whitespace-pre-line">
+                {text('sundays_bundle_intro', 'Coming to more than one show? Every seat costs less when you book them together.')}
               </p>
 
               <ul
@@ -202,9 +216,9 @@ export const SundaysAtNeelClient = ({ concerts, instances, subscriptions }: Prop
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`${displayName(sub.name)}, opens our ticketing site in a new tab`}
-                      className="inline-flex items-center gap-2.5 w-fit mt-auto px-6 py-3 bg-blaze hover:bg-blazehover text-white font-changa text-sm uppercase tracking-widest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                      className={BUTTON}
                     >
-                      Buy This Package
+                      {text('sundays_package_button', 'Buy This Package')}
                       <ExternalLink className="w-4 h-4 shrink-0" aria-hidden="true" />
                     </a>
                   </li>
@@ -212,19 +226,13 @@ export const SundaysAtNeelClient = ({ concerts, instances, subscriptions }: Prop
               </ul>
 
               <p className="font-lato text-base text-white/70 leading-relaxed mt-8 760:mt-10 max-w-xl">
-                Prefer a little assistance? Call{' '}
-                <a
-                  href={`tel:${BOX_OFFICE_TEL}`}
-                  className="text-sunburst underline underline-offset-2 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
-                >
-                  {BOX_OFFICE_PHONE}
+                {text('sundays_help_intro', 'Prefer a little assistance?')} Call{' '}
+                <a href={`tel:${tel}`} className={LINK}>
+                  {phone}
                 </a>{' '}
                 or email{' '}
-                <a
-                  href={`mailto:${BOX_OFFICE_EMAIL}`}
-                  className="text-sunburst underline underline-offset-2 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
-                >
-                  {BOX_OFFICE_EMAIL}
+                <a href={`mailto:${email}`} className={LINK}>
+                  {email}
                 </a>{' '}
                 and we will walk you through it.
               </p>
