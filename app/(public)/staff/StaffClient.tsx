@@ -2,18 +2,12 @@
 
 import TeamMemberGrid from '@/app/(public)/_components/TeamMemberGrid'
 
-export const StaffClient = ({ staff }) => {
+export const StaffClient = ({ staff, content }: { staff: any; content?: unknown }) => {
   const sortedStaff = [...staff].sort((a, b) => a.displayOrder - b.displayOrder)
 
   return (
     <div id="main-content">
-      <TeamMemberGrid
-        title="Staff"
-        description="Meet the dedicated team behind The Pops Orchestra"
-        teamMembers={sortedStaff}
-        headingId="staff-heading"
-        role="staff"
-      />
+      <TeamMemberGrid content={content} teamMembers={sortedStaff} headingId="staff-heading" role="staff" />
     </div>
   )
 }

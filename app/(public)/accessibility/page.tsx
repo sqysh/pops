@@ -1,97 +1,99 @@
-const Accessibility = () => {
+import { Fragment, type ReactNode } from 'react'
+import { getPage } from '@/app/lib/actions/page/getPage'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/accessibility'
+
+/** Puts elements where the wording has {name} markers, e.g. "pressing the {key} key". */
+const withParts = (text: string, parts: Record<string, ReactNode>) =>
+  text.split(/(\{\w+\})/).map((part, i) => {
+    const name = part.match(/^\{(\w+)\}$/)?.[1]
+    return <Fragment key={i}>{name && name in parts ? parts[name] : part}</Fragment>
+  })
+
+const Accessibility = async () => {
+  const page = await getPage('accessibility')
+  const { t, list } = pageCopy(page?.content, pageContent)
+
   return (
     <>
       <main id="main-content" className="max-w-4xl mx-auto px-6 py-32 text-white">
         <article aria-labelledby="accessibility-heading">
           <h1 id="accessibility-heading" className="text-3xl font-changa mb-4">
-            The Pops Orchestra Accessibility Statement
+            {t('accessibility_heading')}
           </h1>
           <p className="font-lato text-sm mb-10">
-            <time dateTime="2024-04">Updated: April 2024.</time>
+            <time dateTime="2024-04">{t('accessibility_updated')}</time>
           </p>
 
-          <p className="font-lato mb-6">
-            Accessibility is a priority for us. The Pops Orchestra strives to ensure that its services are accessible to
-            people with disabilities. We&apos;ve invested significantly in resources to help make our website easier to
-            use and more accessible — because we believe everyone has the right to live with dignity, equality, comfort,
-            and independence.
-          </p>
+          <p className="font-lato mb-6">{t('accessibility_intro')}</p>
 
           <section aria-labelledby="accessibility-on-site">
             <h2 id="accessibility-on-site" className="text-xl font-changa mt-10 mb-3">
-              Accessibility on ThePopsOrchestra.org
+              {t('accessibility_site_heading')}
             </h2>
-            <p className="font-lato mb-6">
-              We use the UserWay Website Accessibility Widget powered by a dedicated server. This helps
-              ThePopsOrchestra.org improve compliance with the Web Content Accessibility Guidelines (WCAG 2.1).
-            </p>
+            <p className="font-lato mb-6">{t('accessibility_site_body')}</p>
           </section>
 
           <section aria-labelledby="enabling-menu">
             <h2 id="enabling-menu" className="text-xl font-changa mt-10 mb-3">
-              Enabling the Accessibility Menu
+              {t('accessibility_menu_heading')}
             </h2>
             <p className="font-lato mb-6">
-              You can activate our accessibility menu by pressing the{' '}
-              <kbd className="font-mono text-sm bg-white/10 px-1.5 py-0.5 rounded border border-white/20">Tab</kbd> key
-              when the page first loads or by clicking the accessibility icon in the page corner. Please allow a moment
-              for the menu to load fully.
+              {withParts(t('accessibility_menu_body'), {
+                key: (
+                  <kbd className="font-mono text-sm bg-white/10 px-1.5 py-0.5 rounded border border-white/20">
+                    {t('accessibility_menu_key')}
+                  </kbd>
+                )
+              })}
             </p>
           </section>
 
           <section aria-labelledby="disclaimer">
             <h2 id="disclaimer" className="text-xl font-changa mt-10 mb-3">
-              Disclaimer
+              {t('accessibility_disclaimer_heading')}
             </h2>
-            <p className="font-lato mb-6">
-              We&apos;re always working to improve the accessibility of our site. We believe it&apos;s our collective
-              responsibility to provide seamless, accessible experiences to everyone.
-            </p>
+            <p className="font-lato mb-6">{t('accessibility_disclaimer_body')}</p>
             <ul
               role="list"
-              aria-label="Accessibility disclaimer details"
+              aria-label={t('accessibility_sr_disclaimer_list')}
               className="list-disc list-inside font-lato space-y-2 mb-6"
             >
-              <li>We regularly scan ThePopsOrchestra.org using UserWay&apos;s Website Accessibility Scanner.</li>
-              <li>
-                Some content may not yet meet the strictest accessibility standards — we&apos;re actively identifying
-                the best solutions for improvement.
-              </li>
+              {list('accessibility_disclaimer_items').map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
           </section>
 
           <section aria-labelledby="here-for-you">
             <h2 id="here-for-you" className="text-xl font-changa mt-10 mb-3">
-              Here For You
+              {t('accessibility_help_heading')}
             </h2>
-            <p className="font-lato mb-6">
-              If you&apos;re experiencing difficulty with any content or need help using our site, please don&apos;t
-              hesitate to reach out during business hours.
-            </p>
+            <p className="font-lato mb-6">{t('accessibility_help_body')}</p>
           </section>
 
           <section aria-labelledby="contact-us">
             <h2 id="contact-us" className="text-xl font-changa mt-10 mb-3">
-              Contact Us
+              {t('accessibility_contact_heading')}
             </h2>
             <address className="not-italic">
               <p className="font-lato mb-1">
-                <strong>Email:</strong>{' '}
+                <strong>{t('accessibility_contact_email_label')}</strong>{' '}
                 <a
                   href="mailto:info@thepopsorchestra.org"
                   className="text-blaze-text underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm"
                 >
-                  info@thepopsorchestra.org
+                  {t('accessibility_contact_email')}
                 </a>
               </p>
               <p className="font-lato">
-                <strong>Phone:</strong>{' '}
+                <strong>{t('accessibility_contact_phone_label')}</strong>{' '}
                 <a
                   href="tel:+19419267677"
-                  aria-label="Call us at 1-941-926-7677"
+                  aria-label={t('accessibility_sr_phone_link')}
                   className="text-blaze-text underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm"
                 >
-                  +1-941-926-7677
+                  {t('accessibility_contact_phone')}
                 </a>
               </p>
             </address>

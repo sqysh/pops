@@ -5,8 +5,12 @@ import { getActor } from '../user/getActor'
 import prisma from '@/prisma/client'
 import { TestimonialInput } from '@/app/types/entities/testimonial'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
+import { requireStaff, denied } from '@/app/lib/auth/guards'
 
 export async function createTestimonial(data: TestimonialInput) {
+  const gate = await requireStaff()
+  if (gate.ok === false) return denied(gate)
+
   if (!data.quote) return { success: false, error: 'Quote is required' }
   if (!data.author) return { success: false, error: 'Author is required' }
 

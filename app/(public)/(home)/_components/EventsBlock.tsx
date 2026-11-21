@@ -4,12 +4,16 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Calendar, MapPin, ArrowRight } from 'lucide-react'
 import type { Event } from '@prisma/client'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/home'
 
 interface EventsBlockProps {
   events: Event[]
+  content?: unknown
 }
 
-export function EventsBlock({ events }: EventsBlockProps) {
+export function EventsBlock({ events, content }: EventsBlockProps) {
+  const { t } = pageCopy(content, pageContent)
   const published = events.filter((e) => e.status === 'PUBLISHED')
 
   if (!published.length) return null
@@ -28,21 +32,21 @@ export function EventsBlock({ events }: EventsBlockProps) {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-              <span className="font-heebo text-sm tracking-[0.35em] uppercase text-blaze-text">Calendar</span>
+              <span className="font-heebo text-sm tracking-[0.35em] uppercase text-blaze-text">{t('events_eyebrow')}</span>
             </div>
             <h2
               id="events-heading"
               className="font-c-infant font-bold text-4xl sm:text-5xl uppercase tracking-wide text-white leading-none"
             >
-              Upcoming Events
+              {t('events_heading')}
             </h2>
           </div>
           <Link
             href="/events"
-            aria-label="View all upcoming events"
+            aria-label={t('events_all_link_label')}
             className="group inline-flex items-center gap-3 font-heebo text-sm uppercase tracking-[0.25em] text-blaze-text hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze shrink-0"
           >
-            All Events
+            {t('events_all_link_text')}
             <div className="w-6 h-px bg-blaze group-hover:w-10 transition-all duration-300" aria-hidden="true" />
           </Link>
         </motion.div>

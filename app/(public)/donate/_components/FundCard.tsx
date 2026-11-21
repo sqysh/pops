@@ -1,8 +1,11 @@
 import { ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Picture from '@/components/common/Picture'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/donate'
 
-export function FundCard({ fund }) {
+export function FundCard({ fund, content }) {
+  const { t } = pageCopy(content, pageContent)
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -106,7 +109,9 @@ export function FundCard({ fund }) {
           <ExternalLink className="w-3 h-3 opacity-70" />
         </a>
         {!fund.href.startsWith('mailto') && (
-          <p className="text-[12px] font-mono text-muted-dark/85 uppercase tracking-widest text-center">Secure · via CueBox</p>
+          <p className="text-[12px] font-mono text-muted-dark/85 uppercase tracking-widest text-center">
+            {t('donate_secure_label')}
+          </p>
         )}
       </div>
     </motion.div>

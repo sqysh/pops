@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/venues'
 
 type Tier = 'general' | 'premium' | 'ultra'
 
@@ -18,10 +20,11 @@ interface TooltipState {
   y: number
 }
 
-const TIER_COLORS: Record<Tier, { bg: string; border: string; label: string }> = {
-  general: { bg: 'bg-blue-500', border: 'border-blue-700', label: 'General pricing' },
-  premium: { bg: 'bg-green-600', border: 'border-green-800', label: 'Premium pricing' },
-  ultra: { bg: 'bg-amber-500', border: 'border-amber-700', label: 'Ultra pricing' }
+// legend wording comes from the venues page content: venues_seatmap_tier_<tier>
+const TIER_COLORS: Record<Tier, { bg: string; border: string }> = {
+  general: { bg: 'bg-blue-500', border: 'border-blue-700' },
+  premium: { bg: 'bg-green-600', border: 'border-green-800' },
+  ultra: { bg: 'bg-amber-500', border: 'border-amber-700' }
 }
 
 // Exact seat numbers from the screenshot
@@ -291,7 +294,8 @@ function SeatDot({
   )
 }
 
-export default function OperaHouseMezzAndBalc() {
+export default function OperaHouseMezzAndBalc({ content }: { content?: unknown }) {
+  const { t } = pageCopy(content, pageContent)
   const [tooltip, setTooltip] = useState<TooltipState | null>(null)
 
   const handleHover = (seat: Seat, e: React.MouseEvent | React.TouchEvent) => {
@@ -314,15 +318,13 @@ export default function OperaHouseMezzAndBalc() {
   return (
     <div className="flex bg-black flex-col items-center py-8 760:py-16 px-2 760:px-4">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-6 760:mb-10"
-      >
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-6 760:mb-10">
         <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-primary-dark">
-          Sarasota Opera House
+          {t('venues_seatmap_opera_eyebrow')}
         </span>
-        <h1 className="font-quicksand font-black text-xl 760:text-2xl text-text-dark mt-1">Seatmap</h1>
+        <h1 className="font-quicksand font-black text-xl 760:text-2xl text-text-dark mt-1">
+          {t('venues_seatmap_opera_mezz_heading')}
+        </h1>
       </motion.div>
 
       {/* Chart — scale down on small screens */}
@@ -342,11 +344,11 @@ export default function OperaHouseMezzAndBalc() {
               style={{ left: tooltip.x, top: tooltip.y }}
             >
               <p className="text-[12px] font-mono text-text-dark">
-                Row {tooltip.seat.row} · Seat {tooltip.seat.number}
+                {t('venues_seatmap_tooltip', { row: tooltip.seat.row, seat: tooltip.seat.number })}
               </p>
               <div className="flex items-center gap-1.5 mt-0.5">
                 <div className={`w-2 h-2 rounded-full shrink-0 ${TIER_COLORS[tooltip.seat.tier].bg}`} />
-                <span className="text-[11px] font-mono text-muted-dark">{TIER_COLORS[tooltip.seat.tier].label}</span>
+                <span className="text-[11px] font-mono text-muted-dark">{t(`venues_seatmap_tier_${tooltip.seat.tier}`)}</span>
               </div>
             </motion.div>
           )}
@@ -355,10 +357,7 @@ export default function OperaHouseMezzAndBalc() {
 
       <div className="flex flex-col items-center justify-between gap-1.5 760:gap-2 min-w-max mx-auto">
         {ROWS.map((row, rowIdx) => (
-          <div
-            key={row.label}
-            className={`flex items-center gap-0.5 760:gap-1 ${row.label === 'CC' ? 'mt-10 760:mt-14' : ''}`}
-          >
+          <div key={row.label} className={`flex items-center gap-0.5 760:gap-1 ${row.label === 'CC' ? 'mt-10 760:mt-14' : ''}`}>
             {/* Left label */}
             <span className="text-[9px] 760:text-[9px] font-mono text-muted-dark/70 w-5 760:w-6 text-right shrink-0">
               {row.label}
@@ -442,9 +441,7 @@ export default function OperaHouseMezzAndBalc() {
             </div>
 
             {/* Right label */}
-            <span className="text-[9px] 760:text-[9px] font-mono text-muted-dark/70 w-5 760:w-6 shrink-0">
-              {row.label}
-            </span>
+            <span className="text-[9px] 760:text-[9px] font-mono text-muted-dark/70 w-5 760:w-6 shrink-0">{row.label}</span>
           </div>
         ))}
       </div>
@@ -469,7 +466,7 @@ export default function OperaHouseMezzAndBalc() {
         {(Object.entries(TIER_COLORS) as [Tier, (typeof TIER_COLORS)[Tier]][]).map(([tier, colors]) => (
           <div key={tier} className="flex items-center gap-1.5 760:gap-2">
             <div className={`w-2.5 h-2.5 760:w-3 760:h-3 rounded-full ${colors.bg}`} />
-            <span className="text-[10px] 760:text-[11px] font-mono text-muted-dark">{colors.label}</span>
+            <span className="text-[10px] 760:text-[11px] font-mono text-muted-dark">{t(`venues_seatmap_tier_${tier}`)}</span>
           </div>
         ))}
       </motion.div>

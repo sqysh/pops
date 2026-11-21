@@ -10,7 +10,9 @@
     "lint": "eslint",
     "generate": "prisma generate",
     "seed:site-setting": "node scripts/seed-site-setting.js",
-    "seed:pages": "node scripts/seed-pages.js",
+    "seed:page-content": "node scripts/seed-page-content.js",
+    "generate:page-content": "node scripts/generate-page-content-index.js",
+    "check:actions": "node scripts/check-action-guards.js",
     "fix-enums": "node scripts/fix-enums.js",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run build"

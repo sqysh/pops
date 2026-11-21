@@ -5,8 +5,11 @@ import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import type { News } from '@prisma/client'
 import Picture from '@/components/common/Picture'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/home'
 
-export function NewsBlock({ news }: { news: News[] }) {
+export function NewsBlock({ news, content }: { news: News[]; content?: unknown }) {
+  const { t } = pageCopy(content, pageContent)
   const published = news.filter((n) => n.isPublished).slice(0, 3)
 
   if (!published.length) return null
@@ -27,21 +30,21 @@ export function NewsBlock({ news }: { news: News[] }) {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-              <span className="font-heebo text-sm tracking-[0.35em] uppercase text-blaze-text">Latest</span>
+              <span className="font-heebo text-sm tracking-[0.35em] uppercase text-blaze-text">{t('news_eyebrow')}</span>
             </div>
             <h2
               id="news-heading"
               className="font-c-infant font-bold text-4xl sm:text-5xl uppercase tracking-wide text-white leading-none"
             >
-              News
+              {t('news_heading')}
             </h2>
           </div>
           <Link
             href="/news"
-            aria-label="View all news articles"
+            aria-label={t('news_all_link_label')}
             className="group inline-flex items-center gap-3 font-heebo text-sm uppercase tracking-[0.25em] text-blaze-text hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze shrink-0"
           >
-            All News
+            {t('news_all_link_text')}
             <div className="w-6 h-px bg-blaze group-hover:w-10 transition-all duration-300" aria-hidden="true" />
           </Link>
         </motion.div>
@@ -74,7 +77,7 @@ export function NewsBlock({ news }: { news: News[] }) {
                   ) : (
                     <div className="w-full h-full bg-white/5 flex items-center justify-center">
                       <span className="font-heebo text-white/40 text-sm uppercase tracking-widest">
-                        The Pops Orchestra
+                        {t('news_image_placeholder')}
                       </span>
                     </div>
                   )}
@@ -93,12 +96,10 @@ export function NewsBlock({ news }: { news: News[] }) {
                     {featured.title}
                   </h3>
                   {featured.excerpt && (
-                    <p className="font-heebo text-white/60 text-sm leading-relaxed line-clamp-3 mb-5">
-                      {featured.excerpt}
-                    </p>
+                    <p className="font-heebo text-white/60 text-sm leading-relaxed line-clamp-3 mb-5">{featured.excerpt}</p>
                   )}
                   <div className="flex items-center gap-2 font-heebo text-sm uppercase tracking-[0.2em] text-blaze-text">
-                    Read More
+                    {t('news_read_more')}
                     <ArrowUpRight
                       className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
                       aria-hidden="true"
@@ -151,9 +152,7 @@ export function NewsBlock({ news }: { news: News[] }) {
                     {article.title}
                   </h3>
                   {article.excerpt && (
-                    <p className="font-heebo text-white/80 text-sm leading-relaxed line-clamp-3 mb-5">
-                      {article.excerpt}
-                    </p>
+                    <p className="font-heebo text-white/80 text-sm leading-relaxed line-clamp-3 mb-5">{article.excerpt}</p>
                   )}
                 </div>
               </Link>

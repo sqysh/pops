@@ -14,13 +14,14 @@ const INTEREST_IDS = ['05e5e5fd1e', '23e4855071', 'f02e8752c1', '4d63e535d9']
 const PRIVACY_INTEREST_ID = '21dd6933b9'
 const NEW_PATRON_INTEREST_ID = '2b3f9c51d8'
 
+/** Errors are page content ids (subscribe page, 'Form Messages'); the form shows them with msg(). */
 export async function subscribeToMailchimp(data: NewsletterFormInput): Promise<ActionResult<null>> {
   const parsed = newsletterSchema.safeParse(data)
 
   if (!parsed.success) {
     return {
       success: false,
-      error: 'Please check the highlighted fields and try again.',
+      error: 'newsletter_error_check_fields',
       fieldErrors: z.flattenError(parsed.error).fieldErrors,
       data: null
     }
@@ -59,7 +60,7 @@ export async function subscribeToMailchimp(data: NewsletterFormInput): Promise<A
       hasListId: !!LIST_ID
     }).catch(() => null)
 
-    return { success: false, error: 'The mailing list is not available right now.', data: null }
+    return { success: false, error: 'newsletter_error_unavailable', data: null }
   }
 
   const DATACENTER = API_KEY.split('-')[1]
@@ -76,7 +77,7 @@ export async function subscribeToMailchimp(data: NewsletterFormInput): Promise<A
   }).catch(() => null)
 
   if (!lookup) {
-    return { success: false, error: 'We could not reach the mailing list. Please try again in a moment.', data: null }
+    return { success: false, error: 'newsletter_error_unreachable', data: null }
   }
 
   const lookupBody = await lookup.json().catch(() => null)
@@ -84,9 +85,9 @@ export async function subscribeToMailchimp(data: NewsletterFormInput): Promise<A
   if (lookup.ok) {
     return {
       success: false,
-      error: 'That email address is already on the list.',
+      error: 'newsletter_error_already_subscribed',
       data: null,
-      fieldErrors: { email: ['That email address is already on the list.'] }
+      fieldErrors: { email: ['newsletter_error_already_subscribed'] }
     }
   }
 
@@ -99,7 +100,7 @@ export async function subscribeToMailchimp(data: NewsletterFormInput): Promise<A
       detail: lookupBody?.detail ?? null
     }).catch(() => null)
 
-    return { success: false, error: 'We could not reach the mailing list. Please try again in a moment.', data: null }
+    return { success: false, error: 'newsletter_error_unreachable', data: null }
   }
 
   const user = { firstName, lastName, email, phoneNumber }
@@ -134,7 +135,7 @@ export async function subscribeToMailchimp(data: NewsletterFormInput): Promise<A
   )
 
   if (!subscribeResult) {
-    return { success: false, error: 'We could not add you to the list just then. Please try again.', data: null }
+    return { success: false, error: 'newsletter_error_subscribe_failed', data: null }
   }
 
   await createLog('info', `new newsletter subscriber "${firstName} ${lastName}"`, {

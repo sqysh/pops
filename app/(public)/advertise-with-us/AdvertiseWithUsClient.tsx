@@ -2,71 +2,49 @@
 
 import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 import { Download, ExternalLink } from 'lucide-react'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/advertise-with-us'
 
-export const AdvertiseWithUsClient = ({ data }) => {
-  const field = (id: string) => data?.find((item) => item.id === id)?.value ?? ''
+const BENEFITS = ['reach', 'recognition', 'alignment', 'visibility', 'special_invitations', 'who_benefits']
+const STATS = ['concert_attendees', 'mailchimp', 'email_open_rate', 'social_followers', 'social_subscribers']
+const RATE_COUNTS = { full: 4, half: 1, quarter: 2 }
 
-  const benefits = [
-    { heading: field('advertise_benefit_reach_heading'), description: field('advertise_benefit_reach_description') },
-    {
-      heading: field('advertise_benefit_recognition_heading'),
-      description: field('advertise_benefit_recognition_description')
-    },
-    {
-      heading: field('advertise_benefit_alignment_heading'),
-      description: field('advertise_benefit_alignment_description')
-    },
-    {
-      heading: field('advertise_benefit_visibility_heading'),
-      description: field('advertise_benefit_visibility_description')
-    },
-    {
-      heading: field('advertise_benefit_special_invitations_heading'),
-      description: field('advertise_benefit_special_invitations_description')
-    },
-    {
-      heading: field('advertise_benefit_who_benefits_heading'),
-      description: field('advertise_benefit_who_benefits_description')
-    }
-  ]
+export const AdvertiseWithUsClient = ({ data }: { data?: unknown }) => {
+  const { t } = pageCopy(data, pageContent)
 
-  const stats = [1, 2, 3, 4, 5].map((num) => {
-    const valueMap: Record<number, string> = {
-      1: 'advertise_stat_concert_attendees_value',
-      2: 'advertise_stat_mailchimp_value',
-      3: 'advertise_stat_email_open_rate_value',
-      4: 'advertise_stat_social_followers_value',
-      5: 'advertise_stat_social_subscribers_value'
-    }
-    const labelMap: Record<number, string> = {
-      1: 'advertise_stat_concert_attendees_label',
-      2: 'advertise_stat_mailchimp_label',
-      3: 'advertise_stat_email_open_rate_label',
-      4: 'advertise_stat_social_followers_label',
-      5: 'advertise_stat_social_subscribers_label'
-    }
-    return { value: field(valueMap[num]), label: field(labelMap[num]) }
-  })
+  const benefits = BENEFITS.map((key) => ({
+    heading: t(`advertise_benefit_${key}_heading`),
+    description: t(`advertise_benefit_${key}_description`)
+  }))
 
-  const artworkSpecs = [field('advertise_artwork_spec_1'), field('advertise_artwork_spec_2'), field('advertise_artwork_spec_3')]
+  const stats = STATS.map((key) => ({
+    value: t(`advertise_stat_${key}_value`),
+    label: t(`advertise_stat_${key}_label`)
+  }))
 
-  const fullPageRates = [
-    { name: 'Outside Back Cover*', price: '$1,250', spec: '4-color | 5.75"w x 8.75"h' },
-    { name: 'Inside Front Cover*', price: '$1,000', spec: '4-color | 5.75"w x 8.75"h' },
-    { name: 'Inside Back Cover*', price: '$1,000', spec: '4-color | 5.75"w x 8.75"h' },
-    { name: 'Regular*', price: '$800', spec: '4-color | 4.5"w x 7.5"h' }
-  ]
+  const artworkSpecs = [t('advertise_artwork_spec_1'), t('advertise_artwork_spec_2'), t('advertise_artwork_spec_3')]
 
-  const halfPageRates = [{ name: 'Horizontal**', price: '$350', spec: '4-color | 4.5"w x 3.625"h' }]
+  const rates = (size: keyof typeof RATE_COUNTS) =>
+    Array.from({ length: RATE_COUNTS[size] }, (_, i) => ({
+      name: t(`advertise_rate_${size}_${i + 1}_name`),
+      price: t(`advertise_rate_${size}_${i + 1}_price`),
+      spec: t(`advertise_rate_${size}_${i + 1}_spec`)
+    }))
 
-  const quarterPageRates = [
-    { name: 'Vertical', price: '$200', spec: '4-color | 2.25"w x 3.625"h' },
-    { name: 'Horizontal**', price: '$200', spec: '4-color | 4.5"w x 1.75"h' }
-  ]
+  const fullPageRates = rates('full')
+  const halfPageRates = rates('half')
+  const quarterPageRates = rates('quarter')
 
   return (
     <main id="main-content">
-      <CompactPageHero breadcrumb="Advertise With Us" heading="Advertise With Us" description={field('advertise_main_heading')} />
+      <CompactPageHero
+        homeLabel={t('advertise_hero_home_crumb')}
+        breadcrumbLabel={t('advertise_sr_breadcrumb')}
+        breadcrumb={t('advertise_hero_breadcrumb')}
+        eyebrow={t('advertise_hero_eyebrow')}
+        heading={t('advertise_hero_heading')}
+        description={t('advertise_main_heading')}
+      />
 
       <div className="px-4 990:px-12 xl:px-4">
         <section className="relative z-10 py-20 990:py-32">
@@ -78,7 +56,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                 <div className="flex items-center gap-2 mb-6">
                   <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
                   <h2 id="benefits-heading" className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
-                    Why Advertise
+                    {t('advertise_benefits_heading')}
                   </h2>
                 </div>
                 <ul role="list" className="flex flex-col divide-y divide-white/10">
@@ -92,13 +70,13 @@ export const AdvertiseWithUsClient = ({ data }) => {
               </section>
 
               {/* Stats + Download */}
-              <aside aria-label="Audience statistics" className="990:col-span-4 bg-black flex flex-col gap-px">
+              <aside aria-label={t('advertise_sr_stats')} className="990:col-span-4 bg-black flex flex-col gap-px">
                 {/* Stats */}
                 <div className="bg-black p-5 990:p-8">
                   <div className="flex items-center gap-2 mb-6">
                     <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
                     <h2 className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
-                      {field('advertise_stats_heading')}
+                      {t('advertise_stats_heading')}
                     </h2>
                   </div>
                   <dl className="flex flex-col divide-y divide-white/10">
@@ -116,21 +94,21 @@ export const AdvertiseWithUsClient = ({ data }) => {
                   <div className="flex items-center gap-2 mb-4">
                     <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
                     <h2 className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
-                      {field('advertise_program_book_heading')}
+                      {t('advertise_program_book_heading')}
                     </h2>
                   </div>
                   <p className="font-lato text-white/80 text-sm leading-relaxed mb-4">
-                    {field('advertise_program_book_description')}
+                    {t('advertise_program_book_description')}
                   </p>
 
                   <a
                     href="/pdf/advertising.pdf"
                     download="Pops 2025-26 Advertising Form.pdf"
-                    aria-label="Download the 2025-26 Season Rate Card PDF"
+                    aria-label={t('advertise_sr_download')}
                     className="inline-flex items-center gap-2 px-4 py-2.5 border border-blaze/30 hover:border-blaze text-blaze-text hover:bg-blaze/10 font-changa text-sm uppercase tracking-[0.2em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
                   >
                     <Download className="w-3.5 h-3.5" aria-hidden="true" />
-                    {field('advertise_program_book_download_label')}
+                    {t('advertise_program_book_download_label')}
                   </a>
                 </div>
               </aside>
@@ -141,7 +119,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
               <div className="flex items-center gap-2 mb-8">
                 <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
                 <h2 id="rates-heading" className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
-                  {field('advertise_rates_heading')}
+                  {t('advertise_rates_heading')}
                 </h2>
               </div>
 
@@ -149,7 +127,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                 {/* Full page */}
                 <div className="bg-black p-5">
                   <h3 className="font-changa text-white text-sm uppercase tracking-[0.15em] mb-4 pb-3 border-b border-white/10">
-                    {field('advertise_rates_full_page_heading')}
+                    {t('advertise_rates_full_page_heading')}
                   </h3>
                   <ul role="list" className="flex flex-col gap-3">
                     {fullPageRates.map((item, i) => (
@@ -167,7 +145,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                 {/* Half page */}
                 <div className="bg-black p-5">
                   <h3 className="font-changa text-white text-sm uppercase tracking-[0.15em] mb-4 pb-3 border-b border-white/10">
-                    {field('advertise_rates_half_page_heading')}
+                    {t('advertise_rates_half_page_heading')}
                   </h3>
                   <ul role="list" className="flex flex-col gap-3">
                     {halfPageRates.map((item, i) => (
@@ -183,7 +161,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
 
                   {/* Quarter page in same column on desktop */}
                   <h3 className="font-changa text-white text-sm uppercase tracking-[0.15em] mb-4 pb-3 border-b border-white/10 mt-8">
-                    {field('advertise_rates_quarter_page_heading')}
+                    {t('advertise_rates_quarter_page_heading')}
                   </h3>
                   <ul role="list" className="flex flex-col gap-3">
                     {quarterPageRates.map((item, i) => (
@@ -201,7 +179,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                 {/* Artwork specs + footnotes */}
                 <div className="bg-black p-5">
                   <h3 className="font-changa text-white text-sm uppercase tracking-[0.15em] mb-4 pb-3 border-b border-white/10">
-                    {field('advertise_artwork_heading')}
+                    {t('advertise_artwork_heading')}
                   </h3>
                   <ul role="list" className="flex flex-col gap-3 mb-6">
                     {artworkSpecs.map((spec, i) => (
@@ -212,8 +190,8 @@ export const AdvertiseWithUsClient = ({ data }) => {
                     ))}
                   </ul>
                   <div className="border-t border-white/10 pt-4 flex flex-col gap-2">
-                    <p className="font-lato text-white/50 text-sm leading-relaxed">{field('advertise_rates_footnote_1')}</p>
-                    <p className="font-lato text-white/50 text-sm leading-relaxed">{field('advertise_rates_footnote_2')}</p>
+                    <p className="font-lato text-white/50 text-sm leading-relaxed">{t('advertise_rates_footnote_1')}</p>
+                    <p className="font-lato text-white/50 text-sm leading-relaxed">{t('advertise_rates_footnote_2')}</p>
                   </div>
                 </div>
               </div>
@@ -224,15 +202,12 @@ export const AdvertiseWithUsClient = ({ data }) => {
               <div className="flex items-center gap-2 mb-6">
                 <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
                 <h2 id="advertise-cta-heading" className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
-                  {field('advertise_cta_heading') || 'Reserve Your Space'}
+                  {t('advertise_cta_heading')}
                 </h2>
               </div>
 
               <div className="flex flex-col 990:flex-row 990:items-center 990:justify-between gap-6">
-                <p className="font-lato text-white/80 text-base leading-relaxed max-w-xl">
-                  {field('advertise_cta_description') ||
-                    'Ready to appear in the program book? Submit your payment through our secure portal, and send artwork to the address on the rate card.'}
-                </p>
+                <p className="font-lato text-white/80 text-base leading-relaxed max-w-xl">{t('advertise_cta_description')}</p>
 
                 <div className="flex flex-col 430:flex-row 430:items-center gap-3 shrink-0">
                   <a
@@ -241,7 +216,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-blaze hover:bg-blazehover text-white font-changa text-sm uppercase tracking-[0.2em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                   >
-                    {field('advertise_cta_button_label') || 'Pay Online'}
+                    {t('advertise_cta_button_label')}
                     <ExternalLink className="w-4 h-4 shrink-0" aria-hidden="true" />
                   </a>
 
@@ -249,7 +224,7 @@ export const AdvertiseWithUsClient = ({ data }) => {
                     href="/contact"
                     className="inline-flex items-center justify-center px-7 py-3.5 border border-white/15 hover:border-blaze/40 hover:bg-blaze/5 text-white font-changa text-sm uppercase tracking-[0.2em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
                   >
-                    Ask a Question
+                    {t('advertise_cta_secondary_label')}
                   </a>
                 </div>
               </div>

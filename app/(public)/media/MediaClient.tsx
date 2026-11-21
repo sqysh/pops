@@ -6,8 +6,17 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/media'
 
-export const MediaClient = ({ photoGalleryImages }) => {
+export const MediaClient = ({
+  photoGalleryImages,
+  content
+}: {
+  photoGalleryImages: { id: string; imageUrl: string; imageFilename?: string | null }[]
+  content: unknown
+}) => {
+  const { t } = pageCopy(content, pageContent)
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
   const openLightbox = (index: number) => setLightboxIndex(index)
@@ -24,21 +33,24 @@ export const MediaClient = ({ photoGalleryImages }) => {
   return (
     <main id="main-content">
       <CompactPageHero
-        breadcrumb="MEdia"
-        heading="Media"
-        description="Explore our photo gallery and watch performances from The Pops Orchestra."
+        homeLabel={t('media_hero_home_crumb')}
+        breadcrumbLabel={t('media_sr_breadcrumb')}
+        eyebrow={t('media_hero_overline')}
+        breadcrumb={t('media_hero_breadcrumb')}
+        heading={t('media_hero_heading')}
+        description={t('media_hero_description')}
       />
 
       <div className="relative">
         {/* ── Photo gallery label ── */}
         <div className="w-full bg-black border-b border-white/10 px-4 990:px-12 xl:px-4 py-4 flex items-center gap-3">
           <div className="w-6 h-px bg-blaze shrink-0" aria-hidden="true" />
-          <h2 className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">Photo Gallery</h2>
+          <h2 className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">{t('media_gallery_heading')}</h2>
           <span className="text-sm font-mono text-muted-dark/70">({photoGalleryImages?.length ?? 0})</span>
         </div>
 
         {/* ── Photo grid ── */}
-        <section aria-label="Photo gallery" className="w-full bg-black">
+        <section aria-label={t('media_gallery_region_label')} className="w-full bg-black">
           <ul role="list" className="grid grid-cols-2 430:grid-cols-2 760:grid-cols-3 990:grid-cols-4 gap-px bg-white/5">
             {photoGalleryImages?.map((photo, i) => (
               <li key={photo.id} className="bg-black group overflow-hidden">
@@ -46,11 +58,13 @@ export const MediaClient = ({ photoGalleryImages }) => {
                   type="button"
                   onClick={() => openLightbox(i)}
                   className="w-full flex items-center aspect-square justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-inset cursor-pointer"
-                  aria-label={`View full image: ${photo.imageFilename || `Photo ${i + 1}`}`}
+                  aria-label={t('media_photo_open_label', {
+                    name: photo.imageFilename || t('media_photo_number', { number: i + 1 })
+                  })}
                 >
                   <Picture
                     src={photo.imageUrl}
-                    alt={photo.imageFilename || 'Pops Orchestra photo'}
+                    alt={photo.imageFilename || t('media_photo_alt_fallback')}
                     width={600}
                     height={400}
                     priority={i < 4}
@@ -65,7 +79,7 @@ export const MediaClient = ({ photoGalleryImages }) => {
 
         {/* ── Video player ── */}
         <div className="bg-black">
-          <MediaVideoPlayer />
+          <MediaVideoPlayer content={content} />
         </div>
 
         {/* ── Lightbox ── */}
@@ -81,14 +95,14 @@ export const MediaClient = ({ photoGalleryImages }) => {
               onKeyDown={handleKeyDown}
               role="dialog"
               aria-modal="true"
-              aria-label="Image lightbox"
+              aria-label={t('media_lightbox_label')}
               tabIndex={-1}
             >
               {/* Close */}
               <button
                 type="button"
                 onClick={closeLightbox}
-                aria-label="Close lightbox"
+                aria-label={t('media_lightbox_close')}
                 className="absolute top-4 right-4 z-10 text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-sm p-1"
               >
                 <X className="w-6 h-6" />
@@ -106,7 +120,7 @@ export const MediaClient = ({ photoGalleryImages }) => {
                   e.stopPropagation()
                   prev()
                 }}
-                aria-label="Previous image"
+                aria-label={t('media_lightbox_previous')}
                 className="absolute left-2 430:left-4 z-10 text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-sm p-2"
               >
                 <ChevronLeft className="w-6 h-6 430:w-8 430:h-8" />
@@ -124,7 +138,7 @@ export const MediaClient = ({ photoGalleryImages }) => {
               >
                 <Picture
                   src={photoGalleryImages[lightboxIndex].imageUrl}
-                  alt={photoGalleryImages[lightboxIndex].imageFilename || 'Pops Orchestra photo'}
+                  alt={photoGalleryImages[lightboxIndex].imageFilename || t('media_photo_alt_fallback')}
                   width={1200}
                   height={800}
                   priority
@@ -145,7 +159,7 @@ export const MediaClient = ({ photoGalleryImages }) => {
                   e.stopPropagation()
                   next()
                 }}
-                aria-label="Next image"
+                aria-label={t('media_lightbox_next')}
                 className="absolute right-2 430:right-4 z-10 text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-sm p-2"
               >
                 <ChevronRight className="w-6 h-6 430:w-8 430:h-8" />

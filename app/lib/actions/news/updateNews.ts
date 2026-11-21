@@ -6,8 +6,12 @@ import prisma from '@/prisma/client'
 import { createLog } from '@/app/utils/logHelper'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { revalidatePath } from 'next/cache'
+import { requireStaff, denied } from '@/app/lib/auth/guards'
 
 export async function updateNews(id: string, data: NewsInput) {
+  const gate = await requireStaff()
+  if (gate.ok === false) return denied(gate)
+
   if (!id) return { success: false, error: 'Article ID is required' }
   if (!data.title) return { success: false, error: 'Title is required' }
 

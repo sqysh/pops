@@ -1,15 +1,15 @@
 'use server'
 
 import prisma from '@/prisma/client'
-import { auth } from '../../auth'
+import { requireStaff } from '@/app/lib/auth/guards'
 
 export async function getCampApplicationsById() {
-  const session = await auth()
-  if (!session?.user?.id) return []
+  const gate = await requireStaff()
+  if (gate.ok === false) return []
 
   return prisma.campApplication
     .findMany({
-      where: { id: session.user.id },
+      where: { id: gate.userId },
       orderBy: { createdAt: 'desc' },
       include: {
         Student: true,

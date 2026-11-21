@@ -5,8 +5,12 @@ import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import prisma from '@/prisma/client'
 import { CampStatus } from '@prisma/client'
 import { revalidateTag } from 'next/cache'
+import { requireStaff, denied } from '@/app/lib/auth/guards'
 
 export async function updateCampApplicationStatus(id: string, status: CampStatus) {
+  const gate = await requireStaff()
+  if (gate.ok === false) return denied(gate)
+
   const context = await getRequestContext()
 
   const application = await prisma.campApplication
@@ -18,11 +22,12 @@ export async function updateCampApplicationStatus(id: string, status: CampStatus
     .catch(() => null)
 
   if (!application) {
-    await createLog(
-      'error',
-      await buildLogMessage(`failed to update camp application status "${id}"`, 'admin', context),
-      { id, status, error: 'Prisma update failed', request: context }
-    ).catch(() => null)
+    await createLog('error', await buildLogMessage(`failed to update camp application status "${id}"`, 'admin', context), {
+      id,
+      status,
+      error: 'Prisma update failed',
+      request: context
+    }).catch(() => null)
 
     return { success: false, error: 'Failed to update application status' }
   }

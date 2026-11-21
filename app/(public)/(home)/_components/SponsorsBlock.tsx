@@ -2,9 +2,11 @@
 
 import { motion } from 'framer-motion'
 import Picture from '@/components/common/Picture'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/home'
 
-export const SponsorsBlock = ({ pageData, sponsors }) => {
-  if (!pageData || !Array.isArray(pageData)) return null
+export const SponsorsBlock = ({ content, sponsors }) => {
+  const { t } = pageCopy(content, pageContent)
 
   const parseAmount = (amount) => {
     if (!amount || amount === '') return 0
@@ -14,13 +16,6 @@ export const SponsorsBlock = ({ pageData, sponsors }) => {
   const sortedSponsors = sponsors ? [...sponsors].sort((a, b) => parseAmount(b.amount) - parseAmount(a.amount)) : []
 
   const doubled = [...sortedSponsors, ...sortedSponsors]
-
-  const sponsorData = pageData?.filter((p) => p?.id?.includes('sponsors'))
-  const sponsorsData = sponsorData.reduce((acc, field) => {
-    const key = field.id.replace('sponsors_', '')
-    acc[key] = field.value
-    return acc
-  }, {})
 
   return (
     <section aria-labelledby="sponsors-heading" className="relative py-20 990:py-32 bg-black overflow-hidden">
@@ -40,21 +35,16 @@ export const SponsorsBlock = ({ pageData, sponsors }) => {
           transition={{ duration: 0.6 }}
           className="flex flex-col items-center text-center mb-14 px-4"
         >
-          <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">Our Partners</p>
+          <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">{t('sponsors_eyebrow')}</p>
           <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
             <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
-            <h2
-              id="sponsors-heading"
-              className="font-changa text-3xl 430:text-4xl 990:text-5xl text-white leading-none"
-            >
-              {sponsorsData?.heading}
+            <h2 id="sponsors-heading" className="font-changa text-3xl 430:text-4xl 990:text-5xl text-white leading-none">
+              {t('sponsors_heading')}
             </h2>
             <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
           </div>
           <div className="w-16 h-px bg-blaze mx-auto mt-2 mb-6" aria-hidden="true" />
-          <p className="font-lato text-white/80 text-sm 430:text-base max-w-xl leading-relaxed">
-            {sponsorsData?.subheading}
-          </p>
+          <p className="font-lato text-white/80 text-sm 430:text-base max-w-xl leading-relaxed">{t('sponsors_subheading')}</p>
         </motion.div>
 
         {/* Ticker */}
@@ -100,7 +90,7 @@ export const SponsorsBlock = ({ pageData, sponsors }) => {
         </div>
 
         {/* Screen reader list */}
-        <ul className="sr-only" aria-label="All sponsors">
+        <ul className="sr-only" aria-label={t('sponsors_list_label')}>
           {sortedSponsors.map((sponsor) => (
             <li key={sponsor.id}>
               {sponsor.externalLink ? (

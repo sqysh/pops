@@ -1,15 +1,17 @@
 'use server'
 
 import { ActionResult } from '@/app/types/common.types'
-import { getActor } from '../user/getActor'
 import prisma from '@/prisma/client'
 import { createLog } from '@/app/utils/logHelper'
 import { revalidatePath } from 'next/cache'
 import { SUBSCRIPTION_PAGES } from '../../constants/subscription.constants'
+import { requireAdmin, deniedResult } from '@/app/lib/auth/guards'
 
 export async function deleteSubscription(id: string): Promise<ActionResult> {
-  const actor = await getActor()
-  if (actor === 'unknown') return { success: false, error: 'Unauthorized' }
+  const gate = await requireAdmin()
+  if (gate.ok === false) return deniedResult(gate)
+
+  const actor = gate.name
 
   if (!id) return { success: false, error: 'Missing subscription id' }
 

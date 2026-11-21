@@ -5,12 +5,16 @@ import Link from 'next/link'
 import { ArrowLeft, Calendar, ExternalLink } from 'lucide-react'
 import type { News } from '@prisma/client'
 import Picture from '@/components/common/Picture'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/news'
 
 interface Props {
   article: News
+  content: unknown
 }
 
-export default function NewsDetailsClient({ article }: Props) {
+export default function NewsDetailsClient({ article, content }: Props) {
+  const { t } = pageCopy(content, pageContent)
   const formattedDate = new Date(article.createdAt).toLocaleDateString('en-US', {
     weekday: 'long',
     month: 'long',
@@ -50,7 +54,7 @@ export default function NewsDetailsClient({ article }: Props) {
             className="inline-flex items-center gap-2 font-heebo text-sm tracking-[0.2em] uppercase text-white/60 hover:text-blaze-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
           >
             <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" />
-            Back to News
+            {t('news_detail_back_label')}
           </Link>
         </motion.div>
 
@@ -100,7 +104,7 @@ export default function NewsDetailsClient({ article }: Props) {
                 className="w-3.5 h-3.5 shrink-0 group-hover:translate-x-0.5 transition-transform"
                 aria-hidden="true"
               />
-              Read Original Article
+              {t('news_detail_external_link_label')}
             </a>
           )}
 
@@ -114,7 +118,7 @@ export default function NewsDetailsClient({ article }: Props) {
               ))}
             </div>
           ) : (
-            <p className="font-heebo text-white/50 text-sm italic">No content available.</p>
+            <p className="font-heebo text-white/50 text-sm italic">{t('news_detail_empty_body')}</p>
           )}
         </motion.article>
 
@@ -130,9 +134,9 @@ export default function NewsDetailsClient({ article }: Props) {
             className="group inline-flex items-center gap-3 font-heebo text-sm uppercase tracking-[0.25em] text-blaze-text hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
           >
             <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
-            All News
+            {t('news_detail_footer_link')}
           </Link>
-          <p className="font-heebo text-sm uppercase tracking-widest text-white/40">The Pops Orchestra</p>
+          <p className="font-heebo text-sm uppercase tracking-widest text-white/40">{t('news_detail_footer_org')}</p>
         </motion.div>
       </div>
     </div>

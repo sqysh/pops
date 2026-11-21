@@ -9,7 +9,7 @@ export function AdminBar() {
   const { data: session, status } = useSession()
   const pathname = usePathname()
 
-  if (pathname.startsWith('/v2')) return null
+  if (pathname.startsWith('/admin')) return null
 
   if (status === 'loading') return null
   if (!session?.user?.role) return null
@@ -31,7 +31,7 @@ export function AdminBar() {
 
       <div className="flex items-center gap-3">
         <Link
-          href="/v2/dashboard"
+          href="/admin/dashboard"
           className="flex items-center gap-1.5 text-[9px] font-mono uppercase tracking-widest text-muted-dark/70 hover:text-text-dark transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-dark"
         >
           <LayoutDashboard className="w-3 h-3 shrink-0" aria-hidden="true" />

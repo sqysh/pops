@@ -4,16 +4,21 @@ import { useRouter } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import type { TeamMember } from '@prisma/client'
 import Picture from '@/components/common/Picture'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { TEAM_PAGES, type TeamRole } from './TeamMemberPages'
 
 interface Props {
   member: TeamMember
   allMembers: TeamMember[]
   currentIndex: number
-  role: string
+  role: TeamRole
+  content?: unknown
 }
 
-export default function TeamMemberClient({ member, allMembers, currentIndex, role }: Props) {
+export default function TeamMemberClient({ member, allMembers, currentIndex, role, content }: Props) {
   const router = useRouter()
+  const { defs, prefix } = TEAM_PAGES[role]
+  const { t } = pageCopy(content, defs)
 
   const hasPrev = currentIndex > 0
   const hasNext = currentIndex < allMembers.length - 1
@@ -46,7 +51,7 @@ export default function TeamMemberClient({ member, allMembers, currentIndex, rol
             onClick={goToPrev}
             disabled={!hasPrev}
             className={`p-1.5 transition-colors ${hasPrev ? 'text-white/60 hover:text-blaze-text' : 'text-white/10 cursor-not-allowed'}`}
-            aria-label="Previous member"
+            aria-label={t(`${prefix}_sr_previous`)}
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -59,7 +64,7 @@ export default function TeamMemberClient({ member, allMembers, currentIndex, rol
             onClick={goToNext}
             disabled={!hasNext}
             className={`p-1.5 transition-colors ${hasNext ? 'text-white/60 hover:text-blaze-text' : 'text-white/10 cursor-not-allowed'}`}
-            aria-label="Next member"
+            aria-label={t(`${prefix}_sr_next`)}
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -94,7 +99,7 @@ export default function TeamMemberClient({ member, allMembers, currentIndex, rol
                 ))}
               </ul>
             ) : (
-              <p className="text-white/50 text-sm font-mono">Biography coming soon</p>
+              <p className="text-white/50 text-sm font-mono">{t(`${prefix}_member_empty_bio`)}</p>
             )}
 
             {/* Back button */}
@@ -103,7 +108,7 @@ export default function TeamMemberClient({ member, allMembers, currentIndex, rol
                 onClick={() => router.push(`/${role}`)}
                 className="text-[11px] font-mono tracking-[0.2em] uppercase text-white/60 hover:text-white transition-colors"
               >
-                ← Back to Team
+                {t(`${prefix}_member_back_label`)}
               </button>
             </div>
           </div>
@@ -111,13 +116,13 @@ export default function TeamMemberClient({ member, allMembers, currentIndex, rol
       </main>
 
       {/* Footer nav dots */}
-      <nav className="fixed bottom-6 inset-x-0 flex justify-center" aria-label="Team member pagination">
+      <nav className="fixed bottom-6 inset-x-0 flex justify-center" aria-label={t(`${prefix}_sr_pagination`)}>
         <ul className="flex items-center gap-1.5 bg-black/80 backdrop-blur-sm px-3 py-2 border border-white/5">
           {allMembers.map((m, i) => (
             <li key={m.id}>
               <button
                 onClick={() => router.push(`/${role}/${m.id}`)}
-                aria-label={`Go to ${m.firstName} ${m.lastName}`}
+                aria-label={t(`${prefix}_sr_go_to`, { name: `${m.firstName} ${m.lastName}` })}
                 aria-current={i === currentIndex ? 'true' : undefined}
                 className={`w-1.5 h-1.5 transition-all ${i === currentIndex ? 'bg-blaze' : 'bg-white/10 hover:bg-white/20'}`}
               />

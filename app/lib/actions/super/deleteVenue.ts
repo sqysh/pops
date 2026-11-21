@@ -5,12 +5,15 @@ import { createLog } from '../../../utils/logHelper'
 import { getActor } from '../user/getActor'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { revalidateTag } from 'next/cache'
-import { verifySuperUser } from './verifySuperUser'
+import { denied, requireSuper } from '@/app/lib/auth/guards'
 
 export async function deleteVenue(id: string) {
+  const gate = await requireSuper()
+  if (gate.ok === false) return denied(gate)
+
   if (!id) return { success: false, error: 'Venue ID is required' }
 
-  const [, actor, context] = await Promise.all([verifySuperUser(), getActor(), getRequestContext()])
+  const [actor, context] = await Promise.all([getActor(), getRequestContext()])
 
   const venue = await prisma.venue.delete({ where: { id } }).catch(() => null)
 

@@ -5,23 +5,37 @@ import Picture from '@/components/common/Picture'
 import { useEffect } from 'react'
 import { FloatingParticles } from '@/components/layout/FloatingParticles'
 import Link from 'next/link'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/home'
 
-const CONCERTS = [
-  { name: 'Hocus Pocus Pops II', date: 'October 30', image: '/images/season-4.jpg' },
-  { name: 'Born in the U.S.A.', date: 'November 14–16', image: '/images/season-2.jpg' },
-  { name: 'Ring in the Holidays', date: 'December 13–14', image: '/images/season-6.jpg' },
-  { name: 'Cheek to Cheek', date: 'February 13–15', image: '/images/season-3.jpg' },
-  { name: "'80s Ladies", date: 'March 13–15', image: '/images/season-1.jpg' },
-  { name: 'How Low Can You Go?', date: 'April 11–12', image: '/images/season-5.jpg' }
+// Wording for each concert and on-sale row lives in the page content
+// (season_concert_<n>_name/_date, season_onsale_<n>_date/_label).
+const CONCERT_IMAGES = [
+  '/images/season-4.jpg',
+  '/images/season-2.jpg',
+  '/images/season-6.jpg',
+  '/images/season-3.jpg',
+  '/images/season-1.jpg',
+  '/images/season-5.jpg'
 ]
 
-const ON_SALE_DATES = [
-  { date: 'May 13', label: 'Season Renewals' },
-  { date: 'June 22', label: 'New Season Subscriptions', linkKey: '/subscriptions' },
-  { date: 'August 3', label: 'Individual & Flex Packages' }
-]
+const ON_SALE_LINKS: (string | undefined)[] = [undefined, '/subscriptions', undefined]
 
-export function SeasonDates({ concertsPageLive }) {
+export function SeasonDates({ concertsPageLive, content }: { concertsPageLive?: boolean; content?: unknown }) {
+  const { t, list } = pageCopy(content, pageContent)
+
+  const concerts = CONCERT_IMAGES.map((image, i) => ({
+    name: t(`season_concert_${i + 1}_name`),
+    date: t(`season_concert_${i + 1}_date`),
+    image
+  }))
+
+  const onSaleDates = ON_SALE_LINKS.map((linkKey, i) => ({
+    date: t(`season_onsale_${i + 1}_date`),
+    label: t(`season_onsale_${i + 1}_label`),
+    linkKey
+  }))
+
   const scrollY = useMotionValue(0)
   const bgY = useTransform(scrollY, [0, 953], ['0%', '20%'])
 
@@ -82,7 +96,7 @@ export function SeasonDates({ concertsPageLive }) {
             transition={{ duration: 0.5 }}
             className="font-changa text-sm uppercase tracking-[0.4em] text-blaze-text mb-6"
           >
-            2026–2027 Season
+            {t('season_eyebrow')}
           </motion.h1>
 
           <motion.div
@@ -94,7 +108,7 @@ export function SeasonDates({ concertsPageLive }) {
           >
             <Picture
               src="/images/like-no-other.png"
-              alt="Like No Other"
+              alt={t('season_title_image_alt')}
               priority
               className="w-full h-full max-w-lg mx-auto"
               quality={75}
@@ -102,9 +116,9 @@ export function SeasonDates({ concertsPageLive }) {
           </motion.div>
 
           <div className="flex flex-col items-center gap-1 mb-8">
-            {['Like No Other Orchestra.', 'Like No Other Experience.', 'Like No Other Audience.'].map((line, i) => (
+            {list('season_taglines').map((line, i) => (
               <motion.h2
-                key={line}
+                key={i}
                 initial={{ opacity: 0, x: -12 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -132,8 +146,7 @@ export function SeasonDates({ concertsPageLive }) {
             transition={{ delay: 0.8 }}
             className="font-lato text-sm text-white/80 max-w-lg mx-auto leading-relaxed"
           >
-            Join us for Robyn Bell&apos;s 15th season as our conductor, and a lineup of entertaining shows. We&apos;re
-            glad you&apos;re here, and we&apos;re glad you&apos;ll hear what The Pops has in store for you.
+            {t('season_intro')}
           </motion.p>
         </div>
       </div>
@@ -150,9 +163,7 @@ export function SeasonDates({ concertsPageLive }) {
             className="flex items-center gap-3 mb-8"
           >
             <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-            <h3 className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
-              This Season&apos;s Lineup
-            </h3>
+            <h3 className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">{t('season_lineup_heading')}</h3>
           </motion.div>
 
           <motion.div
@@ -162,7 +173,7 @@ export function SeasonDates({ concertsPageLive }) {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="grid grid-cols-2 760:grid-cols-3 gap-px bg-white/10"
           >
-            {CONCERTS.map((concert, i) => {
+            {concerts.map((concert, i) => {
               const card = (
                 <>
                   <Picture
@@ -176,9 +187,7 @@ export function SeasonDates({ concertsPageLive }) {
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <p className="font-changa text-blaze-text text-sm uppercase tracking-[0.2em] mb-1">
-                      {concert.date}
-                    </p>
+                    <p className="font-changa text-blaze-text text-sm uppercase tracking-[0.2em] mb-1">{concert.date}</p>
                     <h4 className="font-changa text-white text-lg leading-tight">{concert.name}</h4>
                   </div>
                 </>
@@ -186,15 +195,15 @@ export function SeasonDates({ concertsPageLive }) {
 
               return concertsPageLive ? (
                 <Link
-                  key={concert.name}
+                  key={i}
                   href={`/concerts?ref=${concert.name}`}
-                  aria-label={`View ${concert.name}`}
+                  aria-label={t('season_concert_link_label', { name: concert.name })}
                   className="relative overflow-hidden bg-black group aspect-3/4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
                 >
                   {card}
                 </Link>
               ) : (
-                <div key={concert.name} className="relative overflow-hidden bg-black group aspect-3/4">
+                <div key={i} className="relative overflow-hidden bg-black group aspect-3/4">
                   {card}
                 </div>
               )
@@ -212,21 +221,19 @@ export function SeasonDates({ concertsPageLive }) {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <p className="font-changa text-[14px] uppercase tracking-[0.35em] text-blaze-text mb-3">Mark Your Calendar</p>
+          <p className="font-changa text-[14px] uppercase tracking-[0.35em] text-blaze-text mb-3">{t('season_onsale_eyebrow')}</p>
           <div className="flex items-center gap-4 justify-center mb-4">
             <div className="w-8 430:w-12 h-px bg-blaze shrink-0" aria-hidden="true" />
-            <h3 className="text-3xl 430:text-4xl font-changa text-white leading-none">Tickets Go On Sale</h3>
+            <h3 className="text-3xl 430:text-4xl font-changa text-white leading-none">{t('season_onsale_heading')}</h3>
             <div className="w-8 430:w-12 h-px bg-blaze shrink-0" aria-hidden="true" />
           </div>
         </motion.div>
         <div className="flex flex-col divide-y divide-white/10 max-w-2xl mx-auto">
-          {ON_SALE_DATES.map(({ date, label, linkKey }, i) => {
+          {onSaleDates.map(({ date, label, linkKey }, i) => {
             const inner = (
               <>
                 <div className="flex items-center gap-6 min-w-0">
-                  <span className="font-changa text-blaze-text text-sm uppercase tracking-[0.2em] shrink-0 w-24">
-                    {date}
-                  </span>
+                  <span className="font-changa text-blaze-text text-sm uppercase tracking-[0.2em] shrink-0 w-24">{date}</span>
                   <div className="w-px h-5 bg-white/10 shrink-0" aria-hidden="true" />
                   <h4 className="font-changa text-2xl 430:text-3xl text-white leading-none">{label}</h4>
                 </div>
@@ -236,7 +243,7 @@ export function SeasonDates({ concertsPageLive }) {
 
             return (
               <motion.div
-                key={label}
+                key={i}
                 initial={{ opacity: 0, x: -12 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}

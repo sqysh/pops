@@ -25,7 +25,13 @@ const nextConfig: NextConfig = {
     qualities: [50, 60, 75]
   },
   async redirects() {
-    return [{ source: '/connect-with-us', destination: '/subscribe', permanent: true }]
+    return [
+      { source: '/connect-with-us', destination: '/subscribe', permanent: true },
+      // the page moved when it came back for 2027; old links and shares still land on it
+      { source: '/bubble-bash', destination: '/bubbles-bash', permanent: true },
+      // the admin used to live under /v2, and links to it are in emails already sent
+      { source: '/v2/:path*', destination: '/admin/:path*', permanent: true }
+    ]
   }
 }
 

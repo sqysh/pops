@@ -84,7 +84,7 @@ export function useDashboardSearch(data: {
       if (isVenues || !isCategory) {
         data.venues.forEach((v) => {
           if (isVenues || v.name?.toLowerCase().includes(term) || v.address?.toLowerCase().includes(term)) {
-            hits.push({ type: 'Venue', label: v.name, sub: v.address, href: `/v2/venues/${v.id}/edit` })
+            hits.push({ type: 'Venue', label: v.name, sub: v.address, href: `/admin/venues/${v.id}/edit` })
           }
         })
       }
@@ -101,7 +101,7 @@ export function useDashboardSearch(data: {
               type: 'Team',
               label: `${t.firstName} ${t.lastName}`,
               sub: t.role,
-              href: `/v2/team/${t.id}/edit`
+              href: `/admin/team/${t.id}/edit`
             })
           }
         })
@@ -132,7 +132,7 @@ export function useDashboardSearch(data: {
               type: 'User',
               label: `${u.firstName} ${u.lastName}`.trim() || u.email,
               sub: u.role,
-              href: `/v2/users`
+              href: `/admin/users`
             })
           }
         })
@@ -169,7 +169,7 @@ export function useDashboardSearch(data: {
               type: 'News',
               label: n.title,
               sub: n.isPublished ? 'Published' : 'Draft',
-              href: `/v2/news?title=${n.title}`
+              href: `/admin/news?title=${n.title}`
             })
           }
         })

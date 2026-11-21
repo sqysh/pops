@@ -41,7 +41,7 @@ export const contactSubmissionTemplate = (submitterName: string) => `
                       <strong style="color: #e2e8f0;">${submitterName}</strong> has submitted a message through the contact form.
                     </p>
 
-                    <a href="https://thepopsorchestra.org/v2/dashboard" style="display: inline-block; padding: 13px 28px; background: linear-gradient(90deg, #da0032, #ff9000); color: white; text-decoration: none; border-radius: 8px; font-size: 15px; font-weight: 600;">
+                    <a href="https://thepopsorchestra.org/admin/dashboard" style="display: inline-block; padding: 13px 28px; background: linear-gradient(90deg, #da0032, #ff9000); color: white; text-decoration: none; border-radius: 8px; font-size: 15px; font-weight: 600;">
                       View Message
                     </a>
 

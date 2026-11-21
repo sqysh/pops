@@ -1,8 +1,12 @@
 'use server'
 
 import { createLog } from '@/app/utils/logHelper'
+import { requireStaff } from '@/app/lib/auth/guards'
 
 export async function getMailchimpMemberCount(): Promise<{ success: boolean; count: number | null }> {
+  const gate = await requireStaff()
+  if (gate.ok === false) return { success: false, count: null }
+
   const API_KEY = process.env.MAILCHIMP_API_KEY
   const LIST_ID = process.env.MAILCHIMP_LIST_ID
 

@@ -7,6 +7,8 @@ import { motion } from 'framer-motion'
 import { Menu } from 'lucide-react'
 import { SiteSetting } from '@prisma/client'
 import { getNavigationLinks, NavigationLinksProps } from '@/app/utils/navigation.utils'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/navigation'
 import { useHeaderAtTop } from '@/app/lib/hooks/useHeaderAtTop'
 import LogoSVG from './LogoSVG'
 import { useAppStore } from '@/stores/useAppStore'
@@ -22,9 +24,11 @@ interface HeaderNavLinkProps {
   link: NavigationLinksProps
   openTextKey: string
   setOpenTextKey: (textKey: string) => void
+  navContent?: unknown
 }
 
-export function HeaderNavLink({ link, openTextKey, setOpenTextKey }: HeaderNavLinkProps) {
+export function HeaderNavLink({ link, openTextKey, setOpenTextKey, navContent }: HeaderNavLinkProps) {
+  const { t } = pageCopy(navContent, pageContent)
   const hasDropdown = !!link.links?.length
   const isOpen = hasDropdown && openTextKey === link.textKey
   const dropdownId = `dropdown-${slug(link.textKey)}`
@@ -77,7 +81,7 @@ export function HeaderNavLink({ link, openTextKey, setOpenTextKey }: HeaderNavLi
               onClick={close}
               target={sublink.isExternal ? '_blank' : undefined}
               rel={sublink.isExternal ? 'noopener noreferrer' : undefined}
-              aria-label={sublink.isExternal ? `${sublink.textKey}, opens in a new tab` : undefined}
+              aria-label={sublink.isExternal ? t('nav_external_link_label', { label: sublink.textKey }) : undefined}
               aria-current={sublink.active ? 'page' : undefined}
               className={`${
                 sublink.active ? 'text-blaze-text' : 'text-white/70 hover:text-white'
@@ -96,17 +100,19 @@ interface HeaderProps {
   campApplicationsSetting?: SiteSetting['value']
   concertsPageLive?: SiteSetting['value']
   subscriptionsLive?: SiteSetting['value']
+  navContent?: unknown
 }
 
-export function Header({ campApplicationsSetting, concertsPageLive, subscriptionsLive }: HeaderProps) {
+export function Header({ campApplicationsSetting, concertsPageLive, subscriptionsLive, navContent = [] }: HeaderProps) {
   const path = usePathname()
-  const navLinks = getNavigationLinks(path, concertsPageLive, campApplicationsSetting, subscriptionsLive)
+  const navLinks = getNavigationLinks(path, concertsPageLive, campApplicationsSetting, subscriptionsLive, navContent)
   const [openTextKey, setOpenTextKey] = useState('')
   const { headerRef } = useHeaderAtTop()
   const open = useAppStore((s) => s.openNavigationDrawer)
+  const { t } = pageCopy(navContent, pageContent)
 
   return (
-    <nav ref={headerRef} aria-label="Main site navigation" className="relative z-50 px-3 430:px-4 990:px-8 1200:px-12">
+    <nav ref={headerRef} aria-label={t('nav_header_label')} className="relative z-50 px-3 430:px-4 990:px-8 1200:px-12">
       <div className="w-full flex items-center justify-between h-14 430:h-16 sm:h-20 gap-2">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -116,7 +122,7 @@ export function Header({ campApplicationsSetting, concertsPageLive, subscription
         >
           <Link
             href="/"
-            aria-label="The Pops Orchestra, home"
+            aria-label={t('nav_header_logo_label')}
             className="inline-block rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
             <LogoSVG className="w-10 430:w-12 sm:w-16" />
@@ -131,7 +137,7 @@ export function Header({ campApplicationsSetting, concertsPageLive, subscription
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05, duration: 0.4 }}
             >
-              <HeaderNavLink link={link} openTextKey={openTextKey} setOpenTextKey={setOpenTextKey} />
+              <HeaderNavLink link={link} openTextKey={openTextKey} setOpenTextKey={setOpenTextKey} navContent={navContent} />
             </motion.div>
           ))}
         </div>
@@ -145,7 +151,7 @@ export function Header({ campApplicationsSetting, concertsPageLive, subscription
           <button
             type="button"
             onClick={() => open()}
-            aria-label="Open navigation menu"
+            aria-label={t('nav_header_menu_button_label')}
             className="w-11 h-11 flex items-center justify-center text-white/70 hover:text-blaze-text 1160:hidden transition-colors duration-300 rounded-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
           >
             <Menu className="w-5 h-5" aria-hidden="true" />
@@ -153,10 +159,10 @@ export function Header({ campApplicationsSetting, concertsPageLive, subscription
 
           <Link
             href="/donate"
-            aria-label="Donate to The Pops Orchestra"
+            aria-label={t('nav_header_donate_label')}
             className="hidden 430:inline-flex items-center bg-blaze hover:bg-blaze/80 text-white font-changa uppercase tracking-widest transition-colors duration-300 cursor-pointer text-xs sm:text-sm px-4 sm:px-6 py-2.5 sm:py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
-            Donate
+            {t('nav_header_donate_button')}
           </Link>
         </motion.div>
       </div>

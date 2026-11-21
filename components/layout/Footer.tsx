@@ -4,31 +4,30 @@ import Link from 'next/link'
 import { Phone, MapPin, ChevronUp, Mail, ArrowRight } from 'lucide-react'
 import { FacebookIcon, InstagramIcon, YouTubeIcon } from '@/public/data/home.data'
 import Picture from '@/components/common/Picture'
-import { ContentItem, FooterDataParsed } from '@/app/types/footer.types'
+import { FooterDataParsed } from '@/app/types/footer.types'
 import { FloatingParticles } from './FloatingParticles'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/footer'
 
-const Footer = ({ data }: { data: FooterDataParsed }) => {
-  const d = (id: string) => {
-    if (!Array.isArray(data?.content)) return ''
-    return (data.content as ContentItem[]).find((item) => item.id === id)?.value ?? ''
-  }
+const Footer = ({ data }: { data: FooterDataParsed | null }) => {
+  const { t } = pageCopy(data?.content, pageContent)
 
   const socialLinks = [
-    { icon: FacebookIcon, url: d('footer_social_facebook'), platform: 'Facebook' },
-    { icon: InstagramIcon, url: d('footer_social_instagram'), platform: 'Instagram' },
-    { icon: YouTubeIcon, url: d('footer_social_youtube'), platform: 'YouTube' }
+    { icon: FacebookIcon, url: t('footer_social_facebook'), platform: 'Facebook' },
+    { icon: InstagramIcon, url: t('footer_social_instagram'), platform: 'Instagram' },
+    { icon: YouTubeIcon, url: t('footer_social_youtube'), platform: 'YouTube' }
   ].filter((l) => l.url)
 
   const footerLinks = [1, 2, 3, 4]
-    .map((n) => ({ text: d(`footer_link_${n}_text`), href: d(`footer_link_${n}_url`) }))
+    .map((n) => ({ text: t(`footer_link_${n}_text`), href: t(`footer_link_${n}_url`) }))
     .filter((l) => l.text)
 
   const footerLinksSeason = [1, 2, 3, 4]
-    .map((n) => ({ text: d(`footer_season_link_${n}_text`), href: d(`footer_season_link_${n}_url`) }))
+    .map((n) => ({ text: t(`footer_season_link_${n}_text`), href: t(`footer_season_link_${n}_url`) }))
     .filter((l) => l.text)
 
   const footerLinksGetInvolved = [1, 2, 3, 4]
-    .map((n) => ({ text: d(`footer_involved_link_${n}_text`), href: d(`footer_involved_link_${n}_url`) }))
+    .map((n) => ({ text: t(`footer_involved_link_${n}_text`), href: t(`footer_involved_link_${n}_url`) }))
     .filter((l) => l.text)
 
   return (
@@ -54,15 +53,20 @@ const Footer = ({ data }: { data: FooterDataParsed }) => {
           {/* Logo */}
           <Link
             href="/"
-            aria-label="The Pops Orchestra — return to homepage"
+            aria-label={t('footer_logo_link_label')}
             className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
-            <Picture src="/images/logo-2.png" priority={false} className="h-full object-contain w-32 480:w-40 760:w-52" />
+            <Picture
+              src="/images/logo-2.png"
+              alt={t('footer_logo_alt')}
+              priority={false}
+              className="h-full object-contain w-32 480:w-40 760:w-52"
+            />
           </Link>
 
           {/* Tagline */}
           <p className="font-lato text-white/50 text-xs 480:text-sm 760:text-base leading-relaxed max-w-md">
-            {d('footer_tagline_description')}
+            {t('footer_tagline_description')}
           </p>
 
           {/* Blaze divider */}
@@ -77,22 +81,22 @@ const Footer = ({ data }: { data: FooterDataParsed }) => {
             <Link
               href="/subscribe"
               className="inline-flex items-center gap-2.5 px-5 py-3 w-full justify-center bg-blaze hover:bg-blazehover text-white font-changa text-[11px] uppercase tracking-widest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-              aria-label="Sign up for The Pops Orchestra newsletter"
+              aria-label={t('footer_newsletter_link_label')}
             >
               <Mail className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
-              {d('footer_newsletter_link_text')}
+              {t('footer_newsletter_link_text')}
             </Link>
 
             <div className="hidden 480:block w-px h-6 bg-white/10" aria-hidden="true" />
 
-            <ul role="list" aria-label="Social media links" className="flex items-center gap-2">
+            <ul role="list" aria-label={t('footer_social_list_label')} className="flex items-center gap-2">
               {socialLinks.map(({ icon: Icon, url, platform }) => (
                 <li key={platform}>
                   <a
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={`Follow us on ${platform} (opens in new tab)`}
+                    aria-label={t('footer_social_link_label', { platform })}
                     className="w-9 h-9 border border-white/10 hover:border-blaze/50 hover:bg-blaze/5 flex items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                   >
                     <Icon className="w-4 h-4 text-white/50 hover:text-white transition-colors" aria-hidden="true" />
@@ -123,42 +127,40 @@ const Footer = ({ data }: { data: FooterDataParsed }) => {
               <div className="flex items-center gap-3">
                 <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
                 <span className="font-changa text-[9px] uppercase tracking-[0.3em] text-blaze-text">
-                  {d('footer_contact_title') || 'Contact'}
+                  {t('footer_contact_title')}
                 </span>
               </div>
-              <ul className="flex flex-col gap-3" aria-label="Contact information">
+              <ul className="flex flex-col gap-3" aria-label={t('footer_contact_list_label')}>
                 <li className="flex items-start gap-2.5">
                   <MapPin className="w-3.5 h-3.5 text-blaze shrink-0 mt-0.5" aria-hidden="true" />
-                  <span className="font-lato text-sm text-white/60 leading-relaxed">
-                    {d('footer_contact_line1') || '502 3rd Ave W, Bradenton, FL 34205'}
-                  </span>
+                  <span className="font-lato text-sm text-white/60 leading-relaxed">{t('footer_contact_line2')}</span>
                 </li>
                 <li className="flex items-center gap-2.5">
                   <Phone className="w-3.5 h-3.5 text-blaze shrink-0" aria-hidden="true" />
                   <a
-                    href={`tel:${(d('footer_contact_line3') || '9419267677').replace(/\D/g, '')}`}
+                    href={`tel:${t('footer_contact_line3').replace(/\D/g, '')}`}
                     className="font-lato text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
                   >
-                    {d('footer_contact_line3') || '941-926-POPS (7677)'}
+                    {t('footer_contact_line3')}
                   </a>
                 </li>
                 <li className="flex items-center gap-2.5">
                   <Mail className="w-3.5 h-3.5 text-blaze shrink-0" aria-hidden="true" />
                   <a
-                    href="mailto:Info@ThePopsOrchestra.org"
+                    href={`mailto:${t('footer_contact_line1')}`}
                     className="font-lato text-sm text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
                   >
-                    Info@ThePopsOrchestra.org
+                    {t('footer_contact_line1')}
                   </a>
                 </li>
               </ul>
             </div>
             {/* Quick links */}
-            <nav aria-label="Footer quick links" className="flex flex-col gap-4">
+            <nav aria-label={t('footer_quick_links_label')} className="flex flex-col gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
                 <span className="font-changa text-[9px] uppercase tracking-[0.3em] text-blaze-text">
-                  {d('footer_quick_links_title') || 'Quick Links'}
+                  {t('footer_quick_links_title')}
                 </span>
               </div>
               <ul role="list" className="flex flex-col gap-2.5">
@@ -184,7 +186,9 @@ const Footer = ({ data }: { data: FooterDataParsed }) => {
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                <span className="font-changa text-[9px] uppercase tracking-[0.3em] text-blaze-text">2026–27 Season</span>
+                <span className="font-changa text-[9px] uppercase tracking-[0.3em] text-blaze-text">
+                  {t('footer_season_title')}
+                </span>
               </div>
               <ul className="flex flex-col gap-2.5">
                 {footerLinksSeason.map(({ text, href }) => (
@@ -207,7 +211,9 @@ const Footer = ({ data }: { data: FooterDataParsed }) => {
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
-                <span className="font-changa text-[9px] uppercase tracking-[0.3em] text-blaze-text">Get Involved</span>
+                <span className="font-changa text-[9px] uppercase tracking-[0.3em] text-blaze-text">
+                  {t('footer_involved_title')}
+                </span>
               </div>
               <ul className="flex flex-col gap-2.5">
                 {footerLinksGetInvolved.map(({ text, href }) => (
@@ -234,23 +240,25 @@ const Footer = ({ data }: { data: FooterDataParsed }) => {
       <div className="px-4 990:px-0 py-4">
         <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 1590:max-w-300 mx-auto flex flex-col items-center gap-2 sm:flex-row sm:justify-between">
           <p className="font-changa text-[10px] 480:text-[12px] uppercase tracking-widest text-white/25 text-center 480:text-left">
-            <small>© {new Date().getFullYear()} The Pops Orchestra of Bradenton & Sarasota. All rights reserved.</small>
+            <small>{t('footer_copyright', { year: new Date().getFullYear() })}</small>
           </p>
           <div className="flex items-center gap-4">
             <Link
               href="https://sqysh.io?lead_source=the_pops_orchestra"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Website designed and developed by Sqysh (opens in new tab)"
+              aria-label={t('footer_built_by_link_label')}
               className="flex items-center gap-1 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
             >
-              <span className="font-lato text-xs text-white/25 group-hover:text-white/60 transition-colors">Built by</span>
-              <span className="sqysh-gradient text-xs font-bold font-mono">Sqysh</span>
+              <span className="font-lato text-xs text-white/25 group-hover:text-white/60 transition-colors">
+                {t('footer_built_by_label')}
+              </span>
+              <span className="sqysh-gradient text-xs font-bold font-mono">{t('footer_built_by_name')}</span>
             </Link>
             <div className="w-px h-3 bg-white/10" aria-hidden="true" />
             <button
               type="button"
-              aria-label="Scroll back to top of page"
+              aria-label={t('footer_back_to_top_label')}
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="text-white/25 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze p-1"
             >

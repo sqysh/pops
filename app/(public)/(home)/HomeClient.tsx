@@ -20,14 +20,14 @@ const HomeHero = dynamic(() => import('@/app/(public)/(home)/_components/HomeHer
 export function HomeClient({ pageData, sponsors, testimonials, events, news, concertsPageLive }) {
   return (
     <>
-      <HomeHero pageData={pageData} />
-      <SeasonSection concertsPageLive={concertsPageLive} />
-      <ContactUsBlock data={pageData} />
-      <SponsorsBlock pageData={pageData} sponsors={sponsors} />
-      <KeepUpToDateBlock pageData={pageData} />
-      <TestimonialsBlock testimonials={testimonials} />
-      <EventsBlock events={events} />
-      <NewsBlock news={news} />
+      <HomeHero content={pageData} />
+      <SeasonSection concertsPageLive={concertsPageLive} content={pageData} />
+      <ContactUsBlock content={pageData} />
+      <SponsorsBlock content={pageData} sponsors={sponsors} />
+      <KeepUpToDateBlock content={pageData} />
+      <TestimonialsBlock testimonials={testimonials} content={pageData} />
+      <EventsBlock events={events} content={pageData} />
+      <NewsBlock news={news} content={pageData} />
     </>
   )
 }

@@ -20,7 +20,7 @@ export async function createCampApplication(data: CampApplicationFormInput): Pro
   if (!parsed.success) {
     return {
       success: false,
-      error: 'Please check the highlighted fields and try again.',
+      error: 'camp_error_check_fields',
       fieldErrors: z.flattenError(parsed.error).fieldErrors,
       data: null
     }
@@ -99,7 +99,8 @@ export async function createCampApplication(data: CampApplicationFormInput): Pro
       request: context
     }).catch(() => null)
 
-    return { success: false, error: 'We could not send your application. Please try again in a moment.', data: null }
+    // error codes are page content ids (camp-application page, 'Form Messages')
+    return { success: false, error: 'camp_error_save_failed', data: null }
   }
 
   await createLog('info', await buildLogMessage(`camp application submitted by "${studentName}"`, 'public', context), {

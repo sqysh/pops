@@ -1,4 +1,20 @@
-const PrivacyPolicy = () => {
+import { Fragment, type ReactNode } from 'react'
+import { getPage } from '@/app/lib/actions/page/getPage'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/privacy-policy'
+
+/** Puts links where the wording has {name} markers, e.g. "contact us at {email}". */
+const withLinks = (text: string, links: Record<string, ReactNode>) =>
+  text.split(/(\{\w+\})/).map((part, i) => {
+    const name = part.match(/^\{(\w+)\}$/)?.[1]
+    return <Fragment key={i}>{name && name in links ? links[name] : part}</Fragment>
+  })
+
+const PrivacyPolicy = async () => {
+  const page = await getPage('privacy-policy')
+  const { t, list } = pageCopy(page?.content, pageContent)
+  const today = new Date()
+
   return (
     <main id="main-content">
       <div className="relative">
@@ -12,82 +28,69 @@ const PrivacyPolicy = () => {
           <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 mx-auto">
             {/* Page Header */}
             <header className="w-full text-center flex flex-col items-center pt-32 pb-20 border-b border-white/10">
-              <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">The Pops Orchestra</p>
+              <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">{t('privacy_hero_eyebrow')}</p>
               <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
                 <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
                 <h1 className="text-4xl 430:text-5xl sm:text-6xl font-changa text-white leading-none">
-                  Privacy Policy
+                  {t('privacy_hero_heading')}
                 </h1>
                 <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
               </div>
               <div className="w-16 h-px bg-blaze mx-auto mt-2 mb-6" aria-hidden="true" />
-              <p className="font-lato text-white/50 text-sm 430:text-base max-w-xl leading-relaxed">
-                At The Pops Orchestra, we keep things simple. This policy explains how we handle any information you
-                share with us through our website.
-              </p>
+              <p className="font-lato text-white/50 text-sm 430:text-base max-w-xl leading-relaxed">{t('privacy_hero_intro')}</p>
             </header>
 
             {/* Content */}
             <article aria-labelledby="privacy-policy-heading" className="py-20 pb-32 max-w-3xl flex flex-col gap-10">
               <h2 id="privacy-policy-heading" className="sr-only">
-                Privacy Policy Details
+                {t('privacy_sr_details_heading')}
               </h2>
 
               <section aria-labelledby="who-we-are">
                 <h2 id="who-we-are" className="font-changa text-xl 430:text-2xl text-white mb-4">
-                  Who We Are
+                  {t('privacy_who_heading')}
                 </h2>
                 <div className="w-8 h-px bg-blaze mb-5" aria-hidden="true" />
                 <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">
-                  We&apos;re The Pops Orchestra of Bradenton and Sarasota, and our website is{' '}
-                  <a
-                    href="https://thepopsorchestra.org"
-                    className="text-sunburst underline hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
-                  >
-                    https://thepopsorchestra.org
-                  </a>
-                  . Our site was built by{' '}
-                  <a
-                    href="https://sqysh.io?lead_source=the_pops_orchestra"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Sqysh (opens in new tab)"
-                    className="text-lime-400 underline hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-400 rounded-sm"
-                  >
-                    Sqysh
-                  </a>
-                  , who helps us maintain a secure and user-friendly experience.
+                  {withLinks(t('privacy_who_body'), {
+                    website: (
+                      <a
+                        href="https://thepopsorchestra.org"
+                        className="text-sunburst underline hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
+                      >
+                        {t('privacy_who_website_link')}
+                      </a>
+                    ),
+                    builder: (
+                      <a
+                        href="https://sqysh.io?lead_source=the_pops_orchestra"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={t('privacy_sr_builder_link')}
+                        className="text-lime-400 underline hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-400 rounded-sm"
+                      >
+                        {t('privacy_who_builder_link')}
+                      </a>
+                    )
+                  })}
                 </p>
               </section>
 
               <section aria-labelledby="forms-heading">
                 <h2 id="forms-heading" className="font-changa text-xl 430:text-2xl text-white mb-4">
-                  When You Fill Out Our Forms
+                  {t('privacy_forms_heading')}
                 </h2>
                 <div className="w-8 h-px bg-blaze mb-5" aria-hidden="true" />
-                <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">
-                  We have a few contact forms on our website where you can reach out to us with questions, requests, or
-                  to get more information about our orchestra. When you fill these out, we collect basic information
-                  like your name, email address, and your message. We use this information solely to get back to you —
-                  that&apos;s it!
-                </p>
+                <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">{t('privacy_forms_body')}</p>
               </section>
 
               <section aria-labelledby="what-we-dont-do-heading">
                 <h2 id="what-we-dont-do-heading" className="font-changa text-xl 430:text-2xl text-white mb-4">
-                  What We Don&apos;t Do
+                  {t('privacy_dont_heading')}
                 </h2>
                 <div className="w-8 h-px bg-blaze mb-5" aria-hidden="true" />
-                <ul
-                  role="list"
-                  aria-label="Things we don't do with your information"
-                  className="flex flex-col divide-y divide-white/10"
-                >
-                  {[
-                    "We don't sell the personal details you send us through our forms",
-                    "We don't send spam or unwanted emails",
-                    "We don't require you to create accounts or log in to browse our site"
-                  ].map((item, i) => (
+                <ul role="list" aria-label={t('privacy_sr_dont_list')} className="flex flex-col divide-y divide-white/10">
+                  {list('privacy_dont_items').map((item, i) => (
                     <li key={i} className="flex items-start gap-3 py-3">
                       <div className="w-1.5 h-1.5 rounded-full bg-blaze mt-2 shrink-0" aria-hidden="true" />
                       <span className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">{item}</span>
@@ -98,148 +101,123 @@ const PrivacyPolicy = () => {
 
               <section aria-labelledby="tickets-heading">
                 <h2 id="tickets-heading" className="font-changa text-xl 430:text-2xl text-white mb-4">
-                  Tickets &amp; Events
+                  {t('privacy_tickets_heading')}
                 </h2>
                 <div className="w-8 h-px bg-blaze mb-5" aria-hidden="true" />
-                <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">
-                  When you&apos;re ready to buy tickets for our concerts, you&apos;ll be directed to AudienceView, our
-                  ticketing partner. Any ticket purchases happen on their secure platform, not ours. Check out their
-                  privacy policy for details on how they handle your purchase information.
-                </p>
+                <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">{t('privacy_tickets_body')}</p>
               </section>
 
               <section aria-labelledby="website-basics-heading">
                 <h2 id="website-basics-heading" className="font-changa text-xl 430:text-2xl text-white mb-4">
-                  Website Basics
+                  {t('privacy_basics_heading')}
                 </h2>
                 <div className="w-8 h-px bg-blaze mb-5" aria-hidden="true" />
-                <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">
-                  Like most websites, ours automatically collects some basic information like your browser type and
-                  which pages you visit. We use cookies both to keep the site working properly (for example, remembering
-                  your preferences and making sure our forms function) and, with your consent, for the analytics and
-                  advertising tools described below.
-                </p>
+                <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">{t('privacy_basics_body')}</p>
               </section>
 
               <section aria-labelledby="analytics-heading">
                 <h2 id="analytics-heading" className="font-changa text-xl 430:text-2xl text-white mb-4">
-                  Analytics &amp; Advertising
+                  {t('privacy_analytics_heading')}
                 </h2>
                 <div className="w-8 h-px bg-blaze mb-5" aria-hidden="true" />
                 <div className="flex flex-col gap-4">
-                  <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">
-                    To understand how people use our site and to help promote our concerts, we use a few third-party
-                    tools. When you accept cookies, these tools may set their own cookies and receive information about
-                    your visit, such as the pages you view and general details about your device and browser:
-                  </p>
+                  <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">{t('privacy_analytics_intro')}</p>
                   <ul role="list" className="flex flex-col divide-y divide-white/10">
                     <li className="flex flex-col gap-1 py-3">
-                      <span className="font-lato text-white text-sm 430:text-base">Google Analytics</span>
+                      <span className="font-lato text-white text-sm 430:text-base">{t('privacy_analytics_ga_name')}</span>
                       <span className="font-lato text-white/60 text-sm leading-relaxed">
-                        Helps us measure site traffic and understand which pages are most useful. This data is shared
-                        with Google. You can learn more in{' '}
-                        <a
-                          href="https://policies.google.com/privacy"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sunburst underline hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
-                        >
-                          Google&apos;s Privacy Policy
-                        </a>
-                        .
+                        {withLinks(t('privacy_analytics_ga_text'), {
+                          link: (
+                            <a
+                              href="https://policies.google.com/privacy"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sunburst underline hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
+                            >
+                              {t('privacy_analytics_ga_link')}
+                            </a>
+                          )
+                        })}
                       </span>
                     </li>
                     <li className="flex flex-col gap-1 py-3">
-                      <span className="font-lato text-white text-sm 430:text-base">Meta Pixel</span>
+                      <span className="font-lato text-white text-sm 430:text-base">{t('privacy_analytics_meta_name')}</span>
                       <span className="font-lato text-white/60 text-sm leading-relaxed">
-                        Lets us measure and promote our concerts through Facebook and Instagram. When active, it shares
-                        information about your visit with Meta, which may use it for advertising. Learn more in{' '}
-                        <a
-                          href="https://www.facebook.com/privacy/policy"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sunburst underline hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
-                        >
-                          Meta&apos;s Privacy Policy
-                        </a>
-                        .
+                        {withLinks(t('privacy_analytics_meta_text'), {
+                          link: (
+                            <a
+                              href="https://www.facebook.com/privacy/policy"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sunburst underline hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
+                            >
+                              {t('privacy_analytics_meta_link')}
+                            </a>
+                          )
+                        })}
                       </span>
                     </li>
                   </ul>
-                  <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">
-                    These tools only run if you accept cookies through the banner shown when you first visit. If you
-                    decline, they stay off. You can change your mind at any time by clearing your browser&apos;s cookies
-                    for our site, which will bring the banner back so you can choose again. Depending on where you live,
-                    you may also have the right to opt out of this kind of data sharing — just contact us using the
-                    details below and we&apos;ll help.
-                  </p>
+                  <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">{t('privacy_analytics_outro')}</p>
                 </div>
               </section>
 
               <section aria-labelledby="photos-heading">
                 <h2 id="photos-heading" className="font-changa text-xl 430:text-2xl text-white mb-4">
-                  Photos at Our Concerts
+                  {t('privacy_photos_heading')}
                 </h2>
                 <div className="w-8 h-px bg-blaze mb-5" aria-hidden="true" />
-                <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">
-                  We love capturing the joy at our performances! We sometimes take photos and videos at concerts to
-                  share on our website and social media. If you&apos;d prefer not to be included, just let our
-                  volunteers know at the event.
-                </p>
+                <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">{t('privacy_photos_body')}</p>
               </section>
 
               <section aria-labelledby="security-heading">
                 <h2 id="security-heading" className="font-changa text-xl 430:text-2xl text-white mb-4">
-                  Keeping Things Secure
+                  {t('privacy_security_heading')}
                 </h2>
                 <div className="w-8 h-px bg-blaze mb-5" aria-hidden="true" />
-                <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">
-                  We take reasonable steps to protect any information you share with us. Our website uses secure
-                  connections, and only a few orchestra administrators have access to form submissions.
-                </p>
+                <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">{t('privacy_security_body')}</p>
               </section>
 
               <section aria-labelledby="questions-heading">
                 <h2 id="questions-heading" className="font-changa text-xl 430:text-2xl text-white mb-4">
-                  Your Questions &amp; Requests
+                  {t('privacy_questions_heading')}
                 </h2>
                 <div className="w-8 h-px bg-blaze mb-5" aria-hidden="true" />
                 <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">
-                  If you have questions about this policy, want to know what information we have about you, or would
-                  like us to delete your contact details, just reach out! You can contact us at{' '}
-                  <a
-                    href="mailto:info@thepopsorchestra.org"
-                    aria-label="Email us at info@thepopsorchestra.org"
-                    className="text-sunburst underline hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
-                  >
-                    info@thepopsorchestra.org
-                  </a>{' '}
-                  or call us at{' '}
-                  <a
-                    href="tel:941-926-7677"
-                    aria-label="Call us at 941-926-POPS"
-                    className="text-sunburst underline hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
-                  >
-                    (941) 926-POPS
-                  </a>
-                  .
+                  {withLinks(t('privacy_questions_body'), {
+                    email: (
+                      <a
+                        href="mailto:info@thepopsorchestra.org"
+                        aria-label={t('privacy_sr_email_link')}
+                        className="text-sunburst underline hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
+                      >
+                        {t('privacy_questions_email_link')}
+                      </a>
+                    ),
+                    phone: (
+                      <a
+                        href="tel:941-926-7677"
+                        aria-label={t('privacy_sr_phone_link')}
+                        className="text-sunburst underline hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sunburst rounded-sm"
+                      >
+                        {t('privacy_questions_phone_link')}
+                      </a>
+                    )
+                  })}
                 </p>
               </section>
 
               <section aria-labelledby="updates-heading">
                 <h2 id="updates-heading" className="font-changa text-xl 430:text-2xl text-white mb-4">
-                  Updates
+                  {t('privacy_updates_heading')}
                 </h2>
                 <div className="w-8 h-px bg-blaze mb-5" aria-hidden="true" />
-                <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">
-                  If we ever need to update this policy, we&apos;ll post the changes here. Since we keep things pretty
-                  simple, we don&apos;t expect many changes!
-                </p>
+                <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed">{t('privacy_updates_body')}</p>
               </section>
 
               <p className="font-lato text-white/50 text-sm border-t border-white/10 pt-6">
-                <time dateTime={new Date().toISOString().split('T')[0]}>
-                  Last updated: {new Date().toLocaleDateString()}
+                <time dateTime={today.toISOString().split('T')[0]}>
+                  {t('privacy_last_updated', { date: today.toLocaleDateString() })}
                 </time>
               </p>
             </article>

@@ -9,16 +9,23 @@ import { getAuthErrorMessage } from '../auth/error/AuthErrorClient'
 import { logAuthError } from '@/app/lib/actions/log/logAuthError'
 import { motion } from 'framer-motion'
 import { CopyEmail } from './_components/CopyEmail'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/login'
 
-export default function LoginClient() {
+export default function LoginClient({ content, authErrorContent }: { content: unknown; authErrorContent: unknown }) {
+  const { t } = pageCopy(content, pageContent)
   const [loadingGoogle, setLoadingGoogle] = useState(false)
   const searchParams = useSearchParams()
   const urlError = searchParams.get('error')
-  const errorInfo = useMemo(() => (urlError ? getAuthErrorMessage(urlError) : null), [urlError])
+  const errorInfo = useMemo(
+    () => (urlError ? getAuthErrorMessage(urlError, authErrorContent) : null),
+    [urlError, authErrorContent]
+  )
+  const [helpBefore, helpAfter = ''] = t('login_help_text').split('{email}')
 
   const handleGoogleSignIn = async () => {
     setLoadingGoogle(true)
-    await signIn('google', { redirectTo: '/v2/dashboard' })
+    await signIn('google', { redirectTo: '/admin/dashboard' })
   }
 
   useEffect(() => {
@@ -33,10 +40,12 @@ export default function LoginClient() {
     ])
     if (!urlError || urlError === 'undefined' || urlError === 'null' || !errorInfo) return
 
+    // Logs keep the default English wording, whatever the page shows.
+    const logged = getAuthErrorMessage(urlError)
     logAuthError({
       error: urlError,
-      title: errorInfo.title,
-      message: errorInfo.message,
+      title: logged.title,
+      message: logged.message,
       timestamp: new Date().toISOString(),
       userAgent: navigator.userAgent,
       url: window.location.href,
@@ -70,14 +79,12 @@ export default function LoginClient() {
         <div className="mb-10 flex justify-center">
           <Link
             href="/"
-            aria-label="The Pops Orchestra — return to homepage"
+            aria-label={t('login_logo_label')}
             className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-dark focus-visible:ring-offset-2 focus-visible:ring-offset-bg-dark inline-block"
           >
             <div className="flex items-center gap-3">
               <div className="w-px h-6 bg-primary-dark" aria-hidden="true" />
-              <span className="text-[11px] font-mono tracking-[0.3em] uppercase text-text-dark">
-                The Pops Orchestra
-              </span>
+              <span className="text-[11px] font-mono tracking-[0.3em] uppercase text-text-dark">{t('login_logo_text')}</span>
               <div className="w-px h-6 bg-primary-dark" aria-hidden="true" />
             </div>
           </Link>
@@ -88,18 +95,12 @@ export default function LoginClient() {
           <div className="mb-8">
             <div className="inline-flex items-center gap-2 border border-border-dark bg-surface-dark px-2.5 py-1 mb-4">
               <Lock className="w-3 h-3 text-primary-dark shrink-0" aria-hidden="true" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-dark">Staff only</span>
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted-dark">{t('login_badge')}</span>
             </div>
-            <h1
-              id="signin-heading"
-              className="font-quicksand font-black text-3xl sm:text-4xl text-text-dark leading-tight"
-            >
-              Sign In
+            <h1 id="signin-heading" className="font-quicksand font-black text-3xl sm:text-4xl text-text-dark leading-tight">
+              {t('login_heading')}
             </h1>
-            <p className="text-muted-dark text-sm mt-3 leading-relaxed">
-              Admin portal for Pops Orchestra staff. Sign in with your approved account to manage concerts,
-              subscriptions, and site content.
-            </p>
+            <p className="text-muted-dark text-sm mt-3 leading-relaxed">{t('login_intro')}</p>
           </div>
 
           {/* Error */}
@@ -121,15 +122,15 @@ export default function LoginClient() {
             type="button"
             onClick={handleGoogleSignIn}
             disabled={loadingGoogle}
-            aria-label={loadingGoogle ? 'Signing in, please wait' : 'Sign in with Google'}
+            aria-label={loadingGoogle ? t('login_google_loading_label') : t('login_google_label')}
             aria-busy={loadingGoogle}
             className="w-full inline-flex items-center justify-center gap-3 px-6 py-3.5 bg-surface-dark hover:bg-button-dark border border-border-dark hover:border-primary-dark text-text-dark text-sm font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-dark focus-visible:ring-offset-2 focus-visible:ring-offset-bg-dark"
           >
             {loadingGoogle ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin shrink-0" aria-hidden="true" />
-                <span>Signing in...</span>
-                <span className="sr-only">Please wait</span>
+                <span>{t('login_google_loading')}</span>
+                <span className="sr-only">{t('login_google_loading_hint')}</span>
               </>
             ) : (
               <>
@@ -151,13 +152,15 @@ export default function LoginClient() {
                     d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                   />
                 </svg>
-                <span>Continue with Google</span>
+                <span>{t('login_google_button')}</span>
               </>
             )}
           </button>
 
           <p className="text-muted-dark text-xs leading-relaxed mt-4 text-center">
-            Access is limited to approved accounts. Need access or having trouble? Email <CopyEmail />.
+            {helpBefore}
+            <CopyEmail content={content} />
+            {helpAfter}
           </p>
         </section>
 
@@ -167,9 +170,9 @@ export default function LoginClient() {
             href="/"
             className="text-muted-dark text-xs hover:text-text-dark transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-dark focus-visible:ring-offset-2 focus-visible:ring-offset-bg-dark"
           >
-            Back to thepopsorchestra.org
+            {t('login_back_link')}
           </Link>
-          <span className="text-muted-dark/60 text-[10px] font-mono uppercase tracking-widest">Admin</span>
+          <span className="text-muted-dark/60 text-[10px] font-mono uppercase tracking-widest">{t('login_admin_tag')}</span>
         </div>
       </motion.div>
     </main>

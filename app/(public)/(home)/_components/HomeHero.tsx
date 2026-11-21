@@ -4,30 +4,21 @@ import Link from 'next/link'
 import { sectionVariants } from '@/app/lib/constants/motion'
 import { useSession } from 'next-auth/react'
 import Picture from '@/components/common/Picture'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/home'
 
-export function HomeHero({ pageData }) {
+export function HomeHero({ content }: { content?: unknown }) {
   const shouldReduceMotion = useReducedMotion()
   const { data: session } = useSession()
   const isAdmin = session?.user?.role && ['ADMIN', 'CONDUCTOR', 'SUPER_USER'].includes(session.user.role)
 
-  if (!pageData || !Array.isArray(pageData)) {
-    return null
-  }
-
-  const heroData = pageData?.filter((page) => page?.id?.includes('hero'))
-
-  const hero = heroData.reduce((acc, field) => {
-    const key = field.id.replace('hero_', '')
-    acc[key] = field.value
-    return acc
-  }, {})
-
-  const heading = hero?.heading || ''
+  const { t } = pageCopy(content, pageContent)
+  const heading = t('hero_heading')
 
   return (
     <motion.section
       role="banner"
-      aria-label="Hero: The Pops Orchestra of Sarasota and Bradenton"
+      aria-label={t('hero_section_label')}
       initial={sectionVariants(shouldReduceMotion).initial}
       animate={sectionVariants(shouldReduceMotion).animate}
       transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.35, ease: 'easeIn' }}
@@ -79,15 +70,10 @@ export function HomeHero({ pageData }) {
           >
             <Link
               href="/"
-              aria-label="The Pops Orchestra of Sarasota and Bradenton — return to homepage"
+              aria-label={t('hero_logo_link_label')}
               className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm inline-block"
             >
-              <Picture
-                src="/images/logo-2.png"
-                alt="The Pops Orchestra of Sarasota and Bradenton"
-                className="w-54 h-auto"
-                priority
-              />
+              <Picture src="/images/logo-2.png" alt={t('hero_logo_alt')} className="w-54 h-auto" priority />
             </Link>
           </motion.div>
 
@@ -110,7 +96,7 @@ export function HomeHero({ pageData }) {
           >
             <span className="sr-only">{heading}</span>
             <span aria-hidden="true" className="text-blaze-text uppercase tracking-[0.3em]">
-              {hero.subheading}
+              {t('hero_subheading')}
             </span>
           </motion.p>
 
@@ -136,14 +122,14 @@ export function HomeHero({ pageData }) {
             >
               <Link
                 href="/concerts"
-                aria-label="See concerts"
+                aria-label={t('hero_concerts_link_label')}
                 className="group inline-flex items-center gap-2 bg-blaze hover:bg-blazehover text-white font-changa uppercase tracking-widest transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer"
                 style={{
                   fontSize: 'clamp(0.65rem, 1.5vw, 0.875rem)',
                   padding: 'clamp(0.625rem, 1.5vw, 1rem) clamp(1.25rem, 3vw, 2rem)'
                 }}
               >
-                <span>{hero.btnText}</span>
+                <span>{t('hero_btnText')}</span>
                 <ArrowRightIcon className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </Link>
             </motion.div>
@@ -155,14 +141,14 @@ export function HomeHero({ pageData }) {
             >
               <Link
                 href="/subscriptions"
-                aria-label="See season subscription options"
+                aria-label={t('hero_subscriptions_link_label')}
                 className="group inline-flex items-center gap-2 bg-blaze hover:bg-blazehover text-white font-changa uppercase tracking-widest transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer"
                 style={{
                   fontSize: 'clamp(0.65rem, 1.5vw, 0.875rem)',
                   padding: 'clamp(0.625rem, 1.5vw, 1rem) clamp(1.25rem, 3vw, 2rem)'
                 }}
               >
-                <span>See Season Subscription Options</span>
+                <span>{t('hero_subscriptions_button_text')}</span>
                 <ArrowRightIcon className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </Link>
             </motion.div>
@@ -177,7 +163,7 @@ export function HomeHero({ pageData }) {
           className="absolute bottom-6 430:bottom-8 right-4 430:right-8 z-10 flex flex-col items-center gap-2"
           aria-hidden="true"
         >
-          <span className="font-lato text-[16px] uppercase tracking-widest text-white/50">Scroll</span>
+          <span className="font-lato text-[16px] uppercase tracking-widest text-white/50">{t('hero_scroll_text')}</span>
           <motion.div
             animate={shouldReduceMotion ? {} : { y: [0, 6, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}

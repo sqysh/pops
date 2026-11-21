@@ -3,6 +3,8 @@
 import { useRef, useState } from 'react'
 import Picture from '@/components/common/Picture'
 import { Play } from 'lucide-react'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/media'
 
 const videos = [
   {
@@ -50,7 +52,7 @@ const getVideoId = (url: string) => {
 }
 
 // Create new array with thumbnails dynamically added
-const videosWithThumbnails = videos.map((video) => {
+const defaultVideos = videos.map((video) => {
   const videoId = getVideoId(video.url)
   return {
     ...video,
@@ -58,7 +60,12 @@ const videosWithThumbnails = videos.map((video) => {
   }
 })
 
-export const MediaVideoPlayer = () => {
+export const MediaVideoPlayer = ({ content }: { content: unknown }) => {
+  const { t } = pageCopy(content, pageContent)
+  const videosWithThumbnails = defaultVideos.map((video, i) => ({
+    ...video,
+    title: t(`media_video_${i + 1}_title`)
+  }))
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [playing, setPlaying] = useState(false)
   const iframeRef = useRef<HTMLIFrameElement>(null)
@@ -78,10 +85,10 @@ export const MediaVideoPlayer = () => {
   return (
     <section aria-labelledby="video-section-heading" className="w-full">
       <span id="video-section-heading" className="sr-only">
-        Video Performances
+        {t('media_video_section_heading')}
       </span>
       <span ref={liveRef} className="sr-only" aria-live="polite" aria-atomic="true">
-        Now playing: {selectedVideo.title}
+        {t('media_video_now_playing_announcement', { title: selectedVideo.title })}
       </span>
 
       <div className="flex flex-col 990:grid 990:grid-cols-12 gap-px bg-white/5">
@@ -91,7 +98,7 @@ export const MediaVideoPlayer = () => {
           <div className="flex items-center gap-3 px-4 990:px-6 py-3 border-b border-white/10">
             <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
             <p className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text truncate">
-              Now Playing: {selectedVideo.title}
+              {t('media_video_now_playing', { title: selectedVideo.title })}
             </p>
           </div>
 
@@ -102,7 +109,7 @@ export const MediaVideoPlayer = () => {
                 ref={iframeRef}
                 src={`${selectedVideo.url}?autoplay=1`}
                 title={selectedVideo.title}
-                aria-label={`Now playing: ${selectedVideo.title}`}
+                aria-label={t('media_video_now_playing_announcement', { title: selectedVideo.title })}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 tabIndex={0}
@@ -112,22 +119,19 @@ export const MediaVideoPlayer = () => {
               <button
                 type="button"
                 onClick={handlePlay}
-                aria-label={`Play ${selectedVideo.title}`}
+                aria-label={t('media_video_play_label', { title: selectedVideo.title })}
                 className="absolute inset-0 w-full h-full group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-inset"
               >
                 <Picture
                   src={selectedVideo.thumbnail}
-                  alt={`Thumbnail for ${selectedVideo.title}`}
+                  alt={t('media_video_thumbnail_alt', { title: selectedVideo.title })}
                   fill
                   priority
                   className="object-cover"
                   sizes="(max-width: 990px) 100vw, 66vw"
                 />
                 {/* Dark overlay */}
-                <div
-                  className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors"
-                  aria-hidden="true"
-                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" aria-hidden="true" />
                 {/* Play button */}
                 <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
                   <div className="w-16 h-16 430:w-20 430:h-20 rounded-full bg-blaze/90 group-hover:bg-blaze group-hover:scale-110 transition-all duration-300 flex items-center justify-center">
@@ -144,18 +148,18 @@ export const MediaVideoPlayer = () => {
         </div>
 
         {/* ── Playlist ── */}
-        <nav aria-label="Video playlist" className="990:col-span-4 bg-black flex flex-col">
+        <nav aria-label={t('media_playlist_nav_label')} className="990:col-span-4 bg-black flex flex-col">
           <div className="flex items-center gap-3 px-4 990:px-6 py-3 border-b border-white/10 shrink-0">
             <div className="w-4 h-px bg-blaze shrink-0" aria-hidden="true" />
             <p className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
-              Playlist
+              {t('media_playlist_label')}
               <span className="ml-2 text-muted-dark/70">({videosWithThumbnails.length})</span>
             </p>
           </div>
 
           <ul
             role="list"
-            aria-label="Available videos"
+            aria-label={t('media_playlist_list_label')}
             className="flex flex-row 990:flex-col overflow-x-auto 990:overflow-x-visible 990:overflow-y-auto 990:max-h-[calc(56.25vw*0.66)] divide-x 990:divide-x-0 990:divide-y divide-white/10"
           >
             {videosWithThumbnails.map((video, i) => {
@@ -165,7 +169,7 @@ export const MediaVideoPlayer = () => {
                   <button
                     type="button"
                     onClick={() => handleSelect(i)}
-                    aria-label={`Play ${video.title}`}
+                    aria-label={t('media_video_play_label', { title: video.title })}
                     aria-pressed={isActive}
                     className={`flex flex-col 990:flex-row items-start gap-3 w-40 990:w-full text-left p-3 430:p-4 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-inset border-l-0 990:border-l-2 ${
                       isActive
@@ -184,21 +188,14 @@ export const MediaVideoPlayer = () => {
                         sizes="(max-width: 990px) 160px, 80px"
                       />
                       {isActive && (
-                        <div
-                          className="absolute inset-0 bg-blaze/20 flex items-center justify-center"
-                          aria-hidden="true"
-                        >
+                        <div className="absolute inset-0 bg-blaze/20 flex items-center justify-center" aria-hidden="true">
                           <Play className="w-4 h-4 text-white" />
                         </div>
                       )}
                     </div>
 
                     {/* Title */}
-                    <p
-                      className={`font-lato text-sm leading-snug line-clamp-2 ${
-                        isActive ? 'text-white' : 'text-white/70'
-                      }`}
-                    >
+                    <p className={`font-lato text-sm leading-snug line-clamp-2 ${isActive ? 'text-white' : 'text-white/70'}`}>
                       {video.title}
                     </p>
                   </button>

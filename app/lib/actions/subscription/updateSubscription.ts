@@ -1,17 +1,19 @@
 'use server'
 
 import { ISubscription, ISubscriptionInput } from '@/app/types/entities/subscription.types'
-import { getActor } from '../user/getActor'
 import { serialize, validate } from '../../utils/subscription.utils'
 import prisma from '@/prisma/client'
 import { createLog } from '@/app/utils/logHelper'
 import { revalidatePath } from 'next/cache'
 import { ActionResult } from '@/app/types/common.types'
 import { SUBSCRIPTION_PAGES } from '../../constants/subscription.constants'
+import { requireStaff, deniedResult } from '@/app/lib/auth/guards'
 
 export async function updateSubscription(id: string, input: ISubscriptionInput): Promise<ActionResult<ISubscription>> {
-  const actor = await getActor()
-  if (actor === 'unknown') return { success: false, error: 'Unauthorized' }
+  const gate = await requireStaff()
+  if (gate.ok === false) return deniedResult(gate)
+
+  const actor = gate.name
 
   if (!id) return { success: false, error: 'Missing subscription id' }
 

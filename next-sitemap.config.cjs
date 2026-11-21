@@ -7,7 +7,7 @@ const path = require("path");
 module.exports = {
   siteUrl: "https://www.thepopsorchestra.org",
   generateRobotsTxt: true,
-  exclude: ["/v2/*", "/auth/*"],
+  exclude: ["/admin/*", "/auth/*"],
 
   additionalPaths: async () => {
     const manifestPath = path.join(
@@ -19,7 +19,7 @@ module.exports = {
     return Object.keys(manifest)
       .filter(
         (route) =>
-          !route.startsWith("/v2") &&
+          !route.startsWith("/admin") &&
           !route.startsWith("/auth") &&
           !route.startsWith("/_"),
       )

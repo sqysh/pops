@@ -1,43 +1,11 @@
-'use client'
+import { ComponentProps } from 'react'
+import RootLayoutShell from '@/app/lib/layout/RootLayoutShell'
+import { getPageContentBySlug } from '@/app/lib/actions/getLayoutData'
 
-import { usePathname } from 'next/navigation'
-import useScrollToTop from '@/app/lib/hooks/useScrollToTop'
-import { toggleHeaderFooter } from '@/app/utils/string.functions'
-import Footer from '@/components/layout/Footer'
-import { Header } from '@/components/layout/Header'
-import NavigationDrawer from '@/components/layout/NavigationDrawer'
-import { SiteSetting } from '@prisma/client'
-import { FooterDataParsed } from '@/app/types/footer.types'
-import { AdminBar } from '@/components/layout/AdminBar'
+type Props = Omit<ComponentProps<typeof RootLayoutShell>, 'navContent'>
 
-export default function RootLayoutClient({
-  children,
-  campApplicationsSetting,
-  concertsPageLive,
-  subscriptionsLive,
-  footerData
-}: {
-  children: React.ReactNode
-  campApplicationsSetting?: SiteSetting['value']
-  concertsPageLive?: SiteSetting['value']
-  subscriptionsLive?: SiteSetting['value']
-  footerData: FooterDataParsed | null
-}) {
-  useScrollToTop()
-  const pathname = usePathname()
-
-  const showChrome = toggleHeaderFooter(pathname)
-
-  const navSettings = { campApplicationsSetting, concertsPageLive, subscriptionsLive }
-
-  return (
-    <div className="main-content">
-      <NavigationDrawer {...navSettings} />
-      <AdminBar />
-
-      {showChrome && <Header {...navSettings} />}
-      {children}
-      {showChrome && <Footer data={footerData} />}
-    </div>
-  )
+/** Server wrapper: loads the editable `navigation` page content and hands it to the client shell. */
+export default async function RootLayoutClient(props: Props) {
+  const navContent = await getPageContentBySlug('navigation')
+  return <RootLayoutShell {...props} navContent={navContent} />
 }

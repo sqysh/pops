@@ -1,5 +1,13 @@
 import { FooterDataParsed } from '@/app/types/footer.types'
 import prisma from '@/prisma/client'
+import { cache } from 'react'
+import { PageField } from '@/app/types/page.types'
+
+/** Page-content fields for a slug (empty when the row is missing). Deduped per request. */
+export const getPageContentBySlug = cache(async (slug: string): Promise<PageField[]> => {
+  const page = await prisma.page.findUnique({ where: { slug } }).catch(() => null)
+  return Array.isArray(page?.content) ? (page.content as unknown as PageField[]) : []
+})
 
 export async function getLayoutData() {
   const [settings, footerPage] = await Promise.all([

@@ -7,9 +7,9 @@ import { auth } from './app/lib/auth'
 type UserRole = 'ADMIN' | 'CONDUCTOR' | 'SUPER_USER'
 
 const DASHBOARDS: Record<UserRole, string> = {
-  ADMIN: '/v2/dashboard',
-  CONDUCTOR: '/v2/dashboard',
-  SUPER_USER: '/v2/super'
+  ADMIN: '/admin/dashboard',
+  CONDUCTOR: '/admin/dashboard',
+  SUPER_USER: '/admin/super'
 }
 
 function getDashboard(role: UserRole) {
@@ -22,8 +22,8 @@ const ROUTE_ACCESS: {
   prefix: string
   allowedRoles: UserRole[]
 }[] = [
-  { prefix: '/v2/super', allowedRoles: ['SUPER_USER'] },
-  { prefix: '/v2/', allowedRoles: ['ADMIN', 'CONDUCTOR', 'SUPER_USER'] }
+  { prefix: '/admin/super', allowedRoles: ['SUPER_USER'] },
+  { prefix: '/admin/', allowedRoles: ['ADMIN', 'CONDUCTOR', 'SUPER_USER'] }
 ]
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
@@ -63,5 +63,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/v2/:path*', '/login']
+  matcher: ['/admin/:path*', '/login']
 }

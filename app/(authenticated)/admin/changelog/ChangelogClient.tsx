@@ -1,0 +1,768 @@
+'use client'
+
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
+import { ChevronDown } from 'lucide-react'
+
+type ChangeType = 'new' | 'improved' | 'fixed' | 'removed'
+
+interface Change {
+  type: ChangeType
+  text: string
+}
+
+interface ChangelogEntry {
+  version: string
+  date: string
+  summary: string
+  changes: Change[]
+}
+
+const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '3.19.0',
+    date: '2026-10-19',
+    summary: 'Sundays@Neel now carries the subscription packages, the new series wording, and the box office details.',
+    changes: [
+      {
+        type: 'new',
+        text: 'The two show and three show subscription packages are on the Sundays@Neel page, each with its per show price and what it saves against a single ticket. Both buttons go straight to that package on the ticketing site.'
+      },
+      {
+        type: 'new',
+        text: 'The box office phone number and ticketing email sit below the packages, so anyone who would rather not book online can call or write without hunting for the number. On a phone the number dials with one tap.'
+      },
+      {
+        type: 'improved',
+        text: 'The wording at the top of Sundays@Neel now explains that The Pops is not performing in this series, and gives the time and venue. The Neel address links straight to directions.'
+      },
+      {
+        type: 'improved',
+        text: 'The series is called Sundays@Neel everywhere on the site. The web address has not changed, so links already sent out still work.'
+      },
+      {
+        type: 'fixed',
+        text: 'On smaller phones the top of every page heading was being cut off above the screen. It now sits correctly under the menu bar at every size, with more of the page visible before you scroll.'
+      }
+    ]
+  },
+  {
+    version: '3.18.0',
+    date: '2026-09-24',
+    summary: 'The admin area has been rebuilt: lighter, larger, and organised around what needs your attention.',
+    changes: [
+      {
+        type: 'improved',
+        text: 'Every admin page(almost — working on it :)) has been redesigned in a light theme with larger, higher contrast text. Nothing is smaller than it needs to be, and the same colours now mean the same thing on every page.'
+      },
+      {
+        type: 'new',
+        text: 'A menu now runs down the left of every admin page, so you can move between sections without going back to the dashboard first. It collapses to a narrow strip of icons if you want more room, and highlights the section you are in.'
+      },
+      {
+        type: 'new',
+        text: 'The dashboard opens with anything that needs you: unanswered inquiries, new camp applications, and concerts with a problem, each linking straight to the fix. When there is nothing outstanding it says so. Below that it shows the next performance on sale, how much of the season is live on the website, and your mailing list, sponsor, and gallery totals.'
+      },
+      {
+        type: 'new',
+        text: 'Concerts now have a page of their own, listing every concert with all of its performances, the venue, ticket status, and whether patrons can see and book each date.'
+      },
+      {
+        type: 'new',
+        text: 'A Sundays at Neel page on the public site, which picks up the Sunday performances at Neel Performing Arts Center automatically. Nothing to keep in step by hand.'
+      },
+      {
+        type: 'improved',
+        text: 'Inquiries can now be deleted outright, with a confirmation step first. The old spam handling has been removed, so a message is either answered or waiting for a reply.'
+      },
+      {
+        type: 'improved',
+        text: 'Adding an image now shows a large preview so you can tell at a glance that it is the right one, responds when you drag a file over it, and tells you if a file is too big before you try to save.'
+      },
+      {
+        type: 'improved',
+        text: 'When something is missing from a form, the message now appears next to the field it belongs to rather than at the bottom of the page, and clears as soon as you start fixing it.'
+      },
+      {
+        type: 'improved',
+        text: 'Links and buttons show a spinner while a page is loading, so it is clear the click registered.'
+      },
+      {
+        type: 'fixed',
+        text: 'Clicking a role on the users page opened the edit panel at the same time. It now does one or the other. A failed role change also reported nothing at all, and now says what went wrong.'
+      },
+      {
+        type: 'fixed',
+        text: 'Removing an image from an article did not actually remove it once saved. It does now.'
+      },
+      {
+        type: 'fixed',
+        text: 'If an image upload failed partway, the panel stayed stuck with no way out except reloading. It now explains the problem and lets you try again.'
+      },
+      {
+        type: 'fixed',
+        text: 'Dates and times across the admin now always show in Sarasota time, matching what CueBox displays.'
+      }
+    ]
+  },
+  {
+    version: '3.17.0',
+    date: '2026-09-09',
+    summary:
+      'Individual performances are now handled properly on the concerts page, and the dashboard has been rebuilt around them.',
+    changes: [
+      {
+        type: 'fixed',
+        text: 'Individual performances marked as not visible in CueBox no longer show on the concerts page. Previously this only worked at the concert level, so a single hidden date could still appear under a concert that was public.'
+      },
+      {
+        type: 'improved',
+        text: 'Each performance now links straight to its own ticket page, so patrons no longer have to pick the date again after leaving the site.'
+      },
+      {
+        type: 'improved',
+        text: 'Canceled and sold out performances are now marked individually, rather than every date under a concert sharing one status.'
+      },
+      {
+        type: 'improved',
+        text: 'The dashboard has been redesigned in a light theme with larger, higher contrast text throughout.'
+      },
+      {
+        type: 'new',
+        text: 'The dashboard now lists every concert with all of its performances visible at once, showing the venue, ticket status, and whether each one is live on the website. It also flags concerts that need attention, such as a concert with no performances scheduled, or one that is live on the website with no bookable dates.'
+      },
+      {
+        type: 'removed',
+        text: 'The inquiries and camp application panels have been taken off the dashboard so the concerts view can use the full page.'
+      }
+    ]
+  },
+  {
+    version: '3.16.0',
+    date: '2026-09-06',
+    summary: 'Seating charts are here, starting with Parrish High School.',
+    changes: [
+      {
+        type: 'new',
+        text: 'A seating chart for Parrish High School showing every seat in the house, colour coded by pricing level so patrons can see at a glance where the general, premium, and ultra seats are.'
+      },
+      {
+        type: 'new',
+        text: 'Point at any seat to see its row, seat number, and pricing level. Seat numbers match what is printed on the tickets.'
+      },
+      {
+        type: 'new',
+        text: 'A running count of how many seats fall into each pricing level, shown beneath the chart.'
+      }
+    ]
+  },
+  {
+    version: '3.15.2',
+    date: '2026-08-13',
+    summary: 'Concerts you are still building in CueBox now stay off the public site until you mark them visible.',
+    changes: [
+      {
+        type: 'fixed',
+        text: 'Concerts marked as not visible in CueBox no longer appear on the concerts page. Shows built ahead of an announcement now stay hidden until they are ready to go public.'
+      }
+    ]
+  },
+  {
+    version: '3.15.1',
+    date: 'August 11, 2026',
+    summary: 'Clicking a concert from the homepage now jumps straight to that concert on the Concerts page.',
+    changes: [
+      {
+        type: 'improved',
+        text: 'The concerts button on the homepage now takes you straight to the concerts page instead of scrolling further down the homepage.'
+      },
+      {
+        type: 'new',
+        text: 'Selecting a concert on the homepage now opens the Concerts page and scrolls directly to that concert.'
+      },
+      {
+        type: 'new',
+        text: 'A redesigned compact page header that sits flush against the top of the screen and includes the breadcrumb trail showing where you are on the site.'
+      },
+      {
+        type: 'removed',
+        text: 'The previous page header and the standalone breadcrumb bar, both replaced by the new page CompactPageHero.'
+      }
+    ]
+  },
+  {
+    version: '3.15.0',
+    date: 'August 10, 2026',
+    summary: 'Replaced the homepage image slideshow with a full-screen background video of the orchestra.',
+    changes: [
+      {
+        type: 'new',
+        text: 'The homepage header now plays a background video of the orchestra behind the title and buttons, replacing the rotating photos.'
+      },
+      {
+        type: 'improved',
+        text: 'The video is muted and loops automatically, and a still image shows first so the page never appears blank while it loads.'
+      },
+      {
+        type: 'improved',
+        text: 'Visitors who prefer reduced motion see a still image instead of the moving video.'
+      }
+    ]
+  },
+  {
+    version: '3.14.0',
+    date: 'July 30, 2026',
+    summary:
+      'Added Meta (Facebook) Pixel tracking with a cookie consent banner, and updated the Privacy Policy to reflect the analytics and advertising tools the site uses.',
+    changes: [
+      {
+        type: 'new',
+        text: 'Added the Meta Pixel so concert activity can be measured and promoted through Facebook and Instagram advertising.'
+      },
+      {
+        type: 'new',
+        text: 'Added a cookie consent banner. Analytics and advertising tools only run after a visitor accepts; if they decline, the tools stay off.'
+      },
+      {
+        type: 'improved',
+        text: 'Updated the Privacy Policy to name the analytics and advertising tools we use (Google Analytics and the Meta Pixel), what they share, and how visitors can opt out.'
+      }
+    ]
+  },
+  {
+    version: '3.13.0',
+    date: 'July 22, 2026',
+    summary:
+      'Added Flex Package pricing to the Subscriptions page and set the page to update on its own when single-ticket sales open on August 3.',
+    changes: [
+      {
+        type: 'new',
+        text: 'The Three Show Flex and Four Show Flex packages now show their seating prices (General, Premium, Ultra) and discount right on the Subscriptions page.'
+      },
+      {
+        type: 'improved',
+        text: 'Flex packages show an "Available August 3" note until single-ticket sales open, then switch to a Purchase button automatically on August 3 — no change needed on the day.'
+      },
+      {
+        type: 'improved',
+        text: 'On August 3, Flex Packages move above Season Subscriptions on the page automatically.'
+      }
+    ]
+  },
+  {
+    version: '3.12.2',
+    date: 'July 22, 2026',
+    summary: 'Added Musician Chair Sponsorship as a sixth box on the Sponsorship Opportunities page.',
+    changes: [
+      {
+        type: 'new',
+        text: 'Added a Musician Chair Sponsorship box to the sponsorship tiers, priced $250 to $10,000, with an editable description and Print recognition only (no online recognition or tickets).'
+      },
+      {
+        type: 'improved',
+        text: 'The Musician Chair Sponsorship box shows its title without a tier number, setting it apart from the numbered tiers.'
+      }
+    ]
+  },
+  {
+    version: '3.12.1',
+    date: 'July 21, 2026',
+    summary:
+      'Renamed the "Connect With Us" page to "Subscribe" everywhere on the site, including the web address, navigation, footer, and the Page Content editor.',
+    changes: [
+      {
+        type: 'improved',
+        text: 'The "Connect With Us" page is now called "Subscribe," and its web address changed from /connect-with-us to /subscribe.'
+      },
+      {
+        type: 'improved',
+        text: 'The header navigation link reads "Subscribe to Our Newsletter" so it is not confused with season subscriptions.'
+      },
+      {
+        type: 'improved',
+        text: 'Updated the name and links in the footer and sitemap to match.'
+      },
+      {
+        type: 'improved',
+        text: 'The page is listed as "Subscribe" in the Page Content editor.'
+      },
+      {
+        type: 'fixed',
+        text: 'The old /connect-with-us address now forwards to /subscribe, so any existing links still work.'
+      }
+    ]
+  },
+  {
+    version: '3.12.0',
+    date: 'July 20, 2026',
+    summary:
+      'Reworked the Sponsorship Opportunities page so every tier has the same set of benefit fields, added a Chair Sponsors section, reorganized the Support navigation, and brought breadcrumbs and page headers into line across the whole site.',
+    changes: [
+      {
+        type: 'improved',
+        text: 'Every sponsorship tier now has the same fields — a description plus four lines each for Print, Online Recognition, and Tickets — so all levels can be filled out consistently.'
+      },
+      {
+        type: 'new',
+        text: 'Added a Chair Sponsors section below the sponsorship tiers, with its own heading and a button linking to the Chair Sponsorships page.'
+      },
+      {
+        type: 'removed',
+        text: 'Removed the "Email & Advertising" and "Additional Options" categories from the sponsorship tiers.'
+      },
+      {
+        type: 'improved',
+        text: 'Sponsorship tier descriptions now display as full paragraphs instead of small print, making them easier to read.'
+      },
+      {
+        type: 'improved',
+        text: 'The Support link in the main navigation is now a dropdown with its own set of links, making support options easier to find.'
+      },
+      {
+        type: 'removed',
+        text: 'Removed the support links from the "More" dropdown now that they live under Support.'
+      },
+      {
+        type: 'improved',
+        text: 'Breadcrumb navigation now appears on every page, so it is always clear where you are on the site.'
+      },
+      {
+        type: 'improved',
+        text: 'Page headers across the site now use consistent colors and text sizes for a more unified look.'
+      }
+    ]
+  },
+  {
+    version: '3.11.0',
+    date: 'June 26, 2026',
+    summary:
+      'Season packages can now carry full details — a tagline, a description, and pricing tiers — all editable from the dashboard and shown on the public Subscriptions page.',
+    changes: [
+      {
+        type: 'new',
+        text: 'Added a tagline to each subscription — a short line under the package name, like "4 shows per subscription."'
+      },
+      {
+        type: 'new',
+        text: "Added a description field where you can paste the full package details: what's included, the show list, and the season blurb."
+      },
+      {
+        type: 'new',
+        text: 'Added pricing tiers — list each seat level and price (e.g. General $130, Premium $180, Ultra $230) and they display as cards on the public page.'
+      },
+      {
+        type: 'improved',
+        text: 'The public Season Packages page now shows each package\'s tagline, "From" price, pricing tiers, and full description.'
+      },
+      {
+        type: 'improved',
+        text: 'Pricing is now its own set of fields rather than part of the description, so prices display in a clean, consistent layout.'
+      }
+    ]
+  },
+  {
+    version: '3.10.0',
+    date: 'June 25, 2026',
+    summary:
+      'Added a full subscriptions management system so season packages and flex passes can be created and edited directly from the dashboard, plus a second call-to-action on the homepage hero and a reorganized dashboard layout.',
+    changes: [
+      {
+        type: 'new',
+        text: 'Subscriptions admin page — create, edit, and delete season subscriptions and flex passes from a full-bleed table with search, type filters, and a slide-in editor.'
+      },
+      {
+        type: 'new',
+        text: 'Each subscription has a visibility toggle and an On Sale / Coming Soon status — only packages set to both Visible and On Sale appear on the public Season Packages page.'
+      },
+      {
+        type: 'new',
+        text: 'Added a "See Season Subscription Options" button to the homepage hero, next to "See Concerts," linking to the subscriptions page.'
+      },
+      {
+        type: 'improved',
+        text: 'Subscriptions are now managed on the site instead of being hard-coded — changes go live without a developer deploy.'
+      },
+      {
+        type: 'improved',
+        text: 'Reorganized the dashboard with a left navigation rail for faster access to each section.'
+      },
+      {
+        type: 'improved',
+        text: 'The public Season Packages page now pulls subscriptions live from the database rather than a fixed list.'
+      }
+    ]
+  },
+  {
+    version: '3.9.2',
+    date: 'May 21, 2026',
+    summary: 'Reply message character limit increased and counter added.',
+    changes: [
+      {
+        type: 'fixed',
+        text: 'Reply message column increased from VarChar(500) to VarChar(2000) — replies longer than 500 characters were silently failing with a Prisma error'
+      },
+      {
+        type: 'improved',
+        text: 'Character counter added to the reply textarea in the question drawer — turns amber when approaching the limit so admins know before hitting send'
+      }
+    ]
+  },
+  {
+    version: '3.9.1',
+    date: 'May 21, 2026',
+    summary: 'Footer content fully dynamic and editable from the page content editor.',
+    changes: [
+      {
+        type: 'improved',
+        text: 'All footer text is now fully dynamic — contact info, social links, quick links, tagline, and section headings are all pulled from the database and editable directly from the Page Content Editor in the admin dashboard under the footer page'
+      }
+    ]
+  },
+  {
+    version: '3.9.0',
+    date: 'May 20, 2026',
+    summary: 'Hidden Gems removed, team member image fix, and sponsors now clickable.',
+    changes: [
+      { type: 'removed', text: 'Hidden Gems page removed from the public site and navigation' },
+      {
+        type: 'removed',
+        text: 'Tockify calendar script removed — Lighthouse Best Practices score jumped from 78 to 100, site now scores 100 on Accessibility, Best Practices, and SEO'
+      },
+      {
+        type: 'fixed',
+        text: 'Team member card images now fill the full container height correctly — switched to fill prop with proper sizes attribute for responsive performance'
+      },
+      { type: 'improved', text: "Sponsor logos are now clickable and link to the sponsor's website" },
+      {
+        type: 'new',
+        text: 'PageHero — reusable centered hero component with eyebrow, heading, blaze divider lines, subheading, and FloatingParticles animation. Used across Student Performers, About, Contact, and other public pages for consistent hero styling'
+      },
+      {
+        type: 'improved',
+        text: 'PageHero is fully mobile responsive down to 320px — font sizes, padding, divider line lengths, and subheading max-width all scale progressively'
+      },
+      {
+        type: 'improved',
+        text: 'Footer fully mobile responsive down to 320px — link columns stack to single column, logo scales down, newsletter button goes full width'
+      },
+      {
+        type: 'new',
+        text: "Admin bar — thin black bar at the top of all public pages for signed-in admin. Shows the user's name, role badge, and a Dashboard link. Automatically adjusts the home hero margin to account for the bar height"
+      },
+      {
+        type: 'improved',
+        text: 'SessionProvider moved from the authenticated /v2 layout up to the root layout — enables useSession across all public pages including the admin bar and home hero without requiring a separate provider'
+      }
+    ]
+  },
+  {
+    version: '3.8.0',
+    date: 'May 13, 2026',
+    summary: 'Donate page intro section, fund card images, and legacy giving.',
+    changes: [
+      {
+        type: 'new',
+        text: 'Donate page intro section — two-column layout with Ways to Give and Legacy Giving, geometric SVG grid/diagonal background texture, vertical divider between columns'
+      },
+      {
+        type: 'new',
+        text: 'Legacy Giving fund card — replaces Other Ways to Give, links to Melissa Warthen via mailto, includes planned giving options list and contact note'
+      },
+      {
+        type: 'improved',
+        text: 'Fund cards now include an image at the top — aspect-[3/2] crop, hover zoom, gradient fade into card body, colored accent bar overlaid on image'
+      }
+    ]
+  },
+  {
+    version: '3.7.0',
+    date: 'May 11, 2026',
+    summary: 'Camp applications, spam detection, settings page, and donations page.',
+    changes: [
+      // Questions / Inquiries
+      {
+        type: 'new',
+        text: 'Automatic spam detection on incoming questions — messages are scanned on submission and flagged orange if suspicious'
+      },
+      {
+        type: 'new',
+        text: 'Two-tier spam system: isPotentialSpam (auto-flagged) and isSpam (admin-confirmed) — flagged messages stay in the main list, confirmed spam moves to the spam panel below'
+      },
+      {
+        type: 'new',
+        text: 'Spam panel — collapsible expandable section at the bottom of the questions table showing all confirmed spam, matching the CueBox API panel pattern'
+      },
+      {
+        type: 'new',
+        text: 'Mark as Spam button in the question drawer — moves message out of the main list into the spam panel'
+      },
+      {
+        type: 'new',
+        text: 'Mark as Responded button — mark a question as done without sending a reply through the system, useful for phone or outside-email replies'
+      },
+      {
+        type: 'new',
+        text: 'Note shown in drawer when admin responded outside the system (hasResponded true but no replyMessage stored)'
+      },
+      { type: 'new', text: 'Questions table now shows Flagged and Spam filter pills alongside Pending and Responded' },
+      {
+        type: 'new',
+        text: 'InquiriesCard on dashboard now shows a Flagged count badge and orange stat column when potential spam is detected'
+      },
+      {
+        type: 'new',
+        text: 'Color-coded marquee strip on questions page explaining Pending, Responded, Flagged, and Spam statuses'
+      },
+      { type: 'improved', text: 'Question drawer label dynamically shows PENDING, RESPONDED, FLAGGED, or SPAM' },
+      {
+        type: 'improved',
+        text: 'Flagged rows have orange left border and tint; spam rows have red left border and tint'
+      },
+      { type: 'improved', text: 'Reply form hidden on confirmed spam messages — no point replying to spam' },
+      {
+        type: 'removed',
+        text: 'Delete button removed from question drawer — questions are now triaged via spam controls or responded to, not deleted'
+      },
+
+      // Camp Applications
+      {
+        type: 'new',
+        text: 'isNew flag on camp applications — new submissions show a sky blue badge and highlighted row, clears automatically when admin opens the application'
+      },
+      {
+        type: 'new',
+        text: 'Acknowledge on click — isNew clears immediately via local state when row is clicked, no refresh needed'
+      },
+      {
+        type: 'new',
+        text: 'Duplicate detection — applications matching the same first name, last name, and phone number are automatically flagged with an orange Duplicate badge'
+      },
+      { type: 'new', text: 'Camp decision buttons in the application drawer — Admit, Deny, or reset to Pending' },
+      { type: 'new', text: 'campStatus (ADMITTED / DENIED / PENDING) shown as a badge in each application row' },
+      { type: 'new', text: 'Settings link added to the camp applications header (top right)' },
+      {
+        type: 'improved',
+        text: 'Camp application detail drawer now shows all model fields: strings, brassAndPercussion, woodwinds, musicTeacher, referralSource, and consent badge'
+      },
+      { type: 'improved', text: 'All text in the camp application drawer brightened for readability' },
+      {
+        type: 'improved',
+        text: 'Year pills in the camp applications header now always show the full unfiltered counts even when searching'
+      },
+      { type: 'fixed', text: 'Phone number search now works correctly — optional chaining added to Student relation' },
+      {
+        type: 'fixed',
+        text: 'Search now runs directly on applications array instead of through useTableFilter, fixing the grouped layout search issue'
+      },
+
+      // Concerts & Public Pages
+      {
+        type: 'new',
+        text: 'Concerts page redesigned — square images, fixed-width image column, status badge overlaid on image, editorial typography'
+      },
+      {
+        type: 'new',
+        text: 'Hero section added to concerts page with nikki-fire.webp background, FloatingParticles animation, and gradient fade'
+      },
+      {
+        type: 'new',
+        text: 'Animated particle overlay on the donate page hero — warm amber/orange bokeh particles drifting upward matching the concert photography'
+      },
+      {
+        type: 'new',
+        text: 'Public marquee component (PublicMarquee) — reusable scrolling strip for public-facing pages'
+      },
+      { type: 'new', text: 'Public marquees added to /donate, /concerts, and /subscriptions pages' },
+      { type: 'new', text: 'Thin footer added to concerts and subscriptions pages' },
+      {
+        type: 'new',
+        text: 'Subscriptions page rebuilt as a public-facing page with hero, contact block, and footer matching the concerts page aesthetic'
+      },
+      {
+        type: 'improved',
+        text: 'Donate page cards redesigned — colored top accent bars, larger font-changa headlines, solid CTA buttons per fund, hover lift, scroll reveal animations, sixth card for Other Ways to Give'
+      },
+      { type: 'improved', text: 'Donate button in public nav updated to solid bg-blaze with white text' },
+      { type: 'improved', text: 'Hero background image now uses CSS background-image for better focal point control' }
+    ]
+  }
+]
+
+// ─── Constants ────────────────────────────────────────────────────────────────
+
+const TYPE_CONFIG: Record<ChangeType, { label: string; color: string }> = {
+  new: { label: 'New', color: 'text-emerald-400 border-emerald-400/30 bg-emerald-400/5' },
+  improved: { label: 'Improved', color: 'text-sky-400 border-sky-400/30 bg-sky-400/5' },
+  fixed: { label: 'Fixed', color: 'text-amber-400 border-amber-400/30 bg-amber-400/5' },
+  removed: { label: 'Removed', color: 'text-red-400 border-red-400/30 bg-red-400/5' }
+}
+
+// ─── Entry ────────────────────────────────────────────────────────────────────
+
+function ChangelogEntryRow({ entry, index }: { entry: ChangelogEntry; index: number }) {
+  const [open, setOpen] = useState(index === 0)
+
+  const counts = entry.changes.reduce<Record<ChangeType, number>>(
+    (acc, c) => {
+      acc[c.type] = (acc[c.type] ?? 0) + 1
+      return acc
+    },
+    { new: 0, improved: 0, fixed: 0, removed: 0 }
+  )
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.05, duration: 0.3 }}
+      className="border border-border-dark bg-surface-dark"
+    >
+      {/* Header */}
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-center justify-between px-4 py-3 hover:bg-black/30 transition-colors text-left group"
+      >
+        <div className="flex items-center gap-3 min-w-0">
+          {/* Version */}
+          <span className="text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 border border-primary-dark/40 text-primary-dark bg-primary-dark/5 shrink-0">
+            v{entry.version}
+          </span>
+
+          {/* Summary */}
+          <span className="text-[11px] font-mono text-text-dark truncate">{entry.summary}</span>
+        </div>
+
+        <div className="flex items-center gap-3 shrink-0 ml-4">
+          {/* Date */}
+          <span className="text-[10px] font-mono text-muted-dark tabular-nums hidden 480:block">{entry.date}</span>
+
+          {/* Count pills */}
+          <div className="hidden 760:flex items-center gap-1.5">
+            {(Object.entries(counts) as [ChangeType, number][])
+              .filter(([, count]) => count > 0)
+              .map(([type, count]) => (
+                <span
+                  key={type}
+                  className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${TYPE_CONFIG[type].color}`}
+                >
+                  {count} {TYPE_CONFIG[type].label}
+                </span>
+              ))}
+          </div>
+
+          <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
+            <ChevronDown className="w-3.5 h-3.5 text-muted-dark group-hover:text-muted-dark transition-colors" />
+          </motion.div>
+        </div>
+      </button>
+
+      {/* Changes */}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            className="overflow-hidden"
+          >
+            <div className="border-t border-border-dark divide-y divide-border-dark/40">
+              {/* Date on mobile */}
+              <div className="px-4 py-2 480:hidden">
+                <span className="text-[10px] font-mono text-muted-dark">{entry.date}</span>
+              </div>
+              {entry.changes.map((change, i) => (
+                <div key={i} className="flex items-start gap-3 px-4 py-2.5">
+                  <span
+                    className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border shrink-0 mt-0.5 ${TYPE_CONFIG[change.type].color}`}
+                  >
+                    {TYPE_CONFIG[change.type].label}
+                  </span>
+                  <span className="text-[11px] font-mono text-muted-dark leading-relaxed">{change.text}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  )
+}
+
+// ─── ChangelogClient ──────────────────────────────────────────────────────────
+
+export function ChangelogClient() {
+  return (
+    <div className="flex flex-col h-screen bg-bg-dark overflow-hidden">
+      {/* Header */}
+      <div className="bg-black shrink-0 border-b border-border-dark">
+        <div className="flex items-center justify-between px-4 py-2.5">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/admin/dashboard"
+              className="text-[10px] font-mono uppercase tracking-widest text-muted-dark hover:text-primary-dark transition-colors"
+            >
+              ← Dashboard
+            </Link>
+            <div className="w-px h-3 bg-border-dark" aria-hidden="true" />
+            <span className="text-[10px] font-mono text-muted-dark uppercase tracking-widest">[ CHANGELOG ]</span>
+            <div className="w-px h-3 bg-border-dark" aria-hidden="true" />
+            <span className="text-[10px] font-mono text-muted-dark">{CHANGELOG.length} releases</span>
+          </div>
+        </div>
+
+        {/* Marquee */}
+        <div className="border-t border-border-dark/40 bg-white/2 overflow-hidden py-1">
+          <motion.div
+            animate={{ x: ['0%', '-50%'] }}
+            transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+            className="flex whitespace-nowrap"
+          >
+            {[0, 1, 2, 3, 4, 5].map((i) => (
+              <span key={i} className="text-[10px] font-mono text-muted-dark pr-12">
+                <span className="text-primary-dark">▸</span> Latest version is always at the top
+                <span className="text-muted-dark/30 mx-3">·</span>
+                Click any release to expand the full list of changes
+                <span className="text-muted-dark/30 mx-3">·</span>
+                Contact Sqysh with any questions
+                <span className="text-muted-dark/30 mx-3">·</span>
+              </span>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Legend */}
+      <div className="shrink-0 flex items-center gap-3 px-4 py-2 border-b border-border-dark bg-surface-dark">
+        <span className="text-[9px] font-mono uppercase tracking-widest text-muted-dark shrink-0">Key</span>
+        {(Object.entries(TYPE_CONFIG) as [ChangeType, (typeof TYPE_CONFIG)[ChangeType]][]).map(([type, { label, color }]) => (
+          <span key={type} className={`text-[9px] font-mono uppercase tracking-widest px-1.5 py-0.5 border ${color}`}>
+            {label}
+          </span>
+        ))}
+      </div>
+
+      {/* Entries */}
+      <div className="flex-1 min-h-0 overflow-y-auto">
+        <div className="max-w-3xl mx-auto px-4 py-6 flex flex-col gap-3">
+          {CHANGELOG.map((entry, i) => (
+            <ChangelogEntryRow key={entry.version} entry={entry} index={i} />
+          ))}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="shrink-0 flex items-center justify-between px-4 py-2 border-t border-border-dark bg-surface-dark">
+        <Link
+          href="/admin/dashboard"
+          className="text-[10px] font-mono uppercase tracking-widest text-muted-dark hover:text-primary-dark transition-colors"
+        >
+          ← Dashboard
+        </Link>
+        <span className="text-[10px] font-mono uppercase tracking-widest text-muted-dark">Built by Sqysh · sqysh.io</span>
+      </div>
+    </div>
+  )
+}

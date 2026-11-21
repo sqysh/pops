@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/venues'
 
 type Tier = 'general' | 'premium' | 'ultra' | 'anon'
 
@@ -23,11 +25,12 @@ interface SeatConfig {
   tier: Tier
 }
 
-const TIER_COLORS: Record<Tier, { bg: string; border: string; label: string }> = {
-  general: { bg: 'bg-blue-500', border: 'border-blue-700', label: 'General pricing' },
-  premium: { bg: 'bg-green-600', border: 'border-green-800', label: 'Premium pricing' },
-  ultra: { bg: 'bg-amber-500', border: 'border-amber-700', label: 'Ultra pricing' },
-  anon: { bg: 'bg-transparent', border: 'border-transparent', label: '' }
+// legend wording comes from the venues page content: venues_seatmap_tier_<tier>
+const TIER_COLORS: Record<Tier, { bg: string; border: string }> = {
+  general: { bg: 'bg-blue-500', border: 'border-blue-700' },
+  premium: { bg: 'bg-green-600', border: 'border-green-800' },
+  ultra: { bg: 'bg-amber-500', border: 'border-amber-700' },
+  anon: { bg: 'bg-transparent', border: 'border-transparent' }
 }
 
 /** Tiers that are real, sellable seats. `anon` holds space and is not counted. */
@@ -161,12 +164,15 @@ const curveOffset = (slot: number, slots: number) => {
 
 const SeatDot = ({
   seat,
+  label,
   offsetY,
   onHover,
   onLeave,
   delay
 }: {
   seat: Seat
+  /** screen reader name, e.g. "Row A, seat 3, General pricing" */
+  label: string
   offsetY: number
   onHover: (seat: Seat, e: React.MouseEvent | React.TouchEvent | React.FocusEvent) => void
   onLeave: () => void
@@ -190,7 +196,7 @@ const SeatDot = ({
       onFocus={(e) => onHover(seat, e)}
       onBlur={onLeave}
       onTouchStart={(e) => onHover(seat, e)}
-      aria-label={`Row ${seat.row}, seat ${seat.number}, ${TIER_COLORS[seat.tier].label}`}
+      aria-label={label}
       className={`w-2 h-2 760:w-2.5 760:h-2.5 rounded-full border shrink-0 pointer-events-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-black ${TIER_COLORS[seat.tier].bg} ${TIER_COLORS[seat.tier].border}`}
     />
   )
@@ -203,12 +209,14 @@ const SeatBlock = ({
   startSlot,
   slots,
   rowIdx,
+  seatLabel,
   onHover,
   onLeave
 }: {
   row: string
   seats: SeatConfig[]
   section: Seat['section']
+  seatLabel: (seat: Seat) => string
   /** where this block's first seat sits across the row, for the curve */
   startSlot: number
   slots: number
@@ -221,6 +229,7 @@ const SeatBlock = ({
       <SeatDot
         key={`${row}-${section}-${i}`}
         seat={{ row, number, tier, section }}
+        label={seatLabel({ row, number, tier, section })}
         offsetY={curveOffset(startSlot + i, slots)}
         onHover={onHover}
         onLeave={onLeave}
@@ -245,11 +254,13 @@ const RowLabel = ({ label, align }: { label: string; align: 'left' | 'right' }) 
 const SeatRow = ({
   row,
   rowIdx,
+  seatLabel,
   onHover,
   onLeave
 }: {
   row: Row
   rowIdx: number
+  seatLabel: (seat: Seat) => string
   onHover: (seat: Seat, e: React.MouseEvent | React.TouchEvent | React.FocusEvent) => void
   onLeave: () => void
 }) => {
@@ -270,6 +281,7 @@ const SeatRow = ({
         startSlot={0}
         slots={slots}
         rowIdx={rowIdx}
+        seatLabel={seatLabel}
         onHover={onHover}
         onLeave={onLeave}
       />
@@ -283,6 +295,7 @@ const SeatRow = ({
         startSlot={centerStart}
         slots={slots}
         rowIdx={rowIdx}
+        seatLabel={seatLabel}
         onHover={onHover}
         onLeave={onLeave}
       />
@@ -296,6 +309,7 @@ const SeatRow = ({
         startSlot={rightStart}
         slots={slots}
         rowIdx={rowIdx}
+        seatLabel={seatLabel}
         onHover={onHover}
         onLeave={onLeave}
       />
@@ -305,7 +319,13 @@ const SeatRow = ({
   )
 }
 
-export default function ParrishHsSeatmap() {
+export default function ParrishHsSeatmap({ content }: { content?: unknown }) {
+  const { t } = pageCopy(content, pageContent)
+  // anon seats are spacers and are never announced
+  const seatLabel = (seat: Seat) =>
+    seat.tier === 'anon'
+      ? ''
+      : t('venues_sr_seat', { row: seat.row, seat: seat.number, tier: t(`venues_seatmap_tier_${seat.tier}`) })
   const [tooltip, setTooltip] = useState<TooltipState | null>(null)
 
   const handleHover = (seat: Seat, e: React.MouseEvent | React.TouchEvent | React.FocusEvent) => {
@@ -339,9 +359,13 @@ export default function ParrishHsSeatmap() {
     <div className="flex bg-black flex-col items-center py-8 760:py-16 px-2 760:px-4">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-6 760:mb-10">
-        <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-primary-dark">Parrish High School</span>
-        <h1 className="font-quicksand font-black text-xl 760:text-2xl text-text-dark mt-1">Seatmap</h1>
-        <p className="text-muted-dark text-xs mt-2">{allSeats.length} seats</p>
+        <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-primary-dark">
+          {t('venues_seatmap_parrish_eyebrow')}
+        </span>
+        <h1 className="font-quicksand font-black text-xl 760:text-2xl text-text-dark mt-1">
+          {t('venues_seatmap_parrish_heading')}
+        </h1>
+        <p className="text-muted-dark text-xs mt-2">{t('venues_seatmap_parrish_count', { count: allSeats.length })}</p>
       </motion.div>
 
       {/* Tooltip */}
@@ -357,11 +381,11 @@ export default function ParrishHsSeatmap() {
             style={{ left: tooltip.x, top: tooltip.y }}
           >
             <p className="text-[12px] font-mono text-text-dark">
-              Row {tooltip.seat.row} · Seat {tooltip.seat.number}
+              {t('venues_seatmap_tooltip', { row: tooltip.seat.row, seat: tooltip.seat.number })}
             </p>
             <div className="flex items-center gap-1.5 mt-0.5">
               <div className={`w-2 h-2 rounded-full shrink-0 ${TIER_COLORS[tooltip.seat.tier].bg}`} />
-              <span className="text-[11px] font-mono text-muted-dark">{TIER_COLORS[tooltip.seat.tier].label}</span>
+              <span className="text-[11px] font-mono text-muted-dark">{t(`venues_seatmap_tier_${tooltip.seat.tier}`)}</span>
             </div>
           </motion.div>
         )}
@@ -384,7 +408,14 @@ export default function ParrishHsSeatmap() {
           style={{ paddingBottom: ROW_CURVE + 16 }}
         >
           {mainRows.map((row, rowIdx) => (
-            <SeatRow key={row.label} row={row} rowIdx={rowIdx} onHover={handleHover} onLeave={() => setTooltip(null)} />
+            <SeatRow
+              key={row.label}
+              row={row}
+              rowIdx={rowIdx}
+              seatLabel={seatLabel}
+              onHover={handleHover}
+              onLeave={() => setTooltip(null)}
+            />
           ))}
 
           {/* Back rows, with the control booth sitting over their anon seats */}
@@ -394,6 +425,7 @@ export default function ParrishHsSeatmap() {
                 key={row.label}
                 row={row}
                 rowIdx={mainRows.length + i}
+                seatLabel={seatLabel}
                 onHover={handleHover}
                 onLeave={() => setTooltip(null)}
               />
@@ -425,7 +457,7 @@ export default function ParrishHsSeatmap() {
                 aria-hidden="true"
               />
               <span className="text-[11px] font-mono text-muted-dark">
-                {TIER_COLORS[tier].label} · {count}
+                {t(`venues_seatmap_tier_${tier}`)} · {count}
               </span>
             </div>
           )

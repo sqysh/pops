@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import { SiteSetting } from '@prisma/client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Heart, X } from 'lucide-react'
@@ -8,14 +9,29 @@ import { Heart, X } from 'lucide-react'
 import { getNavigationLinks } from '@/app/utils/navigation.utils'
 import Picture from '@/components/common/Picture'
 import { useAppStore } from '@/stores/useAppStore'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/navigation'
 
-const NavigationDrawer = ({ campApplicationsSetting, concertsPageLive, subscriptionsLive }) => {
+interface NavigationDrawerProps {
+  campApplicationsSetting?: SiteSetting['value']
+  concertsPageLive?: SiteSetting['value']
+  subscriptionsLive?: SiteSetting['value']
+  navContent?: unknown
+}
+
+const NavigationDrawer = ({
+  campApplicationsSetting,
+  concertsPageLive,
+  subscriptionsLive,
+  navContent = []
+}: NavigationDrawerProps) => {
   const path = usePathname()
   const navigationDrawerOpen = useAppStore((s) => s.navigationDrawerOpen)
   const closeDrawer = useAppStore((s) => s.closeNavigationDrawer)
 
   const overlayRef = useRef(null)
-  const navLinks = getNavigationLinks(path, concertsPageLive, campApplicationsSetting, subscriptionsLive)
+  const { t } = pageCopy(navContent, pageContent)
+  const navLinks = getNavigationLinks(path, concertsPageLive, campApplicationsSetting, subscriptionsLive, navContent)
 
   return (
     <>
@@ -33,7 +49,7 @@ const NavigationDrawer = ({ campApplicationsSetting, concertsPageLive, subscript
         ref={overlayRef}
         role="dialog"
         aria-modal="true"
-        aria-label="Navigation menu"
+        aria-label={t('nav_drawer_label')}
         className={`${
           navigationDrawerOpen ? 'translate-x-0' : 'translate-x-full'
         } duration-500 ease-in-out no-scrollbar fixed top-0 right-0 z-100 h-full w-full sm:w-md bg-black border-l border-white/10 overflow-y-auto transition-transform flex flex-col`}
@@ -43,12 +59,12 @@ const NavigationDrawer = ({ campApplicationsSetting, concertsPageLive, subscript
           <Link
             href="/"
             onClick={closeDrawer}
-            aria-label="The Pops Orchestra — return to homepage"
+            aria-label={t('nav_drawer_logo_label')}
             className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
           >
             <Picture
               src="/images/logo-2.png"
-              alt="The Pops Orchestra of Sarasota and Bradenton"
+              alt={t('nav_drawer_logo_alt')}
               width={120}
               height={44}
               priority
@@ -58,7 +74,7 @@ const NavigationDrawer = ({ campApplicationsSetting, concertsPageLive, subscript
           </Link>
           <button
             onClick={closeDrawer}
-            aria-label="Close navigation menu"
+            aria-label={t('nav_drawer_close_label')}
             className="w-9 h-9 flex items-center justify-center border border-white/10 hover:border-white/30 text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
           >
             <X className="w-4 h-4" aria-hidden="true" />
@@ -66,7 +82,7 @@ const NavigationDrawer = ({ campApplicationsSetting, concertsPageLive, subscript
         </div>
 
         {/* Content */}
-        <nav aria-label="Main navigation" className="flex-1 px-4 py-6 flex flex-col gap-y-6">
+        <nav aria-label={t('nav_drawer_nav_label')} className="flex-1 px-4 py-6 flex flex-col gap-y-6">
           {/* Top level links */}
           <ul role="list" className="flex flex-col gap-y-px">
             {navLinks
@@ -132,14 +148,14 @@ const NavigationDrawer = ({ campApplicationsSetting, concertsPageLive, subscript
             href="/donate"
             rel="noopener noreferrer"
             onClick={closeDrawer}
-            aria-label="Make a donation (opens in new tab)"
+            aria-label={t('nav_drawer_donate_label')}
             className="group flex items-center justify-center gap-2 border border-white/20 hover:border-white/50 text-white/70 hover:text-white font-changa uppercase tracking-widest text-sm py-3.5 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           >
-            <span>Make a Donation</span>
+            <span>{t('nav_drawer_donate_button')}</span>
             <Heart className="w-3.5 h-3.5 shrink-0 group-hover:scale-110 transition-transform" aria-hidden="true" />
           </Link>
           <p className="text-white/80 text-sm font-mono uppercase tracking-[0.2em] text-center pt-1">
-            The Pops Orchestra of Bradenton & Sarasota
+            {t('nav_drawer_org_name')}
           </p>
         </div>
       </div>

@@ -1,8 +1,12 @@
 'use server'
 
 import { prismaD } from '@/prisma/client'
+import { requireSuper } from '@/app/lib/auth/guards'
 
 export async function getDatabaseHealth() {
+  const gate = await requireSuper()
+  if (gate.ok === false) throw new Error(gate.error)
+
   const [connections, dbSize, cacheHitRate, oldestTransaction] = await Promise.all([
     prismaD.$queryRaw<Array<{ count: bigint }>>`
       SELECT COUNT(*) as count

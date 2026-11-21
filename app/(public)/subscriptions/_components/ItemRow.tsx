@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
-import { STATUS_LABEL } from '@/app/lib/constants/subscription.constants'
 import { ISubscription, SubscriptionStatus } from '@/app/types/entities/subscription.types'
 import { ExternalLink } from 'lucide-react'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/subscriptions'
 
 const STATUS_CLASS: Record<SubscriptionStatus, string> = {
   ON_SALE: 'text-emerald-400 border border-emerald-400/30 bg-emerald-400/5',
@@ -9,7 +10,18 @@ const STATUS_CLASS: Record<SubscriptionStatus, string> = {
 }
 
 /** The page only passes visible items through, so every item here is public. */
-export function ItemRow({ item, index, delay = 0 }: { item: ISubscription; index: number; delay?: number }) {
+export function ItemRow({
+  item,
+  index,
+  delay = 0,
+  content
+}: {
+  item: ISubscription
+  index: number
+  delay?: number
+  content: unknown
+}) {
+  const { t } = pageCopy(content, pageContent)
   const tiers = item.pricingTiers ?? []
   const fromPrice = tiers[0]?.price
   const onSale = item.status === 'ON_SALE'
@@ -30,13 +42,13 @@ export function ItemRow({ item, index, delay = 0 }: { item: ISubscription; index
 
           {fromPrice && (
             <p className="font-changa text-white text-sm tracking-wide">
-              From <span className="text-blaze-text">{fromPrice}</span>
+              {t('subscriptions_from_label')} <span className="text-blaze-text">{fromPrice}</span>
             </p>
           )}
 
           <div className="flex items-center gap-2 flex-wrap pt-0.5">
             <span className={`font-changa text-[11px] tracking-widest uppercase px-2 py-0.5 ${STATUS_CLASS[item.status]}`}>
-              {STATUS_LABEL[item.status]}
+              {t(onSale ? 'subscriptions_status_on_sale' : 'subscriptions_status_not_on_sale')}
             </span>
           </div>
         </div>
@@ -47,10 +59,10 @@ export function ItemRow({ item, index, delay = 0 }: { item: ISubscription; index
               href={item.publicUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Purchase ${item.name}, opens our ticketing site in a new tab`}
+              aria-label={t('subscriptions_sr_purchase', { name: item.name })}
               className="inline-flex items-center gap-2 font-changa text-[11px] tracking-widest uppercase px-6 py-2.5 bg-blaze hover:bg-blazehover text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
-              Purchase
+              {t('subscriptions_purchase_button')}
               <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
             </a>
           )}
@@ -85,7 +97,17 @@ export function ItemRow({ item, index, delay = 0 }: { item: ISubscription; index
   )
 }
 
-export function Section({ title, items, delay = 0 }: { title: string; items: ISubscription[]; delay?: number }) {
+export function Section({
+  title,
+  items,
+  delay = 0,
+  content
+}: {
+  title: string
+  items: ISubscription[]
+  delay?: number
+  content: unknown
+}) {
   return (
     <section>
       <div className="flex items-center gap-4 mb-2">
@@ -94,7 +116,7 @@ export function Section({ title, items, delay = 0 }: { title: string; items: ISu
       </div>
       <div className="border-t border-white/10">
         {items.map((item, i) => (
-          <ItemRow key={item.id} item={item} index={i} delay={delay} />
+          <ItemRow key={item.id} item={item} index={i} delay={delay} content={content} />
         ))}
       </div>
     </section>

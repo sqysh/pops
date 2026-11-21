@@ -6,8 +6,12 @@ import { getActor } from '../user/getActor'
 import { NewsInput } from '@/app/types/entities/news'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { revalidateTag } from 'next/cache'
+import { requireStaff, denied } from '@/app/lib/auth/guards'
 
 export async function createNews(data: NewsInput) {
+  const gate = await requireStaff()
+  if (gate.ok === false) return denied(gate)
+
   if (!data.title) return { success: false, error: 'Title is required' }
 
   const [actor, context] = await Promise.all([getActor(), getRequestContext()])

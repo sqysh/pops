@@ -4,8 +4,12 @@ import { createLog } from '@/app/utils/logHelper'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import prisma from '@/prisma/client'
 import { revalidateTag } from 'next/cache'
+import { requireStaff, denied } from '@/app/lib/auth/guards'
 
 export async function markAsSpam(id: string) {
+  const gate = await requireStaff()
+  if (gate.ok === false) return denied(gate)
+
   const context = await getRequestContext()
 
   const question = await prisma.question

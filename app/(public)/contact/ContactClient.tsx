@@ -2,36 +2,47 @@
 
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { FacebookIcon, InstagramIcon, YouTubeIcon } from '@/public/data/home.data'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/contact'
 import { ContactForm } from '@/app/(public)/contact/_components/ContactForm'
 import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 
-export const ContactClient = ({ data }) => {
-  const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
+export const ContactClient = ({ data }: { data?: { content?: unknown } | null }) => {
+  const content = data?.content
+  const { t } = pageCopy(content, pageContent)
+  const email = t('contact_sidebar_email_value')
+  const address = t('contact_sidebar_address_value')
+  const phone = t('contact_sidebar_phone_value')
 
   return (
     <main id="main-content">
       <CompactPageHero
-        breadcrumb="Contact"
-        heading={field('contact_form_heading')}
-        description="Reach out to The Pops Orchestra. Whether it's tickets, sponsorship, or joining us on stage, we'd love to hear from you."
+        homeLabel={t('contact_hero_home_crumb')}
+        breadcrumbLabel={t('contact_sr_breadcrumb')}
+        breadcrumb={t('contact_hero_breadcrumb')}
+        eyebrow={t('contact_hero_overline')}
+        heading={t('contact_form_heading')}
+        description={t('contact_hero_description')}
       />
 
       <div className="relative max-w-5xl mx-auto px-5 760:px-8 990:px-12">
         {/* Content */}
-        <section aria-label="Contact" className="relative z-10 py-16 760:py-20 990:py-28">
+        <section aria-label={t('contact_sr_section_label')} className="relative z-10 py-16 760:py-20 990:py-28">
           <div className="grid grid-cols-1 990:grid-cols-12 gap-y-16 760:gap-y-20 990:gap-y-0 990:gap-x-16">
             {/* Form */}
             <div className="990:col-span-7">
               <div className="flex items-center gap-3 mb-6 990:mb-8">
                 <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                <span className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">Send a Message</span>
+                <span className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
+                  {t('contact_send_heading')}
+                </span>
               </div>
-              <ContactForm btnClassName="justify-start" />
+              <ContactForm btnClassName="justify-start" content={content} />
             </div>
 
             {/* Sidebar */}
             <aside
-              aria-label="Contact information"
+              aria-label={t('contact_sr_sidebar_label')}
               className="990:col-span-5 grid grid-cols-1 760:grid-cols-2 990:grid-cols-1 gap-12 760:gap-x-14"
             >
               {/* Contact info */}
@@ -39,46 +50,46 @@ export const ContactClient = ({ data }) => {
                 <div className="flex items-center gap-3 mb-5 990:mb-6">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
                   <h2 id="contact-info-heading" className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
-                    {field('contact_sidebar_heading')}
+                    {t('contact_sidebar_heading')}
                   </h2>
                 </div>
                 <address className="not-italic flex flex-col">
                   {[
                     {
                       icon: <Mail className="w-3.5 h-3.5 text-blaze-text shrink-0" aria-hidden="true" />,
-                      label: field('contact_sidebar_email_label'),
+                      label: t('contact_sidebar_email_label'),
                       content: (
                         <a
-                          href={`mailto:${field('contact_sidebar_email_value')}`}
+                          href={`mailto:${email}`}
                           className="font-lato text-sm text-white/60 hover:text-blaze-text transition-colors break-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
                         >
-                          {field('contact_sidebar_email_value')}
+                          {email}
                         </a>
                       )
                     },
                     {
                       icon: <MapPin className="w-3.5 h-3.5 text-blaze-text shrink-0" aria-hidden="true" />,
-                      label: field('contact_sidebar_address_label'),
+                      label: t('contact_sidebar_address_label'),
                       content: (
                         <a
-                          href={`https://maps.google.com/?q=${encodeURIComponent(field('contact_sidebar_address_value'))}`}
+                          href={`https://maps.google.com/?q=${encodeURIComponent(address)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="font-lato text-sm text-white/60 hover:text-blaze-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
                         >
-                          {field('contact_sidebar_address_value')}
+                          {address}
                         </a>
                       )
                     },
                     {
                       icon: <Phone className="w-3.5 h-3.5 text-blaze-text shrink-0" aria-hidden="true" />,
-                      label: field('contact_sidebar_phone_label'),
+                      label: t('contact_sidebar_phone_label'),
                       content: (
                         <a
-                          href={`tel:${field('contact_sidebar_phone_value').replace(/[^\d+]/g, '')}`}
+                          href={`tel:${phone.replace(/[^\d+]/g, '')}`}
                           className="font-lato text-sm text-white/60 hover:text-blaze-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
                         >
-                          {field('contact_sidebar_phone_value')}
+                          {phone}
                         </a>
                       )
                     }
@@ -102,21 +113,31 @@ export const ContactClient = ({ data }) => {
                 <div className="flex items-center gap-3 mb-5 990:mb-6">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
                   <h2 id="contact-social-heading" className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
-                    {field('contact_follow_us_heading')}
+                    {t('contact_follow_us_heading')}
                   </h2>
                 </div>
                 <ul role="list" className="flex items-center gap-2.5">
                   {[
-                    { href: field('contact_social_facebook_url'), Icon: FacebookIcon, label: 'Facebook' },
-                    { href: field('contact_social_instagram_url'), Icon: InstagramIcon, label: 'Instagram' },
-                    { href: field('contact_social_youtube_url'), Icon: YouTubeIcon, label: 'YouTube' }
-                  ].map(({ href, Icon, label }) => (
-                    <li key={label}>
+                    {
+                      key: 'facebook',
+                      href: t('contact_social_facebook_url'),
+                      Icon: FacebookIcon,
+                      label: t('contact_sr_facebook')
+                    },
+                    {
+                      key: 'instagram',
+                      href: t('contact_social_instagram_url'),
+                      Icon: InstagramIcon,
+                      label: t('contact_sr_instagram')
+                    },
+                    { key: 'youtube', href: t('contact_social_youtube_url'), Icon: YouTubeIcon, label: t('contact_sr_youtube') }
+                  ].map(({ key, href, Icon, label }) => (
+                    <li key={key}>
                       <a
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`Follow us on ${label} (opens in new tab)`}
+                        aria-label={label}
                         className="w-11 h-11 990:w-10 990:h-10 border border-white/10 hover:border-blaze/40 hover:bg-blaze/5 flex items-center justify-center transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze rounded-sm"
                       >
                         <Icon
@@ -134,17 +155,17 @@ export const ContactClient = ({ data }) => {
                 <div className="flex items-center gap-3 mb-5 990:mb-6">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
                   <h2 id="contact-hours-heading" className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
-                    {field('contact_office_hours_heading')}
+                    {t('contact_office_hours_heading')}
                   </h2>
                 </div>
                 <dl className="flex flex-col">
                   <div className="flex justify-between gap-4 py-3.5 border-b border-white/6">
-                    <dt className="font-lato text-sm text-white/60">{field('contact_office_hours_weekday_label')}</dt>
-                    <dd className="font-lato text-sm text-white">{field('contact_office_hours_weekday_value')}</dd>
+                    <dt className="font-lato text-sm text-white/60">{t('contact_office_hours_weekday_label')}</dt>
+                    <dd className="font-lato text-sm text-white">{t('contact_office_hours_weekday_value')}</dd>
                   </div>
                   <div className="flex justify-between gap-4 py-3.5 pb-0">
-                    <dt className="font-lato text-sm text-white/60">{field('contact_office_hours_weekend_label')}</dt>
-                    <dd className="font-lato text-sm text-white/50">{field('contact_office_hours_weekend_value')}</dd>
+                    <dt className="font-lato text-sm text-white/60">{t('contact_office_hours_weekend_label')}</dt>
+                    <dd className="font-lato text-sm text-white/50">{t('contact_office_hours_weekend_value')}</dd>
                   </div>
                 </dl>
               </section>

@@ -2,16 +2,21 @@
 
 import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 import Picture from '@/components/common/Picture'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/robyn-bell'
 
-export const RobynBellClient = ({ data }) => {
-  const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
+export const RobynBellClient = ({ data }: { data?: { content?: unknown } | null }) => {
+  const { t } = pageCopy(data?.content, pageContent)
 
   return (
     <main id="main-content">
       <CompactPageHero
-        breadcrumb="Robyn Bell"
-        heading={field('robyn_bell_heading')}
-        description={field('robyn_bell_subheading')}
+        homeLabel={t('robyn_bell_hero_home_crumb')}
+        breadcrumbLabel={t('robyn_bell_sr_breadcrumb')}
+        breadcrumb={t('robyn_bell_hero_breadcrumb')}
+        eyebrow={t('robyn_bell_hero_eyebrow')}
+        heading={t('robyn_bell_heading')}
+        description={t('robyn_bell_subheading')}
       />
 
       <div className="relative min-h-dvh">
@@ -31,7 +36,7 @@ export const RobynBellClient = ({ data }) => {
                 <div className="relative overflow-hidden">
                   <Picture
                     src="/images/robyn-2.png"
-                    alt="Robyn Bell conducting The Pops Orchestra"
+                    alt={t('robyn_bell_image_main_alt')}
                     className="w-full h-auto aspect-video object-cover"
                     priority={true}
                   />
@@ -43,16 +48,18 @@ export const RobynBellClient = ({ data }) => {
                   <div>
                     <div className="flex items-center gap-3 mb-5">
                       <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                      <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">Biography</span>
+                      <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
+                        {t('robyn_bell_bio_eyebrow')}
+                      </span>
                     </div>
                     <h2 id="robyn-bell-heading" className="font-changa text-2xl 430:text-3xl text-white mb-6 leading-tight">
-                      {field('robyn_bell_main_title')}
+                      {t('robyn_bell_main_title')}
                     </h2>
                     <div className="w-8 h-px bg-blaze mb-8" aria-hidden="true" />
                   </div>
 
                   <div className="flex flex-col gap-5">
-                    {[field('robyn_bell_p1'), field('robyn_bell_p2'), field('robyn_bell_p3'), field('robyn_bell_p4')]
+                    {[t('robyn_bell_p1'), t('robyn_bell_p2'), t('robyn_bell_p3'), t('robyn_bell_p4')]
                       .filter(Boolean)
                       .map((p, i) => (
                         <p
@@ -70,32 +77,36 @@ export const RobynBellClient = ({ data }) => {
                   <div className="flex flex-col gap-3 border-t border-white/10 pt-8">
                     <div className="flex items-center gap-3 mb-2">
                       <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                      <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">Credentials</span>
+                      <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
+                        {t('robyn_bell_credentials_eyebrow')}
+                      </span>
                     </div>
                     <p className="font-changa text-sm tracking-wider text-sunburst uppercase leading-relaxed">
-                      {field('robyn_bell_credentials')}
+                      {t('robyn_bell_credentials')}
                     </p>
                     <p className="font-changa text-sm tracking-wider text-sunburst uppercase leading-relaxed">
-                      {field('robyn_bell_roles')}
+                      {t('robyn_bell_roles')}
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* Sidebar */}
-              <aside aria-label="About Robyn Bell" className="1200:col-span-4 bg-black">
+              <aside aria-label={t('robyn_bell_sr_sidebar')} className="1200:col-span-4 bg-black">
                 <div className="px-6 430:px-8 py-8 990:sticky 990:top-24 flex flex-col gap-6">
                   <div>
                     <div className="flex items-center gap-3 mb-5">
                       <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                      <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">About</span>
+                      <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
+                        {t('robyn_bell_side_eyebrow')}
+                      </span>
                     </div>
                     <h2 className="font-changa text-xl 430:text-2xl text-white mb-4 leading-tight">
-                      {field('robyn_bell_side_title')}
+                      {t('robyn_bell_side_title')}
                     </h2>
                     <div className="w-8 h-px bg-blaze mb-5" aria-hidden="true" />
                     <p className="font-lato text-white text-sm 430:text-base leading-relaxed border-l-2 border-blaze pl-5">
-                      {field('robyn_bell_side_p1')}
+                      {t('robyn_bell_side_p1')}
                     </p>
                   </div>
 
@@ -103,7 +114,7 @@ export const RobynBellClient = ({ data }) => {
                   <div className="relative overflow-hidden border border-white/10">
                     <Picture
                       src="/images/robyn-2.png"
-                      alt="Portrait of Robyn Bell, Music Director"
+                      alt={t('robyn_bell_image_portrait_alt')}
                       className="w-full h-auto object-cover"
                       priority={false}
                     />

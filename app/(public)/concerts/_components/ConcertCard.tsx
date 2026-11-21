@@ -2,13 +2,16 @@ import Picture from '@/components/common/Picture'
 import { CueBoxEvent, CueBoxEventInstance } from '@/app/types/cuebox.types'
 import { motion } from 'framer-motion'
 import { Calendar, ExternalLink, MapPin } from 'lucide-react'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/concerts'
 
-const STATUS_LABEL: Record<string, string> = {
-  ON_SALE: 'On Sale',
-  PRESALE: 'Presale',
-  NOT_ON_SALE: 'Coming Soon',
-  SOLD_OUT: 'Sold Out',
-  CANCELED: 'Canceled'
+/** Page content field holding each CueBox status's badge wording. */
+const STATUS_FIELD: Record<string, string> = {
+  ON_SALE: 'concerts_status_on_sale',
+  PRESALE: 'concerts_status_presale',
+  NOT_ON_SALE: 'concerts_status_not_on_sale',
+  SOLD_OUT: 'concerts_status_sold_out',
+  CANCELED: 'concerts_status_canceled'
 }
 
 const STATUS_COLOR: Record<string, string> = {
@@ -56,13 +59,13 @@ const deriveStatus = (event: CueBoxEvent, instances: CueBoxEventInstance[]) => {
   return event.status
 }
 
-const StatusChip = ({ status, size = 'sm' }: { status: string; size?: 'sm' | 'xs' }) => (
+const StatusChip = ({ status, label, size = 'sm' }: { status: string; label: string; size?: 'sm' | 'xs' }) => (
   <span
     className={`inline-flex shrink-0 font-mono uppercase border ${
       size === 'xs' ? 'text-[9px] tracking-widest px-1.5 py-0.5' : 'text-[10px] tracking-[0.25em] px-2 py-1'
     } ${STATUS_COLOR[status] ?? 'text-white/40 border-white/10'}`}
   >
-    {STATUS_LABEL[status] ?? status}
+    {label}
   </span>
 )
 
@@ -70,13 +73,18 @@ export function ConcertCard({
   event,
   instances,
   index,
+  content,
   ref
 }: {
   event: CueBoxEvent
   instances: CueBoxEventInstance[]
   index: number
+  content: unknown
   ref?: (node: HTMLElement | null) => void
 }) {
+  const { t } = pageCopy(content, pageContent)
+  const statusLabel = (s: string) => (STATUS_FIELD[s] ? t(STATUS_FIELD[s]) : s)
+
   // showtimes hidden in CueBox never reach the page, same rule as events
   const visibleInstances = instances
     .filter((inst) => inst.isVisibleOnline)
@@ -113,7 +121,7 @@ export function ConcertCard({
           />
           <div className="absolute top-3 left-3">
             <span className="backdrop-blur-sm bg-black/40">
-              <StatusChip status={status} />
+              <StatusChip status={status} label={statusLabel(status)} />
             </span>
           </div>
         </div>
@@ -127,7 +135,7 @@ export function ConcertCard({
           {/* Eyebrow */}
           <div className="flex items-center gap-3">
             <div className="w-5 h-px bg-blaze shrink-0" aria-hidden="true" />
-            <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/30">2026–27 Season</span>
+            <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-white/30">{t('concerts_card_eyebrow')}</span>
           </div>
 
           {/* Title */}
@@ -152,7 +160,9 @@ export function ConcertCard({
               <div className="flex items-center gap-2 mb-3">
                 <Calendar className="w-3.5 h-3.5 text-blaze shrink-0" aria-hidden="true" />
                 <span className="font-changa text-[10px] uppercase tracking-[0.25em] text-white/30">
-                  {visibleInstances.length === 1 ? 'Performance' : `${visibleInstances.length} Performances`}
+                  {visibleInstances.length === 1
+                    ? t('concerts_performance_single')
+                    : t('concerts_performance_plural', { count: visibleInstances.length })}
                 </span>
               </div>
 
@@ -176,7 +186,9 @@ export function ConcertCard({
                             {formatDate(inst.startsAt)}
                             <span className="text-white/50"> · {formatTime(inst.startsAt)}</span>
                           </span>
-                          {inst.status !== 'ON_SALE' && <StatusChip status={inst.status} size="xs" />}
+                          {inst.status !== 'ON_SALE' && (
+                            <StatusChip status={inst.status} label={statusLabel(inst.status)} size="xs" />
+                          )}
                         </div>
 
                         {/* only worth repeating per showtime when the run moves around */}
@@ -194,10 +206,14 @@ export function ConcertCard({
                           href={inst.publicTicketsUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`Buy tickets for ${event.name} on ${formatDate(inst.startsAt)} at ${formatTime(inst.startsAt)}`}
+                          aria-label={t('concerts_sr_buy_tickets_showtime', {
+                            name: event.name,
+                            date: formatDate(inst.startsAt),
+                            time: formatTime(inst.startsAt)
+                          })}
                           className="inline-flex items-center gap-1.5 shrink-0 font-changa text-[11px] uppercase tracking-widest text-blaze-text hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                         >
-                          Tickets
+                          {t('concerts_instance_tickets_button')}
                           <ExternalLink className="w-3 h-3 shrink-0" aria-hidden="true" />
                         </a>
                       )}
@@ -224,16 +240,16 @@ export function ConcertCard({
               href={singleBuyable.publicTicketsUrl ?? event.publicTicketsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Buy tickets for ${event.name}`}
+              aria-label={t('concerts_sr_buy_tickets', { name: event.name })}
               className="inline-flex items-center gap-3 px-7 py-3.5 bg-blaze hover:bg-blazehover text-white font-changa text-sm uppercase tracking-widest transition-colors w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
-              Buy Tickets
+              {t('concerts_buy_button')}
               <ExternalLink className="w-4 h-4 shrink-0" aria-hidden="true" />
             </a>
           ) : buyable.length > 1 ? (
-            <p className="font-lato text-sm text-white/40">Choose a performance above to buy tickets.</p>
+            <p className="font-lato text-sm text-white/40">{t('concerts_choose_performance')}</p>
           ) : (
-            <StatusChip status={status} />
+            <StatusChip status={status} label={statusLabel(status)} />
           )}
         </div>
       </div>

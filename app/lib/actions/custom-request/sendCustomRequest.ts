@@ -6,6 +6,7 @@ import { resend } from '../../resend'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { createLog } from '@/app/utils/logHelper'
 import { revalidateTag } from 'next/cache'
+import { requireStaff, denied } from '@/app/lib/auth/guards'
 
 interface RequestInput {
   changeType: string
@@ -17,6 +18,9 @@ interface RequestInput {
 }
 
 export async function sendCustomRequest(data: RequestInput) {
+  const gate = await requireStaff()
+  if (gate.ok === false) return denied(gate)
+
   const session = await auth()
   const submittedBy = session?.user?.email ?? 'unknown'
 

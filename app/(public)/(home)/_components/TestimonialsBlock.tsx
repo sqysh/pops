@@ -4,12 +4,16 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
 import type { Testimonial } from '@prisma/client'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/home'
 
 interface TestimonialsBlockProps {
   testimonials: Testimonial[]
+  content?: unknown
 }
 
-export function TestimonialsBlock({ testimonials }: TestimonialsBlockProps) {
+export function TestimonialsBlock({ testimonials, content }: TestimonialsBlockProps) {
+  const { t } = pageCopy(content, pageContent)
   const [index, setIndex] = useState(0)
   const [direction, setDirection] = useState<1 | -1>(1)
 
@@ -36,10 +40,7 @@ export function TestimonialsBlock({ testimonials }: TestimonialsBlockProps) {
   }
 
   return (
-    <section
-      className="bg-black py-24 sm:py-32 px-6 sm:px-10 lg:px-16 overflow-hidden"
-      aria-labelledby="testimonials-heading"
-    >
+    <section className="bg-black py-24 sm:py-32 px-6 sm:px-10 lg:px-16 overflow-hidden" aria-labelledby="testimonials-heading">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
@@ -51,19 +52,24 @@ export function TestimonialsBlock({ testimonials }: TestimonialsBlockProps) {
         >
           <div className="flex items-center justify-center gap-3 mb-5">
             <div className="w-8 h-px bg-blaze" aria-hidden="true" />
-            <span className="font-heebo text-sm tracking-[0.35em] uppercase text-blaze-text">Testimonials</span>
+            <span className="font-heebo text-sm tracking-[0.35em] uppercase text-blaze-text">{t('testimonials_eyebrow')}</span>
             <div className="w-8 h-px bg-blaze" aria-hidden="true" />
           </div>
           <h2
             id="testimonials-heading"
             className="font-c-infant font-bold text-4xl sm:text-5xl uppercase tracking-wide text-white"
           >
-            What They Say
+            {t('testimonials_heading')}
           </h2>
         </motion.div>
 
         {/* Carousel */}
-        <div className="relative" role="region" aria-label="Testimonials carousel" aria-roledescription="carousel">
+        <div
+          className="relative"
+          role="region"
+          aria-label={t('testimonials_carousel_label')}
+          aria-roledescription={t('testimonials_carousel_role')}
+        >
           {/* Large quote mark */}
           <Quote
             className="absolute -top-4 -left-2 sm:-left-8 w-16 h-16 sm:w-20 sm:h-20 text-white/5 z-0 rotate-180"
@@ -94,9 +100,7 @@ export function TestimonialsBlock({ testimonials }: TestimonialsBlockProps) {
                   <footer>
                     <div className="w-10 h-px mx-auto mb-4 bg-blaze" aria-hidden="true" />
                     <cite className="not-italic">
-                      <p className="font-c-infant font-bold text-white text-lg uppercase tracking-wide">
-                        {current.author}
-                      </p>
+                      <p className="font-c-infant font-bold text-white text-lg uppercase tracking-wide">{current.author}</p>
                       {current.title && <p className="font-heebo text-white/60 text-sm mt-1">{current.title}</p>}
                     </cite>
                   </footer>
@@ -112,20 +116,20 @@ export function TestimonialsBlock({ testimonials }: TestimonialsBlockProps) {
                 type="button"
                 onClick={prev}
                 className="w-11 h-11 flex items-center justify-center border border-white/10 hover:border-blaze text-white/50 hover:text-blaze-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                aria-label="Previous testimonial"
+                aria-label={t('testimonials_previous_label')}
               >
                 <ChevronLeft className="w-4 h-4" aria-hidden="true" />
               </button>
 
               {/* Dots */}
-              <div className="flex items-center gap-2" role="tablist" aria-label="Testimonial indicators">
+              <div className="flex items-center gap-2" role="tablist" aria-label={t('testimonials_indicators_label')}>
                 {published.map((_, i) => (
                   <button
                     key={i}
                     type="button"
                     role="tab"
                     aria-selected={i === index}
-                    aria-label={`Go to testimonial ${i + 1}`}
+                    aria-label={t('testimonials_dot_label', { number: i + 1 })}
                     onClick={() => {
                       setDirection(i > index ? 1 : -1)
                       setIndex(i)
@@ -141,7 +145,7 @@ export function TestimonialsBlock({ testimonials }: TestimonialsBlockProps) {
                 type="button"
                 onClick={next}
                 className="w-11 h-11 flex items-center justify-center border border-white/10 hover:border-blaze text-white/50 hover:text-blaze-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                aria-label="Next testimonial"
+                aria-label={t('testimonials_next_label')}
               >
                 <ChevronRight className="w-4 h-4" aria-hidden="true" />
               </button>
@@ -149,11 +153,8 @@ export function TestimonialsBlock({ testimonials }: TestimonialsBlockProps) {
           )}
 
           {/* Count */}
-          <p
-            className="text-center font-heebo text-sm tracking-[0.2em] uppercase text-white/40 mt-6"
-            aria-hidden="true"
-          >
-            {index + 1} / {published.length}
+          <p className="text-center font-heebo text-sm tracking-[0.2em] uppercase text-white/40 mt-6" aria-hidden="true">
+            {t('testimonials_count', { current: index + 1, total: published.length })}
           </p>
         </div>
       </div>

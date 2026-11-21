@@ -7,15 +7,18 @@ import type { News } from '@prisma/client'
 import Picture from '@/components/common/Picture'
 import { itemVariants } from '@/app/lib/constants/motion'
 import Link from 'next/link'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/news'
 
-export default function PublicNewsClient({ news }: { news: News[] }) {
+export default function PublicNewsClient({ news, content }: { news: News[]; content: unknown }) {
   const router = useRouter()
+  const { t } = pageCopy(content, pageContent)
 
   if (!news.length) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
         <div className="text-center">
-          <p className="text-sm font-mono tracking-[0.2em] uppercase text-white/60">No news articles yet</p>
+          <p className="text-sm font-mono tracking-[0.2em] uppercase text-white/60">{t('news_list_empty')}</p>
         </div>
       </div>
     )
@@ -29,15 +32,15 @@ export default function PublicNewsClient({ news }: { news: News[] }) {
           href="/"
           className="mb-8 text-sm font-mono tracking-[0.2em] uppercase text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blaze"
         >
-          ← Back to Home
+          {t('news_list_back_label')}
         </Link>
 
         {/* Page Header */}
         <header className="w-full text-center flex flex-col items-center pb-20 border-b border-white/10">
-          <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">The Pops Orchestra</p>
+          <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">{t('news_list_eyebrow')}</p>
           <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
             <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
-            <h1 className="text-4xl 430:text-5xl sm:text-6xl font-changa text-white leading-none">News & Updates</h1>
+            <h1 className="text-4xl 430:text-5xl sm:text-6xl font-changa text-white leading-none">{t('news_list_heading')}</h1>
             <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
           </div>
         </header>
@@ -86,12 +89,10 @@ export default function PublicNewsClient({ news }: { news: News[] }) {
                   {article.title}
                 </h2>
 
-                {article.excerpt && (
-                  <p className="text-white/60 text-sm leading-relaxed mb-4 line-clamp-3">{article.excerpt}</p>
-                )}
+                {article.excerpt && <p className="text-white/60 text-sm leading-relaxed mb-4 line-clamp-3">{article.excerpt}</p>}
 
                 <div className="flex items-center gap-2 text-blaze-text text-sm font-mono tracking-[0.15em] uppercase group-hover:gap-3 transition-all">
-                  Read More
+                  {t('news_list_read_more')}
                   <ArrowRight className="w-3 h-3" aria-hidden="true" />
                 </div>
               </div>

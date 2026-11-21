@@ -13,13 +13,14 @@ import { contactSubmissionTemplate } from '../../email-templates/contact-submiss
 
 const MIN_FILL_MS = 2000
 
+/** Errors are page content ids (contact page, 'Form Messages'); the form shows them with msg(). */
 export async function createQuestion(data: QuestionFormInput): Promise<ActionResult<null>> {
   const parsed = questionSchema.safeParse(data)
 
   if (!parsed.success) {
     return {
       success: false,
-      error: 'Please check the highlighted fields and try again.',
+      error: 'contact_error_check_fields',
       fieldErrors: z.flattenError(parsed.error).fieldErrors,
       data: null
     }
@@ -50,7 +51,7 @@ export async function createQuestion(data: QuestionFormInput): Promise<ActionRes
       request: context
     }).catch(() => null)
 
-    return { success: false, error: 'Failed to create question', data: null }
+    return { success: false, error: 'contact_error_save_failed', data: null }
   }
 
   await createLog('info', await buildLogMessage(`new question submitted by "${question.name}"`, 'public', context), {

@@ -25,13 +25,7 @@ const RiverviewBalconySVG = ({ setRiverviewBalcony }: any) => {
   }
   return (
     <div className="relative w-full">
-      <svg
-        width="100%"
-        height="100%"
-        viewBox="0 0 1060 180"
-        xmlns="http://www.w3.org/2000/svg"
-        className="fill-current"
-      >
+      <svg width="100%" height="100%" viewBox="0 0 1060 180" xmlns="http://www.w3.org/2000/svg" className="fill-current">
         {/* Row A */}
         <g onMouseEnter={onHoverSeat} onMouseLeave={onLeaveSeat}>
           <text x="5" y="20" fontSize="13" className="text-white font-bold">

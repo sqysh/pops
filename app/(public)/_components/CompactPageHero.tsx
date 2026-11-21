@@ -10,10 +10,14 @@ interface Crumb {
 
 interface CompactPageHeroProps {
   /** Breadcrumb trail, embedded at the top of the hero. The last item is the
-   *  current page and renders without a link. "Home" is prepended automatically. */
+   *  current page and renders without a link. A home link (homeLabel) is prepended. */
   breadcrumb: string | Crumb[]
-  /** Small eyebrow line above the heading. Defaults to the org name. */
-  eyebrow?: string
+  /** Small eyebrow line above the heading. */
+  eyebrow: string
+  /** Text of the first breadcrumb, which links to the home page. */
+  homeLabel: string
+  /** Screen reader label for the breadcrumb trail. */
+  breadcrumbLabel: string
   /** Main heading (single line — this is the compact variant). */
   heading: ReactNode
   /** Optional supporting line under the heading. */
@@ -24,14 +28,16 @@ interface CompactPageHeroProps {
 
 export default function CompactPageHero({
   breadcrumb,
-  eyebrow = 'The Pops Orchestra',
+  eyebrow,
+  homeLabel,
+  breadcrumbLabel,
   heading,
   description,
   backgroundImage = '/images/nikki-fire.webp'
 }: CompactPageHeroProps) {
   // Normalize: a bare string becomes a single current-page crumb.
   const crumbs: Crumb[] = typeof breadcrumb === 'string' ? [{ label: breadcrumb }] : breadcrumb
-  const trail: Crumb[] = [{ label: 'Home', href: '/' }, ...crumbs]
+  const trail: Crumb[] = [{ label: homeLabel, href: '/' }, ...crumbs]
 
   return (
     // the negative margin has to match the header's height at each breakpoint,
@@ -53,7 +59,7 @@ export default function CompactPageHero({
 
       {/* pt clears the transparent header the section slides under */}
       <div className="relative max-w-5xl mx-auto px-4 760:px-6 pt-30 430:pt-40 760:pt-56 pb-16 430:pb-20 760:pb-36 flex flex-col gap-3 760:gap-4">
-        <nav aria-label="Breadcrumb">
+        <nav aria-label={breadcrumbLabel}>
           <ol className="flex items-center flex-wrap gap-x-1.5 gap-y-1 font-mono text-[11px] 430:text-xs uppercase tracking-widest 430:tracking-[0.15em]">
             {trail.map((crumb, i) => {
               const isLast = i === trail.length - 1

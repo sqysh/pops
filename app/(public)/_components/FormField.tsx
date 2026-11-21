@@ -23,6 +23,30 @@ interface FieldContextValue {
 
 const FieldContext = createContext<FieldContextValue | null>(null)
 
+/**
+ * The few words the controls themselves say ("(required)", "Yes"/"No", the
+ * character count). Each form supplies them from its own page content so they
+ * are editable with the rest of the page.
+ */
+export interface FormWords {
+  /** Read after a required field's label by screen readers, e.g. "(required)". */
+  required: string
+  yes: string
+  no: string
+  /** Screen reader count for text areas, with {count} filled in. */
+  remaining: string
+}
+
+const FormWordsContext = createContext<FormWords | null>(null)
+
+export const FormWordsProvider = FormWordsContext.Provider
+
+const useFormWords = () => {
+  const words = useContext(FormWordsContext)
+  if (!words) throw new Error('Wrap the form in <FormWordsProvider> so its controls have wording')
+  return words
+}
+
 const useField = (ownId?: string) => {
   const ctx = useContext(FieldContext)
   const fallbackId = useId()
@@ -53,6 +77,7 @@ export function FormField({
   error?: string | null
   children: React.ReactNode
 }) {
+  const words = useFormWords()
   const generatedId = useId()
   const id = htmlFor ?? generatedId
   const hintId = hint ? `${id}-hint` : undefined
@@ -69,7 +94,7 @@ export function FormField({
               <span className="text-blaze-text ml-1" aria-hidden="true">
                 *
               </span>
-              <span className="sr-only"> (required)</span>
+              <span className="sr-only"> {words.required}</span>
             </>
           )}
         </label>
@@ -158,13 +183,14 @@ export function FormError({ error }: { error: string | null }) {
 }
 
 export function CharCount({ value, max }: { value: string; max: number }) {
+  const words = useFormWords()
   const used = value.length
   const tone = used >= max ? 'text-blaze-text' : used > max * 0.9 ? 'text-sunburst' : 'text-white/40'
 
   return (
     <div className="flex justify-end mt-2">
       <span aria-live="polite" className={`font-changa text-sm tracking-widest transition-colors ${tone}`}>
-        <span className="sr-only">{max - used} characters remaining, </span>
+        <span className="sr-only">{words.remaining.replace('{count}', String(max - used))} </span>
         {used}/{max}
       </span>
     </div>
@@ -186,6 +212,7 @@ export function FormToggle({
   disabled?: boolean
   error?: string | null
 }) {
+  const words = useFormWords()
   const id = useId()
   const errorId = error ? `${id}-error` : undefined
 
@@ -228,7 +255,7 @@ export function FormToggle({
             value ? 'text-white' : 'text-white/40'
           }`}
         >
-          {value ? 'Yes' : 'No'}
+          {value ? words.yes : words.no}
         </span>
       </button>
 

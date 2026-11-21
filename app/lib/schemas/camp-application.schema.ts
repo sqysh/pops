@@ -3,38 +3,40 @@ import { EMPTY_SPAM_GUARD, spamGuardFields } from './spam-guard.schema'
 
 export const SKILL_LEVELS = ['', 'Beginner', 'Intermediate', 'Advanced'] as const
 
-const level = z.enum(SKILL_LEVELS)
-const required = (label: string) => z.string().trim().min(1, `${label} is required`)
-const optional = z.string().trim().max(200).optional()
+// messages are page content ids (camp-application page, 'Form Messages'), shown with msg()
+const level = z.enum(SKILL_LEVELS, 'camp_error_level_invalid')
+const required = (code: string) => z.string().trim().min(1, code)
+const optional = z.string().trim().max(200, 'camp_error_too_long').optional()
+const email = z.email('camp_error_email_invalid').trim().toLowerCase()
 
 export const campApplicationSchema = z.object({
-  firstName: required('First name'),
-  lastName: required('Last name'),
-  grade: required('Grade'),
-  school: required('School'),
-  studentEmailAddress: z.email('Please enter a valid email address').trim().toLowerCase(),
-  studentPhoneNumber: required('Phone number'),
+  firstName: required('camp_error_first_name_required'),
+  lastName: required('camp_error_last_name_required'),
+  grade: required('camp_error_grade_required'),
+  school: required('camp_error_school_required'),
+  studentEmailAddress: email,
+  studentPhoneNumber: required('camp_error_phone_required'),
 
-  addressLine1: required('Address line 1'),
+  addressLine1: required('camp_error_address_line_1_required'),
   addressLine2: optional,
-  city: required('City'),
-  state: required('State'),
-  zipPostalCode: required('ZIP code'),
+  city: required('camp_error_city_required'),
+  state: required('camp_error_state_required'),
+  zipPostalCode: required('camp_error_zip_required'),
 
-  parentFirstName: required('Parent first name'),
-  parentLastName: required('Parent last name'),
+  parentFirstName: required('camp_error_parent_first_name_required'),
+  parentLastName: required('camp_error_parent_last_name_required'),
   relationshipToStudent: optional,
-  parentEmailAddress: z.email('Please enter a valid email address').trim().toLowerCase(),
-  parentPhoneNumber: required('Parent phone number'),
+  parentEmailAddress: email,
+  parentPhoneNumber: required('camp_error_parent_phone_required'),
 
-  instrument: required('Primary instrument'),
+  instrument: required('camp_error_instrument_required'),
   musicTeacher: optional,
   strings: level,
   brassAndPercussion: level,
   woodwinds: level,
   referralSource: optional,
 
-  consent: z.boolean().refine((agreed) => agreed, 'Please confirm the terms before submitting'),
+  consent: z.boolean().refine((agreed) => agreed, 'camp_error_consent_required'),
 
   ...spamGuardFields
 })

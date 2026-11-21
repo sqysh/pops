@@ -2,7 +2,7 @@
 
 import prisma from '@/prisma/client'
 import { createLog } from '../../../utils/logHelper'
-import { auth } from '../../auth'
+import { requireSuper } from '@/app/lib/auth/guards'
 
 interface CreatePageInput {
   slug: string
@@ -10,6 +10,9 @@ interface CreatePageInput {
 }
 
 export async function createPage(data: CreatePageInput) {
+  const gate = await requireSuper()
+  if (gate.ok === false) throw new Error(gate.error)
+
   try {
     if (!data.slug) {
       throw new Error('Page slug is required')
@@ -17,12 +20,6 @@ export async function createPage(data: CreatePageInput) {
 
     if (!data.content || typeof data.content !== 'object') {
       throw new Error('Page content is required')
-    }
-
-    const session = await auth()
-
-    if (!session.user.id) {
-      throw new Error('You must be authenticated to create a page')
     }
 
     // Check if page already exists
@@ -40,7 +37,7 @@ export async function createPage(data: CreatePageInput) {
       data: {
         slug: data.slug,
         content: data.content,
-        createdBy: session.user.id
+        createdBy: gate.userId
       }
     })
 

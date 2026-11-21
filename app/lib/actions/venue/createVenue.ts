@@ -6,8 +6,12 @@ import { getActor } from '../user/getActor'
 import { CreateVenueInput } from '../../../types/entities/venue'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { revalidateTag } from 'next/cache'
+import { requireStaff, denied } from '@/app/lib/auth/guards'
 
 export async function createVenue(data: CreateVenueInput) {
+  const gate = await requireStaff()
+  if (gate.ok === false) return denied(gate)
+
   if (!data.name) return { success: false, error: 'Venue name is required' }
   if (!data.imageUrl || !data.imageFilename) return { success: false, error: 'Venue image is required' }
 

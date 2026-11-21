@@ -1,26 +1,34 @@
 import { useState, useEffect } from 'react'
 
+interface Typed {
+  /** The text this progress belongs to, so progress for old text is never shown for new text. */
+  text: string
+  displayed: string
+  done: boolean
+}
+
 export function useTypingText(text: string, speed = 45, delay = 300) {
-  const [displayed, setDisplayed] = useState('')
-  const [done, setDone] = useState(false)
+  const [typed, setTyped] = useState<Typed>({ text: '', displayed: '', done: false })
 
   useEffect(() => {
-    setDisplayed('')
-    setDone(false)
     let i = 0
+    let interval: ReturnType<typeof setInterval> | undefined
+
     const timeout = setTimeout(() => {
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         i++
-        setDisplayed(text.slice(0, i))
-        if (i >= text.length) {
-          clearInterval(interval)
-          setDone(true)
-        }
+        setTyped({ text, displayed: text.slice(0, i), done: i >= text.length })
+        if (i >= text.length) clearInterval(interval)
       }, speed)
-      return () => clearInterval(interval)
     }, delay)
-    return () => clearTimeout(timeout)
+
+    return () => {
+      clearTimeout(timeout)
+      clearInterval(interval)
+    }
   }, [text, speed, delay])
 
-  return { displayed, done }
+  // new text (or timing) starts over from nothing until its own typing begins
+  const current = typed.text === text
+  return { displayed: current ? typed.displayed : '', done: current ? typed.done : false }
 }

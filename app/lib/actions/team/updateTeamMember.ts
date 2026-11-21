@@ -6,6 +6,8 @@ import { getActor } from '../user/getActor'
 import { TeamMemberRole } from '@prisma/client'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { revalidateTag } from 'next/cache'
+import { requireStaff, denied } from '@/app/lib/auth/guards'
+import { canTouchTeamMember } from '@/app/lib/auth/permissions'
 
 interface UpdateTeamMemberInput {
   firstName?: string
@@ -22,7 +24,13 @@ interface UpdateTeamMemberInput {
 }
 
 export async function updateTeamMember(teamMemberId: string, data: UpdateTeamMemberInput) {
+  const gate = await requireStaff()
+  if (gate.ok === false) return denied(gate)
+
   if (!teamMemberId) return { success: false, error: 'Team member ID is required' }
+
+  const verdict = canTouchTeamMember(gate.role, teamMemberId)
+  if (verdict.allowed === false) return { success: false, error: verdict.reason }
 
   const [actor, context] = await Promise.all([getActor(), getRequestContext()])
 

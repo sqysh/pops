@@ -6,8 +6,12 @@ import { getActor } from '../user/getActor'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { CustomRequestStatus } from '@prisma/client'
 import { resend } from '../../resend'
+import { requireSuper, denied } from '@/app/lib/auth/guards'
 
 export async function updateCustomRequestStatus(id: string, status: CustomRequestStatus) {
+  const gate = await requireSuper()
+  if (gate.ok === false) return denied(gate)
+
   if (!id) return { success: false, error: 'Request ID is required' }
   if (!status) return { success: false, error: 'Status is required' }
 

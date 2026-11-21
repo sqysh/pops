@@ -2,20 +2,21 @@
 
 import prisma from '@/prisma/client'
 import { unstable_cache } from 'next/cache'
+import { requireSuper } from '@/app/lib/auth/guards'
 
-export const getSuperCustomRequests = unstable_cache(
+const cachedGetSuperCustomRequests = unstable_cache(
   () => prisma.customRequest.findMany({ orderBy: { submittedAt: 'desc' } }).catch(() => []),
   ['super-custom-requests'],
   { revalidate: 60, tags: ['super-custom-requests'] }
 )
 
-export const getSuperVenues = unstable_cache(
+const cachedGetSuperVenues = unstable_cache(
   () => prisma.venue.findMany({ orderBy: { name: 'asc' }, select: { id: true, name: true } }).catch(() => []),
   ['super-venues'],
   { revalidate: 60, tags: ['super-venues'] }
 )
 
-export const getSuperTeamMembers = unstable_cache(
+const cachedGetSuperTeamMembers = unstable_cache(
   () =>
     prisma.teamMember
       .findMany({
@@ -27,7 +28,7 @@ export const getSuperTeamMembers = unstable_cache(
   { revalidate: 60, tags: ['super-team-members'] }
 )
 
-export const getSuperNews = unstable_cache(
+const cachedGetSuperNews = unstable_cache(
   () =>
     prisma.news
       .findMany({ orderBy: { createdAt: 'desc' }, select: { id: true, title: true, isPublished: true } })
@@ -36,13 +37,13 @@ export const getSuperNews = unstable_cache(
   { revalidate: 60, tags: ['super-news'] }
 )
 
-export const getSuperEvents = unstable_cache(
+const cachedGetSuperEvents = unstable_cache(
   () => prisma.event.findMany({ orderBy: { date: 'desc' }, select: { id: true, title: true } }).catch(() => []),
   ['super-events'],
   { revalidate: 60, tags: ['super-events'] }
 )
 
-export const getSuperTestimonials = unstable_cache(
+const cachedGetSuperTestimonials = unstable_cache(
   () =>
     prisma.testimonial
       .findMany({
@@ -54,7 +55,7 @@ export const getSuperTestimonials = unstable_cache(
   { revalidate: 60, tags: ['super-testimonials'] }
 )
 
-export const getSuperSponsors = unstable_cache(
+const cachedGetSuperSponsors = unstable_cache(
   () =>
     prisma.sponsor
       .findMany({
@@ -66,7 +67,7 @@ export const getSuperSponsors = unstable_cache(
   { revalidate: 60, tags: ['super-sponsors'] }
 )
 
-export const getSuperQuestions = unstable_cache(
+const cachedGetSuperQuestions = unstable_cache(
   () =>
     prisma.question
       .findMany({ orderBy: { createdAt: 'desc' }, select: { id: true, name: true, email: true, hasResponded: true } })
@@ -75,7 +76,7 @@ export const getSuperQuestions = unstable_cache(
   { revalidate: 60, tags: ['super-questions'] }
 )
 
-export const getSuperUsers = unstable_cache(
+const cachedGetSuperUsers = unstable_cache(
   () =>
     prisma.user
       .findMany({
@@ -86,3 +87,58 @@ export const getSuperUsers = unstable_cache(
   ['super-users'],
   { revalidate: 60, tags: ['super-users'] }
 )
+
+// Every export of a 'use server' file can be called from the browser, so each one checks for a super user first.
+export async function getSuperCustomRequests() {
+  const gate = await requireSuper()
+  if (gate.ok === false) throw new Error(gate.error)
+  return cachedGetSuperCustomRequests()
+}
+
+export async function getSuperVenues() {
+  const gate = await requireSuper()
+  if (gate.ok === false) throw new Error(gate.error)
+  return cachedGetSuperVenues()
+}
+
+export async function getSuperTeamMembers() {
+  const gate = await requireSuper()
+  if (gate.ok === false) throw new Error(gate.error)
+  return cachedGetSuperTeamMembers()
+}
+
+export async function getSuperNews() {
+  const gate = await requireSuper()
+  if (gate.ok === false) throw new Error(gate.error)
+  return cachedGetSuperNews()
+}
+
+export async function getSuperEvents() {
+  const gate = await requireSuper()
+  if (gate.ok === false) throw new Error(gate.error)
+  return cachedGetSuperEvents()
+}
+
+export async function getSuperTestimonials() {
+  const gate = await requireSuper()
+  if (gate.ok === false) throw new Error(gate.error)
+  return cachedGetSuperTestimonials()
+}
+
+export async function getSuperSponsors() {
+  const gate = await requireSuper()
+  if (gate.ok === false) throw new Error(gate.error)
+  return cachedGetSuperSponsors()
+}
+
+export async function getSuperQuestions() {
+  const gate = await requireSuper()
+  if (gate.ok === false) throw new Error(gate.error)
+  return cachedGetSuperQuestions()
+}
+
+export async function getSuperUsers() {
+  const gate = await requireSuper()
+  if (gate.ok === false) throw new Error(gate.error)
+  return cachedGetSuperUsers()
+}

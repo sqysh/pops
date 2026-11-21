@@ -6,8 +6,12 @@ import { UpdateSponsorInput } from '@/app/types/entities/sponsor'
 import { getActor } from '../user/getActor'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { revalidateTag } from 'next/cache'
+import { requireStaff, denied } from '@/app/lib/auth/guards'
 
 export async function updateSponsor(id: string, data: UpdateSponsorInput) {
+  const gate = await requireStaff()
+  if (gate.ok === false) return denied(gate)
+
   if (!id) return { success: false, error: 'Sponsor ID is required' }
 
   const [actor, context] = await Promise.all([getActor(), getRequestContext()])

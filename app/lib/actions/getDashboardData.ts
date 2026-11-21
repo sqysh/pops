@@ -5,8 +5,12 @@ import { getMailchimpMemberCount } from './mailchimp/getMailchimpMemberCount'
 import { listCueBoxEvents } from './cuebox/listCueBoxEvents'
 import { listCueBoxEventInstances } from './cuebox/listCueBoxEventInstances'
 import { seasonRange } from '@/app/utils/concerts.utils'
+import { requireStaff } from '@/app/lib/auth/guards'
 
 export async function getDashboardData() {
+  const gate = await requireStaff()
+  if (gate.ok === false) throw new Error(gate.error)
+
   const [
     concerts,
     instancesResult,

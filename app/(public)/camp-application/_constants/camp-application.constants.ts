@@ -4,8 +4,9 @@ export type FieldName = keyof CampApplicationFormInput
 
 export interface FieldConfig {
   name: FieldName
-  label: string
-  placeholder?: string
+  /** Page content id prefix: `${copyId}_label` and, with `placeholder`, `${copyId}_placeholder`. */
+  copyId: string
+  placeholder?: boolean
   type?: 'text' | 'email' | 'tel'
   required?: boolean
   select?: boolean
@@ -17,67 +18,44 @@ export const LAST_STEP = 4
 export const STEP_ROWS: Record<number, FieldConfig[][]> = {
   1: [
     [
-      { name: 'firstName', label: 'First name', placeholder: 'Jane', required: true },
-      { name: 'lastName', label: 'Last name', placeholder: 'Doe', required: true }
+      { name: 'firstName', copyId: 'camp_field_first_name', placeholder: true, required: true },
+      { name: 'lastName', copyId: 'camp_field_last_name', placeholder: true, required: true }
     ],
     [
-      { name: 'grade', label: 'Grade', placeholder: '9th', required: true },
-      { name: 'school', label: 'School', placeholder: 'Sarasota High', required: true }
+      { name: 'grade', copyId: 'camp_field_grade', placeholder: true, required: true },
+      { name: 'school', copyId: 'camp_field_school', placeholder: true, required: true }
     ],
-    [
-      {
-        name: 'studentEmailAddress',
-        label: 'Email address',
-        placeholder: 'jane@email.com',
-        type: 'email',
-        required: true
-      }
-    ],
-    [{ name: 'studentPhoneNumber', label: 'Phone number', placeholder: '(941) 555-0100', type: 'tel', required: true }]
+    [{ name: 'studentEmailAddress', copyId: 'camp_field_student_email', placeholder: true, type: 'email', required: true }],
+    [{ name: 'studentPhoneNumber', copyId: 'camp_field_student_phone', placeholder: true, type: 'tel', required: true }]
   ],
   2: [
-    [{ name: 'addressLine1', label: 'Address line 1', placeholder: '123 Main St', required: true }],
-    [{ name: 'addressLine2', label: 'Address line 2', placeholder: 'Apt, suite, etc. (optional)' }],
+    [{ name: 'addressLine1', copyId: 'camp_field_address_line_1', placeholder: true, required: true }],
+    [{ name: 'addressLine2', copyId: 'camp_field_address_line_2', placeholder: true }],
     [
-      { name: 'city', label: 'City', placeholder: 'Sarasota', required: true },
-      { name: 'state', label: 'State', placeholder: 'FL', required: true },
-      { name: 'zipPostalCode', label: 'ZIP code', placeholder: '34230', required: true }
+      { name: 'city', copyId: 'camp_field_city', placeholder: true, required: true },
+      { name: 'state', copyId: 'camp_field_state', placeholder: true, required: true },
+      { name: 'zipPostalCode', copyId: 'camp_field_zip', placeholder: true, required: true }
     ]
   ],
   3: [
     [
-      { name: 'parentFirstName', label: 'First name', placeholder: 'John', required: true },
-      { name: 'parentLastName', label: 'Last name', placeholder: 'Doe', required: true }
+      { name: 'parentFirstName', copyId: 'camp_field_parent_first_name', placeholder: true, required: true },
+      { name: 'parentLastName', copyId: 'camp_field_parent_last_name', placeholder: true, required: true }
     ],
-    [{ name: 'relationshipToStudent', label: 'Relationship to student', placeholder: 'Parent, guardian, etc.' }],
-    [
-      {
-        name: 'parentEmailAddress',
-        label: 'Email address',
-        placeholder: 'john@email.com',
-        type: 'email',
-        required: true
-      }
-    ],
-    [{ name: 'parentPhoneNumber', label: 'Phone number', placeholder: '(941) 555-0101', type: 'tel', required: true }]
+    [{ name: 'relationshipToStudent', copyId: 'camp_field_relationship', placeholder: true }],
+    [{ name: 'parentEmailAddress', copyId: 'camp_field_parent_email', placeholder: true, type: 'email', required: true }],
+    [{ name: 'parentPhoneNumber', copyId: 'camp_field_parent_phone', placeholder: true, type: 'tel', required: true }]
   ],
   4: [
-    [{ name: 'instrument', label: 'Primary instrument', placeholder: 'Violin, trumpet, flute...', required: true }],
-    [{ name: 'musicTeacher', label: 'Music teacher (optional)', placeholder: "Teacher's name" }],
+    [{ name: 'instrument', copyId: 'camp_field_instrument', placeholder: true, required: true }],
+    [{ name: 'musicTeacher', copyId: 'camp_field_music_teacher', placeholder: true }],
     [
-      { name: 'strings', label: 'Strings', select: true },
-      { name: 'brassAndPercussion', label: 'Brass and perc.', select: true },
-      { name: 'woodwinds', label: 'Woodwinds', select: true }
+      { name: 'strings', copyId: 'camp_field_strings', select: true },
+      { name: 'brassAndPercussion', copyId: 'camp_field_brass_percussion', select: true },
+      { name: 'woodwinds', copyId: 'camp_field_woodwinds', select: true }
     ],
-    [{ name: 'referralSource', label: 'How did you hear about us?', placeholder: 'Friend, social media, school...' }]
+    [{ name: 'referralSource', copyId: 'camp_field_referral_source', placeholder: true }]
   ]
-}
-
-export const STEP_HEADINGS: Record<number, string> = {
-  1: 'Student information',
-  2: 'Home address',
-  3: 'Parent or guardian',
-  4: 'Music details'
 }
 
 export const COLS: Record<number, string> = {

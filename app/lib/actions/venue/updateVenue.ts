@@ -6,8 +6,12 @@ import { UpdateVenueInput } from '../../../types/entities/venue'
 import { getActor } from '../user/getActor'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { revalidateTag } from 'next/cache'
+import { requireStaff, denied } from '@/app/lib/auth/guards'
 
 export async function updateVenue(venueId: string, data: UpdateVenueInput) {
+  const gate = await requireStaff()
+  if (gate.ok === false) return denied(gate)
+
   if (!venueId) return { success: false, error: 'Venue ID is required' }
 
   const [actor, context] = await Promise.all([getActor(), getRequestContext()])

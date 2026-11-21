@@ -14,6 +14,8 @@ import Picture from '@/components/common/Picture'
 import { seatInfoVariants } from '@/app/lib/constants/motion'
 import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 import ParrishHsSeatmap from './_components/ParrishHsSeatmap'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/venues'
 
 interface SVGSeatProps {
   seat?: string
@@ -24,17 +26,18 @@ interface SVGSeatProps {
 const EMPTY_SEAT: SVGSeatProps = {}
 
 // ── Seat info ─────────────────────────────────────────────────────────────────
-function SeatInfo({ data }: { data: SVGSeatProps }) {
+function SeatInfo({ data, content }: { data: SVGSeatProps; content?: unknown }) {
+  const { t } = pageCopy(content, pageContent)
   const fields = [
-    { label: 'Level', value: data.level },
-    { label: 'Seat', value: data.seat },
-    { label: 'Price', value: data.price }
+    { label: t('venues_seat_info_level'), value: data.level },
+    { label: t('venues_seat_info_seat'), value: data.seat },
+    { label: t('venues_seat_info_price'), value: data.price }
   ].filter((f) => f.value)
 
   if (!fields.length) {
     return (
       <p className="text-center text-[10px] font-changa tracking-[0.2em] uppercase text-white/40 py-4">
-        Tap a seat to see details
+        {t('venues_seat_info_empty')}
       </p>
     )
   }
@@ -77,7 +80,8 @@ function SeatSectionHeading({ id, children }: { id: string; children: React.Reac
 }
 
 // ── Venue seat map ────────────────────────────────────────────────────────────
-function VenueSeatMap({ seatMapId, venueId }: { seatMapId: any; venueId: string }) {
+function VenueSeatMap({ seatMapId, venueId, content }: { seatMapId: any; venueId: string; content?: unknown }) {
+  const { t } = pageCopy(content, pageContent)
   const [neel, setNeel] = useState<SVGSeatProps>(EMPTY_SEAT)
   const [neel2, setNeel2] = useState<SVGSeatProps>(EMPTY_SEAT)
   const [riverview, setRiverview] = useState<SVGSeatProps>(EMPTY_SEAT)
@@ -93,17 +97,17 @@ function VenueSeatMap({ seatMapId, venueId }: { seatMapId: any; venueId: string 
       return (
         <div className="flex flex-col gap-8 760:gap-10">
           <section aria-labelledby={`${venueId}-floor`}>
-            <SeatSectionHeading id={`${venueId}-floor`}>First Floor</SeatSectionHeading>
+            <SeatSectionHeading id={`${venueId}-floor`}>{t('venues_riverview_floor')}</SeatSectionHeading>
             {wrap(<RiverviewPACFirstFloorSVG setRiverview={setRiverview} />)}
             <div className="mt-3">
-              <SeatInfo data={riverview} />
+              <SeatInfo data={riverview} content={content} />
             </div>
           </section>
           <section aria-labelledby={`${venueId}-balcony`}>
-            <SeatSectionHeading id={`${venueId}-balcony`}>Balcony</SeatSectionHeading>
+            <SeatSectionHeading id={`${venueId}-balcony`}>{t('venues_riverview_balcony')}</SeatSectionHeading>
             {wrap(<RiverviewBalconySVG setRiverviewBalcony={setRiverview2} />)}
             <div className="mt-3">
-              <SeatInfo data={riverview2} />
+              <SeatInfo data={riverview2} content={content} />
             </div>
           </section>
         </div>
@@ -113,17 +117,17 @@ function VenueSeatMap({ seatMapId, venueId }: { seatMapId: any; venueId: string 
       return (
         <div className="flex flex-col gap-8 760:gap-10">
           <section aria-labelledby={`${venueId}-first`}>
-            <SeatSectionHeading id={`${venueId}-first`}>First Half</SeatSectionHeading>
+            <SeatSectionHeading id={`${venueId}-first`}>{t('venues_neel_first')}</SeatSectionHeading>
             {wrap(<SCFNeelPACSVG setNeel={setNeel} />)}
             <div className="mt-3">
-              <SeatInfo data={neel} />
+              <SeatInfo data={neel} content={content} />
             </div>
           </section>
           <section aria-labelledby={`${venueId}-second`}>
-            <SeatSectionHeading id={`${venueId}-second`}>Second Half</SeatSectionHeading>
+            <SeatSectionHeading id={`${venueId}-second`}>{t('venues_neel_second')}</SeatSectionHeading>
             {wrap(<SCFNeel2ndHalf setNeel2ndHalf={setNeel2} />)}
             <div className="mt-3">
-              <SeatInfo data={neel2} />
+              <SeatInfo data={neel2} content={content} />
             </div>
           </section>
         </div>
@@ -133,12 +137,12 @@ function VenueSeatMap({ seatMapId, venueId }: { seatMapId: any; venueId: string 
       return (
         <div className="flex flex-col gap-8 760:gap-10">
           <section aria-labelledby={`${venueId}-mezz`}>
-            <SeatSectionHeading id={`${venueId}-mezz`}>Mezzanine & Balcony</SeatSectionHeading>
-            {wrap(<OperaHouseMezzAndBalc />)}
+            <SeatSectionHeading id={`${venueId}-mezz`}>{t('venues_opera_mezz')}</SeatSectionHeading>
+            {wrap(<OperaHouseMezzAndBalc content={content} />)}
           </section>
           <section aria-labelledby={`${venueId}-main`}>
-            <SeatSectionHeading id={`${venueId}-main`}>Main Floor</SeatSectionHeading>
-            {wrap(<OperaHouseMainFloor />)}
+            <SeatSectionHeading id={`${venueId}-main`}>{t('venues_opera_main')}</SeatSectionHeading>
+            {wrap(<OperaHouseMainFloor content={content} />)}
           </section>
         </div>
       )
@@ -146,8 +150,8 @@ function VenueSeatMap({ seatMapId, venueId }: { seatMapId: any; venueId: string 
       return (
         <div className="flex flex-col gap-8 760:gap-10">
           <section aria-labelledby={venueId}>
-            <SeatSectionHeading id={venueId}>Main Floor</SeatSectionHeading>
-            {wrap(<ParrishHsSeatmap />)}
+            <SeatSectionHeading id={venueId}>{t('venues_parrish_main')}</SeatSectionHeading>
+            {wrap(<ParrishHsSeatmap content={content} />)}
           </section>
         </div>
       )
@@ -155,18 +159,29 @@ function VenueSeatMap({ seatMapId, venueId }: { seatMapId: any; venueId: string 
 }
 
 // ── Venue details ─────────────────────────────────────────────────────────────
-function VenueDetails({ venue }: { venue: IVenue }) {
+function VenueDetails({ venue, content }: { venue: IVenue; content?: unknown }) {
+  const { t } = pageCopy(content, pageContent)
   const fields = [
-    { icon: <Users className="w-3.5 h-3.5" />, label: 'Accessibility', value: venue.accessibility },
-    { icon: <Zap className="w-3.5 h-3.5" />, label: 'Immersive Environment', value: venue.immersiveEnvironment },
-    { icon: <Car className="w-3.5 h-3.5" />, label: 'Parking', value: venue.parking },
-    { icon: <MapPin className="w-3.5 h-3.5" />, label: 'Address', value: venue.address }
+    {
+      key: 'accessibility',
+      icon: <Users className="w-3.5 h-3.5" />,
+      label: t('venues_detail_accessibility'),
+      value: venue.accessibility
+    },
+    {
+      key: 'immersive',
+      icon: <Zap className="w-3.5 h-3.5" />,
+      label: t('venues_detail_immersive'),
+      value: venue.immersiveEnvironment
+    },
+    { key: 'parking', icon: <Car className="w-3.5 h-3.5" />, label: t('venues_detail_parking'), value: venue.parking },
+    { key: 'address', icon: <MapPin className="w-3.5 h-3.5" />, label: t('venues_detail_address'), value: venue.address }
   ].filter((f) => f.value)
 
   return (
     <div className="grid grid-cols-1 760:grid-cols-2 gap-px bg-white/10">
-      {fields.map(({ icon, label, value }) => (
-        <div key={label} className="bg-black p-4 760:p-5 flex gap-3 760:gap-4">
+      {fields.map(({ key, icon, label, value }) => (
+        <div key={key} className="bg-black p-4 760:p-5 flex gap-3 760:gap-4">
           <div className="w-7 h-7 760:w-8 760:h-8 rounded-full border border-white/10 flex items-center justify-center text-blaze-text shrink-0 mt-0.5">
             {icon}
           </div>
@@ -190,7 +205,8 @@ export const VENUE_SEATMAP: Record<string, SeatMapId> = {
 }
 
 // ── Venue card ────────────────────────────────────────────────────────────────
-function VenueCard({ venue, index }: { venue: any; index: number }) {
+function VenueCard({ venue, index, content }: { venue: any; index: number; content?: unknown }) {
+  const { t } = pageCopy(content, pageContent)
   const seatMapId = VENUE_SEATMAP[venue.name] as SeatMapId | undefined
 
   return (
@@ -207,7 +223,7 @@ function VenueCard({ venue, index }: { venue: any; index: number }) {
         <div className="relative overflow-hidden h-48 430:h-64 760:h-96 990:h-125">
           <Picture
             src={venue.imageUrl}
-            alt={`${venue.name} performance hall`}
+            alt={t('venues_image_alt', { name: venue.name })}
             fill
             sizes="(max-width: 760px) 100vw, (max-width: 990px) 50vw, 33vw"
             className="object-cover"
@@ -218,7 +234,9 @@ function VenueCard({ venue, index }: { venue: any; index: number }) {
             {venue.capacity && (
               <div className="flex items-center gap-2 mb-2 760:mb-3">
                 <div className="w-4 h-px bg-blaze" aria-hidden="true" />
-                <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-blaze-text">{venue.capacity} seats</span>
+                <span className="font-changa text-[10px] uppercase tracking-[0.3em] text-blaze-text">
+                  {t('venues_capacity', { capacity: venue.capacity })}
+                </span>
               </div>
             )}
             <h2
@@ -231,17 +249,17 @@ function VenueCard({ venue, index }: { venue: any; index: number }) {
         </div>
 
         {/* Details */}
-        <VenueDetails venue={venue} />
+        <VenueDetails venue={venue} content={content} />
 
         {/* Seating chart */}
         <div className="p-4 430:p-6 760:p-8 990:p-12 border-t border-white/10">
           <div className="flex items-center gap-3 mb-6 760:mb-8">
             <div className="w-6 h-px bg-blaze" aria-hidden="true" />
             <h3 id={`seatmap-heading-${seatMapId}`} className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
-              Seating Chart
+              {t('venues_seating_heading')}
             </h3>
           </div>
-          <VenueSeatMap seatMapId={seatMapId} venueId={venue.id} />
+          <VenueSeatMap seatMapId={seatMapId} venueId={venue.id} content={content} />
         </div>
       </motion.article>
     </li>
@@ -249,19 +267,24 @@ function VenueCard({ venue, index }: { venue: any; index: number }) {
 }
 
 // ── Page ──────────────────────────────────────────────────────────────────────
-export function VenuesClient({ venues }: { venues: any[] }) {
+export function VenuesClient({ venues, content }: { venues: any[]; content?: unknown }) {
+  const { t } = pageCopy(content, pageContent)
+
   return (
     <main id="main-content">
       <CompactPageHero
-        breadcrumb="Venues"
-        heading="Venues"
-        description="Where the music happens. Get directions, parking, and seating details for each of the venues hosting our 2026–27 season."
+        homeLabel={t('venues_hero_home_crumb')}
+        breadcrumbLabel={t('venues_sr_breadcrumb')}
+        breadcrumb={t('venues_hero_breadcrumb')}
+        eyebrow={t('venues_hero_eyebrow')}
+        heading={t('venues_hero_heading')}
+        description={t('venues_hero_description')}
       />
       <div className="min-h-dvh bg-black text-white">
         <div className="max-w-6xl mx-auto px-4 760:px-6 990:px-8 py-12 760:py-20 990:py-32">
-          <ul role="list" aria-label="Performance venues" className="flex flex-col gap-10 760:gap-16 990:gap-24">
+          <ul role="list" aria-label={t('venues_sr_list')} className="flex flex-col gap-10 760:gap-16 990:gap-24">
             {venues.map((venue, index) => (
-              <VenueCard key={index} venue={venue} index={index} />
+              <VenueCard key={index} venue={venue} index={index} content={content} />
             ))}
           </ul>
         </div>

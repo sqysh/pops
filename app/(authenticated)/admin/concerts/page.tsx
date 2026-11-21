@@ -1,0 +1,15 @@
+import { listCueBoxEventInstances } from '@/app/lib/actions/cuebox/listCueBoxEventInstances'
+import { listCueBoxEvents } from '@/app/lib/actions/cuebox/listCueBoxEvents'
+import { seasonRange } from '@/app/utils/concerts.utils'
+import { AdminConcertsClient } from './AdminConcertsClient'
+import { requireStaffPage } from '@/app/lib/auth/guards'
+
+export default async function AdminConcertsPage() {
+  await requireStaffPage()
+
+  const [concerts, instances] = await Promise.all([
+    listCueBoxEvents().catch(() => ({ success: false as const, data: [] })),
+    listCueBoxEventInstances(seasonRange()).catch(() => ({ success: false as const, data: [] }))
+  ])
+  return <AdminConcertsClient concerts={concerts.data} instances={instances.data} />
+}

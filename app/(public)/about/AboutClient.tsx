@@ -3,22 +3,30 @@
 import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 import Picture from '@/components/common/Picture'
 import { motion } from 'framer-motion'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/about'
 
-export const AboutClient = ({ data }) => {
-  const field = (id: string) => data?.find((item) => item.id === id)?.value ?? ''
+export const AboutClient = ({ data }: { data?: unknown }) => {
+  const { t } = pageCopy(data, pageContent)
 
-  const bodyParagraphs = [
-    field('about_paragraph_1'),
-    field('about_paragraph_2'),
-    field('about_paragraph_3'),
-    field('about_paragraph_4')
-  ].filter(Boolean)
+  const bodyParagraphs = [t('about_paragraph_1'), t('about_paragraph_2'), t('about_paragraph_3'), t('about_paragraph_4')].filter(
+    Boolean
+  )
 
-  const additionalDetails = data?.filter((item) => item.section === 'additional_details') ?? []
+  const additionalDetails = ['about_detail_1', 'about_detail_2', 'about_detail_3']
+    .map((id) => ({ id, value: t(id) }))
+    .filter((detail) => detail.value)
 
   return (
     <main id="main-content">
-      <CompactPageHero breadcrumb="About" heading="About The Pops" description={field('about_aside_subheading')} />
+      <CompactPageHero
+        homeLabel={t('about_hero_home_crumb')}
+        breadcrumbLabel={t('about_sr_breadcrumb')}
+        breadcrumb={t('about_hero_breadcrumb')}
+        eyebrow={t('about_hero_eyebrow')}
+        heading={t('about_hero_heading')}
+        description={t('about_aside_subheading')}
+      />
 
       <div className="relative min-h-dvh px-4 990:px-12 xl:px-4">
         {/* Main content */}
@@ -26,20 +34,22 @@ export const AboutClient = ({ data }) => {
           <div className="max-w-[320px] 430:max-w-130 760:max-w-xl 990:max-w-200 1200:max-w-screen-1160 mx-auto grid grid-cols-1 1200:grid-cols-12 gap-px bg-white/10">
             {/* Sidebar */}
             <aside
-              aria-label="About summary"
+              aria-label={t('about_sr_sidebar')}
               className="order-2 1200:order-1 1200:col-span-4 bg-black p-7 430:p-10 flex flex-col gap-8"
             >
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                  <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">About</span>
+                  <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
+                    {t('about_aside_eyebrow')}
+                  </span>
                 </div>
                 <h2 id="about-heading" className="font-changa text-2xl 430:text-3xl text-white leading-tight mb-4">
-                  {field('about_aside_heading')}
+                  {t('about_aside_heading')}
                 </h2>
                 <div className="w-8 h-px bg-blaze mb-6" aria-hidden="true" />
                 <p className="font-lato text-white text-sm 430:text-base leading-relaxed border-l-2 border-blaze pl-5">
-                  {field('about_aside_paragraph')}
+                  {t('about_aside_paragraph')}
                 </p>
               </div>
 
@@ -47,7 +57,7 @@ export const AboutClient = ({ data }) => {
               <div className="border border-white/10">
                 <Picture
                   src="/images/about-1.jpg"
-                  alt="About The Pops Orchestra"
+                  alt={t('about_image_alt')}
                   className="w-full h-auto object-contain"
                   priority={false}
                 />
@@ -56,7 +66,7 @@ export const AboutClient = ({ data }) => {
 
               {/* Additional details */}
               {additionalDetails.length > 0 && (
-                <ul role="list" aria-label="Additional details" className="flex flex-col divide-y divide-white/10">
+                <ul role="list" aria-label={t('about_sr_highlights')} className="flex flex-col divide-y divide-white/10">
                   {additionalDetails.map((detail) => (
                     <li key={detail.id} className="py-3 font-changa text-sm font-medium tracking-widest text-sunburst uppercase">
                       {detail.value}
@@ -76,7 +86,9 @@ export const AboutClient = ({ data }) => {
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-6 h-px bg-blaze" aria-hidden="true" />
-                <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">Our Story</span>
+                <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
+                  {t('about_story_eyebrow')}
+                </span>
               </div>
 
               <div className="flex flex-col gap-6">

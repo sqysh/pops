@@ -5,12 +5,15 @@ import { createLog } from '../../../utils/logHelper'
 import { getActor } from '../user/getActor'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { revalidateTag } from 'next/cache'
-import { verifySuperUser } from './verifySuperUser'
+import { denied, requireSuper } from '@/app/lib/auth/guards'
 
 export async function deleteQuestion(id: string) {
+  const gate = await requireSuper()
+  if (gate.ok === false) return denied(gate)
+
   if (!id) return { success: false, error: 'Question ID is required' }
 
-  const [, actor, context] = await Promise.all([verifySuperUser(), getActor(), getRequestContext()])
+  const [actor, context] = await Promise.all([getActor(), getRequestContext()])
 
   const question = await prisma.question.delete({ where: { id } }).catch(() => null)
 
@@ -24,17 +27,13 @@ export async function deleteQuestion(id: string) {
     return { success: false, error: 'Failed to delete question' }
   }
 
-  await createLog(
-    'info',
-    await buildLogMessage(`deleted question from "${question.name}" (${question.email})`, actor, context),
-    {
-      questionId: question.id,
-      name: question.name,
-      email: question.email,
-      deletedBy: actor,
-      request: context
-    }
-  ).catch(() => null)
+  await createLog('info', await buildLogMessage(`deleted question from "${question.name}" (${question.email})`, actor, context), {
+    questionId: question.id,
+    name: question.name,
+    email: question.email,
+    deletedBy: actor,
+    request: context
+  }).catch(() => null)
 
   revalidateTag('super-questions', '')
   return { success: true }

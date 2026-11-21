@@ -3,9 +3,11 @@
 import Link from 'next/link'
 import { ArrowRightIcon, Mail, MapPin, Phone } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/home'
 
-export const ContactUsBlock = ({ data }) => {
-  const field = (id: string) => data?.find((item) => item.id === id)?.value ?? ''
+export const ContactUsBlock = ({ content }: { content?: unknown }) => {
+  const { t } = pageCopy(content, pageContent)
 
   return (
     <div className="relative overflow-hidden">
@@ -33,49 +35,44 @@ export const ContactUsBlock = ({ data }) => {
             transition={{ duration: 0.6 }}
             className="flex flex-col items-center text-center mb-16 430:mb-20"
           >
-            <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">Get In Touch</p>
+            <p className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text mb-4">{t('question_eyebrow')}</p>
             <div className="flex items-center gap-3 430:gap-4 justify-center mb-4">
               <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
-              <h2
-                id="contact-heading"
-                className="font-changa text-3xl 430:text-4xl 990:text-5xl text-white leading-none"
-              >
-                {field('question_heading')}
+              <h2 id="contact-heading" className="font-changa text-3xl 430:text-4xl 990:text-5xl text-white leading-none">
+                {t('question_heading')}
               </h2>
               <div className="w-8 430:w-16 h-px bg-blaze shrink-0" aria-hidden="true" />
             </div>
             <div className="w-16 h-px bg-blaze mx-auto mt-2 mb-6" aria-hidden="true" />
-            <p className="font-lato text-white/80 text-sm 430:text-base max-w-xl leading-relaxed">
-              {field('question_subheading')}
-            </p>
+            <p className="font-lato text-white/80 text-sm 430:text-base max-w-xl leading-relaxed">{t('question_subheading')}</p>
           </motion.div>
 
           {/* Contact methods */}
           <ul
             role="list"
-            aria-label="Contact methods"
+            aria-label={t('question_methods_label')}
             className="grid grid-cols-1 990:grid-cols-3 gap-px bg-white/10 mb-16 430:mb-20"
           >
             {[
               {
-                title: field('question_email_title'),
-                description: field('question_email_description'),
-                detail: field('question_email_detail'),
-                href: field('question_email_href'),
+                title: t('question_email_title'),
+                description: t('question_email_description'),
+                detail: t('question_email_detail'),
+                href: t('question_email_href'),
                 icon: Mail
               },
               {
-                title: field('question_phone_title'),
-                description: field('question_phone_description'),
-                detail: field('question_phone_detail'),
-                href: field('question_phone_href'),
+                title: t('question_phone_title'),
+                description: t('question_phone_description'),
+                detail: t('question_phone_detail'),
+                href: t('question_phone_href'),
                 icon: Phone
               },
               {
-                title: field('question_address_title'),
-                description: field('question_address_description'),
-                detail: field('question_address_detail'),
-                href: field('question_address_href'),
+                title: t('question_address_title'),
+                description: t('question_address_description'),
+                detail: t('question_address_detail'),
+                href: t('question_address_href'),
                 icon: MapPin
               }
             ].map((method, index) => {
@@ -110,7 +107,7 @@ export const ContactUsBlock = ({ data }) => {
 
                   <a
                     href={method.href}
-                    aria-label={`${method.title}: ${method.detail}`}
+                    aria-label={t('question_method_link_label', { title: method.title, detail: method.detail })}
                     className="font-lato text-white/90 hover:text-blaze-text text-sm 430:text-base whitespace-pre-line leading-relaxed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-offset-2 focus-visible:ring-offset-black border-l-2 border-blaze/30 group-hover:border-blaze pl-4 transition-all duration-300"
                   >
                     {method.detail}
@@ -130,14 +127,11 @@ export const ContactUsBlock = ({ data }) => {
           >
             <Link
               href="/contact"
-              aria-label={`${field('question_button_text')} — visit our contact page`}
+              aria-label={t('question_button_link_label', { button: t('question_buttonText') })}
               className="group inline-flex items-center gap-3 bg-blaze hover:bg-blazehover text-white px-8 430:px-10 py-4 font-changa uppercase tracking-widest text-sm transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
-              <span>{field('question_buttonText')}</span>
-              <ArrowRightIcon
-                className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform"
-                aria-hidden="true"
-              />
+              <span>{t('question_buttonText')}</span>
+              <ArrowRightIcon className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
             </Link>
           </motion.div>
         </div>

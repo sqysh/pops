@@ -19,8 +19,8 @@ export async function deleteQuestion(id: string) {
       deletedBy: gate.userId
     })
 
-    revalidatePath('/v2/questions')
-    revalidatePath('/v2/dashboard')
+    revalidatePath('/admin/questions')
+    revalidatePath('/admin/dashboard')
 
     return { success: true, data: { id } }
   } catch (error) {

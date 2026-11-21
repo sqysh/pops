@@ -25,13 +25,7 @@ const SCFNeel2ndHalf = ({ setNeel2ndHalf }: any) => {
   }
   return (
     <div className="relative w-full">
-      <svg
-        width="100%"
-        height="100%"
-        viewBox="0 0 1200 220"
-        xmlns="http://www.w3.org/2000/svg"
-        className="fill-current"
-      >
+      <svg width="100%" height="100%" viewBox="0 0 1200 220" xmlns="http://www.w3.org/2000/svg" className="fill-current">
         {/* Row J */}
         <g onMouseEnter={onHoverSeat} onMouseLeave={onLeaveSeat}>
           <text x="504" y="22" fontSize="13" className="text-white font-bold">

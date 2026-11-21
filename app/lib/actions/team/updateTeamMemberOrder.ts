@@ -6,6 +6,7 @@ import type { TeamMember, TeamMemberRole } from '@prisma/client'
 import { getActor } from '../user/getActor'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { revalidateTag } from 'next/cache'
+import { requireStaff, denied } from '@/app/lib/auth/guards'
 
 const VALID_ROLES: TeamMemberRole[] = ['BOARD_MEMBER', 'STAFF', 'MUSICIAN']
 
@@ -23,6 +24,9 @@ async function updateOrderInDatabase(members: TeamMember[]) {
 }
 
 export async function updateTeamMembersOrder(teamMembers: TeamMember[]) {
+  const gate = await requireStaff()
+  if (gate.ok === false) return denied(gate)
+
   if (!teamMembers?.length) return { success: false, error: 'No team members provided' }
   const isValid = teamMembers.every((m) => m.id && VALID_ROLES.includes(m.role as TeamMemberRole))
   if (!isValid) return { success: false, error: 'Invalid team member data — missing id or role' }

@@ -2,6 +2,8 @@
 
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/venues'
 
 type Tier = 'general' | 'premium' | 'ultra' | 'wheelchair'
 
@@ -24,11 +26,12 @@ interface TooltipState {
   y: number
 }
 
-const TIER_COLORS: Record<Tier, { bg: string; border: string; label: string }> = {
-  general: { bg: 'bg-blue-500', border: 'border-blue-700', label: 'General pricing' },
-  premium: { bg: 'bg-green-600', border: 'border-green-800', label: 'Premium pricing' },
-  ultra: { bg: 'bg-amber-500', border: 'border-amber-700', label: 'Ultra pricing' },
-  wheelchair: { bg: 'bg-gray-400', border: 'border-gray-600', label: 'Accessible seating' }
+// legend wording comes from the venues page content: venues_seatmap_tier_<tier>
+const TIER_COLORS: Record<Tier, { bg: string; border: string }> = {
+  general: { bg: 'bg-blue-500', border: 'border-blue-700' },
+  premium: { bg: 'bg-green-600', border: 'border-green-800' },
+  ultra: { bg: 'bg-amber-500', border: 'border-amber-700' },
+  wheelchair: { bg: 'bg-gray-400', border: 'border-gray-600' }
 }
 
 function g(n: number | string): SeatConfig {
@@ -234,11 +237,14 @@ function SeatDot({
 // ── Box grid ──────────────────────────────────────────────────────────────────
 function BoxGrid({
   box,
+  boxName,
   bi,
   onActivate,
   onDeactivate
 }: {
   box: { label: string; seats: SeatConfig[] }
+  /** "Box 10", shown as the row in the seat pop-up */
+  boxName: string
   bi: number
   onActivate: (row: string, seat: SeatConfig, e: React.MouseEvent | React.TouchEvent) => void
   onDeactivate: () => void
@@ -253,7 +259,7 @@ function BoxGrid({
         {top.map((seat, i) => (
           <SeatDot
             key={`box-${box.label}-T-${i}`}
-            rowLabel={`Box ${box.label}`}
+            rowLabel={boxName}
             seat={seat}
             onActivate={onActivate}
             onDeactivate={onDeactivate}
@@ -265,7 +271,7 @@ function BoxGrid({
         {bottom.map((seat, i) => (
           <SeatDot
             key={`box-${box.label}-B-${i}`}
-            rowLabel={`Box ${box.label}`}
+            rowLabel={boxName}
             seat={seat}
             onActivate={onActivate}
             onDeactivate={onDeactivate}
@@ -336,7 +342,8 @@ function SeatRowUI({
   )
 }
 
-export default function OperaHouseMainFloor() {
+export default function OperaHouseMainFloor({ content }: { content?: unknown }) {
+  const { t } = pageCopy(content, pageContent)
   const [tooltip, setTooltip] = useState<TooltipState | null>(null)
 
   const handleActivate = useCallback((row: string, seat: SeatConfig, e: React.MouseEvent | React.TouchEvent) => {
@@ -356,9 +363,11 @@ export default function OperaHouseMainFloor() {
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-4 760:mb-6">
         <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-primary-dark">
-          Sarasota Opera House
+          {t('venues_seatmap_opera_eyebrow')}
         </span>
-        <h1 className="font-quicksand font-black text-xl 760:text-2xl text-text-dark mt-1">Main Floor</h1>
+        <h1 className="font-quicksand font-black text-xl 760:text-2xl text-text-dark mt-1">
+          {t('venues_seatmap_opera_main_heading')}
+        </h1>
       </motion.div>
 
       {/* Chart — scrolls horizontally on small screens */}
@@ -376,11 +385,11 @@ export default function OperaHouseMainFloor() {
                 style={{ left: tooltip.x + 14, top: tooltip.y - 56 }}
               >
                 <p className="text-[12px] font-mono text-text-dark">
-                  Row {tooltip.row} · Seat {tooltip.seat.number}
+                  {t('venues_seatmap_tooltip', { row: tooltip.row, seat: tooltip.seat.number })}
                 </p>
                 <div className="flex items-center gap-1.5 mt-0.5">
                   <div className={`w-2 h-2 rounded-full shrink-0 ${TIER_COLORS[tooltip.seat.tier].bg}`} />
-                  <span className="text-[11px] font-mono text-muted-dark">{TIER_COLORS[tooltip.seat.tier].label}</span>
+                  <span className="text-[11px] font-mono text-muted-dark">{t(`venues_seatmap_tier_${tooltip.seat.tier}`)}</span>
                 </div>
               </motion.div>
             )}
@@ -394,6 +403,7 @@ export default function OperaHouseMainFloor() {
                 <BoxGrid
                   key={box.label}
                   box={box}
+                  boxName={t('venues_seatmap_box', { box: box.label })}
                   bi={bi}
                   onActivate={handleActivate}
                   onDeactivate={handleDeactivate}
@@ -406,6 +416,7 @@ export default function OperaHouseMainFloor() {
               <div className="flex items-end gap-12 mb-3 w-full justify-center">
                 <BoxGrid
                   box={LEFT_BOXES.find((b) => b.label === '10')!}
+                  boxName={t('venues_seatmap_box', { box: '10' })}
                   bi={0}
                   onActivate={handleActivate}
                   onDeactivate={handleDeactivate}
@@ -414,6 +425,7 @@ export default function OperaHouseMainFloor() {
                   <BoxGrid
                     key={box.label}
                     box={box}
+                    boxName={t('venues_seatmap_box', { box: box.label })}
                     bi={bi}
                     onActivate={handleActivate}
                     onDeactivate={handleDeactivate}
@@ -421,6 +433,7 @@ export default function OperaHouseMainFloor() {
                 ))}
                 <BoxGrid
                   box={RIGHT_BOXES.find((b) => b.label === '4')!}
+                  boxName={t('venues_seatmap_box', { box: '4' })}
                   bi={0}
                   onActivate={handleActivate}
                   onDeactivate={handleDeactivate}
@@ -456,6 +469,7 @@ export default function OperaHouseMainFloor() {
                 <BoxGrid
                   key={box.label}
                   box={box}
+                  boxName={t('venues_seatmap_box', { box: box.label })}
                   bi={bi}
                   onActivate={handleActivate}
                   onDeactivate={handleDeactivate}
@@ -477,7 +491,7 @@ export default function OperaHouseMainFloor() {
         {(Object.entries(TIER_COLORS) as [Tier, (typeof TIER_COLORS)[Tier]][]).map(([tier, colors]) => (
           <div key={tier} className="flex items-center gap-1.5 760:gap-2">
             <div className={`w-2.5 h-2.5 760:w-3 760:h-3 rounded-full shrink-0 ${colors.bg}`} />
-            <span className="text-[10px] 760:text-[11px] font-mono text-muted-dark">{colors.label}</span>
+            <span className="text-[10px] 760:text-[11px] font-mono text-muted-dark">{t(`venues_seatmap_tier_${tier}`)}</span>
           </div>
         ))}
       </motion.div>

@@ -6,6 +6,7 @@ import { getActor } from '../user/getActor'
 import { TeamMemberRole } from '@prisma/client'
 import { buildLogMessage, getRequestContext } from '@/app/utils/parseUserAgent'
 import { revalidateTag } from 'next/cache'
+import { requireStaff, denied } from '@/app/lib/auth/guards'
 
 interface CreateTeamMemberInput {
   firstName: string
@@ -22,6 +23,9 @@ interface CreateTeamMemberInput {
 }
 
 export async function createTeamMember(data: CreateTeamMemberInput) {
+  const gate = await requireStaff()
+  if (gate.ok === false) return denied(gate)
+
   if (!data.firstName) return { success: false, error: 'First name is required' }
   if (!data.lastName) return { success: false, error: 'Last name is required' }
   if (!data.position) return { success: false, error: 'Position is required' }

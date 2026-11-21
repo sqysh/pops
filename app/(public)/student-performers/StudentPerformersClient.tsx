@@ -5,16 +5,21 @@ import Picture from '@/components/common/Picture'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/student-performers'
 
 export const StudentPerformersClient = ({ data }) => {
-  const field = (id: string) => data?.content?.find((item) => item.id === id)?.value ?? ''
+  const { t } = pageCopy(data?.content, pageContent)
 
   return (
     <main id="main-content">
       <CompactPageHero
-        breadcrumb="Student Performers"
-        heading={field('student_performers_heading')}
-        description={field('student_performers_subheading')}
+        homeLabel={t('student_performers_hero_home_crumb')}
+        breadcrumbLabel={t('student_performers_sr_breadcrumb')}
+        breadcrumb={t('student_performers_breadcrumb')}
+        eyebrow={t('student_performers_eyebrow')}
+        heading={t('student_performers_heading')}
+        description={t('student_performers_subheading')}
       />
 
       <div className="relative min-h-dvh px-4 990:px-12 xl:px-4">
@@ -31,7 +36,7 @@ export const StudentPerformersClient = ({ data }) => {
               >
                 <Picture
                   src="/images/edu-1.jpg"
-                  alt="Student performers rehearsing with The Pops Orchestra"
+                  alt={t('student_performers_image_alt')}
                   className="absolute inset-0 w-full h-full object-cover"
                   priority={false}
                 />
@@ -48,12 +53,12 @@ export const StudentPerformersClient = ({ data }) => {
                 <div className="absolute bottom-6 left-6 z-10 flex flex-col gap-3">
                   {[
                     {
-                      value: field('student_performers_stat_1_value'),
-                      label: field('student_performers_stat_1_label')
+                      value: t('student_performers_stat_1_value'),
+                      label: t('student_performers_stat_1_label')
                     },
                     {
-                      value: field('student_performers_stat_2_value'),
-                      label: field('student_performers_stat_2_label')
+                      value: t('student_performers_stat_2_value'),
+                      label: t('student_performers_stat_2_label')
                     }
                   ].map((stat, s) => (
                     <div
@@ -77,7 +82,7 @@ export const StudentPerformersClient = ({ data }) => {
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-6 h-px bg-blaze" aria-hidden="true" />
                   <span className="font-changa text-sm uppercase tracking-[0.25em] text-blaze-text">
-                    {field('student_performers_section_eyebrow')}
+                    {t('student_performers_section_eyebrow')}
                   </span>
                 </div>
 
@@ -85,35 +90,35 @@ export const StudentPerformersClient = ({ data }) => {
                   id="student-performers-heading"
                   className="font-changa text-3xl 430:text-4xl 990:text-5xl text-white leading-tight mb-6"
                 >
-                  {field('student_performers_section_heading')}
+                  {t('student_performers_section_heading')}
                 </h2>
 
                 <p className="font-lato text-white/60 text-sm 430:text-base leading-relaxed mb-10 border-l-2 border-blaze pl-5">
-                  {field('student_performers_paragraph')}
+                  {t('student_performers_paragraph')}
                 </p>
 
                 {/* Metadata rows */}
                 <ul
                   role="list"
-                  aria-label="Student performer program details"
+                  aria-label={t('student_performers_details_list_label')}
                   className="flex flex-col divide-y divide-white/10 mb-10"
                 >
                   {[
                     {
-                      label: field('student_performers_meta_1_label'),
-                      value: field('student_performers_meta_1_value')
+                      label: t('student_performers_meta_1_label'),
+                      value: t('student_performers_meta_1_value')
                     },
                     {
-                      label: field('student_performers_meta_2_label'),
-                      value: field('student_performers_meta_2_value')
+                      label: t('student_performers_meta_2_label'),
+                      value: t('student_performers_meta_2_value')
                     },
                     {
-                      label: field('student_performers_meta_3_label'),
-                      value: field('student_performers_meta_3_value')
+                      label: t('student_performers_meta_3_label'),
+                      value: t('student_performers_meta_3_value')
                     },
                     {
-                      label: field('student_performers_meta_4_label'),
-                      value: field('student_performers_meta_4_value')
+                      label: t('student_performers_meta_4_label'),
+                      value: t('student_performers_meta_4_value')
                     }
                   ].map((row, r) => (
                     <li key={r} className="flex items-start gap-3 py-3">
@@ -128,10 +133,10 @@ export const StudentPerformersClient = ({ data }) => {
                 <Link
                   href="/donate"
                   rel="noopener noreferrer"
-                  aria-label={`${field('student_performers_donation_button')} — opens in new tab`}
+                  aria-label={t('student_performers_donation_link_label', { button: t('student_performers_donation_button') })}
                   className="group inline-flex items-center gap-3 bg-blaze hover:bg-blazehover text-white px-8 py-4 font-changa text-sm uppercase tracking-widest transition-colors duration-300 w-full 430:w-fit justify-center 430:justify-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
-                  <span className="whitespace-nowrap">{field('student_performers_donation_button')}</span>
+                  <span className="whitespace-nowrap">{t('student_performers_donation_button')}</span>
                   <ArrowRight className="w-4 h-4 shrink-0 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                 </Link>
               </motion.div>

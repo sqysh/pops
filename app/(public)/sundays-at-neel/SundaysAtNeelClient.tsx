@@ -7,7 +7,8 @@ import CompactPageHero from '@/app/(public)/_components/CompactPageHero'
 import { CueBoxEvent, CueBoxEventInstance } from '@/app/types/cuebox.types'
 import { ISubscription } from '@/app/types/entities/subscription.types'
 import { formatDateLong, formatTime, isSunday } from '@/app/lib/utils/date.utils'
-import { PageField, pageText } from '@/app/types/page.types'
+import { pageCopy } from '@/app/lib/page-content/copy'
+import { pageContent } from '@/app/lib/constants/page-content/sundays-at-neel'
 
 /** The series is every Sunday performance at Neel Performing Arts Center. */
 const VENUE_MATCH = 'neel'
@@ -26,16 +27,16 @@ interface Props {
   concerts: CueBoxEvent[]
   instances: CueBoxEventInstance[]
   subscriptions: ISubscription[]
-  content: PageField[]
+  content: unknown
 }
 
 export const SundaysAtNeelClient = ({ concerts, instances, subscriptions, content }: Props) => {
-  const text = (id: string, fallback: string) => pageText(content, id, fallback)
+  const { t } = pageCopy(content, pageContent)
 
-  const heading = text('sundays_hero_heading', 'Sundays@Neel')
-  const address = text('sundays_venue_address', '5840 26th St. W., Bradenton, FL 34207')
-  const phone = text('sundays_box_office_phone', '941-926-POPS (7677)')
-  const email = text('sundays_box_office_email', 'tickets@thepopsorchestra.org')
+  const heading = t('sundays_hero_heading')
+  const address = t('sundays_venue_address')
+  const phone = t('sundays_box_office_phone')
+  const email = t('sundays_box_office_email')
 
   const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(address)}`
   // "941-926-POPS (7677)" strips to 9419267677, so the printed number stays
@@ -64,15 +65,14 @@ export const SundaysAtNeelClient = ({ concerts, instances, subscriptions, conten
   return (
     <main id="main-content">
       <CompactPageHero
+        homeLabel={t('sundays_hero_home_crumb')}
+        breadcrumbLabel={t('sundays_sr_breadcrumb')}
         breadcrumb={heading}
         heading={heading}
-        eyebrow={text('sundays_page_title', 'A Concert Series Sponsored by The Pops Orchestra!')}
+        eyebrow={t('sundays_page_title')}
         description={
           <>
-            {text(
-              'sundays_page_subtitle',
-              "Though The Pops Orchestra won't be performing, these are acts we know you will love."
-            )}{' '}
+            {t('sundays_page_subtitle')}{' '}
             <a href={mapUrl} target="_blank" rel="noopener noreferrer" className={LINK}>
               {address}
             </a>
@@ -85,16 +85,13 @@ export const SundaysAtNeelClient = ({ concerts, instances, subscriptions, conten
           <div className="flex items-center gap-3 mb-10 760:mb-12">
             <div className="w-6 h-px bg-blaze shrink-0" aria-hidden="true" />
             <h2 id="series-heading" className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
-              {text('sundays_season_heading', 'This Season')}
+              {t('sundays_season_heading')}
             </h2>
           </div>
 
           {cards.length === 0 ? (
             <p className="font-lato text-base text-white/60 leading-relaxed max-w-lg whitespace-pre-line">
-              {text(
-                'sundays_empty_message',
-                'Dates for this series have not been announced yet. Check back soon, or join our mailing list to hear first.'
-              )}
+              {t('sundays_empty_message')}
             </p>
           ) : (
             <ul
@@ -159,10 +156,10 @@ export const SundaysAtNeelClient = ({ concerts, instances, subscriptions, conten
                         href={inst.publicTicketsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`Buy tickets for ${concert.name} on ${formatDateLong(inst.startsAt)}`}
+                        aria-label={t('sundays_sr_buy_tickets', { name: concert.name, date: formatDateLong(inst.startsAt) })}
                         className={BUTTON}
                       >
-                        {text('sundays_tickets_button', 'Buy Tickets')}
+                        {t('sundays_tickets_button')}
                         <ExternalLink className="w-4 h-4 shrink-0" aria-hidden="true" />
                       </a>
                     )}
@@ -177,12 +174,12 @@ export const SundaysAtNeelClient = ({ concerts, instances, subscriptions, conten
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-6 h-px bg-blaze shrink-0" aria-hidden="true" />
                 <h2 id="subscriptions-heading" className="font-changa text-sm uppercase tracking-[0.3em] text-blaze-text">
-                  {text('sundays_bundle_heading', 'Bundle and Save')}
+                  {t('sundays_bundle_heading')}
                 </h2>
               </div>
 
               <p className="font-lato text-base text-white/70 leading-relaxed max-w-xl mb-8 760:mb-10 whitespace-pre-line">
-                {text('sundays_bundle_intro', 'Coming to more than one show? Every seat costs less when you book them together.')}
+                {t('sundays_bundle_intro')}
               </p>
 
               <ul
@@ -215,10 +212,10 @@ export const SundaysAtNeelClient = ({ concerts, instances, subscriptions, conten
                       href={sub.publicUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`${displayName(sub.name)}, opens our ticketing site in a new tab`}
+                      aria-label={t('sundays_sr_package_button', { name: displayName(sub.name) })}
                       className={BUTTON}
                     >
-                      {text('sundays_package_button', 'Buy This Package')}
+                      {t('sundays_package_button')}
                       <ExternalLink className="w-4 h-4 shrink-0" aria-hidden="true" />
                     </a>
                   </li>
@@ -226,15 +223,15 @@ export const SundaysAtNeelClient = ({ concerts, instances, subscriptions, conten
               </ul>
 
               <p className="font-lato text-base text-white/70 leading-relaxed mt-8 760:mt-10 max-w-xl">
-                {text('sundays_help_intro', 'Prefer a little assistance?')} Call{' '}
+                {t('sundays_help_intro')} {t('sundays_help_call')}{' '}
                 <a href={`tel:${tel}`} className={LINK}>
                   {phone}
                 </a>{' '}
-                or email{' '}
+                {t('sundays_help_email')}{' '}
                 <a href={`mailto:${email}`} className={LINK}>
                   {email}
                 </a>{' '}
-                and we will walk you through it.
+                {t('sundays_help_outro')}
               </p>
             </div>
           )}

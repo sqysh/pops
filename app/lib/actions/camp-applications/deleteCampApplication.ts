@@ -5,8 +5,12 @@ import { revalidateTag } from 'next/cache'
 import { getActor } from '../user/getActor'
 import { getRequestContext } from '@/app/utils/parseUserAgent'
 import { createLog } from '@/app/utils/logHelper'
+import { requireAdmin, denied } from '@/app/lib/auth/guards'
 
 export async function deleteCampApplication(id: string) {
+  const gate = await requireAdmin()
+  if (gate.ok === false) return denied(gate)
+
   if (!id) return { success: false, error: 'Application ID is required' }
 
   const [actor, context] = await Promise.all([getActor(), getRequestContext()])
@@ -19,16 +23,12 @@ export async function deleteCampApplication(id: string) {
 
   if (!application) return { success: false, error: 'Failed to delete application' }
 
-  await createLog(
-    'info',
-    `Deleted camp application for "${application.Student?.firstName} ${application.Student?.lastName}"`,
-    {
-      applicationId: application.id,
-      studentName: `${application.Student?.firstName} ${application.Student?.lastName}`,
-      deletedBy: actor,
-      request: context
-    }
-  ).catch(() => null)
+  await createLog('info', `Deleted camp application for "${application.Student?.firstName} ${application.Student?.lastName}"`, {
+    applicationId: application.id,
+    studentName: `${application.Student?.firstName} ${application.Student?.lastName}`,
+    deletedBy: actor,
+    request: context
+  }).catch(() => null)
 
   revalidateTag('camp-applications', '')
 
