@@ -47,6 +47,27 @@ export const pageContent = {
       section: 'Event Details'
     },
     {
+      id: 'bash_promo_eyebrow',
+      type: 'text',
+      label: 'Small label above the title in the homepage promotion',
+      value: 'Annual Fundraising Dinner',
+      section: 'Homepage Promotion'
+    },
+    {
+      id: 'bash_promo_description',
+      type: 'textarea',
+      label: 'Short description in the homepage promotion',
+      value: 'An unforgettable evening of celebration, music, and entertainment in support of The Pops Orchestra.',
+      section: 'Homepage Promotion'
+    },
+    {
+      id: 'bash_promo_button',
+      type: 'text',
+      label: 'Homepage promotion button text',
+      value: 'Learn More',
+      section: 'Homepage Promotion'
+    },
+    {
       id: 'bash_venue_name',
       type: 'text',
       label: 'Venue name',

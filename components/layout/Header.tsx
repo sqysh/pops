@@ -55,7 +55,11 @@ export function HeaderNavLink({ link, openTextKey, setOpenTextKey, navContent }:
         aria-expanded={hasDropdown ? isOpen : undefined}
         aria-controls={hasDropdown && isOpen ? dropdownId : undefined}
         className={`${NAV_LINK} ${hasDropdown ? 'cursor-default' : 'cursor-pointer'} ${
-          link.active ? 'text-white' : 'text-white/80 hover:text-white'
+          link.isBubblesBash
+            ? 'text-[#d4af37] hover:text-[#f4d03f]'
+            : link.active
+              ? 'text-white'
+              : 'text-white/80 hover:text-white'
         }`}
       >
         <span
@@ -100,12 +104,26 @@ interface HeaderProps {
   campApplicationsSetting?: SiteSetting['value']
   concertsPageLive?: SiteSetting['value']
   subscriptionsLive?: SiteSetting['value']
+  bubblesBashTitle?: string | null
   navContent?: unknown
 }
 
-export function Header({ campApplicationsSetting, concertsPageLive, subscriptionsLive, navContent = [] }: HeaderProps) {
+export function Header({
+  campApplicationsSetting,
+  concertsPageLive,
+  subscriptionsLive,
+  bubblesBashTitle,
+  navContent = []
+}: HeaderProps) {
   const path = usePathname()
-  const navLinks = getNavigationLinks(path, concertsPageLive, campApplicationsSetting, subscriptionsLive, navContent)
+  const navLinks = getNavigationLinks(
+    path,
+    concertsPageLive,
+    campApplicationsSetting,
+    subscriptionsLive,
+    navContent,
+    bubblesBashTitle
+  )
   const [openTextKey, setOpenTextKey] = useState('')
   const { headerRef } = useHeaderAtTop()
   const open = useAppStore((s) => s.openNavigationDrawer)

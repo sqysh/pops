@@ -17,6 +17,7 @@ export default function RootLayoutShell({
   concertsPageLive,
   subscriptionsLive,
   footerData,
+  bubblesBashTitle,
   navContent
 }: {
   children: React.ReactNode
@@ -24,6 +25,7 @@ export default function RootLayoutShell({
   concertsPageLive?: SiteSetting['value']
   subscriptionsLive?: SiteSetting['value']
   footerData: FooterDataParsed | null
+  bubblesBashTitle?: string | null
   navContent: PageField[]
 }) {
   useScrollToTop()
@@ -31,7 +33,7 @@ export default function RootLayoutShell({
 
   const showChrome = toggleHeaderFooter(pathname)
 
-  const navSettings = { campApplicationsSetting, concertsPageLive, subscriptionsLive, navContent }
+  const navSettings = { campApplicationsSetting, concertsPageLive, subscriptionsLive, bubblesBashTitle, navContent }
 
   return (
     <div className="main-content">
@@ -40,7 +42,7 @@ export default function RootLayoutShell({
 
       {showChrome && <Header {...navSettings} />}
       {children}
-      {showChrome && <Footer data={footerData} />}
+      {showChrome && <Footer data={footerData} bubblesBashTitle={bubblesBashTitle} />}
     </div>
   )
 }

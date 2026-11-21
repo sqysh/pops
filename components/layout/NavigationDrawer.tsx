@@ -16,6 +16,7 @@ interface NavigationDrawerProps {
   campApplicationsSetting?: SiteSetting['value']
   concertsPageLive?: SiteSetting['value']
   subscriptionsLive?: SiteSetting['value']
+  bubblesBashTitle?: string | null
   navContent?: unknown
 }
 
@@ -23,6 +24,7 @@ const NavigationDrawer = ({
   campApplicationsSetting,
   concertsPageLive,
   subscriptionsLive,
+  bubblesBashTitle,
   navContent = []
 }: NavigationDrawerProps) => {
   const path = usePathname()
@@ -31,7 +33,7 @@ const NavigationDrawer = ({
 
   const overlayRef = useRef(null)
   const { t } = pageCopy(navContent, pageContent)
-  const navLinks = getNavigationLinks(path, concertsPageLive, campApplicationsSetting, subscriptionsLive, navContent)
+  const navLinks = getNavigationLinks(path, concertsPageLive, campApplicationsSetting, subscriptionsLive, navContent, bubblesBashTitle)
 
   return (
     <>
@@ -93,7 +95,7 @@ const NavigationDrawer = ({
                     onClick={closeDrawer}
                     href={link.linkKey}
                     className={`flex items-center gap-3 py-3 px-3 font-changa tracking-widest uppercase text-base transition-colors duration-200 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze focus-visible:ring-inset ${
-                      link.active ? 'text-blaze-text' : 'text-white'
+                      link.isBubblesBash ? 'text-[#d4af37]' : link.active ? 'text-blaze-text' : 'text-white'
                     }`}
                   >
                     {link.active && <span className="w-1 h-1 rounded-full bg-blaze shrink-0" aria-hidden="true" />}

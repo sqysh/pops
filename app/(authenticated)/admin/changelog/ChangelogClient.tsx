@@ -21,6 +21,29 @@ interface ChangelogEntry {
 
 const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '3.20.0',
+    date: '2026-11-21',
+    summary: 'Bubbles Bash 2027 now shows up across the site whenever it is switched on, so visitors can find it.',
+    changes: [
+      {
+        type: 'new',
+        text: 'A Bubbles Bash section sits right under the homepage hero with the event name, date, a short description and a Learn More button that opens the event page.'
+      },
+      {
+        type: 'new',
+        text: 'A gold Bubbles Bash link appears in the main menu on computers and in the menu on phones, and in the footer under the season links.'
+      },
+      {
+        type: 'improved',
+        text: 'All three spots follow the Bubbles Bash switch in Settings. Turn it off and they disappear without leaving a gap, and turning it on or off updates the public site right away with no update needed.'
+      },
+      {
+        type: 'improved',
+        text: 'The event name and date come from the Bubbles Bash page content, so they only need to be edited once. The short description, small label above the title and button wording can be edited under Bubbles Bash in Page Content.'
+      }
+    ]
+  },
+  {
     version: '3.19.0',
     date: '2026-10-19',
     summary: 'Sundays@Neel now carries the subscription packages, the new series wording, and the box office details.',

@@ -6,6 +6,7 @@ export interface NavigationLinksProps {
   linkKey?: string
   active?: boolean
   isButton?: boolean
+  isBubblesBash?: boolean
   links?: { linkKey: string; textKey: string; active?: boolean; isExternal?: boolean }[]
 }
 
@@ -14,7 +15,8 @@ export const getNavigationLinks = (
   concertsPageLive: boolean,
   campApplicationsSetting: boolean,
   subscriptionsLive: boolean,
-  content: unknown = []
+  content: unknown = [],
+  bubblesBashTitle?: string | null
 ): NavigationLinksProps[] => {
   const { t } = pageCopy(content, pageContent)
   return [
@@ -36,11 +38,9 @@ export const getNavigationLinks = (
       textKey: t('nav_sundays_at_neel'),
       active: path === '/sundays-at-neel'
     },
-    // {
-    //   linkKey: '/bubbles-bash',
-    //   textKey: 'Golden Bubbles Bash',
-    //   active: path === '/bubbles-bash'
-    // },
+    ...(bubblesBashTitle
+      ? [{ linkKey: '/bubbles-bash', textKey: bubblesBashTitle, active: path === '/bubbles-bash', isBubblesBash: true }]
+      : []),
     {
       isButton: true,
       textKey: t('nav_education'),

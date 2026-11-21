@@ -8,7 +8,8 @@ export default async function PublicLayout({ children }: { children: React.React
     campApplicationsSetting: null,
     concertsPageLive: null,
     subscriptionsLive: null,
-    footerData: null
+    footerData: null,
+    bubblesBashTitle: null
   }))
 
   return (
@@ -19,6 +20,7 @@ export default async function PublicLayout({ children }: { children: React.React
         concertsPageLive={layoutData?.concertsPageLive?.value}
         subscriptionsLive={layoutData?.subscriptionsLive?.value}
         footerData={layoutData?.footerData}
+        bubblesBashTitle={layoutData?.bubblesBashTitle}
       >
         {children}
       </RootLayoutClient>

@@ -15,12 +15,16 @@ const TestimonialsBlock = dynamic(() =>
 )
 const EventsBlock = dynamic(() => import('@/app/(public)/(home)/_components/EventsBlock').then((m) => m.EventsBlock))
 const NewsBlock = dynamic(() => import('@/app/(public)/(home)/_components/NewsBlock').then((m) => m.NewsBlock))
+const BubblesBashPromo = dynamic(() =>
+  import('@/app/(public)/(home)/_components/BubblesBashPromo').then((m) => m.BubblesBashPromo)
+)
 const HomeHero = dynamic(() => import('@/app/(public)/(home)/_components/HomeHero').then((m) => m.HomeHero))
 
-export function HomeClient({ pageData, sponsors, testimonials, events, news, concertsPageLive }) {
+export function HomeClient({ pageData, sponsors, testimonials, events, news, concertsPageLive, bubblesBashContent }) {
   return (
     <>
       <HomeHero content={pageData} />
+      {bubblesBashContent && <BubblesBashPromo content={bubblesBashContent} />}
       <SeasonSection concertsPageLive={concertsPageLive} content={pageData} />
       <ContactUsBlock content={pageData} />
       <SponsorsBlock content={pageData} sponsors={sponsors} />

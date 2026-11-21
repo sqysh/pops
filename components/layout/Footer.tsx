@@ -9,7 +9,7 @@ import { FloatingParticles } from './FloatingParticles'
 import { pageCopy } from '@/app/lib/page-content/copy'
 import { pageContent } from '@/app/lib/constants/page-content/footer'
 
-const Footer = ({ data }: { data: FooterDataParsed | null }) => {
+const Footer = ({ data, bubblesBashTitle }: { data: FooterDataParsed | null; bubblesBashTitle?: string | null }) => {
   const { t } = pageCopy(data?.content, pageContent)
 
   const socialLinks = [
@@ -205,6 +205,20 @@ const Footer = ({ data }: { data: FooterDataParsed | null }) => {
                     </Link>
                   </li>
                 ))}
+                {bubblesBashTitle && (
+                  <li className="flex items-center gap-2 group">
+                    <ArrowRight
+                      className="w-2.5 h-2.5 text-[#d4af37]/60 group-hover:text-[#d4af37] transition-colors shrink-0"
+                      aria-hidden="true"
+                    />
+                    <Link
+                      href="/bubbles-bash"
+                      className="font-lato text-sm text-[#d4af37] hover:text-[#f4d03f] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blaze"
+                    >
+                      {bubblesBashTitle}
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
             {/* Get Involved */}
