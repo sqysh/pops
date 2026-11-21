@@ -134,6 +134,22 @@ export const pageContent = {
       section: 'Tickets'
     },
     {
+      id: 'bash_contact_website',
+      type: 'text',
+      label: 'Website shown at the bottom (leave blank to hide)',
+      value: 'ThePopsOrchestra.org',
+      section: 'Contact',
+      optional: true
+    },
+    {
+      id: 'bash_contact_phone',
+      type: 'text',
+      label: 'Phone number shown at the bottom (leave blank to hide)',
+      value: '941-926-POPS (7677)',
+      section: 'Contact',
+      optional: true
+    },
+    {
       id: 'bash_footer_copyright',
       type: 'text',
       label: 'Copyright line ({year} is the current year)',
@@ -180,6 +196,13 @@ export const pageContent = {
       type: 'text',
       label: 'Ticket button note for screen readers',
       value: '(opens in new tab)',
+      section: 'Screen Reader Text'
+    },
+    {
+      id: 'bash_sr_contact',
+      type: 'text',
+      label: 'Contact section name for screen readers',
+      value: 'Contact',
       section: 'Screen Reader Text'
     }
   ]

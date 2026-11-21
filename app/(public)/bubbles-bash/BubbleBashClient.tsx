@@ -32,6 +32,14 @@ const BubbleBash = ({ content }: { content: unknown }) => {
   const address = t('bash_venue_address')
   const description = list('bash_description')
   // only a real public link gets a button; blank, malformed or admin-only links show none
+  // contact details: each hides when blank; a link is made only when the text is a usable address or number
+  const website = t('bash_contact_website')
+  const websiteHref = website && (/^https?:\/\//i.test(website) ? website : `https://${website}`)
+  const phone = t('bash_contact_phone')
+  const phoneDigits = phone.replace(/\D/g, '')
+  const LINK =
+    'text-[#d4af37] hover:text-yellow-300 underline-offset-4 hover:underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-sm'
+
   const ticketUrl = publicUrlProblem(t('bash_ticket_url')) ? '' : t('bash_ticket_url')
 
   const prices = [
@@ -486,6 +494,35 @@ const BubbleBash = ({ content }: { content: unknown }) => {
             </motion.div>
           </div>
         </motion.section>
+
+        {(website || phone) && (
+          <section aria-label={t('bash_sr_contact')} className="mt-16 text-center">
+            <p className="flex flex-col sm:flex-row items-center justify-center gap-x-4 gap-y-2 text-lg font-semibold">
+              {website &&
+                (publicUrlProblem(websiteHref) ? (
+                  <span className="text-[#d4af37]">{website}</span>
+                ) : (
+                  <a href={websiteHref} target="_blank" rel="noopener noreferrer" className={LINK}>
+                    {website}
+                    <span className="sr-only"> {t('bash_sr_new_tab')}</span>
+                  </a>
+                ))}
+              {website && phone && (
+                <span aria-hidden="true" className="hidden sm:inline text-[#d4af37]/60">
+                  |
+                </span>
+              )}
+              {phone &&
+                (phoneDigits.length >= 10 ? (
+                  <a href={`tel:+1${phoneDigits}`} className={LINK}>
+                    {phone}
+                  </a>
+                ) : (
+                  <span className="text-[#d4af37]">{phone}</span>
+                ))}
+            </p>
+          </section>
+        )}
 
         {/* FOOTER */}
         <footer className="mt-20 text-center text-gray-500 text-sm border-t border-inkblack pt-6">
